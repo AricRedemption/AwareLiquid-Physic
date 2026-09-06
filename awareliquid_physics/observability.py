@@ -145,7 +145,10 @@ def run_metadata(extra: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
 
     Returns a dict with ``ts, git_sha, git_dirty, device, torch, python``;
     keys from ``extra`` (e.g. benchmark name, hostname) are merged last so a
-    caller can override any field.
+    caller can override any field. Note ``device`` defaults to the *detected*
+    accelerator of the host — a benchmark running on a specific device should
+    override it with the device actually used (``{"device": args.device}``),
+    which is what the P5 "GPU/CPU 数据不可比" audit rule needs.
     """
     meta: Dict[str, Any] = {
         "ts": datetime.now(timezone.utc).isoformat(),

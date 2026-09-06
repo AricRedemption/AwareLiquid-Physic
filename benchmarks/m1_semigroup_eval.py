@@ -121,8 +121,8 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "m1_semigroup.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "m1_semigroup_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "m1_semigroup_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
 
     lq, st = results["liquid_sg"], results["static_sg"]
     gap = 1.0 - lq["rollout_mse"] / st["rollout_mse"]

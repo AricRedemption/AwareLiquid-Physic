@@ -135,8 +135,8 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "pretrain_finetune.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "pretrain_finetune_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "pretrain_finetune_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
 
     print("\n" + "=" * 70, flush=True)
     print("PRETRAIN/FINETUNE | does pretraining buy few-shot adaptation?", flush=True)

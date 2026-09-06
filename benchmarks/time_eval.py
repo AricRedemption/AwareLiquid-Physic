@@ -90,8 +90,8 @@ def main():
                "rollout_mse_stderr": rollout_mse_stderr(qs_pred, q_true)}
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "time_eval.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "time_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "time_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
     print(f"  params {results['params']:>6,} | rollout_mse {mse:.4e}", flush=True)
 
 

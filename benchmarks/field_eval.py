@@ -223,8 +223,8 @@ def main():
     os.makedirs(args.out_dir, exist_ok=True)
     import json
     with open(os.path.join(args.out_dir, "field_eval.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "field_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "field_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
 
     lq, st = results["liquid_operator"], results["static_operator"]
     print("\n" + "=" * 70, flush=True)

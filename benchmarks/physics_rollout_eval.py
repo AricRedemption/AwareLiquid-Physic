@@ -210,7 +210,8 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
     out = {"system": args.system, "args": vars(args),
-           "meta": run_metadata({"benchmark": "physics_rollout_eval"}), "results": results}
+           "meta": run_metadata({"benchmark": "physics_rollout_eval", "device": "cpu"}),
+           "results": results}
     with open(os.path.join(args.out_dir, f"physics_rollout_{args.system}.json"), "w") as f:
         json.dump(out, f, indent=2)
 

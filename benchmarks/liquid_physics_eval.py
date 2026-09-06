@@ -224,8 +224,8 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "liquid_physics.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "liquid_physics_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "liquid_physics_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
 
     lh, sh, gr = results["liquid_ham"], results["static_ham"], results["gru_seq"]
     print("\n" + "=" * 70, flush=True)

@@ -105,8 +105,8 @@ def main():
                "rollout_mse_stderr": mse_se, "energy_drift_max": drift}
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "nonseparable_eval.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "nonseparable_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "nonseparable_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
     print(f"  params {n_par:>6,} | train_loss {floss:.4e} | rollout_mse {mse:.4e} "
           f"| energy_drift(max) {drift:.4e}", flush=True)
 

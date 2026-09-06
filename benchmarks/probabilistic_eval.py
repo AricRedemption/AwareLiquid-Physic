@@ -107,8 +107,8 @@ def main():
                "context_logvar_mean": logvar_mean}
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "probabilistic_eval.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "probabilistic_eval"}),
-                   "results": results}, f, indent=2)
+        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "probabilistic_eval",
+                   "device": args.device}), "results": results}, f, indent=2)
     print(f"  params {results['params']:>6,} | ensemble_mean_mse {mse_mean:.4e} "
           f"| ensemble_spread {spread:.4e} | context_logvar {logvar_mean:.3f}",
           flush=True)
