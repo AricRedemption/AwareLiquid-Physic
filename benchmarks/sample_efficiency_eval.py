@@ -131,7 +131,9 @@ def main():
     ap.add_argument("--lr", type=float, default=3e-3)
     ap.add_argument("--lr_decay", type=float, default=1.0)
     ap.add_argument("--batch", type=int, default=64)
-    ap.add_argument("--device", default="cpu", help="cpu | cuda (P5: same-device only)")
+    ap.add_argument("--device", default="cpu", choices=["cpu"],
+                    help="protocol pinned to CPU (P5 same-device; loops and "
+                         "anchors verified on CPU only)")
     ap.add_argument("--out_dir", default="benchmarks/physics_out_v02")
     args = ap.parse_args()
 
@@ -217,12 +219,18 @@ def main():
         (n for n in sizes if a2a_means[n] <= pinned_line), default=None)
     prefix_min_at_pinned = min(
         (n for n in sizes if prefix_means[n] <= pinned_line), default=None)
-    pinned_ratio = (max_n / a2a_min_at_pinned) if a2a_min_at_pinned else float("inf")
     pinned_certifiable = (prefix_min_at_pinned == max_n)
 
     # P1-1 pass requires SOME measurable level with ratio >= 5. On a saturating
     # prefix curve that never happens: plateau levels give ratio ~1, deeper
     # levels leave the prefix count unproven (unbounded). State it honestly.
+    # pinned_ratio stays None (JSON null, strict-JSON safe) when all2all never
+    # reaches the pinned line — never serialized as Infinity.
+    if a2a_min_at_pinned is None:
+        pinned_ratio = None
+    else:
+        pinned_ratio = max_n / a2a_min_at_pinned
+
     if a2a_min_at_pinned is None:
         p11_pass = False
         assessment = ("NOT MET: all2all never reaches the pinned line "
@@ -235,15 +243,18 @@ def main():
         assessment = "NOT MET: measurable ratio at the pinned line is below 5x"
     else:
         p11_pass = False
+        if a2a_n_beats_prefix_best is not None:
+            lower_bound = f"{max_n / a2a_n_beats_prefix_best:.1f}x"
+        else:
+            lower_bound = "n/a (all2all never beats prefix's best here)"
         assessment = ("NOT CERTIFIABLE on this ladder: prefix saturates "
                       f"(best {prefix_best_level:.3e} @ n={prefix_best_n}); at the "
                       f"pinned line the ratio is {pinned_ratio:.1f}x but prefix "
                       "reaches it earlier, so the 1/5 claim is neither provable "
                       "nor refuted there; at deeper MSE levels prefix never "
                       "arrives on this ladder (ratio lower bound "
-                      f"{max_n / (a2a_n_beats_prefix_best or max_n):.1f}x, upper "
-                      "unbounded). Semigroup's decisive advantage is opening MSE "
-                      "levels prefix never reaches.")
+                      f"{lower_bound}, upper unbounded). Semigroup's decisive "
+                      "advantage is opening MSE levels prefix never reaches.")
 
     print("\n" + "=" * 70, flush=True)
     print("SAMPLE EFFICIENCY | rollout MSE vs n_train (mean ± std, "
@@ -260,8 +271,11 @@ def main():
           f"at equal budget {max_n})", flush=True)
     print(f"  all2all first beats prefix's best-ever level: n="
           f"{a2a_n_beats_prefix_best}", flush=True)
-    print(f"  pinned line (prefix@{max_n} = {pinned_line:.4e}): all2all reaches "
-          f"at n={a2a_min_at_pinned} → raw ratio {pinned_ratio:.1f}x "
+    if pinned_ratio is not None:
+        pinned_txt = f"raw ratio {pinned_ratio:.1f}x"
+    else:
+        pinned_txt = "not reached by all2all on this ladder"
+    print(f"  pinned line (prefix@{max_n} = {pinned_line:.4e}): {pinned_txt} "
           f"(certifiable: {pinned_certifiable} — prefix itself hits the line "
           f"at n={prefix_min_at_pinned}, i.e. it saturates)", flush=True)
     print(f"\n  P1-1 (≥5x): {assessment}", flush=True)

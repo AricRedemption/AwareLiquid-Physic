@@ -127,7 +127,9 @@ def test_sample_efficiency_eval_end_to_end_produces_auditable_result(tmp_path):
             assert metrics[f"{key}_seed1"] >= 0.0
     verdict = doc["verdict"]
     assert verdict["prefix_best_n"] in (8, 16)
-    assert isinstance(verdict["pinned_line_raw_ratio"], float)
+    # null (not Infinity) when all2all never reaches the pinned line — strict JSON
+    ratio = verdict["pinned_line_raw_ratio"]
+    assert ratio is None or isinstance(ratio, float)
     assert isinstance(verdict["equal_budget_mse_ratio_at_max_n"], float)
     assert isinstance(verdict["p11_pass_ge_5x"], bool)
     assert isinstance(verdict["p11_assessment"], str) and verdict["p11_assessment"]

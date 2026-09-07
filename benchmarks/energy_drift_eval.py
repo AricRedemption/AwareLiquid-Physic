@@ -229,7 +229,9 @@ def main():
     ap.add_argument("--anchor_batch", type=int, default=256)
     ap.add_argument("--n_seeds", type=int, default=3)
     ap.add_argument("--seed", type=int, default=0, help="base seed; seed+i per run")
-    ap.add_argument("--device", default="cpu", help="cpu | cuda (P5: same-device comparisons only)")
+    ap.add_argument("--device", default="cpu", choices=["cpu"],
+                    help="protocol pinned to CPU (P5 same-device; anchors are "
+                         "the v0.1 CPU-only protocol)")
     ap.add_argument("--out_dir", default="benchmarks/physics_out_v02")
     args = ap.parse_args()
 
@@ -265,7 +267,6 @@ def main():
         base = V01_RECORDED.get(system, {})
         liq = results[system]["liquid_v2_sg"]
         stat = results[system]["static_ham"]
-        mlp = results[system]["mlp_field"]
         print(f"\n=== P0-3 DRIFT ({system}, {args.eval_k} steps, "
               f"{args.n_seeds} seeds, device {args.device}) ===", flush=True)
         for name in ("liquid_v2_sg", "static_ham", "mlp_field"):
