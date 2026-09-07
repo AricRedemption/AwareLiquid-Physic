@@ -260,6 +260,34 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 
 **产物**：`benchmarks/physics_out_v02/energy_drift_p03.json`（meta 溯源块 + 逐 seed 值 + across-seed std/stderr，audit 12/12 通过）+ `energy_drift_p03_curves.jsonl`（逐步漂移曲线：101 点 × 3 模型 × 3 seeds × 2 系统）。两次独立全量运行逐 seed 数值完全一致（CPU 确定性）。测试 **64/64**。
 
+## 18. 第九波：P1-1 样本效率对照（round-8 缺口 #2；诚实判定：1/5 口径不可闭合）
+
+**背景**：P1-1 验收「同等 rollout MSE 所需训练样本数 ≤ v0.1 的 1/5」此前只有间接证据。本波 `benchmarks/sample_efficiency_eval.py` 直接产出「训练样本数 vs rollout MSE」双曲线：**同一** LiquidHamiltonianModel（M1 配置）、**同一**优化预算（2000 步 / lr / batch / t_obs / k_train 全同），唯一变量是训练循环（prefix 固定窗口 = v0.1 循环 vs semigroup all2all）；弹簧族（M1 主场任务），n_train ∈ {32,64,128,256,512} 逐 seed 嵌套抽样 × 3 seeds × 128 条固定 eval 集 × 100 步 rollout MSE。
+
+**双曲线（3 seeds 均值 ± std）**：
+
+| n_train | prefix（v0.1 循环） | all2all（半群） |
+|---|---|---|
+| 32 | 5.49 ± 1.8 | 5.13 ± 2.2 |
+| 64 | 3.05 ± 0.6 | 4.46 ± 2.3 |
+| 128 | **2.50 ± 0.6**（prefix 最佳，饱和） | 1.78 ± 0.3 |
+| 256 | 2.80 ± 0.4 | 1.48 ± 0.5 |
+| 512 | 2.77 ± 0.2 | **1.04 ± 0.3** |
+
+**三条可证结论**：
+1. **同等预算深度**：@512 all2all 1.04 vs prefix 2.77（深 2.7×）；seed 0 @512 = 1.418 vs 2.857，与第五波记录**逐位一致**（可复现性双确认）。
+2. **突破 prefix 饱和线**：prefix 在 n≈128 饱和于 ~2.5–2.8，全阶梯到不了 all2all @128 的 1.78——半群用 **1/4 预算即优于 v0.1 循环全预算的最好水平**。
+3. **1/5 判定：NOT CERTIFIABLE（诚实负结果）**——在 prefix 可达的 MSE 水平（饱和区），两循环都在 n=128 触线，比率 1×（plateau 简并，非半群低效）；在更深的水平上 prefix 在整个阶梯内不可达，「≤1/5」只能作为未证明下限（可证下界 4×，上界无界）。
+
+**判定**：P1-1 按字面「≤1/5」**不予认证**；半群样本效率的真实形式是「同等数据打开 v0.1 循环不可达的精度区间」，而非「固定 MSE 下省 5× 样本」。PRINCIPLES P2 证据链已按此更新边界。此为与第五至七波「半群优势」结论**相容但更精确**的表述：MSE 优势（61–90%）再次确认，其"样本效率"维度的原始口径被本轮细化。
+
+**产物**：`benchmarks/physics_out_v02/sample_efficiency_p11.json`（逐 seed 值 + 多层 verdict 字段）+ `sample_efficiency_curves.jsonl`（30 个 (method, n, seed) 数据点）。两次独立全量运行曲线逐值一致。测试 **69/69**，audit **13/13**。
+
+**同轮验收口径收口（非训练项）**：
+- **P0-2 显式钉死**（round-8 缺口 #3）：`tests/test_p02_acceptance.py`——trained@N → 零样本@M：1D 场 16→32/13、2D 场 8×8→12×16（非方形，钉死 H/W 独立）、N-body 4→6 体（判定 = 训练后严格优于未训练 + 自身 H 漂移有界）+ dim=1/2 与 v0.1 兼容（精确时间可逆、随机头有界漂移）。**测试触达一个真 bug**：三个 Hamiltonian head 的 `energy()` 在 lead 维 + context 下形状不广播（`train.py` 的 drift-penalty 路径默认关闭故从未暴露），已统一按 `OperatorHamiltonianHead` 契约修复。
+- **P0-4 可追溯性**（round-8 缺口 #4）：`docs/test-traceability.md`——v0.1 @a838d6c 的 13 个测试逐一映射，**全部同名存活且通过**（逐名点跑 13/13）。
+- **P1-2 / P1-3 与精确验收口径的差距（如实记录，后续波次）**：few-shot 3.24× 的对照是 from-scratch（非 PRD 字面的「FNO 1024 样本」）；分辨率不变性证据是 16→32 / 8→16（非字面 64²→256²）。两者需 GPU 级预算，见 PR 诚实边界。
+
 ---
 
 *本 PRD 与 `docs/architecture.md`（技术架构）配套阅读；架构决策细节以 ADR 为准。*

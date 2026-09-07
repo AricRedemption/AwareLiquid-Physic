@@ -92,3 +92,47 @@ def test_energy_drift_eval_end_to_end_produces_auditable_result(tmp_path):
     rows = [json.loads(line) for line in curves.read_text().splitlines()]
     assert {r["event"] for r in rows} == {"drift"}
     assert len([r for r in rows if r["step"] == 0]) == 3 * 2  # models × seeds
+
+
+@pytest.mark.integration
+def test_sample_efficiency_eval_end_to_end_produces_auditable_result(tmp_path):
+    """P1-1 closure artifact (round-8 gap #2): the samples-vs-MSE curve JSON
+    must carry provenance, per-seed values, and the 1/5-ratio verdict fields."""
+    out_dir = tmp_path / "integration_out"
+    cmd = [
+        sys.executable, "benchmarks/sample_efficiency_eval.py",
+        "--sizes", "8,16", "--n_seeds", "2",
+        "--n_eval", "4", "--gen_steps", "40", "--t_obs", "8", "--k_train", "4",
+        "--eval_k", "10", "--train_steps", "3",
+        "--d_model", "8", "--hidden", "8",
+        "--out_dir", str(out_dir),
+    ]
+    proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=300)
+    assert proc.returncode == 0, f"benchmark failed:\n{proc.stderr[-2000:]}"
+
+    result_path = out_dir / "sample_efficiency_p11.json"
+    assert result_path.exists()
+    report = audit_one(result_path)
+    assert report["issues"] == []
+    assert report["device"] == "cpu"
+
+    doc = json.loads(result_path.read_text())
+    metrics = report["metrics"]
+    for method in ("prefix", "all2all"):
+        for n in (8, 16):
+            key = f"{method}_n{n}.rollout_mse"
+            assert isinstance(metrics[key], float)
+            assert isinstance(metrics[f"{key}_std"], float)
+            assert metrics[f"{key}_seed0"] >= 0.0
+            assert metrics[f"{key}_seed1"] >= 0.0
+    verdict = doc["verdict"]
+    assert verdict["prefix_best_n"] in (8, 16)
+    assert isinstance(verdict["pinned_line_raw_ratio"], float)
+    assert isinstance(verdict["equal_budget_mse_ratio_at_max_n"], float)
+    assert isinstance(verdict["p11_pass_ge_5x"], bool)
+    assert isinstance(verdict["p11_assessment"], str) and verdict["p11_assessment"]
+
+    # one JSONL row per (method, size, seed)
+    curves = out_dir / "sample_efficiency_curves.jsonl"
+    rows = [json.loads(line) for line in curves.read_text().splitlines()]
+    assert len([r for r in rows if r["event"] == "mse_point"]) == 2 * 2 * 2
