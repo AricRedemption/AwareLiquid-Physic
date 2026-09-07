@@ -49,3 +49,46 @@ def test_time_eval_end_to_end_produces_auditable_result(tmp_path):
     assert isinstance(metrics["rollout_mse"], float)
     assert isinstance(metrics["rollout_mse_stderr"], float)
     assert metrics["params"] > 0
+
+
+@pytest.mark.integration
+def test_energy_drift_eval_end_to_end_produces_auditable_result(tmp_path):
+    """P0-3 closure artifact (round-8 gap #1): the drift comparison JSON must
+    carry the provenance schema, per-seed values next to across-seed means,
+    and the v0.1 recorded baseline it is judged against."""
+    out_dir = tmp_path / "integration_out"
+    cmd = [
+        sys.executable, "benchmarks/energy_drift_eval.py",
+        "--system", "spring", "--n_seeds", "2",
+        "--n_train", "8", "--n_eval", "4", "--gen_steps", "40",
+        "--t_obs", "8", "--k_train", "4", "--eval_k", "10",
+        "--train_steps", "3", "--anchor_train_steps", "3",
+        "--d_model", "8", "--hidden", "8", "--anchor_hidden", "8",
+        "--out_dir", str(out_dir),
+    ]
+    proc = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=300)
+    assert proc.returncode == 0, f"benchmark failed:\n{proc.stderr[-2000:]}"
+
+    result_path = out_dir / "energy_drift_p03.json"
+    assert result_path.exists()
+    report = audit_one(result_path)
+    assert report["issues"] == []
+    assert report["device"] == "cpu"
+
+    metrics = report["metrics"]
+    doc = json.loads(result_path.read_text())
+    spring = doc["results"]["spring"]
+    for model in ("liquid_v2_sg", "static_ham", "mlp_field"):
+        # across-seed mean + spread + per-seed values, all as audit-visible scalars
+        assert isinstance(metrics[f"spring.{model}.drift_final"], float)
+        assert isinstance(metrics[f"spring.{model}.drift_final_std"], float)
+        assert metrics[f"spring.{model}.drift_final_seed0"] >= 0.0
+        assert metrics[f"spring.{model}.drift_final_seed1"] >= 0.0
+    assert doc["v01_recorded_baseline"]["orbit"]["static_ham"] == 6.2
+    assert isinstance(doc["verdict"]["p03_pass"], bool)
+
+    # per-step drift curves stream to the JSONL sibling
+    curves = out_dir / "energy_drift_p03_curves.jsonl"
+    rows = [json.loads(line) for line in curves.read_text().splitlines()]
+    assert {r["event"] for r in rows} == {"drift"}
+    assert len([r for r in rows if r["step"] == 0]) == 3 * 2  # models × seeds
