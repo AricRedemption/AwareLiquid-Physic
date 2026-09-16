@@ -56,7 +56,7 @@ def _energy_of(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
 def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
                     t_obs: int, k_train: int, steps: int, lr: float,
                     batch: int, seed: int, drift_weight: float = 0.0,
-                    lr_decay: float = 1.0
+                    lr_decay: float = 1.0, start_mix: float = 0.0
                     ) -> float:
     """Semigroup (all2all) training loop — arbitrary start states after the
     prefix, fixed span k_train, optional drift penalty. Returns the final loss.
@@ -66,6 +66,9 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
     lr_decay: per-step exponential decay factor (1.0 = constant lr). Constant
     lr overfits long schedules (train loss keeps dropping, rollout generalisation
     degrades) — decay it.
+    start_mix: probability of pinning a sample's rollout start to the t_obs
+    endpoint instead of a random interior time (wave-10 D1d recipe; 0.0 keeps
+    the RNG stream and behaviour identical to before).
     """
     g = torch.Generator().manual_seed(seed)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
@@ -80,6 +83,9 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
         # Arbitrary start state STRICTLY after the observed prefix: the context
         # identifies the system, so it stays valid at any time point.
         t0 = torch.randint(t_obs, S - k_train, (batch,), generator=g)
+        if start_mix > 0.0:   # D1d: mix in deployment-style endpoint starts
+            force = torch.rand(batch, generator=g) < start_mix
+            t0 = torch.where(force, torch.full_like(t0, t_obs), t0)
 
         q_obs = qs[bi, :t_obs]
         p_obs = ps[bi, :t_obs]

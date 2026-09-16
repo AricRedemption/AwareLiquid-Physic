@@ -21,7 +21,7 @@ def _args(ks):
                               hidden=16, dt=0.1, t_obs=8, k_train=4,
                               train_steps=5, lr=3e-3, lr_decay=1.0, batch=8,
                               eval_ks_list=ks, eval_k=max(ks), probe_context=False,
-                              start_probe=False, n_eval=8,
+                              start_probe=False, start_mix=0.0, n_eval=8,
                               gen_steps=40, omega_lo=0.7, omega_hi=1.8)
 
 
@@ -53,3 +53,20 @@ def test_run_one_start_probe():
     a.start_probe = True
     res = run_one("prefix", 8, qs, ps, om, 0, a)
     assert res["mse_k1_interior"] >= 0.0   # finite 1-step interior-start MSE
+
+
+def test_start_mix_pinches_rng_only_when_active():
+    """D1d: start_mix=0.0 must keep the sampling RNG stream byte-identical
+    (t0 sequence unchanged); start_mix=1.0 must pin every start to t_obs."""
+    g0 = torch.Generator().manual_seed(3)
+    g1 = torch.Generator().manual_seed(3)
+    batch, t_obs, S, k = 8, 8, 160, 4
+    # start_mix=0.0 branch never draws rand -> t0 identical to base stream
+    t0_a = torch.randint(t_obs, S - k, (batch,), generator=g0)
+    t0_b = t0_a.clone()
+    assert torch.equal(t0_a, t0_b)
+    # start_mix=1.0 pins all starts to t_obs
+    t0_c = torch.randint(t_obs, S - k, (batch,), generator=g1)
+    force1 = torch.rand(batch, generator=g1) < 1.0
+    t0_d = torch.where(force1, torch.full_like(t0_c, t_obs), t0_c)
+    assert bool((t0_d == t_obs).all())

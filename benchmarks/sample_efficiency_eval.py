@@ -151,7 +151,8 @@ def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
     if method == "all2all":
         floss = train_semigroup(model, pool_qs[tr], pool_ps[tr], args.t_obs,
                                 args.k_train, args.train_steps, args.lr,
-                                args.batch, seed, lr_decay=args.lr_decay)
+                                args.batch, seed, lr_decay=args.lr_decay,
+                                start_mix=args.start_mix)
     else:
         floss = train_prefix(model, pool_qs[tr], pool_ps[tr], args.t_obs,
                              args.k_train, args.train_steps, args.lr,
@@ -201,6 +202,10 @@ def main():
                     help="IDENTICAL for both methods (budget held equal)")
     ap.add_argument("--lr", type=float, default=3e-3)
     ap.add_argument("--lr_decay", type=float, default=1.0)
+    ap.add_argument("--start_mix", type=float, default=0.0,
+                    help="D1d recipe (wave-10 round 5): probability of "
+                         "pinning an all2all sample's rollout start to the "
+                         "t_obs endpoint; 0.0 (default) = original loop")
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--device", default="cpu", choices=["cpu"],
                     help="protocol pinned to CPU (P5 same-device; loops and "
