@@ -137,6 +137,16 @@ coverage; ③ mixed → partial, record profile plots as the artifact.
 Runtime ~9 min, one round. Models must be saved locally for the sweep
 (.pt stays uncommitted per the never-list).
 
+**D1g verdict (run 2026-09-17, `d1g_sweep/`, audit 1/1): ① CONFIRMED.**
+3-seed mean profiles: prefix notch at bin 2 (t≈20–30 — exactly its only
+training start t=23) at **0.37x** of its own profile mean, both n; all2all
+shows **no notch** (min 0.85x, elsewhere) and is near-flat
+(std/mean 0.08–0.10 vs prefix 0.22–0.23). The empirical attribution (D1c)
+is thereby upgraded to a **mechanism**: the learned force field is accurate
+where the training loss sampled it — prefix carves a notch at its single
+training start, all2all flattens across the orbit. The paper figure is this
+4-profile panel.
+
 ## Artifact index (commits, wave-10 night 2026-09-16/17)
 
 `d1_small_n` 34f9857→301e19c · `d1b_eval_depth` 5521942 ·
