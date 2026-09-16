@@ -446,6 +446,19 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - 台账：P2 边界注记追加 D1f 权衡刻画；结构性修复方向（课程）**降权不关闭**（frac/微调预算扫描留待显式需求，不再默认排队）。
 - **下一步（强制浮现）**：D1 系列六轮完整闭环（归因 + 3 修复路径否定 + 权衡刻画），**转文献/GitHub 扫描轮**（06:00）：query 清单——"curriculum training Hamiltonian neural network"、"start state distribution shift learned dynamics"、"two-phase training physics-informed model"、"liquid neural network system identification"；按学术引用潜力浮现新方向，写回 PRD 方向池。
 
+**轮 15 记录（06:00 触发，文献/GitHub 扫描轮）**：
+- Query 清单（4/4 已执行）：① curriculum training HNN energy conservation；② start state distribution shift learned dynamics rollout error；③ two-phase training physics-informed model；④ liquid NN system identification closed-form。
+- **谁做过、失败在哪（按 query）**：
+  - ① **HNN/能量守恒网络的课程训练：未发现任何先例**——现有 HNN 文献（Greydanus 2019、Zhong 2021 benchmark、Tanaka 2025 energy-consistent operators）均不涉及训练课程。→ D1 系列的"起点失配归因 + 三条修复路径否定 + 权衡刻画"在 HNN 语境是**未开垦的**。
+  - ② **起点分布漂移→滚出误差**：MBRL 有成熟对应物（compounding error 文献族）——已知处方：DAgger 式自校正数据（Self-Correcting Models, RLDM 2017）、自适应滚出长度（AdaMVE NeurIPS 2019 等，对应我们的 D1b）、OOD 状态不确定性惩罚。**均未与哈密顿硬约束架构或系统辨识语境结合**。
+  - ③ **两阶段 PIML 训练**：PINN 侧丰富（DP-PINN 双相、PIFT 三段、低频预训+物理微调）——但全部在 PDE 残差软约束语境，无人做硬约束架构的训练循环课程。→ D1f 负结果是该通用模式在硬约束架构上的一个数据点。
+  - ④ **CfC（Closed-form Continuous-time，Hasani et al., Nature MI 2022，~394 引用）**：LTC 动态的闭式近似,时间显式化——与本项目 LiquidCore 同族。
+- **新方向池（按学术引用潜力排序）**：
+  - **N1（写作轮，零实验预算，推荐下一轮）**：D1 系列打包——"Start-state distribution mismatch in semigroup-trained Hamiltonian models: attribution, failed repairs, and a tradeoff"。新颖性经 ① 确认；交叉引用 HNN × MBRL distribution-shift 两个社区。
+  - **N3（理论轮）**：用 CfC 闭式解**解析刻画 D1c 的起点失配**（时间显式 ⇒ 起点依赖可解析推导），把经验归因升级为命题；需 1–2 个设计轮读 CfC 公式。
+  - **N2（实验轮，最后）**：不确定性自适应起点采样（MBRL uncertainty-aware 思路移植；区别于 D1d/D1e 固定混合）——三次配方失败后不确定性最高，仅在前两者完成后按闸门试。
+- 欠账台账不变：D4（GPU）PAUSED 待人工裁定；两阶段 frac 扫描降权。
+
 ---
 
 *本 PRD 与 `docs/architecture.md`（技术架构）配套阅读；架构决策细节以 ADR 为准。*
