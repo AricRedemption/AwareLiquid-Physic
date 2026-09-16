@@ -405,7 +405,15 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 **轮 8 记录（02:30 触发，D2 semigroup 全量）**：
 - 命令：`field_eval.py --inhomogeneous --n_seeds 3 --train_loop semigroup --out_dir benchmarks/physics_out_v02/d2_m2_loop/sg`（20 分 26 秒，实际用时略超预估）；audit 1/1 过（产物按约定本地留存）。
 - 数字：liquid **2.0004e-2 ± 3.5e-4**、static **2.0426e-2 ± 3.3e-4**（3 seeds）；resolution 32→64 零样本 3.78e-2。
-- **下一轮（03:00，预声明拆分的收口轮）**：跑 prefix 全量（`/prefix/`）→ 按轮 7 预注册标准判定（semigroup/prefix liquid 比值 ≤0.8 正结果 / ≥0.95 否定 / 中间部分支持；同时读 liquid-vs-static 优势随循环的变化：semigroup 下 liquid 反超 static ~2%，prefix screening 下 static 略优——训练循环影响优势读数的线索）→ 台账收口 + 原子提交。初步量级与 PRD §11 旧记录（"接近打平、static 略优"）口径相容。
+- **下一轮（03:00，预声明拆分的收口轮）**：跑 prefix 全量（`/prefix/`）→ 按轮 7 预注册标准判定（semigroup/prefix liquid 比值 ≤0.8 正结果 / ≥0.95 否定 / 中间部分支持；同时读 liquid-vs-static 优势随循环的变化：semigroup 下 liquid 反超 static ~2%，prefix screening 下 static 略优——训练循环影响优势读数的线索）→ 台账收口 + 原子提交。
+
+**轮 9 记录（03:00 触发，D2 prefix 全量 + 收口判定）**：
+- 命令：`field_eval.py --inhomogeneous --n_seeds 3 --train_loop prefix --out_dir benchmarks/physics_out_v02/d2_m2_loop/prefix`（20 分 02 秒）；audit 1/1。
+- 数字：prefix liquid **2.1591e-2 ± 1.28e-3**、static **2.1175e-2 ± 1.39e-3**；resolution 4.67e-2。
+- **判定（对照轮 7 预注册标准）**：semigroup/prefix liquid 比值 = **0.926（改善 7.4%）→ ③ 部分支持**（未达 ① 的 ≤0.8，远优于 ② 的 ≥0.95；均值差 ~1.2σ，3 seeds 偏紧）。判据未预设 per-seed 产物（field_eval 只落均值/std），如实注记。
+- **第二读数（预注册内的"优势读数"问题）**：训练循环**翻转** liquid-vs-static 符号——semigroup：liquid 优 **+2.1%**（2.0004 vs 2.0426）；prefix：static 优 +1.9%（2.1591 vs 2.1175）。与 screening 同向。**旧"M2 liquid 无增益/不稳健"读数部分是训练循环伪影**（§11 时代数字出自旧 prefix 循环）。
+- 台账：P2 待消不确定性第一条闭合——"半群对 M2 增益已量化：非均匀 1D 场 +7.4%（比值 0.926，部分支持档），且循环选择翻转 liquid-vs-static 符号"（证据 `d2_m2_loop/{sg,prefix}/`）。
+- **下一步（D3，强制浮现）**：D1–D2 夜间主线收束。剩余池：D3（可辨识度↔增益定量关系，设计轮）> 两阶段训练方向评估 > D4（GPU，PAUSED 待人工裁定）。03:30 轮起转 D3 设计轮（指标定义：观测窗口对 c(x) 场的 Fisher 信息/条件数 vs liquid 增益的相关），或按窗口收尾（08:30 收尾轮）节奏推进。初步量级与 PRD §11 旧记录（"接近打平、static 略优"）口径相容。
 
 ---
 
