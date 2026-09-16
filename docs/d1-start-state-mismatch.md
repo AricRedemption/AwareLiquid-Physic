@@ -89,6 +89,54 @@ not purchasable by training recipes.
 - Uncertainty-adaptive start sampling (vs fixed mixing) — untested.
 - Analytic start-dependence under CfC-style closed forms.
 
+## 7. Analytic sketch: a coverage-density argument (wave-10 N3 round)
+
+**Honest scope**: a derivation outline, not a theorem; CfC equation-level
+treatment deferred (paper equations not yet re-verified). The argument below
+uses only our own ground-truth engine and is falsifiable by the preregistered
+D1g experiment.
+
+*Setting.* The spring ground truth is the harmonic flow φ_t(q0, p0; ω).
+A trained model approximates the force field ∇V̂(·|ctx); its one-step error
+from start state s is e(s) ≈ ‖∇V̂(s|ctx) − ∇V(s)‖. Training shapes ∇V̂ only
+where the loss samples it:
+
+- **prefix**: starts live on the observed arc A_win = {φ_t(q0,p0) :
+  t ∈ [0, t_obs]} — a *fixed arc* of the energy orbit (t_obs=24, dt=0.1 →
+  0.38–0.68 of a period across the family).
+- **all2all**: starts live on the *whole orbit* O = {φ_t : t ∈ [t_obs, S−k]},
+  sampled ∝ uniform time ⇒ density ∝ 1/‖ds/dt‖ = const on the orbit.
+
+*Claim (coverage density).* Gradient-descent force error concentrates where
+loss mass concentrates: e(s) is small on sampled regions and grows with
+geodesic distance from them. Hence:
+
+- **P1 (profile shape)**: sweeping the 1-step evaluation start along the
+  trajectory time axis, the prefix model's error profile should show a
+  *notch* near the training window (low for t within/near [0, t_obs+k],
+  rising with arc distance), while the all2all model's profile should be
+  *flatter across the orbit*.
+- **P2 (reconciles D1c)**: D1c's "interior starts favour all2all" is the
+  orbit-covering half of this claim; the *other* half — endpoint arc
+  favours prefix — is what the endpoint-start k1 comparisons (D1/D1b) show.
+  The two probes sample the two ends of the same profile.
+- **P3 (reconciles D1d/D1e/D1f)**: adding endpoint exposure adds mass at
+  one orbit *point*, which cannot flatten the interior profile (D1d/D1e
+  failed) and steals mass from orbit coverage (D1f's 27% large-n loss).
+  Coverage is conserved-ish under a fixed budget — the tradeoff is the
+  prediction, not an accident.
+
+**D1g (preregistered next-round experiment)**: start-time sweep — retrain
+the 12 arms of D1c (n ∈ {32,64}, 3 seeds, both loops), evaluate 1-step MSE
+as a *function of start time* t0 ∈ [0, S−1] (binned profile, not random
+draws). Judgement: ① profile shapes match P1 (prefix notch near window,
+all2all flat) → coverage-density mechanism supported (upgrades the empirical
+attribution to a mechanism); ② profiles flat for both → coverage argument
+refuted, mismatch must live in context-conditioning, not force-field
+coverage; ③ mixed → partial, record profile plots as the artifact.
+Runtime ~9 min, one round. Models must be saved locally for the sweep
+(.pt stays uncommitted per the never-list).
+
 ## Artifact index (commits, wave-10 night 2026-09-16/17)
 
 `d1_small_n` 34f9857→301e19c · `d1b_eval_depth` 5521942 ·
