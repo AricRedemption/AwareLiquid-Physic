@@ -152,7 +152,8 @@ def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
         floss = train_semigroup(model, pool_qs[tr], pool_ps[tr], args.t_obs,
                                 args.k_train, args.train_steps, args.lr,
                                 args.batch, seed, lr_decay=args.lr_decay,
-                                start_mix=args.start_mix)
+                                start_mix=args.start_mix,
+                                start_mix_window=args.start_mix_window)
     else:
         floss = train_prefix(model, pool_qs[tr], pool_ps[tr], args.t_obs,
                              args.k_train, args.train_steps, args.lr,
@@ -206,6 +207,10 @@ def main():
                     help="D1d recipe (wave-10 round 5): probability of "
                          "pinning an all2all sample's rollout start to the "
                          "t_obs endpoint; 0.0 (default) = original loop")
+    ap.add_argument("--start_mix_window", type=int, default=1,
+                    help="D1e (wave-10 round 6): pinned starts are uniform "
+                         "in [t_obs, t_obs+w) instead of the single t_obs "
+                         "point; w=1 (default) degenerates to D1d")
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--device", default="cpu", choices=["cpu"],
                     help="protocol pinned to CPU (P5 same-device; loops and "

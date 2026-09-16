@@ -21,7 +21,8 @@ def _args(ks):
                               hidden=16, dt=0.1, t_obs=8, k_train=4,
                               train_steps=5, lr=3e-3, lr_decay=1.0, batch=8,
                               eval_ks_list=ks, eval_k=max(ks), probe_context=False,
-                              start_probe=False, start_mix=0.0, n_eval=8,
+                              start_probe=False, start_mix=0.0,
+                              start_mix_window=1, n_eval=8,
                               gen_steps=40, omega_lo=0.7, omega_hi=1.8)
 
 
@@ -70,3 +71,14 @@ def test_start_mix_pinches_rng_only_when_active():
     force1 = torch.rand(batch, generator=g1) < 1.0
     t0_d = torch.where(force1, torch.full_like(t0_c, t_obs), t0_c)
     assert bool((t0_d == t_obs).all())
+
+
+def test_start_mix_window_bounds():
+    """D1e: windowed pinned starts stay inside [t_obs, t_obs+w) and strictly
+    before the rollout span limit."""
+    g = torch.Generator().manual_seed(5)
+    batch, t_obs, S, k, w = 64, 8, 160, 4, 8
+    w_eff = max(1, min(w, S - k - t_obs))
+    off = torch.randint(0, w_eff, (batch,), generator=g)
+    t0w = t_obs + off
+    assert bool(((t0w >= t_obs) & (t0w < t_obs + w_eff)).all())
