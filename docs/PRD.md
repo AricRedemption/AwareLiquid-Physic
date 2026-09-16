@@ -389,6 +389,19 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - 欠账台账：D2（半群对 M2 场任务增益量化）升为最高优先；两阶段训练方向登记待评估；n≥256 大样本端配方验证随配方线收束取消。
 - **下一步（D2，强制浮现）**：半群训练对 M2（场任务）的增益单独量化——P2 待消不确定性现存最高优先项。入口 `benchmarks/field_eval.py` 加训练循环消融（prefix vs all2all，非均匀介质任务，3 seeds）；预计超时盒，01:xx 下一轮先做代码接地（读 field_eval 训练入口、定协议），02:00 轮跑 screening。
 
+**轮 7 协议（D2 预注册，02:00 触发，代码接地后钉死）**：
+- 接地发现：`field_eval.py` 现状已全用 `train_semigroup` 训练 liquid/static 两模型——**"M2 上 prefix vs 半群"的消融从未有产物**（PRD §11 时代的 M2 记录出自旧 prefix 循环时代，且与现行代码口径不可比）。缺口即 D2。
+- 动机/假设：P2 宣称"半群应是所有任务的默认"，M2（非均匀 1D 场，隐参数为整条 c(x) 场）是唯一未被单独量化的任务族。预期半群在 M2 同样改善 liquid rollout MSE；同时给出训练循环对"liquid vs static 优势"读数的影响。
+- 设计：`field_eval.py` 加 `--train_loop {semigroup,prefix}`（默认 semigroup=现行为，既有产物字节可复现；prefix 用 `benchmarks.liquid_physics_eval.train`，经 `model(...)` forward 对算子模型兼容）；`--inhomogeneous --n_seeds 3`，两循环各跑一次，产物分落 `physics_out_v02/d2_m2_loop/sg/` 与 `/prefix/`（零覆盖）。同 pool seed，逐 seed 配对。
+- 判负标准（3 seeds，liquid_operator 的 rollout MSE 为准）：① **正结果**——semigroup/prefix 比值 ≤0.8（改善 ≥20%）且逐 seed ≥2/3 同向 → "半群对 M2 有增益"量化入账，P2 待消不确定性第一条闭合；② **否定**——比值 ≥0.95 或逐 seed 劣 ≥2/3 → "半群在 M2 无增益"如实入账（static 对照同轮产出，顺带回答"训练循环是否影响 liquid-vs-static 优势读数"）；③ 中间——0.8–0.95 → 部分支持。
+- screening 先行：1 seed 校准时长与量级（标 screening，不判定）。
+- 验收门：pytest 全绿 + audit 全过；预计 screening 2×单模型 ~几分钟，全量视校准结果。
+
+**轮 7 记录（02:00 触发，代码接地 + screening）**：
+- 代码：`field_eval.py` 加 `--train_loop {semigroup,prefix}`（默认 semigroup=现行为）；pytest **77/77**。
+- 时长校准（关键）：单 seed 全流程（2 模型 × 300 步 + resolution 测试）**~7 分钟**——全量 3 seeds × 2 循环 ≈ 42 分钟，超单轮时盒 → **预声明拆三轮**：本轮收口代码+screening；02:30 轮跑 semigroup 全量（`--n_seeds 3` → `d2_m2_loop/sg/`，~21 分钟，时盒内）；03:00 轮跑 prefix 全量（→ `/prefix/`）并按预注册标准判定收口。
+- **screening（1 seed，不判定）**：liquid rollout MSE——semigroup **2.031e-2** vs prefix **2.308e-2**（比值 0.88，落 ③ 中间带）；static 对照 2.00e-2 / 2.24e-2；能量漂移、resolution 测试两循环均正常。初步量级与 PRD §11 旧记录（"接近打平、static 略优"）口径相容。
+
 ---
 
 *本 PRD 与 `docs/architecture.md`（技术架构）配套阅读；架构决策细节以 ADR 为准。*

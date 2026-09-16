@@ -28,6 +28,7 @@ from awareliquid_physics.datasets import gen_wave_1d, gen_wave_1d_inhomogeneous
 from awareliquid_physics.hamiltonian import OperatorHamiltonianHead
 from awareliquid_physics.model import LiquidOperatorHamiltonianModel
 from awareliquid_physics.train import train_semigroup
+from benchmarks.liquid_physics_eval import train as train_prefix
 from awareliquid_physics.observability import rollout_mse_stderr, run_metadata
 
 
@@ -136,6 +137,11 @@ def main():
     ap.add_argument("--hidden", type=int, default=48)
     ap.add_argument("--reflect_pad", type=int, default=8)
     ap.add_argument("--train_steps", type=int, default=300)
+    ap.add_argument("--train_loop", default="semigroup",
+                    choices=["semigroup", "prefix"],
+                    help="D2 ablation (wave-10 round 7): semigroup (default, "
+                         "the shipped behaviour) vs the v0.1 fixed-window "
+                         "prefix loop — quantifies P2's claim on M2")
     ap.add_argument("--lr", type=float, default=3e-3)
     ap.add_argument("--lr_decay", type=float, default=1.0,
                     help="per-step exponential lr decay (1.0 = constant)")
@@ -191,9 +197,15 @@ def main():
                 liquid_trained = model
             if n_par is None:
                 n_par = sum(p.numel() for p in model.parameters())
-            floss = train_semigroup(model, qs[tr], ps[tr], args.t_obs, args.k_train,
-                                    args.train_steps, args.lr, args.batch, seed,
-                                    lr_decay=args.lr_decay)
+            if args.train_loop == "prefix":
+                floss = train_prefix(model, qs[tr], ps[tr], args.t_obs,
+                                     args.k_train, args.train_steps, args.lr,
+                                     args.batch, seed, lr_decay=args.lr_decay)
+            else:
+                floss = train_semigroup(model, qs[tr], ps[tr], args.t_obs,
+                                        args.k_train, args.train_steps,
+                                        args.lr, args.batch, seed,
+                                        lr_decay=args.lr_decay)
             mse, drift, mse_se = evaluate(model, qs[ev], ps[ev], cfields[ev], args.t_obs,
                                           args.eval_k, args.dt)
             mses.append(mse)
