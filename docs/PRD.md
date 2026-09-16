@@ -400,7 +400,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 **轮 7 记录（02:00 触发，代码接地 + screening）**：
 - 代码：`field_eval.py` 加 `--train_loop {semigroup,prefix}`（默认 semigroup=现行为）；pytest **77/77**。
 - 时长校准（关键）：单 seed 全流程（2 模型 × 300 步 + resolution 测试）**~7 分钟**——全量 3 seeds × 2 循环 ≈ 42 分钟，超单轮时盒 → **预声明拆三轮**：本轮收口代码+screening；02:30 轮跑 semigroup 全量（`--n_seeds 3` → `d2_m2_loop/sg/`，~21 分钟，时盒内）；03:00 轮跑 prefix 全量（→ `/prefix/`）并按预注册标准判定收口。
-- **screening（1 seed，不判定）**：liquid rollout MSE——semigroup **2.031e-2** vs prefix **2.308e-2**（比值 0.88，落 ③ 中间带）；static 对照 2.00e-2 / 2.24e-2；能量漂移、resolution 测试两循环均正常。初步量级与 PRD §11 旧记录（"接近打平、static 略优"）口径相容。
+- **screening（1 seed，不判定）**：liquid rollout MSE——semigroup **2.031e-2** vs prefix **2.308e-2**（比值 0.88，落 ③ 中间带）；static 对照 2.00e-2 / 2.24e-2；能量漂移、resolution 测试两循环均正常。
+
+**轮 8 记录（02:30 触发，D2 semigroup 全量）**：
+- 命令：`field_eval.py --inhomogeneous --n_seeds 3 --train_loop semigroup --out_dir benchmarks/physics_out_v02/d2_m2_loop/sg`（20 分 26 秒，实际用时略超预估）；audit 1/1 过（产物按约定本地留存）。
+- 数字：liquid **2.0004e-2 ± 3.5e-4**、static **2.0426e-2 ± 3.3e-4**（3 seeds）；resolution 32→64 零样本 3.78e-2。
+- **下一轮（03:00，预声明拆分的收口轮）**：跑 prefix 全量（`/prefix/`）→ 按轮 7 预注册标准判定（semigroup/prefix liquid 比值 ≤0.8 正结果 / ≥0.95 否定 / 中间部分支持；同时读 liquid-vs-static 优势随循环的变化：semigroup 下 liquid 反超 static ~2%，prefix screening 下 static 略优——训练循环影响优势读数的线索）→ 台账收口 + 原子提交。初步量级与 PRD §11 旧记录（"接近打平、static 略优"）口径相容。
 
 ---
 
