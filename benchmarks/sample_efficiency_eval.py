@@ -139,6 +139,9 @@ def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
                                    args.t_obs, args.eval_k)
     res = {"params": sum(p.numel() for p in model.parameters()),
            "train_loss": floss, "rollout_mse": mse, "rollout_mse_stderr": stderr}
+    for k in args.eval_ks_list:   # D1b: MSE by eval depth (same trained model)
+        res[f"rollout_mse_k{k}"] = eval_rollout_mse(
+            model, pool_qs[ev], pool_ps[ev], args.t_obs, k)[0]
     if args.probe_context:
         res.update(context_probe(model, pool_qs[ev], pool_ps[ev],
                                  pool_om[ev], args.t_obs))
@@ -156,6 +159,12 @@ def main():
     ap.add_argument("--t_obs", type=int, default=24)
     ap.add_argument("--k_train", type=int, default=8)
     ap.add_argument("--eval_k", type=int, default=100)
+    ap.add_argument("--eval_ks", default=None,
+                    help="comma ladder of eval depths, e.g. '1,10,100' (D1b: "
+                         "does the all2all disadvantage grow with rollout "
+                         "depth?); default: just --eval_k (existing artifacts "
+                         "byte-reproducible; every k needs gen_steps ≥ "
+                         "t_obs+k-1)")
     ap.add_argument("--dt", type=float, default=0.1)
     ap.add_argument("--omega_lo", type=float, default=0.7)
     ap.add_argument("--omega_hi", type=float, default=1.8)
@@ -179,6 +188,9 @@ def main():
                          "half); default off keeps the original artifact "
                          "byte-reproducible")
     args = ap.parse_args()
+    args.eval_ks_list = sorted(int(k) for k in
+                               (args.eval_ks if args.eval_ks is not None
+                                else str(args.eval_k)).split(","))
 
     sizes = sorted(int(s) for s in args.sizes.split(","))
     max_n = sizes[-1]
@@ -249,6 +261,12 @@ def main():
                     **{f"ctx_corr_seed{i}": v["ctx_corr"]
                        for i, v in enumerate(vals)},
                 })
+            for k in args.eval_ks_list:
+                results[f"{method}_n{n}"][f"rollout_mse_k{k}"] = agg(
+                    [v[f"rollout_mse_k{k}"] for v in vals])[0]
+                results[f"{method}_n{n}"].update({
+                    f"rollout_mse_k{k}_seed{i}": v[f"rollout_mse_k{k}"]
+                    for i, v in enumerate(vals)})
 
     # --- P1-1 verdict: honest multi-level analysis ---------------------------
     # The naive "ratio at prefix's best line" degenerates when prefix SATURATES
@@ -344,6 +362,19 @@ def main():
                   f"  |  all2all {a['ctx_rel_err_mean']:.3f}"
                   f"±{a['ctx_rel_err_std']:.3f} (corr {a['ctx_corr']:+.2f})",
                   flush=True)
+
+    if len(args.eval_ks_list) > 1:
+        print("\n  D1b eval-depth ladder | rollout MSE by eval_k "
+              f"({args.n_seeds} seeds mean; a2a/prefix ratio per depth)",
+              flush=True)
+        for n in sizes:
+            parts = []
+            for k in args.eval_ks_list:
+                pm = results[f"prefix_n{n}"][f"rollout_mse_k{k}"]
+                am = results[f"all2all_n{n}"][f"rollout_mse_k{k}"]
+                parts.append(f"k{k}: {pm:.3e} vs {am:.3e} "
+                             f"({am / pm:.2f}x)")
+            print(f"  n_train {n:>4}:  " + "  |  ".join(parts), flush=True)
 
     with open(os.path.join(args.out_dir, "sample_efficiency_p11.json"), "w") as f:
         json.dump({"args": vars(args),
