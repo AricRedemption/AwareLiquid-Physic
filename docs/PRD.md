@@ -437,7 +437,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - 设计：`--two_stage`（all2all 臂改为：`train_semigroup` 跑 `semigroup_frac=0.8` 步数 → `train_prefix` 跑余下 20%；默认关）；screening 1 seed（sizes 32,64，4 臂 ~3 分钟）对 d1_small_n 基线同 pool 配对。
 - **screening 闸门**：n=64 endpoint k1 比值（两阶段/prefix）< 1.1x（基线 1.44x 收窄 ≥25%）。过闸 → 05:30 轮 3 seeds 全量判定；不过 → 课程路线记负收束。
 - 全量判定标准（3 seeds，若过闸）：① 正——n=64 endpoint k1 比值 <1.1x 且 n=512 k100 相对纯 semigroup 基线劣化 ≤10%（两条件同时）；② 否定——endpoint 收窄 <20% 或 512 劣化 >20% → 结构性修复方向关闭；③ 中间——收窄 20–40% 或 512 劣化 10–20% → 调 frac ∈ {0.6, 0.9}。
-- 验收门：pytest 全绿 + audit 全过。初步量级与 PRD §11 旧记录（"接近打平、static 略优"）口径相容。
+- 验收门：pytest 全绿 + audit 全过。
+
+**轮 14 记录（05:30 触发，D1f 全量判定）**：
+- 命令：`sample_efficiency_eval.py --sizes 32,64,512 --n_seeds 3 --two_stage --eval_ks 1,100 --out_dir d1f_two_stage`（11 分 20 秒）；audit 1/1。配对性注记：n=512 与 `d3_window/tobs24` 同 pool 严格配对；n=32/64 因 pool 尺寸不同（640 vs 192 轨迹）与旧基线仅指示性可比。
+- **判定：按预注册字面 ② 触发（否定）——双条件均未过**：条件 A（n=64 endpoint k1 <1.1x）实为 **1.75x**，FAIL；条件 B（n=512 k100 保持性 ≤1.10x of semigroup）实为 **1.265x（劣化 27%）**，FAIL。
+- **但真实结构是权衡而非单向失败（如实入档）**：endpoint k1 仍落后 prefix（n=64 1.75x）——课程未修复终点短程；k100 中长程大幅改善：n=32 两阶段**优于 prefix（0.66x）**、n=64 追至 0.90x（同轮 prefix 配对）；n=512 对 prefix 仍保 2.1x 优势，但比纯 semigroup 亏 27%。**"半群+终点微调"以大样本优势让渡 27% 换取小样本中长程修复，endpoint 1 步精度依旧不是课程能买到的。**
+- 台账：P2 边界注记追加 D1f 权衡刻画；结构性修复方向（课程）**降权不关闭**（frac/微调预算扫描留待显式需求，不再默认排队）。
+- **下一步（强制浮现）**：D1 系列六轮完整闭环（归因 + 3 修复路径否定 + 权衡刻画），**转文献/GitHub 扫描轮**（06:00）：query 清单——"curriculum training Hamiltonian neural network"、"start state distribution shift learned dynamics"、"two-phase training physics-informed model"、"liquid neural network system identification"；按学术引用潜力浮现新方向，写回 PRD 方向池。
 
 ---
 
