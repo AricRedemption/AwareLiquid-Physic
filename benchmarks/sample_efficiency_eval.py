@@ -83,7 +83,40 @@ def eval_rollout_mse(model, qs, ps, t_obs, eval_k):
     return mse, rollout_mse_stderr(qs_pred, q_true, ps_pred, p_true)
 
 
-def run_one(method, n_train, pool_qs, pool_ps, seed, args):
+def context_probe(model, qs, ps, omegas, t_obs):
+    """D1 diagnostic (wave-10 protocol): how much omega-information does the
+    learned context carry after training?
+
+    Fit a linear readout context->omega on the FIRST half of the eval pool
+    and report, on the SECOND half, the per-trajectory relative decode error
+    |omega_hat - omega| / omega (mean/std) and the omega_hat-omega correlation.
+    A linear probe lower-bounds the context's decodable information, so it is
+    a model-agnostic stand-in for omega_hat without assuming a context layout.
+    """
+    model.eval()
+    n = qs.shape[0]
+    # enable_grad, not no_grad: the symplectic rollout differentiates V through
+    # autograd internally even in eval mode (same as eval_rollout_mse above).
+    with torch.enable_grad():
+        _, _, ctx = model(qs[:, :t_obs], ps[:, :t_obs], 1)
+    ctx = ctx.detach().reshape(n, -1).cpu()
+    w = omegas.detach().reshape(-1, 1).cpu()
+    n_half = n // 2
+    Xa = torch.cat([ctx[:n_half], torch.ones(n_half, 1)], dim=1)
+    Xb = torch.cat([ctx[n_half:], torch.ones(n - n_half, 1)], dim=1)
+    coef = torch.linalg.lstsq(Xa, w[:n_half]).solution
+    w_hat = (Xb @ coef).squeeze(1)
+    w_true = w[n_half:].squeeze(1)
+    rel = (w_hat - w_true).abs() / w_true.abs()
+    corr = torch.corrcoef(torch.stack([w_hat, w_true]))[0, 1]
+    if not torch.isfinite(corr):
+        corr = torch.zeros(())   # strict-JSON safe (no NaN/Inf in artifacts)
+    return {"ctx_rel_err_mean": rel.mean().item(),
+            "ctx_rel_err_std": rel.std(unbiased=False).item() if rel.numel() > 1 else 0.0,
+            "ctx_corr": corr.item()}
+
+
+def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
     """Train the SAME M1 model with ONE loop variant on n_train trajectories
     (nested slice of the shared pool) and return eval metrics."""
     tr = slice(0, n_train)
@@ -104,8 +137,12 @@ def run_one(method, n_train, pool_qs, pool_ps, seed, args):
     ev = slice(pool_qs.shape[0] - args.n_eval, None)   # fixed held-out set
     mse, stderr = eval_rollout_mse(model, pool_qs[ev], pool_ps[ev],
                                    args.t_obs, args.eval_k)
-    return {"params": sum(p.numel() for p in model.parameters()),
-            "train_loss": floss, "rollout_mse": mse, "rollout_mse_stderr": stderr}
+    res = {"params": sum(p.numel() for p in model.parameters()),
+           "train_loss": floss, "rollout_mse": mse, "rollout_mse_stderr": stderr}
+    if args.probe_context:
+        res.update(context_probe(model, pool_qs[ev], pool_ps[ev],
+                                 pool_om[ev], args.t_obs))
+    return res
 
 
 def main():
@@ -135,6 +172,12 @@ def main():
                     help="protocol pinned to CPU (P5 same-device; loops and "
                          "anchors verified on CPU only)")
     ap.add_argument("--out_dir", default="benchmarks/physics_out_v02")
+    ap.add_argument("--probe_context", action="store_true",
+                    help="D1 diagnostic (wave-10): after each training run, "
+                         "linear-probe omega from the context (fit on the "
+                         "first half of the eval pool, error on the second "
+                         "half); default off keeps the original artifact "
+                         "byte-reproducible")
     args = ap.parse_args()
 
     sizes = sorted(int(s) for s in args.sizes.split(","))
@@ -156,14 +199,14 @@ def main():
         seed = args.seed + i
         # one shared pool per seed -> nested sizes, fixed held-out set
         g = torch.Generator().manual_seed(seed)
-        pool_qs, pool_ps, _ = gen_spring(max_n + args.n_eval, args.gen_steps,
-                                         args.dt, 1, args.omega_lo, args.omega_hi,
-                                         g, device=args.device)
+        pool_qs, pool_ps, pool_om = gen_spring(max_n + args.n_eval, args.gen_steps,
+                                               args.dt, 1, args.omega_lo, args.omega_hi,
+                                               g, device=args.device)
         for method in methods:
             for n in sizes:
                 print(f"[seed {seed}] {method:7s} n_train {n:>4}: training "
                       f"{args.train_steps} steps ...", flush=True)
-                res = run_one(method, n, pool_qs, pool_ps, seed, args)
+                res = run_one(method, n, pool_qs, pool_ps, pool_om, seed, args)
                 bucket[(method, n)].append(res)
                 curves.write("mse_point", {"method": method, "n_train": n,
                                            "seed": seed, **res})
@@ -196,6 +239,16 @@ def main():
                 **{f"rollout_mse_traj_stderr_seed{i}": v["rollout_mse_stderr"]
                    for i, v in enumerate(vals)},
             }
+            if args.probe_context:
+                results[f"{method}_n{n}"].update({
+                    "ctx_rel_err_mean": agg([v["ctx_rel_err_mean"] for v in vals])[0],
+                    "ctx_rel_err_std": agg([v["ctx_rel_err_std"] for v in vals])[0],
+                    "ctx_corr": agg([v["ctx_corr"] for v in vals])[0],
+                    **{f"ctx_rel_err_seed{i}": v["ctx_rel_err_mean"]
+                       for i, v in enumerate(vals)},
+                    **{f"ctx_corr_seed{i}": v["ctx_corr"]
+                       for i, v in enumerate(vals)},
+                })
 
     # --- P1-1 verdict: honest multi-level analysis ---------------------------
     # The naive "ratio at prefix's best line" degenerates when prefix SATURATES
@@ -279,6 +332,18 @@ def main():
           f"(certifiable: {pinned_certifiable} — prefix itself hits the line "
           f"at n={prefix_min_at_pinned}, i.e. it saturates)", flush=True)
     print(f"\n  P1-1 (≥5x): {assessment}", flush=True)
+
+    if args.probe_context:
+        print("\n  D1 context probe | omega decode rel-err (mean±std over "
+              "seeds; probe fit on eval half A, error on half B)", flush=True)
+        for n in sizes:
+            p = results[f"prefix_n{n}"]
+            a = results[f"all2all_n{n}"]
+            print(f"  n_train {n:>4}:  prefix {p['ctx_rel_err_mean']:.3f}"
+                  f"±{p['ctx_rel_err_std']:.3f} (corr {p['ctx_corr']:+.2f})"
+                  f"  |  all2all {a['ctx_rel_err_mean']:.3f}"
+                  f"±{a['ctx_rel_err_std']:.3f} (corr {a['ctx_corr']:+.2f})",
+                  flush=True)
 
     with open(os.path.join(args.out_dir, "sample_efficiency_p11.json"), "w") as f:
         json.dump({"args": vars(args),

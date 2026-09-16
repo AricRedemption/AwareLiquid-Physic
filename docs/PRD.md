@@ -314,6 +314,18 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - 下一步：轮 2 按 D1 冒烟校准的时长决定全量是否单轮可容；不可容则按"逐档 × 逐循环"拆分；D1 诊断代码（ω̂ 误差输出）在轮 2 落地，先测后用。
 - **D1 冒烟结果（screening，无判定）**：命令通过，4 臂（2 循环 × 2 档 × seed 0）共 163 s ≈ 41 s/臂 → 全量 12 臂 ≈ 8–9 分钟，单轮可容。附带观察：seed 0 单点方差大（prefix@32=4.34 vs @64=5.32 非单调；all2all@32=16.9 远离第九波 3-seed 均值 5.13±2.2），与 D1 小样本端方差假设同向，亦提示 3 seeds 可能仍偏噪——判负标准 ③（可复现性）必要。scratch 产物未入库。
 
+**轮 2 记录（09-16 23:30 触发，D1 全量）**：
+- 代码：`sample_efficiency_eval.py` 加 `--probe_context`（默认关，既有产物字节可复现）+ `context_probe`（eval 前半拟合线性读出 context→ω，后半报逐轨迹相对误差 |ω̂−ω|/ω 与相关系数；symplectic rollout 需 `enable_grad`——`no_grad` 下 `dV_dq` 的内部 autograd 会断，已修）+ `tests/test_context_probe.py`（3 项：线性可恢复 / 无关 context 高误差 / NaN 相关折叠为 0 的 strict-JSON 安全）。
+- 命令：`.venv/bin/python benchmarks/sample_efficiency_eval.py --sizes 32,64 --n_seeds 3 --probe_context --out_dir benchmarks/physics_out_v02/d1_small_n`（7 分 57 秒；子目录隔离，第九波 5 档产物零覆盖）。
+- 溯源注记（诚实）：结果 JSON `meta.git_sha=34f9857`——诊断代码随本 commit 入库，属"先跑后提交"；复现所需全部超参在 JSON `args`，代码即本 commit 版本。
+- 验收门：pytest **72/72**（+3 新）、audit 全库 **14/14**。
+- **判定（对照预注册三标准逐条）**：
+  - ①「context 方差」归因：**否定**。all2all 的 ω̂ 解码误差不升反降——n=32 档 3/3 seeds 一致更低（约 −0.02），n=64 档 2/3 更低；相关系数 all2all 0.34 vs prefix 0.21。context 对 ω 的信息更足，rollout 却更劣——"半群小样本劣势源于辨识质量"不成立。
+  - ③ MSE 劣势可复现性：**方向可复现、幅度 seed 敏感**——n=64 均值差 +29%（4.79 vs 6.20）、n=32 +131%（5.01 vs 11.58），两档方向均与第九波一致；但逐 seed 2/3 同向 + 1 反转，均值差 <1σ → 触发③字面，记"第九波观察方向稳健、显著性不稳健（3 seeds 不足以钉死幅度）"。
+  - ② **成立（主判定）**：ω̂ 相当（一致地略优）但 MSE 仍劣 → 归因失败，**现象确认、机制未知**；劣势在"辨识→rollout"下游而非辨识环节本身。
+- 台账：PRINCIPLES P2 待消不确定性已按本证据更新（证据链：`benchmarks/physics_out_v02/d1_small_n/sample_efficiency_p11.json` + 曲线 JSONL）。
+- **下一步（D1b，强制浮现）**：训练目标–评测口径失配假设——all2all 优化的是轨迹内任意时间对的短程预测，评测却是 t_obs 后 100 步自由滚出；最便宜判别 = 同管线加 eval_k ∈ {1, 10, 100} 的 MSE 分解（若 all2all 短程不劣甚至更优、劣势随 eval_k 单调放大 → 失配归因成立；短程也劣 → 该假设亦否定，机制继续未定位）。预计 ~9 分钟/轮，单轮可容，00:00 触发执行。
+
 ---
 
 *本 PRD 与 `docs/architecture.md`（技术架构）配套阅读；架构决策细节以 ADR 为准。*
