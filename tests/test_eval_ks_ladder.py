@@ -17,12 +17,15 @@ from benchmarks.sample_efficiency_eval import run_one
 
 
 def _args(ks):
+    # NOTE: keep in sync with sample_efficiency_eval's argparse — every new
+    # run_one-visible flag must appear here (missed twice already).
     return argparse.Namespace(d_model=16, context_dim=4, n_scales=2,
                               hidden=16, dt=0.1, t_obs=8, k_train=4,
                               train_steps=5, lr=3e-3, lr_decay=1.0, batch=8,
                               eval_ks_list=ks, eval_k=max(ks), probe_context=False,
                               start_probe=False, start_mix=0.0,
-                              start_mix_window=1, n_eval=8,
+                              start_mix_window=1, two_stage=False,
+                              semigroup_frac=0.8, n_eval=8,
                               gen_steps=40, omega_lo=0.7, omega_hi=1.8)
 
 

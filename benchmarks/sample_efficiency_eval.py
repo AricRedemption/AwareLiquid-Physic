@@ -148,7 +148,17 @@ def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
                                    n_scales=args.n_scales,
                                    hidden_dim=args.hidden, depth=2,
                                    dt=args.dt)
-    if method == "all2all":
+    if method == "all2all" and args.two_stage:
+        sg_steps = int(args.train_steps * args.semigroup_frac)
+        floss = train_semigroup(model, pool_qs[tr], pool_ps[tr], args.t_obs,
+                                args.k_train, sg_steps, args.lr,
+                                args.batch, seed, lr_decay=args.lr_decay,
+                                start_mix=args.start_mix,
+                                start_mix_window=args.start_mix_window)
+        floss = train_prefix(model, pool_qs[tr], pool_ps[tr], args.t_obs,
+                             args.k_train, args.train_steps - sg_steps,
+                             args.lr, args.batch, seed, args.lr_decay)
+    elif method == "all2all":
         floss = train_semigroup(model, pool_qs[tr], pool_ps[tr], args.t_obs,
                                 args.k_train, args.train_steps, args.lr,
                                 args.batch, seed, lr_decay=args.lr_decay,
@@ -211,6 +221,14 @@ def main():
                     help="D1e (wave-10 round 6): pinned starts are uniform "
                          "in [t_obs, t_obs+w) instead of the single t_obs "
                          "point; w=1 (default) degenerates to D1d")
+    ap.add_argument("--two_stage", action="store_true",
+                    help="D1f (wave-10 round 13): all2all arm becomes a "
+                         "curriculum — semigroup for semigroup_frac of the "
+                         "budget, then the v0.1 prefix loop (endpoint-start "
+                         "finetune) for the rest; default off")
+    ap.add_argument("--semigroup_frac", type=float, default=0.8,
+                    help="fraction of train_steps spent in the semigroup "
+                         "stage when --two_stage is on")
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--device", default="cpu", choices=["cpu"],
                     help="protocol pinned to CPU (P5 same-device; loops and "
