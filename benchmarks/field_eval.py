@@ -219,7 +219,11 @@ def main():
                          "rollout_mse": mse_mean, "rollout_mse_std": mse_std,
                          "rollout_mse_stderr": sum(mse_ses) / len(mse_ses),
                          "energy_drift_max": drift_mean,
-                         "energy_drift_max_std": drift_std}
+                         "energy_drift_max_std": drift_std,
+                         # per-seed traceability (wave-10 round 9 gap): paired
+                         # multi-seed judgments need the per-seed values
+                         **{f"rollout_mse_seed{i}": m for i, m in enumerate(mses)},
+                         **{f"energy_drift_max_seed{i}": d for i, d in enumerate(drifts)}}
         print(f"  [{name:16s}] params {n_par:>6,} | n_seeds {args.n_seeds} | "
               f"rollout_mse {mse_mean:.4e} +/- {mse_std:.2e} | "
               f"energy_drift(max) {drift_mean:.4e} +/- {drift_std:.2e}", flush=True)
