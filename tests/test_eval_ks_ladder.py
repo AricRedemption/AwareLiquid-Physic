@@ -21,7 +21,8 @@ def _args(ks):
                               hidden=16, dt=0.1, t_obs=8, k_train=4,
                               train_steps=5, lr=3e-3, lr_decay=1.0, batch=8,
                               eval_ks_list=ks, eval_k=max(ks), probe_context=False,
-                              n_eval=8, gen_steps=40, omega_lo=0.7, omega_hi=1.8)
+                              start_probe=False, n_eval=8,
+                              gen_steps=40, omega_lo=0.7, omega_hi=1.8)
 
 
 def test_run_one_eval_ks_ladder():
@@ -42,3 +43,13 @@ def test_run_one_default_single_k_unchanged():
     res = run_one("all2all", 8, qs, ps, om, 0, _args([100]))
     assert "rollout_mse_k100" in res
     assert res["rollout_mse_k100"] == res["rollout_mse"]
+
+
+def test_run_one_start_probe():
+    torch.manual_seed(0)
+    g = torch.Generator().manual_seed(0)
+    qs, ps, om = gen_spring(16, 160, 0.1, 1, 0.7, 1.8, g)
+    a = _args([100])
+    a.start_probe = True
+    res = run_one("prefix", 8, qs, ps, om, 0, a)
+    assert res["mse_k1_interior"] >= 0.0   # finite 1-step interior-start MSE

@@ -116,6 +116,28 @@ def context_probe(model, qs, ps, omegas, t_obs):
             "ctx_corr": corr.item()}
 
 
+def start_probe(model, qs, ps, t_obs, seed):
+    """D1c diagnostic (wave-10 round-4 protocol): 1-step rollout MSE from
+    INTERIOR true states — all2all's training start distribution, prefix's
+    out-of-distribution — while the context is still inferred from the SAME
+    t_obs prefix, isolating the start-point axis with conditioning held fixed.
+    Compare against rollout_mse_k1 (endpoint start): if the all2all/prefix
+    gap shrinks on interior starts, the start-point mismatch is the mechanism.
+    """
+    model.eval()
+    n, steps = qs.shape[0], qs.shape[1]
+    g = torch.Generator().manual_seed(seed + 1000)   # deterministic per seed
+    t_idx = t_obs + torch.randint(0, steps - t_obs - 1, (n,), generator=g)
+    b = torch.arange(n)
+    q_obs, p_obs = qs[:, :t_obs], ps[:, :t_obs]
+    with torch.enable_grad():   # symplectic rollout differentiates V internally
+        ctx = model.infer_context(q_obs, p_obs)
+        qs1, ps1 = model.rollout(qs[b, t_idx], ps[b, t_idx], ctx, 1)
+    qs1, ps1 = qs1.detach()[-1], ps1.detach()[-1]
+    return (((qs1 - qs[b, t_idx + 1]).pow(2).mean()
+             + (ps1 - ps[b, t_idx + 1]).pow(2).mean())).item()
+
+
 def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
     """Train the SAME M1 model with ONE loop variant on n_train trajectories
     (nested slice of the shared pool) and return eval metrics."""
@@ -145,6 +167,9 @@ def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
     if args.probe_context:
         res.update(context_probe(model, pool_qs[ev], pool_ps[ev],
                                  pool_om[ev], args.t_obs))
+    if args.start_probe:
+        res["mse_k1_interior"] = start_probe(model, pool_qs[ev], pool_ps[ev],
+                                             args.t_obs, seed)
     return res
 
 
@@ -187,6 +212,11 @@ def main():
                          "first half of the eval pool, error on the second "
                          "half); default off keeps the original artifact "
                          "byte-reproducible")
+    ap.add_argument("--start_probe", action="store_true",
+                    help="D1c diagnostic (wave-10 round 4): 1-step MSE from "
+                         "interior true states (training-distribution starts "
+                         "for all2all) vs the endpoint k1; default off keeps "
+                         "existing artifacts byte-reproducible")
     args = ap.parse_args()
     args.eval_ks_list = sorted(int(k) for k in
                                (args.eval_ks if args.eval_ks is not None
@@ -267,6 +297,11 @@ def main():
                 results[f"{method}_n{n}"].update({
                     f"rollout_mse_k{k}_seed{i}": v[f"rollout_mse_k{k}"]
                     for i, v in enumerate(vals)})
+            if args.start_probe:
+                results[f"{method}_n{n}"].update({
+                    "mse_k1_interior": agg([v["mse_k1_interior"] for v in vals])[0],
+                    **{f"mse_k1_interior_seed{i}": v["mse_k1_interior"]
+                       for i, v in enumerate(vals)}})
 
     # --- P1-1 verdict: honest multi-level analysis ---------------------------
     # The naive "ratio at prefix's best line" degenerates when prefix SATURATES
@@ -375,6 +410,24 @@ def main():
                 parts.append(f"k{k}: {pm:.3e} vs {am:.3e} "
                              f"({am / pm:.2f}x)")
             print(f"  n_train {n:>4}:  " + "  |  ".join(parts), flush=True)
+
+    if args.start_probe:
+        print("\n  D1c start probe | 1-step MSE from interior true states vs "
+              "endpoint start (a2a/prefix ratio; start-point mismatch shrinks "
+              "the interior ratio)", flush=True)
+        for n in sizes:
+            for meth in ("prefix", "all2all"):
+                r = results[f"{meth}_n{n}"]
+                print(f"  n_train {n:>4} {meth:7s}: endpoint k1 "
+                      f"{r['rollout_mse_k1']:.3e}  interior k1 "
+                      f"{r['mse_k1_interior']:.3e}", flush=True)
+            if 1 in args.eval_ks_list:
+                rp = (results["all2all_n%d" % n]["rollout_mse_k1"]
+                      / results["prefix_n%d" % n]["rollout_mse_k1"])
+                ri = (results["all2all_n%d" % n]["mse_k1_interior"]
+                      / results["prefix_n%d" % n]["mse_k1_interior"])
+                print(f"  n_train {n:>4} ratio   : endpoint {rp:.2f}x  "
+                      f"interior {ri:.2f}x", flush=True)
 
     with open(os.path.join(args.out_dir, "sample_efficiency_p11.json"), "w") as f:
         json.dump({"args": vars(args),
