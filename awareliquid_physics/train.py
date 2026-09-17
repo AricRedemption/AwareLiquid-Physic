@@ -53,11 +53,52 @@ def _energy_of(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
     return model.ham.energy(qs, ps, ctx)          # (k+1, B)
 
 
+def _start_uncertainty(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
+                       t_obs: int, k_train: int, cand_cap: int = 32,
+                       n_pert: int = 4, scale: float = 0.1):
+    """N2 proxy (PRD §19 round 21): per-candidate-start rollout disagreement
+    under perturbed contexts. Returns (candidate_times, weights), weights =
+    softmax of the standardized mean-pairwise-disagreement of 1-step
+    predictions across n_pert context perturbations."""
+    was_training = model.training
+    model.eval()
+    S = qs.shape[1]
+    n_cand = min(cand_cap, S - k_train - t_obs)
+    # clamp: float linspace can round past the last valid start (t+1 must
+    # stay indexable, and train-time targets reach t0 + k_train)
+    cand_t = torch.linspace(int(t_obs), int(S - k_train - 1),
+                            n_cand).long().clamp(max=S - k_train - 1)
+    m = min(qs.shape[0], 32)
+    sub = slice(0, m)
+    with torch.enable_grad():   # rollout differentiates V internally
+        ctx = model.infer_context(qs[sub, :t_obs], ps[sub, :t_obs])
+        std = ctx.std(dim=0, keepdim=True) + 1e-8
+        q0 = qs[sub][:, cand_t].reshape(m * n_cand, -1)
+        p0 = ps[sub][:, cand_t].reshape(m * n_cand, -1)
+        preds = []
+        for _ in range(n_pert):
+            ctx_k = ctx + scale * std * torch.randn_like(ctx)
+            ctx_rep = ctx_k.repeat_interleave(n_cand, dim=0)
+            qs1, ps1 = model.rollout(q0, p0, ctx_rep, 1)
+            preds.append(torch.cat([qs1.detach()[-1], ps1.detach()[-1]], dim=-1))
+    P = torch.stack(preds)
+    pair = torch.zeros(P.shape[1])
+    for a in range(P.shape[0]):
+        for b in range(a + 1, P.shape[0]):
+            pair += (P[a] - P[b]).norm(dim=-1)
+    u = (pair / (P.shape[0] * (P.shape[0] - 1) / 2)).reshape(m, n_cand).mean(dim=0)
+    if was_training:
+        model.train()
+    weights = torch.softmax((u - u.mean()) / (u.std() + 1e-8), dim=0)
+    return cand_t, weights
+
+
 def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
                     t_obs: int, k_train: int, steps: int, lr: float,
                     batch: int, seed: int, drift_weight: float = 0.0,
                     lr_decay: float = 1.0, start_mix: float = 0.0,
-                    start_mix_window: int = 1
+                    start_mix_window: int = 1,
+                    adaptive_sampling: bool = False
                     ) -> float:
     """Semigroup (all2all) training loop — arbitrary start states after the
     prefix, fixed span k_train, optional drift penalty. Returns the final loss.
@@ -73,6 +114,10 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
     start_mix_window: pinned starts are drawn uniformly from
     [t_obs, t_obs + w) instead of the single t_obs point (D1e; w=1 degenerates
     to D1d's single-point pinning). Preserves neighbourhood diversity.
+    adaptive_sampling: N2 (wave-10 round 22) — every 200 steps re-estimate a
+    per-start-time uncertainty map (context-perturbation disagreement) and
+    sample t0 with P ∝ 0.5·uniform + 0.5·softmax(û). False (default) keeps
+    the RNG stream and behaviour identical to before.
     """
     g = torch.Generator().manual_seed(seed)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
@@ -82,11 +127,21 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
     model.train()
     loss = torch.tensor(float("nan"))
 
-    for _ in range(steps):
+    cand_t = cand_w = None
+    for step_i in range(steps):
         bi = torch.randint(0, n_traj, (batch,), generator=g)
         # Arbitrary start state STRICTLY after the observed prefix: the context
         # identifies the system, so it stays valid at any time point.
         t0 = torch.randint(t_obs, S - k_train, (batch,), generator=g)
+        if adaptive_sampling:
+            if step_i % 200 == 0:
+                cand_t, cand_w = _start_uncertainty(model, qs, ps,
+                                                    t_obs, k_train)
+                model.train()
+            use_uni = torch.rand(batch, generator=g) < 0.5
+            ada = cand_t[torch.multinomial(cand_w, batch, replacement=True,
+                                           generator=g)]
+            t0 = torch.where(use_uni, t0, ada)
         if start_mix > 0.0:   # D1d/D1e: mix in deployment-neighbourhood starts
             force = torch.rand(batch, generator=g) < start_mix
             w = max(1, min(start_mix_window, S - k_train - t_obs))

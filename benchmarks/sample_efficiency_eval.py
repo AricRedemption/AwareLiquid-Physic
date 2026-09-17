@@ -163,7 +163,8 @@ def run_one(method, n_train, pool_qs, pool_ps, pool_om, seed, args):
                                 args.k_train, args.train_steps, args.lr,
                                 args.batch, seed, lr_decay=args.lr_decay,
                                 start_mix=args.start_mix,
-                                start_mix_window=args.start_mix_window)
+                                start_mix_window=args.start_mix_window,
+                                adaptive_sampling=args.adaptive_sampling)
     else:
         floss = train_prefix(model, pool_qs[tr], pool_ps[tr], args.t_obs,
                              args.k_train, args.train_steps, args.lr,
@@ -229,6 +230,11 @@ def main():
     ap.add_argument("--semigroup_frac", type=float, default=0.8,
                     help="fraction of train_steps spent in the semigroup "
                          "stage when --two_stage is on")
+    ap.add_argument("--adaptive_sampling", action="store_true",
+                    help="N2 (wave-10 round 22): uncertainty-adaptive start "
+                         "sampling — every 200 steps refresh a per-start-time "
+                         "disagreement map and sample t0 with "
+                         "P ∝ 0.5·uniform + 0.5·softmax(û); default off")
     ap.add_argument("--batch", type=int, default=64)
     ap.add_argument("--device", default="cpu", choices=["cpu"],
                     help="protocol pinned to CPU (P5 same-device; loops and "

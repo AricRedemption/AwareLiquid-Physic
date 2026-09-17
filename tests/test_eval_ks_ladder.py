@@ -25,7 +25,8 @@ def _args(ks):
                               eval_ks_list=ks, eval_k=max(ks), probe_context=False,
                               start_probe=False, start_mix=0.0,
                               start_mix_window=1, two_stage=False,
-                              semigroup_frac=0.8, n_eval=8,
+                              semigroup_frac=0.8, adaptive_sampling=False,
+                              n_eval=8,
                               gen_steps=40, omega_lo=0.7, omega_hi=1.8)
 
 
