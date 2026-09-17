@@ -53,6 +53,7 @@ not purchasable by training recipes.
 | D1d | pin 50% of starts to the endpoint | endpoint k1 ratio **worse** (3.27→3.76x; 5/6 seed-pairs) — single-time pinning halves sampling diversity | `d1d_start_mix/` |
 | D1e | windowed neighbourhood (w=8) | gate failed (n=64 2.09x vs 1.28x line) — same as D1d | (screening, PRD §19 r6) |
 | D1f | two-stage curriculum (semigroup 80% → prefix 20%) | **tradeoff**: endpoint k1 still 1.75x; small-n k100 repaired (n=32: 0.66x vs prefix; n=64: 0.90x); large-n k100 advantage −27% vs pure semigroup (still 2.1x vs prefix) | `d1f_two_stage/` |
+| N2 | uncertainty-adaptive start sampling (context-perturbation disagreement, refreshed every 200 steps; P ∝ 0.5·uniform + 0.5·softmax(û)) | **closed**: endpoint k1 ratio 3.54x at n=64 (worse than plain semigroup's 1.44x); n=512 k100 retention 66% — adaptive redistribution within the orbit cannot buy the endpoint either | `n2_adaptive/` |
 
 ## 4. Reading
 
