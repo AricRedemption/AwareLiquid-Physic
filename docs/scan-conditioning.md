@@ -420,6 +420,44 @@ E1 机制链获得 VI 文献命名(amortization gap)+ 第三条独立修复候�
 R1(监督)/R1b(结构)/R1c(聚合器)——云回传判读按 12.3 分流。
 **[行动] 条目走条件性登记**(GOALS 注记,仿 R1b 先例)。
 
+## 13. 经验蒸馏 8(轮 70,2026-09-19,QUEUE-EMPTY 轮):LTC/CfC 工程前沿族
+
+> 新 query 族(与前十二族零重叠;轮 45 扫的是 system-ID 角度,本轮是
+> 基座工程角度)。标记:[坐标]。
+
+### 13.1 CfC 闭式基座:选型出处与精度边界 [坐标]
+
+- 【出处】[Closed-form continuous-time neural networks (Hasani et al., Nature MI 2022, ~394 引)](https://www.nature.com);
+  [官方实现 raminmh/CfC](https://github.com/raminmh/CfC)。
+- 【内容】CfC = LTC ODE 的解析近似,免数值求解器,训练/推理加速
+  10¹–10⁵×;基准上常匹配或超过完整 ODE 积分的 LTC。
+- 【对我们的映射】本仓 liquid_core.py 即闭式 LTC 路线(= CfC 家族)——
+  N1 基座小节必引。诚实 scope 补充:E1 的推断链在 amortization gap
+  (§12.1)之下还有一层 **闭式近似的 approximation 层**——oracle 与
+  liquid 的 −27% 缺口中,理论上可分离"推断器学不到"(摊销)与
+  "闭式族表达不了"(近似)两个子层;当前实验未分离,论文可作为
+  limitation 或后续工作注记(不改变现有结论,oracle 上界对两子层
+  一视同仁)。
+- 【适用条件】连续时间序列基座;我们满足。
+- 【验证状态】社区已验证;引用:立即可用。
+
+### 13.2 CfC 工程应用活跃度(2024-2025) [坐标]
+
+- 【出处】[滑模控制应用 (Urrea et al., MDPI 2024, 9 引)](https://www.mdpi.com);
+  医疗数字孪生/不规则采样时序/闭环控制应用线(2025 综述)。
+- 【内容】CfC 在控制与医疗时序持续落地,社区活跃。
+- 【对我们的映射】"liquid 系统辨识"研究载体的活跃性证据(论文
+  introduction 的领域热度句可引);P-CfC 门控变体(轮 41 登记)若
+  日后入队,有应用文献背书。
+- 【验证状态】社区已验证;引用:立即可用。
+
+### 蒸馏结论 8
+
+基座选型(CfC 闭式)获得 canonical 出处与活跃度证据;E1 的诚实 scope
+补一层(摊销 gap 之下的闭式近似层,未分离,作 limitation 注记)。
+本轮全 [坐标],不新增目标(闭式 vs ODE 消融属新实验,优先级让位
+R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)

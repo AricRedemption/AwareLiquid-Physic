@@ -29,10 +29,9 @@ blocked_on: >-
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-10
   (文献坐标;轮 61/63/65 蒸馏);updated 见下
-updated: 2026-09-19 06:3x (轮 69 工具类蒸馏:D6 窗口图谱协议固化为
-  identifiability_probe --window_scan(J/CRB/平台判定,audit 过,数字与
-  轮 64 逐项一致);TOOLS/PLAYBOOK 已回写。队列空,下一触发:R1/R2 云
-  回传 / 蒸馏 / 用户停)
+updated: 2026-09-19 06:5x (轮 70 经验蒸馏:§13 两条 [坐标] 类入库(CfC
+  基座 canonical 出处+N1 诚实 scope 补闭式近似层;工程活跃度证据)。队列空,
+  下一触发:R1/R2 云回传 / 蒸馏 / 用户停)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
