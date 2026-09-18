@@ -10,36 +10,44 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 周一至五 23:00-09:00(夜间cron);周六 09:00-23:00(全天候)
 current_goal: >-
-  N1 论文骨架已达 done_condition(Related Work 全文+表 1+主图引用+产物索引,
-  无占位);打包阶段完成。当前转入"等裁定+轻维护"阶段。
+  D2-CAPACITY 轮(G4 已达成弹出):M2 context→势能映射容量瓶颈实验的
+  实装与三臂判定(E1 oracle 上界分解 → E2 接口消融),预注册见
+  docs/d2-capacity-design.md。
 current_action: >-
   运行 ./scripts/goal_check 并按其 VERDICT 继续:ACHIEVED → 顶部目标已
   弹出并晋升下一位,对新目标执行其首个迭代步;NOT-Achieved → 对当前
   顶部目标迭代一步(未达成不停)。每轮心跳先校验,再干活。
+  当前顶部 G4-E1:实装 OracleOperator + oracle ctx 模式投影 + 线性探针
+  + 测试,跑 1-seed 三臂筛查落 d2_capacity/e1_screen。
 done_condition: >-
   队列空时进入文献扫描补队列;队列非空时永不停——每轮 goal_check 路由。
 blocked_on: >-
   1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
   领先 35+ 提交);3) N1 正式英文稿是否启动。
 next_trigger_hint: 夜间马拉松(23:00 启动,自循环至 09:00) / 用户"继续" / 兑底心跳(3h)
-pointer: docs/PRD.md §19(轮 44 隐藏集终跑为最新关键记录)
-updated: 2026-09-19 00:58 (goal_queue + 校验路由器上线)
+pointer: docs/PRD.md §19(轮 50 协议为最新记录;设计 docs/d2-capacity-design.md)
+updated: 2026-09-19 02:10 (G4 设计弹出,G4-E1/SCAN/E2 补池)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
 goal_queue:
-- id: G3
+- id: G4-E1
     track: engineering
-    goal: hidden 终跑一键化(scripts/hidden_check,自动登记消耗表)
-    done_condition: scripts/hidden_check 可执行且能跑标准 4 臂隐藏终跑
-    check_cmd: test -x scripts/hidden_check
-- id: G4
+    goal: D2-CAPACITY E1 实装+筛查(OracleOperator+模式投影+线性探针+测试,1-seed 三臂筛查)
+    done_condition: field_eval 支持 --oracle_ctx,三臂筛查 JSON 落 d2_capacity/e1_screen 且 pytest 全绿
+    check_cmd: test -f benchmarks/physics_out_v02/d2_capacity/e1_screen/field_eval.json
+- id: G4-SCAN
     track: frontier
-    goal: M2 context→势能映射容量瓶颈实验设计(P4 候选,设计文档)
-    done_condition: docs/d2-capacity-design.md 存在且含预注册协议段
-    check_cmd: grep -q "预注册" docs/d2-capacity-design.md 2>/dev/null
+    goal: 条件化接口文献/GitHub 扫描(FiLM/hypernet/concat 在 FNO 与 PDE 基础模型的条件化实践,谁做过、失败在哪)
+    done_condition: docs/scan-conditioning.md 存在且含至少 3 项相关工作注记
+    check_cmd: test -f docs/scan-conditioning.md
+- id: G4-E2
+    track: engineering
+    goal: D2-CAPACITY E2 接口消融(C-concat / C-hyper × 3 seeds,按 docs/d2-capacity-design.md §6 闸门)
+    done_condition: e2 结果 JSON 落 d2_capacity/e2 且判定入 PRD §19
+    check_cmd: test -f benchmarks/physics_out_v02/d2_capacity/e2/field_eval.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

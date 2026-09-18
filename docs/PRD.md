@@ -515,6 +515,15 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - 修正轮 44 的过度降级:"仅可见集成立"收紧为"6 pool 中 5 成立(几何 0.29x),单 pool 反转已定位(999)"。证据 `k100_seed_scan/`(audit 待跑)。
 - **下一步**:G3(hidden 终跑一键化)→ G4(M2 容量设计)。
 
+**轮 50 协议（G4 完成预注册：M2 容量瓶颈实验设计；09-19 02:05 触发，含 G3 工程补记）**：
+- G3 补记（工程轮,commit f28666a）:`scripts/hidden_check` 一键化落地(自动选未消耗 seed→标准 4 臂→H1/H2 机械判定→自动登记 RSI-INDEX 消耗表),done_condition(`test -x`)达成,goal_check 弹出。
+- **G4 设计文档落地:`docs/d2-capacity-design.md`**(预注册钉死,先于任何运行)。三竞争假设:**H_headroom**(任务无需逐轨迹辨识)/ **H_cap**(FiLM 接口参数化与真值"乘性、空间结构化"c(x) 依赖不对齐——ctx 影响被限在每块 2×32 标量的均匀通道调制)/ **H_infer**(liquid core 推断丢 4 模系数)。
+- **Oracle ctx 构造**:c(x) 族恰为 8 维线性(4 模 × sin/cos 系数),与 context_dim=8 同维;正交投影 (α,β)×4 / c_var,固定零学习、从头训练(C 臂),不做 eval 换 ctx(避免 OOD 污染)。
+- **E1 三臂上界分解**:A static / B liquid(inferred) / C oracle,semigroup 环、D2 同配置、3 seeds;主终点 ρ_CA、ρ_CB 几何均值比 + B 臂线性探针(移植 probe_context 惯例)。闸门:E1-a ρ_CA≥0.9(真信息经 FiLM 无价值)→E2 定夺;E1-b ρ_CB≤0.8 且探针良(≥0.8)→H_cap 主嫌疑;E1-c ρ_CB≤0.8 且探针差(<0.5)→H_infer;E1-null 中间带→预算升级后才有资格关闭。
+- **E2 接口消融(P4 三选一定案,E1 后无条件执行)**:C-concat(M1 ADR-4 胜者移植,+288 参数)/ C-hyper(低秩 r=8 通道混合超网,ctx 依赖严格更富,+~18k 参数);门:最优 geo(C′/C_FiLM)≤0.85 → 容量实锤进 ADR;全变体 |ratio−1|<0.10 且 E1-a → **P3 终收口:M2 系统辨识链路无 headroom,P4 在 M2 关闭**。通过时追加 B 臂端到端迁移补验。
+- 成本:E1 ~33 min、E2 ~22 min,单轮 ≤1h 红线内;产物 `d2_capacity/`,模型不入库。
+- **下一步（强制浮现）**:G4-E1 实装轮(OracleOperator+投影+探针+测试+1-seed 筛查)。
+
 **轮 44 判定（隐藏集终跑结果，一次性）**：
 - **H1 通过**：seed 999 上 prefix 剖面在 bin 2(其唯一训练起点)呈 **0.27x** 凹陷(可见集 0.37x,更深);all2all 平坦 std/mean **0.12**。D1g 机制**迁移成立**——起点失配不是 seed 过拟合。
 - **H2 失败且反转**：k100@512 比值 **1.293**(闸门 ≤0.60)——隐藏集上 **prefix 优 29%**,可见集(seeds 0/1/2)的 2.2–2.7x 半群优势**符号翻转**。方差源:prefix k100 跨 seed 剧烈波动(2.765→0.915),all2all 相对稳定(1.034→1.183)。
