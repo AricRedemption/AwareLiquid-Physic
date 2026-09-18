@@ -211,6 +211,66 @@ gap 存在 → 新归因因子 + 预注册 pushforward 协议(云交付);gap 不
 - 辩护价值:全部滚出 MSE 数字(R1/R2/E/D 系列)不受 exposure bias
   混淆,评测口径辩护成立。
 
+## 9. 经验蒸馏 4(轮 63,2026-09-19,QUEUE-EMPTY 轮):可辨识性与激励条件族
+
+> 新 query 族(与前七族零重叠):persistent excitation、最优实验设计、
+> concurrent learning。服务对象:E1 推断瓶颈的理论坐标 + Fisher 探针
+> 工具的文献命名。
+
+### 9.1 Persistent Excitation(自适应控制经典条件)
+
+- 【出处】 adaptive control 系统辨识经典条件([ScienceDirect 综述](https://www.sciencedirect.com);线性情形 HAL 2023)。
+- 【内容】PE 要求输入信号足够" rich "以保证参数收敛;是参数可辨识性
+  的标准充分条件,且有"难以检验"的著名缺点(Papusha)。
+- 【对我们的映射】`identifiability_probe.py` 的闭式 Fisher J(ω; t_obs)
+  正是 PE 的**量化版**:观测窗对 ω 的激励充分度。E1 的叙事可借 PE
+  词汇重述——"观测窗信息量(PE 充分度)是 oracle 上界的物理来源,
+  推断器损耗是其上的实现缺口"。Related Work 引它可把本仓探针接进
+  50 年的控制论文献线。
+- 【适用条件】参数辨识场景;对哈密顿参数(ω、场系数)直接适用。
+- 【验证状态】社区已验证(经典理论);命名/引用:立即可用。
+
+### 9.2 Concurrent Learning(Chowdhary & Johnson, CDC 2010,~570 引)
+
+- 【出处】Chowdhary & Johnson 2010(CDC/Georgia Tech PhD);finite-time
+  扩展 Parikh, Kamalapurkar & Dixon(~265 引);近期 Koopman 统一批在线
+  (Mazouchi et al., JMLR 2023)。
+- 【内容】用**记录数据复用**(recorded data pairs)替代当前信号持续
+  激励,在无 PE 条件下保证参数收敛——破 PE 的主流处方。
+- 【对我们的映射】train_semigroup 每步**随机 t0 重采样**(train.py:150)
+  本质是并发学习式数据复用:单窗不必持续激励,随机起点批的聚合覆盖
+  等效于 PE。这为"训练循环设计"提供理论辩护,也是 E1 判读的背景:
+  训练期信息覆盖 ≠ 单窗推断期信息——**推断器只拿一个 t_obs 窗,训练
+  拿全轨迹聚合**,这个不对称正是 E1 所测推断瓶颈的另一面表述。
+- 【适用条件】可记录历史数据的辨识/自适应控制;与 minibatch 随机
+  采样天然相容。
+- 【验证状态】社区已验证;对我们的适用判读:已判读(本轮,叙事级)。
+
+### 9.3 最优实验设计 OED(Rojas et al. 2007,~311 引;Fisher 驱动)
+
+- 【出处】[Rojas et al., min-max robust experiment design](https://www.sciencedirect.com)(~311 引);
+  Fisher 信息矩阵驱动的最优输入设计(经典教材线);非线性期望信息增益
+  ([Busetto et al., ICML](https://icml.cc))。
+- 【内容】以 Fisher 信息最大化为准则设计输入/实验条件;鲁棒版对
+  最坏情形参数取 min-max。
+- 【对我们的映射】仿真仓里我们**控制生成过程**(ω 采样分布、S、t_obs、
+  采样密度)——这就是 OED 的决策空间。现有闭式 J(ω; t_obs) 工具可
+  零算力产出**可辨识性图谱**(J 随 t_obs 的平台位置),为 E1 的
+  "信息预算分解"(窗口 Fisher 上界 vs oracle 可读出 vs 实际推断)提供
+  物理上界坐标 → 已追加 D6-INFO-BUDGET(零算力判读目标)。
+- 【适用条件】仿真数据可控生成场景(与我们完全一致)。
+- 【验证状态】社区已验证;对我们待验证(D6 判读收口)。
+
+### 蒸馏结论 4
+
+本族给 D2-CAPACITY 叙事补上控制论文献线:窗口信息量有名字(PE)、
+训练/推断的信息不对称有先例(concurrent learning 的聚合 vs 单窗)、
+上界刻画有方法论(OED/Fisher)。产出一个零算力深化目标
+D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
+放进"信息预算"框架。两种结局都可写:平台存在 → E1 缺口是纯推断
+损耗,叙事收紧;无平台 → 窗口信息仍在增长,oracle 上界解释需修正。
+**不存在白跑分支**。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
