@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# hidden_check — RSI-INDEX 隐藏集一次性终跑(G3/轮 49)
+#
+# 用法: ./scripts/hidden_check [--seed N]
+#   默认自动选取最小未消耗的隐藏 seed(998 递减,查 RSI-INDEX 消耗登记表)。
+# 流程: 对隐藏 seed 跑标准 4 臂(D1g 剖面 H1 + D2/H2 优势 k100),
+#       机械判定后自动登记进 RSI-INDEX 消耗表。
+# 判据(沿用轮 44 预注册): H1 = prefix 剖面凹陷(窗口邻域 min ≤0.6× 均值)
+#       且 all2all 平坦(std/mean ≤0.2);H2 = k100 比值 ≤0.6。
+set -euo pipefail
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO"
+SEED=""
+if [ "${1:-}" = "--seed" ] && [ -n "${2:-}" ]; then SEED="$2"; fi
+if [ -z "$SEED" ]; then
+  SEED=$(python3 - "$REPO/docs/loop/RSI-INDEX.md" <<'EOF'
+import re, sys
+used = set(int(m) for m in re.findall(r"\| (\d{3,4}) \|", open(sys.argv[1]).read()))
+for s in range(998, 900, -1):
+    if s not in used:
+        print(s); break
+EOF
+)
+fi
+echo "[hidden_check] seed=$SEED"
+OUT="benchmarks/physics_out_v02/hidden_final/sweep_$SEED"
+PY=.venv/bin/python
+
+$PY benchmarks/start_time_sweep.py --sizes 64 --n_seeds 1 --seed "$SEED" \
+    --save_dir "/tmp/hidden_models_$SEED" --out_dir "$OUT" >/dev/null
+$PY benchmarks/sample_efficiency_eval.py --sizes 512 --n_seeds 1 --seed "$SEED" \
+    --eval_ks 1,100 --out_dir "$OUT/se" >/dev/null
+
+$PY - "$OUT" "$SEED" "$REPO" <<'EOF'
+import json, re, statistics as st, sys, datetime
+out, seed, repo = sys.argv[1], sys.argv[2], sys.argv[3]
+d = json.load(open(f"{out}/start_time_sweep.json"))["results"]
+p = d["prefix_n64"]["profile_mean"]; a = d["all2all_n64"]["profile_mean"]
+mean_p = st.mean(p)
+h1 = (min(p[0:4]) / mean_p <= 0.6) and (st.pstdev(a) / st.mean(a) <= 0.2)
+s = json.load(open(f"{out}/se/sample_efficiency_p11.json"))["results"]
+r = s["all2all_n512"]["rollout_mse_k100"] / s["prefix_n512"]["rollout_mse_k100"]
+h2 = r <= 0.6
+verdict = f"H1 {'✓' if h1 else '✗'}(prefix凹陷 {min(p[0:4])/mean_p:.2f}x, a2all平坦 {st.pstdev(a)/st.mean(a):.2f}) · H2 {'✓' if h2 else '✗'}(k100比值 {r:.2f})"
+# 登记进 RSI-INDEX 消耗表
+rp = f"{repo}/docs/loop/RSI-INDEX.md"
+table = "| seed | 消耗轮次 | 检验对象 | 结果 |"
+row = f"| {seed} | hidden_check 自动 | D1g 剖面(H1)+ k100 优势(H2) | {verdict} |"
+src = open(rp).read()
+if row not in src:
+    src = src.replace(table, table + "\n" + row)
+open(rp, "w").write(src)
+print(f"H1: {'PASS' if h1 else 'FAIL'} | H2: {'PASS' if h2 else 'FAIL'} | seed {seed} 已登记")
+EOF
