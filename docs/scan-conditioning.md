@@ -458,6 +458,33 @@ R1(监督)/R1b(结构)/R1c(聚合器)——云回传判读按 12.3 分流。
 本轮全 [坐标],不新增目标(闭式 vs ODE 消融属新实验,优先级让位
 R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
 
+## 14. 经验蒸馏 9(轮 71,2026-09-19,QUEUE-EMPTY 轮):观测噪声与 sim-to-real 族
+
+> 新 query 族(与前十三族零重叠);触发:轮 71 代码判读发现本仓数据
+> 无观测噪声(datasets.py 的 randn 全为初始状态抽样,无噪声项)。
+> 标记:[坐标]。
+
+### 14.1 无噪仿真训练的真实数据泛化边界 [坐标]
+
+- 【出处】[Provable Observation Noise Robustness (arXiv:2312.00301)](https://arxiv.org/abs/2312.00301);
+  [Robust ID of Partially Observed Systems (arXiv:2504.18076)](https://arxiv.org/abs/2504.18076);
+  深度学习+系统辨识噪声分析(IFAC);噪声注入正则(IEEE 2020)。
+- 【内容】文献一致:无噪仿真训练的模型对噪声真实观测泛化弱;
+  处方 = 训练期噪声注入(数据增强)/可证鲁棒认证/去噪架构。
+- 【对我们的映射】① 本仓数据无噪 ⇒ 现有结论的范围声明须写
+  "noise-free simulation system identification"(N1 自洽,防评审
+  sim-to-real 追问);② D6 的 CRB(σ=1)是**保守假设值**——真实数据
+  无噪,层 1(窗口物理信息)非瓶颈的结论加强(代码判读注记已入
+  PRD §19 轮 71);③ 未来若开噪声鲁棒线:噪声注入增强是首处方,
+  届时预注册。
+- 【适用条件】仿真数据训练的一切本仓实验。
+- 【验证状态】社区已验证;范围声明引用:立即可用。
+
+### 蒸馏结论 9
+
+一条代码判读(datasets 无噪确认)+ 一条 [坐标] 入库(sim-to-real
+边界与处方)。蒸馏轮第 7 次达标。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)

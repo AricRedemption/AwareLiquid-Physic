@@ -29,9 +29,10 @@ blocked_on: >-
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-10
   (文献坐标;轮 61/63/65 蒸馏);updated 见下
-updated: 2026-09-19 06:5x (轮 70 经验蒸馏:§13 两条 [坐标] 类入库(CfC
-  基座 canonical 出处+N1 诚实 scope 补闭式近似层;工程活跃度证据)。队列空,
-  下一触发:R1/R2 云回传 / 蒸馏 / 用户停)
+updated: 2026-09-19 07:0x (轮 71 判读+蒸馏:datasets 无噪确认——D6 CRB
+  为 σ=1 保守假设值,层 1 非瓶颈加强,引用须附假设声明(PRD §19 轮 71);
+  §14 sim-to-real 边界 [坐标] 入库。队列空,下一触发:R1/R2 云回传 /
+  蒸馏 / 用户停)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
