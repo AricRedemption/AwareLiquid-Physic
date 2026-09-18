@@ -21,7 +21,8 @@
 - 新踩的坑回写 docs/loop/PLAYBOOK.md;新工具回写 docs/loop/TOOLS.md;对循环自身的改进提案写 docs/loop/AMENDMENTS.md(不自行改本 prompt 与宪法)。
 
 纪律以工作区 AGENTS.md 为准。分支模型(AMM-003/005):`wave/loop` = 集成线(所有已验证成果汇入);**每个新方向自 wave/loop 切 `dir/<slug>` 分支,单因子迭代到底**——方向 done_condition 达成且判据/隐藏验证通过 → 开 PR(dir/<slug> → 集成线;origin/master 追平后可直接开到 master),合并仍人工;新方向 = 新分支 = 新 PR。不改写历史判定行;不 push master/origin;不提交 .pt;隐藏集终跑用 ./scripts/hidden_check(seed 999 已退役,998 递减)。
-停止条件(收紧版,2026-09-19):**队列空 ≠ 可以停**。队列空时必须进入经验蒸馏轮;只有满足以下全部条件才允许停止——① 连续 2 轮、使用不同 query 族的扫描均无产出(每轮附 query 清单与检索证据);② 无任何"零算力可推进"的深化目标(如已有方向的英文稿/图表化/设计 v2——这类目标直接入队执行,不需要等待批准);③ 剩余工作全部外部阻塞且已登记欠账。时间一律用 `date` 命令实测,禁止凭印象写时间戳。除此之外:队列非空就不停,未达成就一直迭代。
+纪律以工作区 AGENTS.md 为准。分支模型(AMM-003/005):`wave/loop` = 集成线(所有已验证成果汇入);**每个新方向自 wave/loop 切 `dir/<slug>` 分支,单因子迭代到底**——方向 done_condition 达成且判据/隐藏验证通过 → 开 PR(dir/<slug> → 集成线;origin/master 追平后可直接开到 master),合并仍人工;新方向 = 新分支 = 新 PR。不改写历史判定行;不 push master/origin;不提交 .pt;隐藏集终跑用 ./scripts/hidden_check(seed 999 已退役,998 递减)。
+停止规则:只在三种情况停止——① 你设定的收尾时间到(先做收尾动作:PRD §19 收尾记录 + RSI-INDEX 指数入账 + 删除 .loop-lock);② 全部方向 BLOCKED-HUMAN(写明问题);③ 经验蒸馏连续 2 轮、不同 query 族扫描均无产出且无零算力深化目标(附每轮 query 清单,时间用 date 实测)。除此之外:队列非空就迭代,未达成就继续。
 ```
 
 **需要算力的目标的一生**(详见 PRD §19 各轮协议):发现(本地探针)→ 预注册验收标准(本地文档)→ PR 交付算力(含隐藏卷终跑指令)→ 结果回传 → 机械验收 → 毕业弹出/如实记负。
