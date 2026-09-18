@@ -139,6 +139,66 @@ N1 的 Related Work 已有"自主研究循环"小节;本条给它的 novelty 补
 完整协议无成文先例)。写作时引用 CNO-RPB/PDEBench 作为"评测标准化
 努力"的最近邻,然后指出隐藏集维度空白。
 
+## 8. 经验蒸馏 3(轮 61,2026-09-19,QUEUE-EMPTY 轮):长时程滚出稳定性与多步训练族
+
+> 新 query 族(与前六族零重叠):pushforward/多步滚出损失、辛积分
+> 网络训练、exposure bias 处方谱系。直接服务滚出 MSE 评测口径的辩护
+> 与 N1 Related Work。
+
+### 8.1 Pushforward trick 与自回归分布漂移(Brandstetter et al., ICLR 2022)
+
+- 【出处】[Message Passing Neural PDE Solvers (arXiv:2202.03376)](https://arxiv.org/pdf/2202.03376);
+  [ICLR blog 重述(2023)](https://iclr-blogposts.github.io/2023/blog/2023/autoregressive-neural-pde-solver)。
+- 【内容】诊断:自回归神经求解器**训练吃真值前缀、测试吃自己的预测**
+  → 输入分布漂移 → 误差复利,长滚出崩。处方 pushforward trick:训练时
+  下一步输入改用模型自身滚出(detach),配合多步/全展开损失。
+- 【对我们的映射】我们的评测口径正是自回归滚出 MSE,而训练循环
+  (prefix/semigroup)是否暴露于自预测**未系统判读过**——若训练全吃
+  真值前缀,则存在与评测口径的结构性 exposure gap,这可能是滚出误差
+  的一个未被归因过的来源(D1-D4 均未涉及此因子)。
+- 【适用条件】自回归多步预测 + 一步式/短展开训练;对仿真数据同样成立。
+- 【验证状态】社区已验证(ICLR 2022 高引);**对我们待验证**——零算力
+  代码判读先行(→ D5-EXPOSURE 入队)。
+
+### 8.2 Pushforward 的低幅信息局限(Havrilla et al.?, NeurIPS 2023)
+
+- 【出处】[Achieving Accurate Long Rollouts with Neural PDE Solvers (NeurIPS 2023)](https://papers.neurips.cc/paper_files/paper/2023/file/d529b943af3dba734f8a7d49efcb6d09-Paper-Conference.pdf)。
+- 【内容】pushforward 解决输入漂移但**捕捉不了低幅信息**,长程统计
+  (谱/能量)仍不准;需时间展开加权/谱修正补足。
+- 【对我们的映射】能量守恒由构造保证(硬约束),低幅问题在我们这里
+  会表现为**高频细结构糊化而能量统计正常**——若未来滚出判读出现
+  "能量对但细节糊",此条即坐标,防止误判为容量问题。
+- 【适用条件】长程统计评测的滚出模型;我们暂未到该判读阶段。
+- 【验证状态】社区已验证;**对我们暂不适用**,备用注记。
+
+### 8.3 SRNN:辛递归网络(Chen et al., ICLR 2020,~372 引)
+
+- 【出处】[Symplectic Recurrent Neural Networks (arXiv:1909.13334)](https://arxiv.org/abs/1909.13334);
+  [官方实现](https://github.com/zhengdao-chen/SRNN)。
+- 【内容】神经网络哈密顿量 + leapfrog(Störmer–Verlet)积分器展开 +
+  多步 BPTT 训练;展示对噪声哈密顿系统的稳定滚出。
+- 【对我们的映射】"哈密顿头 + 辛积分滚出"结构的直系先例——Related
+  Work 必引;其多步展开训练与我们滚出损失的对应关系按 D5 判读收口。
+- 【适用条件】可微哈密顿参数化 + 可积积分器(与我们一致)。
+- 【验证状态】社区已验证;引用:立即可用。
+
+### 8.4 Exposure bias 处方谱系(Bengio 2015 → Professor Forcing 2016 → DySI 2023)
+
+- 【出处】Scheduled Sampling(Bengio et al., NeurIPS 2015);[Professor Forcing (Lamb et al., NeurIPS 2016)](https://papers.nips.cc)——其 T-SNE 证据显示训练后自由滚出与 teacher-forced 两种模式的**隐藏状态动力学**对齐;DySI(Lin et al., 2023, OpenReview)修正 schedule 缺陷。
+- 【内容】exposure bias 的三代处方:采样课程 → 对抗对齐动力学 → 模仿损失。
+- 【对我们的映射】prefix(teacher-forced)与 semigroup(自回归)双训练
+  循环的分歧是 exposure bias 的架构内版本;D5 若量化出 gap,处方可从
+  本谱系直接取(pushforward 是 PDE 版 scheduled sampling)。
+- 【适用条件】序列/动力学模型的 teacher-forcing 训练。
+- 【验证状态】社区已验证;对我们待 D5 判读后适用。
+
+### 蒸馏结论 3
+
+本轮产出一个**零算力深化目标**(已追加 GOALS 队尾):D5-EXPOSURE
+——判读训练循环输入构造与滚出评测口径的一致性。两种结局都可写:
+gap 存在 → 新归因因子 + 预注册 pushforward 协议(云交付);gap 不存在
+→ 评测口径辩护成立 + 8.3/8.4 收进 Related Work。**不存在白跑分支**。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)

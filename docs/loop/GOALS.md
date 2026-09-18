@@ -10,32 +10,49 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 周一至五 23:00-09:00(夜间cron);周六 09:00-23:00(全天候)
 current_goal: >-
-  夜 3 收口(轮 50-60):D2-CAPACITY 全链闭环——E1 推断瓶颈(oracle −27%
-  兑现于同一接口 × 双探针≈0)、E3 容量否定、E4a 饥饿确认(3.97e-3)、
-  R1/R2 云交付包+欠账 ~70min;RSI 夜 3 行已入账(≈0.66)。队列穷尽,
-  剩余工作全部外部阻塞(云回传/人工裁定)。
+  D5-EXPOSURE(轮 61 入队,源:经验蒸馏轮 61 扫描 §8):判读
+  prefix/semigroup 训练循环的输入构造与自回归滚出评测口径的一致性
+  (exposure gap 是否存在;文献坐标 Brandstetter 2022 pushforward)。
+  零算力目标:代码判读 + 报告 + 视结论预注册协议。
 current_action: >-
   运行 ./scripts/goal_check 并按其 VERDICT 继续:ACHIEVED → 顶部目标已
   弹出并晋升下一位,对新目标执行其首个迭代步;NOT-Achieved → 对当前
   顶部目标迭代一步(未达成不停)。每轮心跳先校验,再干活。
-  队列空(穷尽,query 清单见 PRD §19 轮 60 与 scan-conditioning.md)。
-  下一触发:按最新 GOAL-PROMPT.md(停止条款 v2)进入经验蒸馏轮补池;
-  或 R1/R2 云结果回传(机械验收 §12.3 判据)→ E2 条件性重入口视 ρ_CB′;
-  或用户"继续"。
+  队列非空(D5-EXPOSURE,轮 61 补池),不再空转。
+  外部触发仍然有效:R1/R2 云结果回传(机械验收 §12.3 判据)→ E2
+  条件性重入口视 ρ_CB′;或用户"继续"。
 done_condition: >-
-  队列空时进入文献扫描补队列;队列非空时永不停——每轮 goal_check 路由。
+  D5 判读报告(gap 定性 + 证据行号)入 PRD §19;gap 存在则 pushforward
+  变体协议预注册(判负标准/seeds/命令/时长)+ 云欠账登记;pytest 全绿
+  + audit --check 全过 + 原子提交 push。
 blocked_on: >-
   1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
   领先 35+ 提交);3) N1 正式英文稿是否启动。
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
-pointer: docs/PRD.md §19(轮 60 收尾记录;设计 docs/d2-capacity-design.md §12;RSI-INDEX 夜 3 行)
-updated: 2026-09-19 04:07 (一致性终检:修正时间戳与失效触发引用;分支模型 AMM-005 已同步)
+pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8
+  (文献坐标;轮 61 蒸馏);updated 见下
+updated: 2026-09-19 05:1x (轮 61 经验蒸馏:§8 四条入库(出处+适用条件+
+  验证状态),D5-EXPOSURE 方向类追加队尾,队列恢复非空)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+  - id: D5-EXPOSURE
+    track: engineering
+    goal: >-
+      滚出口径一致性判读:prefix/semigroup 训练循环输入构造(真值前缀
+      vs 模型自预测)与自回归滚出评测口径对比,定性 exposure gap。
+      零算力(代码判读+文档);文献坐标 scan-conditioning.md §8
+      (pushforward/SRNN/exposure-bias 谱系)。
+    done_condition: >-
+      判读报告入 PRD §19(逐路径证据:训练输入来源行号 + 评测输入
+      来源行号 + gap 定性结论);gap 存在 ⇒ pushforward 变体协议预注册
+      (动机/判负标准/seeds/完整命令/冒烟校准时长)入 PRD §19 并登记
+      云欠账;gap 不存在 ⇒ 评测口径辩护段落入 PRD §19 + Related Work
+      引用清单(scan §8.3/8.4)入 scan 档案。pytest 全绿 + audit
+      --check 全过 + 原子提交 push wave/loop。
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
