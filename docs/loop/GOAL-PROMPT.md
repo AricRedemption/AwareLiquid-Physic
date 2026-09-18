@@ -5,7 +5,7 @@
 > 本文件由 AMENDMENTS 提案制维护;改这里的规则 = 改循环自身,走提案。
 
 ```text
-/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环迭代本项目:每轮先跑 ./scripts/goal_check 校验顶部目标——NOT-Achieved 则对该目标迭代一轮,ACHIEVED 则弹出晋升下一个,QUEUE-EMPTY 则文献/GitHub 扫描补池;直到我设定的收尾时间为止,中途不停。
+/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环迭代本项目:每轮先跑 ./scripts/goal_check 校验顶部目标——NOT-Achieved 则对该目标迭代一轮,ACHIEVED 则弹出晋升下一个,QUEUE-EMPTY 则进入**经验蒸馏轮**(社区/论文扫描:找有效经验与前沿方向,每条按"出处+适用条件+验证状态"入库——操作类固化进 PLAYBOOK、工具类实现进 TOOLS、方向类追加 GOALS 队尾;本轮交付=≥1 条入库条目或 ≥1 个新目标);直到我设定的收尾时间为止,中途不停。
 
 迭代纪律:
 - 算力闸门(硬,每轮动手前必过):本机**不做任何训练/批量评测/长跑类执行——无论预计时长**。凡是"要跑结果"的任务:① 预注册协议(写进 docs/PRD.md §19:动机、判负标准、seeds、完整命令、预计时长);② 把可执行产物(脚本/参数/判据)做成 PR 交付云算力/他人执行;③ 在 PRD §19 登记云算力欠账;④ 立即换下一方向,绝不本地硬跑、绝不为等结果阻塞。
