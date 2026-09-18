@@ -23,7 +23,15 @@ the curriculum trades 27% of the large-sample advantage for a partial
 small-sample mid-horizon repair. We conclude the advantage and the
 disadvantage are **same-sourced**: the any-time-pair property that wins at
 scale is what dilutes deployment-start precision, and endpoint precision is
-not purchasable by training recipes.
+not purchasable by training recipes. On the field task (M2), a preregistered
+three-arm decomposition locates the *opposite* failure: the conditioning
+interface and the task both leave room for system identification (an oracle
+context buys 27% through the *same* interface), yet the training objective
+never forces the recurrent core to write the latent into its context at all
+— capacity doubling leaves the decodable information at zero (linear *and*
+nonlinear probes). The value of identification is thus bounded by an
+objective-side signal, not by interface expressiveness; see §5,
+*Conditioning interfaces*.
 
 ## 1. Setup
 
@@ -112,6 +120,55 @@ bounds its linear-case approximation error *independently of the input
 path*. §8 uses this to argue the mismatch must be a training-distribution
 property of the learned components — and registers the gated-architecture
 prediction P-CfC as an untested cross-architecture falsification.
+
+**Conditioning interfaces and the inference bottleneck (wave-10 G4 rounds,
+2026-09-19).** How a latent code should enter a spectral potential —
+concatenation, feature-wise modulation (FiLM), or hypernetworks — is a
+settled *expressiveness* question with a known taxonomy (Mehta et al.,
+ICCV 2021: modulation matches hypernetworks at an order of magnitude less
+parameters and beats concatenation), and both FiLM-conditioned FNOs
+(UFNO-FiLM, arXiv 2025) and hypernetwork-conditioned FNOs (HyperFNO,
+NeurIPS ML4PS) work in practice. But all of these condition on
+*supervised* codes: the PDE coefficients are given. The original FNO
+likewise takes the coefficient *field* as an input channel, never
+compressing it. None of this literature touches the question our M2 task
+poses: when the code must be **inferred** by a recurrent core from a
+short prefix, does the training objective even write the latent into the
+code? Our preregistered three-arm decomposition answers no, and cleanly:
+
+| arm (semigroup loop, inhomogeneous c(x), 3 seeds) | rollout MSE |
+|---|---|
+| A static (context = 0) | 2.0426e-2 ± 3.3e-4 |
+| B liquid (inferred context) | 2.0004e-2 ± 3.5e-4 |
+| **C oracle (true c(x) projected to its exact 8-coefficient basis)** | **1.4834e-2 ± 1.9e-4** |
+| B at d_model 96 / 192 (capacity dose) | 1.030x / 1.015x of B(d48) |
+| linear / MLP probe of B's context → true coefficients | corr ≈ 0.014 / ≈ 0.02 (all scales) |
+
+Three facts chain into one conclusion. (i) *The task pays for
+identification*: the oracle arm beats static by 27% — so the near-zero
+end-to-end gain is not "an average medium is good enough". (ii) *The
+interface delivers*: C flows through the same FiLM-conditioned spectral
+potential as B, so channel-affine modulation is not the binding
+constraint (contra the M1 ADR-4 intuition that FiLM was the weak
+interface — there the latent was a single uniform ω, and concat still
+won; here the latent is a spatial field and FiLM transmits it fine *when
+given*). (iii) *The objective never writes the latent*: doubling the
+core twice moves neither MSE (≤ +3%) nor decodable information (linear
+AND nonlinear probes ≈ 0 at every scale), so the failure is not
+capacity. The bottleneck is the **training objective's gradient signal
+to inference** — on M2, an average-medium potential fits k=8 one-step
+targets without per-trajectory information, so no gradient pressure ever
+reaches the context path. This mirrors the start-state story of §2-4 at
+a deeper level: both failures are *objective-sampling* properties, not
+architectural ones — hard constraints fix the physics but cannot make
+the loss ask for identification. The oracle bound (−27%) against the
+end-to-end reality (~0%) is the paper's cleanest quantification of what
+identification is worth and of exactly where the gap lives.
+
+Artifacts: `physics_out_v02/d2_capacity/{e1_screen,e1_final,e3_d96,e3_d192}/`
+(local-only, numbers in PRD §19 rounds 50-52; design + preregistration in
+`docs/d2-capacity-design.md`; literature scan in
+`docs/scan-conditioning.md`).
 
 **Autonomous research loops.** Our iteration engine itself — preregistered
 judgement criteria, one-shot hidden-set final runs (seed 999: mechanism

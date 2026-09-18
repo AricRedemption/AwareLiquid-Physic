@@ -12,6 +12,8 @@
 | `goal_check` | **目标校验路由器**(每轮心跳第一步):验 goal_queue 顶部 done_condition,达成自动弹出晋升 | `./scripts/goal_check`;退出码 0=达成已弹出 / 1=未达成继续迭代 / 2=队列空 |
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}` |
+| `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}`;G4-E1 起:`--oracle_ctx`(三臂上界分解+线性/MLP 双探针)、`--arms`(选臂子集,算力闸门合规) |
+| `oracle_ctx_matrix` / `OracleOperatorWrapper` / `field_context_probe` / `mlp_context_probe` | D2-CAPACITY 工具组:真 c(x) 8 系数投影、前缀指纹查表注入、线性/非线性可读出探针 | `benchmarks/field_eval.py`;测试 `tests/test_oracle_ctx.py` |
 | `audit_results.py` | 结果 JSON 溯源 schema 审计(--check 为提交门) | `--check [目录]` |
 | `m1_semigroup_eval.py` | 半群 vs prefix 主对照(gen_spring 出处) | — |
 | `energy_drift_eval.py` | P0-3 守恒漂移对照 | — |
