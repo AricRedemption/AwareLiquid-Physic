@@ -35,6 +35,9 @@ def test_stale_lock_allows_start():
     old = int(time.time()) - 6001          # >100 分钟
     with open(LOCK, "w") as f:
         f.write(str(old))
+    os.utime(LOCK, (old, old))             # 回拨 mtime,模拟"久未刷新"
     assert _run() == 0                     # 过期锁 = 放行
+    if os.path.exists(LOCK):
+        os.remove(LOCK)
     if os.path.exists(LOCK):
         os.remove(LOCK)
