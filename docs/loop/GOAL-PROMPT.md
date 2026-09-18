@@ -15,8 +15,12 @@
 - 收尾时间到(我指定,或默认 08:30/23:00):在 PRD §19 写收尾记录,并按 docs/loop/RSI-INDEX.md 计算当夜指数(K/E/T/D/T+/A+复合)入账 → 停止本会话。
 - 上下文过长或单目标卡住超过两轮:把状态快照进 docs/loop/GOALS.md 后结束本轮;重开新会话粘贴本 prompt 即无缝续跑。
 - 需要人决策的事:GOALS.md 的 state 改 BLOCKED-HUMAN 并写明问题,停止。
+- 每轮收尾强制回写:至少一条经验/教训/坑到 docs/loop/PLAYBOOK.md(没有坑就写一条被验证有效的做法)——大厂"抓问题→学经验→升级"的最小落地。
+- 结论类目标(得出"X 比 Y 好"类定量结论)的交付 PR 必须包含隐藏卷终跑指令(用未消耗 seed 复验主结论);隐藏结果回传并通过判据后,目标才算达成弹出——防被单次抽签骗。
 - 新踩的坑回写 docs/loop/PLAYBOOK.md;新工具回写 docs/loop/TOOLS.md;对循环自身的改进提案写 docs/loop/AMENDMENTS.md(不自行改本 prompt 与宪法)。
 
 纪律以工作区 AGENTS.md 为准:只在 wave/loop 分支写;不改写历史判定行;不合并 PR;不 push master/origin;不提交 .pt;隐藏集终跑用 ./scripts/hidden_check(seed 999 已退役,998 递减)。
 停止条件:队列真穷尽(附扫描 query 清单)或全部 BLOCKED-HUMAN。被中断前,确保最近一轮已原子提交。
 ```
+
+**需要算力的目标的一生**(详见 PRD §19 各轮协议):发现(本地探针)→ 预注册验收标准(本地文档)→ PR 交付算力(含隐藏卷终跑指令)→ 结果回传 → 机械验收 → 毕业弹出/如实记负。
