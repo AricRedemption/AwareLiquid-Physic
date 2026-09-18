@@ -23,4 +23,16 @@
 
 ## 提案列表
 
-(空)
+### AMM-001: cron 提示词瘦身为哑触发器,智能迁入 GOALS.md 程序计数器
+- 动机:循环规程作为静态大块存在 cron 提示词里,已三次 CronUpdate 迭代,
+  越长越锈(提示词被当数据库用);且人开的会话拿不到循环规程。
+- 提案 diff:① 新增工作区 `AGENTS.md` 宪法(每个会话自动加载:入口规则、
+  铁律、度量指针);② 新增 `docs/loop/GOALS.md` 程序计数器(state/
+  current_goal/current_action/done_condition,ACE 式演化状态);③ cron
+  提示词缩为"夜间心跳:按 AGENTS.md 与 GOALS.md 执行 current_action,
+  推进并原子提交;08:30 收尾轮按 RSI-INDEX 计算指数"。
+- 风险与回滚:cron 会话若不自动加载 AGENTS.md 则丢失规程——回滚 = 恢复
+  本文件历史版本中的完整提示词(git 可溯);GOALS.md 与 PRD §19 职责
+  重叠部分以"元状态 vs 研究记录"划分,不复制真相。
+- 状态:**APPLIED**(2026-09-18,AricRedemption 当日明确要求重构 goal
+  prompt 为目标驱动循环,视为批准;本轮实施)
