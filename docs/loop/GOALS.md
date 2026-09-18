@@ -29,9 +29,9 @@ blocked_on: >-
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8
   (文献坐标;轮 61 蒸馏);updated 见下
-updated: 2026-09-19 05:3x (轮 63 经验蒸馏:§9 三条入库(PE/concurrent
-  learning/OED,出处+适用条件+验证状态);D6-INFO-BUDGET 零算力目标入队,
-  check_cmd 已带)
+updated: 2026-09-19 05:4x (轮 64:D6-INFO-BUDGET 判读完成——J(t_obs) 图谱
+  近 t³ 无平台,CRB(24)=0.084 层 1 非瓶颈,E1 缺口锁定推断提取层;
+  记录入 PRD §19 轮 64。待下轮 goal_check 弹出)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
