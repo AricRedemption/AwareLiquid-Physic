@@ -14,6 +14,27 @@
 - 状态:PROPOSED / APPROVED / REJECTED / APPLIED
 ```
 
+### AMM-003: 方向-分支-PR 交付模型 + 周六全天候 + 迭代开关按钮
+- 动机(AricRedemption 2026-09-19 对齐结论):① 一个方向一个分支、单因子
+  迭代到位(创新性或工程性)后**开 PR 到远程**作为交付单元;新方向开新
+  分支新 PR。② 周一至五夜间 cron 照旧;**周六全天候迭代**。③ 要一个
+  **开关按钮**:贴 Goal Prompt / 定义时间段 / 随时启停。
+- 提案 diff:
+  1. GOALS.md 增 `mode`(ON/OFF,迭代总开关)与 `iteration_window`
+     (当前生效时段,周六全天候时为 00-24)字段;
+  2. 新增 `scripts/iteration`(start/stop/status 按钮:改 GOALS.md 的
+     mode/window;start 可贴 goal 文本直接写入 current_action);
+  3. **分支纪律修订**:循环获准**开 PR**(origin/master 为目标;合并仍
+     人工);方向分支 `dir/<slug>`;排序:先合 PR #1(feat,9 提交)→
+     wave/loop 集成 PR → 之后 dir/* 自新 master 切出,保证单方向 PR
+     干净;4. 新增周六全天候自动化(每 30 分钟,受 GOALS.md mode
+     与 iteration_window 双闸)。
+- 风险与回滚:PR 开启是外部可见动作——仅当方向 done_condition 达成才开,
+  开前在 PRD 记录;其余回滚同 git。cron 双闸设计与夜间 cron 不冲突
+  (周六 23:00 后夜间 cron 接管,白天周六自动化 22:30 最后发后静默)。
+- 状态:**APPLIED**(用户对齐原话"迭代到一定程度提交一个 PR 到远程;
+  新方向新分支新 PR;周六全天候";Stop-hook 应用内链式留下一轮登记)
+
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
   headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:
