@@ -60,6 +60,17 @@
   断链恢复成本仅"重开会话贴 prompt"30 秒,保险丝复杂度不值)。
   周六启动器:仍待用户建(或手动贴 GOAL-PROMPT.md 启动)。
 
+### AMM-005: 分支模型落地——方向分支 dir/<slug> + 毕业 PR(修复 AMM-003 记录与提示词层的执行缺口)
+- 动机:AricRedemption 2026-09-19 指出——AMM-003 记录了"方向-分支-PR"
+  模型并标 APPLIED,但 GOAL-PROMPT/AGENTS/cron 的分支规则从未跟着改,
+  仍写"只在 wave/loop 写"。记录与执行不一致 = 执行缺口。
+- 提案 diff:GOAL-PROMPT/AGENTS/cron 三处分支规则统一为:wave/loop =
+  集成线;新方向切 `dir/<slug>` 单因子迭代;毕业(判据+隐藏验证)开 PR
+  (dir → 集成线;master 追平后可直开 master),合并人工;新方向新分支新 PR。
+- 风险与回滚:多方向并行时分支网会变复杂——约定"同一时间只推进一个
+  方向分支"(单马拉松约定自然覆盖)。回滚 = git revert 本提交。
+- 状态:**APPLIED**(AricRedemption 当日指出不一致并要求修正,视为批准)
+
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
   headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:

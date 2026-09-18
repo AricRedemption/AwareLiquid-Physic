@@ -19,7 +19,9 @@
 
 ## 铁律(任何入口都适用)
 
-- 只在 `wave/loop` 分支写;`master`/`origin`/他人分支与 worktree 只读。
+- 分支模型(AMM-003/005):`wave/loop` = 集成线;**每个新方向自它切
+  `dir/<slug>` 分支单因子迭代,毕业(判据+隐藏验证过)开 PR,合并人工**。
+  `master`/`origin`/他人分支与 worktree 只读。
 - 永不:改写 PRD/台账历史判定行(新证据只能新增)、合并或关闭 PR、
   push master/origin、force push、改写历史、提交 `.pt`、
   未经批准修改 cron 提示词(提案走 `docs/loop/AMENDMENTS.md`)。

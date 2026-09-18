@@ -20,7 +20,7 @@
 - 结论类目标(得出"X 比 Y 好"类定量结论)的交付 PR 必须包含隐藏卷终跑指令(用未消耗 seed 复验主结论);隐藏结果回传并通过判据后,目标才算达成弹出——防被单次抽签骗。
 - 新踩的坑回写 docs/loop/PLAYBOOK.md;新工具回写 docs/loop/TOOLS.md;对循环自身的改进提案写 docs/loop/AMENDMENTS.md(不自行改本 prompt 与宪法)。
 
-纪律以工作区 AGENTS.md 为准:只在 wave/loop 分支写;不改写历史判定行;不合并 PR;不 push master/origin;不提交 .pt;隐藏集终跑用 ./scripts/hidden_check(seed 999 已退役,998 递减)。
+纪律以工作区 AGENTS.md 为准。分支模型(AMM-003/005):`wave/loop` = 集成线(所有已验证成果汇入);**每个新方向自 wave/loop 切 `dir/<slug>` 分支,单因子迭代到底**——方向 done_condition 达成且判据/隐藏验证通过 → 开 PR(dir/<slug> → 集成线;origin/master 追平后可直接开到 master),合并仍人工;新方向 = 新分支 = 新 PR。不改写历史判定行;不 push master/origin;不提交 .pt;隐藏集终跑用 ./scripts/hidden_check(seed 999 已退役,998 递减)。
 停止条件(收紧版,2026-09-19):**队列空 ≠ 可以停**。队列空时必须进入经验蒸馏轮;只有满足以下全部条件才允许停止——① 连续 2 轮、使用不同 query 族的扫描均无产出(每轮附 query 清单与检索证据);② 无任何"零算力可推进"的深化目标(如已有方向的英文稿/图表化/设计 v2——这类目标直接入队执行,不需要等待批准);③ 剩余工作全部外部阻塞且已登记欠账。时间一律用 `date` 命令实测,禁止凭印象写时间戳。除此之外:队列非空就不停,未达成就一直迭代。
 ```
 
