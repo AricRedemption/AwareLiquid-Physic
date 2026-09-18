@@ -17,6 +17,7 @@ Usage:
 """
 
 import argparse
+import math
 import os
 import sys
 
@@ -53,6 +54,118 @@ class StaticOperatorWrapper(torch.nn.Module):
         q0, p0 = q_obs[:, -1], p_obs[:, -1]
         qs, ps = self.rollout(q0, p0, ctx, k)
         return qs, ps, ctx
+
+
+def oracle_ctx_matrix(cfields, context_dim, scale=1.0):
+    """D2-CAPACITY (wave-10 G4-E1, docs/d2-capacity-design.md section 4): the
+    fixed zero-learning ORACLE context — the orthogonal projection of the true
+    wave-speed field c(x) onto sin/cos Fourier modes 1..context_dim//2,
+    normalised by the field amplitude scale.
+
+    The inhomogeneous family IS exactly this span (gen_wave_1d_inhomogeneous
+    draws n_modes=4 sine modes), so with the default context_dim=8 the
+    projection is injective on the family: perfect system identification,
+    information-optimal, nothing learned. Interleaved order [a1,b1,a2,b2,...].
+
+    cfields: (n_traj, N). Returns (n_traj, context_dim)."""
+    if context_dim % 2 != 0 or context_dim < 2:
+        raise ValueError("context_dim must be even and >= 2 for the oracle")
+    n_modes = context_dim // 2
+    n, N = cfields.shape
+    x = torch.arange(N, dtype=cfields.dtype, device=cfields.device)
+    basis = []
+    for m in range(1, n_modes + 1):
+        basis.append(torch.sin(2.0 * math.pi * m * x / N))
+        basis.append(torch.cos(2.0 * math.pi * m * x / N))
+    bm = torch.stack(basis)                              # (context_dim, N)
+    coeffs = (2.0 / N) * (cfields @ bm.T)                # (n_traj, context_dim)
+    s = float(scale) if scale and scale > 0 else 1.0
+    return coeffs / s
+
+
+class OracleOperatorWrapper(torch.nn.Module):
+    """D2-CAPACITY C arm (wave-10 G4-E1): the operator Hamiltonian conditioned
+    on the ORACLE context — a fixed projection of the true c(x), trained in
+    from step zero (never swapped at eval: that would be out-of-distribution
+    for a trained FiLM). It upper-bounds what PERFECT system identification
+    can express through the conditioning interface, above the liquid core's
+    inference quality.
+
+    The training loops sample trajectories by index without telling the model,
+    so the wrapper recovers the row by the byte-fingerprint of the t_obs
+    prefix (every batch is an exact gather of the qs tensor the wrapper was
+    built with). A prefix missing from the table (the homogeneous resolution
+    test draws fresh trajectories) gets the constant-medium context: a
+    constant field is orthogonal to modes >= 1, so zeros IS its correct
+    oracle projection."""
+
+    def __init__(self, ham, dt, qs, t_obs, row_ctx):
+        super().__init__()
+        self.ham = ham
+        self.dt = float(dt)
+        self.row_ctx = row_ctx
+        self.table = {}
+        for i in range(qs.shape[0]):
+            key = qs[i, :t_obs].contiguous().numpy().tobytes()
+            self.table[key] = i
+
+    def lookup_rows(self, q_obs):
+        rows = []
+        for b in range(q_obs.shape[0]):
+            key = q_obs[b].detach().contiguous().numpy().tobytes()
+            rows.append(self.table.get(key, -1))
+        return rows
+
+    def infer_context(self, q_obs, p_obs):
+        rows = self.lookup_rows(q_obs)
+        ctx = torch.zeros(len(rows), self.row_ctx.shape[1],
+                          dtype=self.row_ctx.dtype, device=self.row_ctx.device)
+        for j, r in enumerate(rows):
+            if r >= 0:
+                ctx[j] = self.row_ctx[r]
+        return ctx
+
+    def rollout(self, q0, p0, ctx, steps):
+        return self.ham.rollout(q0, p0, steps, self.dt, context=ctx)
+
+    def forward(self, q_obs, p_obs, k):
+        ctx = self.infer_context(q_obs, p_obs)
+        q0, p0 = q_obs[:, -1], p_obs[:, -1]
+        qs, ps = self.rollout(q0, p0, ctx, k)
+        return qs, ps, ctx
+
+
+def field_context_probe(model, qs, ps, coeffs, t_obs):
+    """D2-CAPACITY diagnostic (wave-10 G4-E1): how much of the oracle c(x)
+    coefficient vector does the learned context carry? Linear readout
+    ctx -> coeffs fitted on the FIRST half of the pool, per-coefficient
+    correlation reported on the SECOND half (same convention as
+    sample_efficiency_eval.context_probe: a linear probe lower-bounds the
+    decodable information without assuming a context layout). NaN
+    correlations (degenerate targets) fold to a finite-count annotation."""
+    model.eval()
+    n = qs.shape[0]
+    with torch.enable_grad():
+        _, _, ctx = model(qs[:, :t_obs], ps[:, :t_obs], 1)
+    ctx = ctx.detach().reshape(n, -1).cpu()
+    y = coeffs.detach().reshape(n, -1).cpu()
+    n_half = n // 2
+    xa = torch.cat([ctx[:n_half], torch.ones(n_half, 1)], dim=1)
+    xb = torch.cat([ctx[n_half:], torch.ones(n - n_half, 1)], dim=1)
+    sol = torch.linalg.lstsq(xa, y[:n_half]).solution
+    y_hat = xb @ sol
+    y_true = y[n_half:]
+    corrs = []
+    for j in range(y.shape[1]):
+        c = torch.corrcoef(torch.stack([y_hat[:, j], y_true[:, j]]))[0, 1]
+        if torch.isfinite(c):
+            corrs.append(c.item())
+    if not corrs:
+        return {"ctx_probe_corr_mean": 0.0, "ctx_probe_corr_min": 0.0,
+                "ctx_probe_n_finite": 0}
+    return {"ctx_probe_corr_mean": sum(corrs) / len(corrs),
+            "ctx_probe_corr_min": min(corrs),
+            "ctx_probe_n_finite": len(corrs)}
 
 
 def make_models(args, seed):
@@ -142,6 +255,11 @@ def main():
                     help="D2 ablation (wave-10 round 7): semigroup (default, "
                          "the shipped behaviour) vs the v0.1 fixed-window "
                          "prefix loop — quantifies P2's claim on M2")
+    ap.add_argument("--oracle_ctx", action="store_true",
+                    help="D2-CAPACITY E1 (wave-10 G4): add the oracle_operator "
+                         "arm — trained with the fixed projection of the true "
+                         "c(x) as context (docs/d2-capacity-design.md §4-5) — "
+                         "plus the linear context probe on the liquid arm")
     ap.add_argument("--lr", type=float, default=3e-3)
     ap.add_argument("--lr_decay", type=float, default=1.0,
                     help="per-step exponential lr decay (1.0 = constant)")
@@ -184,17 +302,33 @@ def main():
               flush=True)
     tr, ev = slice(0, args.n_train), slice(args.n_train, None)
 
+    arms = ("liquid_operator", "static_operator")
+    if args.oracle_ctx:
+        arms += ("oracle_operator",)
     results = {}
     liquid_trained = None
-    for name in ("liquid_operator", "static_operator"):
+    probe_corrs = []
+    for name in arms:
         mses, drifts, mse_ses = [], [], []
         n_par = None
         for s in range(args.n_seeds):
             seed = args.seed + s
             liquid, static = make_models(args, seed)
-            model = liquid if name == "liquid_operator" else static
             if name == "liquid_operator":
+                model = liquid
                 liquid_trained = model
+            elif name == "oracle_operator":
+                oham = OperatorHamiltonianHead(
+                    dim=1, width=args.width, modes=args.modes,
+                    fno_depth=args.fno_depth, context_dim=args.context_dim,
+                    hidden_dim=args.hidden, t_depth=2,
+                    reflect_pad=args.reflect_pad).to(args.device)
+                row_ctx = oracle_ctx_matrix(cfields, args.context_dim,
+                                            scale=args.c_var).to(args.device)
+                model = OracleOperatorWrapper(oham, args.dt, qs, args.t_obs,
+                                              row_ctx)
+            else:
+                model = static
             if n_par is None:
                 n_par = sum(p.numel() for p in model.parameters())
             if args.train_loop == "prefix":
@@ -208,6 +342,12 @@ def main():
                                         lr_decay=args.lr_decay)
             mse, drift, mse_se = evaluate(model, qs[ev], ps[ev], cfields[ev], args.t_obs,
                                           args.eval_k, args.dt)
+            if name == "liquid_operator" and args.oracle_ctx:
+                coeffs = oracle_ctx_matrix(cfields, args.context_dim,
+                                           scale=args.c_var)
+                probe = field_context_probe(model, qs[ev], ps[ev],
+                                            coeffs[ev], args.t_obs)
+                probe_corrs.append(probe["ctx_probe_corr_mean"])
             mses.append(mse)
             drifts.append(drift)
             mse_ses.append(mse_se)
@@ -227,6 +367,10 @@ def main():
         print(f"  [{name:16s}] params {n_par:>6,} | n_seeds {args.n_seeds} | "
               f"rollout_mse {mse_mean:.4e} +/- {mse_std:.2e} | "
               f"energy_drift(max) {drift_mean:.4e} +/- {drift_std:.2e}", flush=True)
+        if name == "liquid_operator" and probe_corrs:
+            results["ctx_probe"] = {
+                "corr_mean": sum(probe_corrs) / len(probe_corrs),
+                **{f"corr_mean_seed{i}": c for i, c in enumerate(probe_corrs)}}
 
     # Resolution invariance: the SAME trained model at 2x the node count.
     g3 = torch.Generator(device=args.device).manual_seed(args.seed + 2)
@@ -253,6 +397,14 @@ def main():
     gap = 1.0 - lq["rollout_mse"] / st["rollout_mse"]
     print(f"  liquid advantage over static: {gap * 100:.1f}% "
           f"(target >= 30%)", flush=True)
+    if args.oracle_ctx and "oracle_operator" in results:
+        oc = results["oracle_operator"]
+        print(f"  D2-CAPACITY oracle-ctx arm: {oc['rollout_mse']:.3e} | "
+              f"rho_CA {oc['rollout_mse'] / st['rollout_mse']:.3f} | "
+              f"rho_CB {oc['rollout_mse'] / lq['rollout_mse']:.3f} | "
+              f"ctx probe corr_mean "
+              f"{results.get('ctx_probe', {}).get('corr_mean', float('nan')):.3f}",
+              flush=True)
 
 
 if __name__ == "__main__":
