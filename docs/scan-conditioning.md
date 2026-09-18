@@ -271,6 +271,50 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 损耗,叙事收紧;无平台 → 窗口信息仍在增长,oracle 上界解释需修正。
 **不存在白跑分支**。
 
+## 10. 经验蒸馏 5(轮 65,2026-09-19,QUEUE-EMPTY 轮):对称性与守恒律正则族
+
+> 新 query 族(与前八族零重叠):时间反演一致性、Noether 式守恒正则。
+> 服务对象:R1 之外的独立修复候选 + 架构选型(硬约束)的文献辩护。
+
+### 10.1 时间反演对称一致性损失(Time-Reversal Symmetric ODE Networks, NeurIPS)
+
+- 【出处】[TR-Symmetric ODE Networks (NeurIPS)](https://proceedings.neurips.cc);
+  [TS-IDM (Cheng et al., OpenReview)](https://openreview.net);
+  [TSDA (Barkley et al., ICML 2024)](https://arxiv.org)。
+- 【内容】对时间可逆物理,训练加一致性正则:前向滚出 k 步后动量取反
+  再滚 k 步应回到起点;或反向等价的数据增强。正则提升样本效率与 OOD
+  泛化,无需额外监督。
+- 【对我们的映射】弹簧/波场皆时间可逆,哈密顿头 + Verlet 积分天然
+  支持反向滚出(积分器可逆)——一致性损失可零成本实现:
+  `L_tr = ||rollout(rollout(s,k), −k) − s||`。**与 R1(辅助辨识损失)
+  不同源但同属"给推断路径造梯度"家族**:R1 用真值系数监督,R1b 用
+  物理一致性自监督——若 R1 云跑判负,R1b 是独立修复候选(条件性
+  登记,见 GOALS 队列规则注记)。
+- 【适用条件】时间可逆系统(我们全部任务满足)+ 可逆积分器(满足)。
+- 【验证状态】社区已验证;对我们待验证(条件触发后预注册)。
+
+### 10.2 Noether 式守恒:硬约束 vs 软正则二分(2023-2024 谱系)
+
+- 【出处】[Noether's Razor (van der Ouderaa et al., NeurIPS 2024)](https://proceedings.neurips.cc);
+  Noether Networks(meta-learned 守恒损失,2024);[Müller et al., SE(3) 精确守恒积分器 (2023, ~33 引)](https://www.sciencedirect.com);
+  [Neural Mechanics (ICLR 2021)](https://ai.stanford.edu)(深度学习自身的守恒律,背景)。
+- 【内容】守恒律进网络的两条路线:软(meta-learned 正则/学习守恒量)
+  vs 硬(架构内建精确守恒)。
+- 【对我们的映射】本仓能量守恒走**硬路线**(哈密顿头 + 辛积分,由
+  构造保证,P0-3 实测漂移对照)——与 Müller 2023 同路线;N1 架构章
+  可用"硬/软二分"定位我们的选型并引软路线作对照。Noether's Razor 的
+  学习守恒量可在 M2 用作**诊断探针**(学出的守恒量是否恢复真值能量
+  = c(x) 编码质量的独立读数),备用。
+- 【适用条件】力学系统+已知守恒结构(硬);守恒量未知场景(软)。
+- 【验证状态】社区已验证;架构辩护引用:立即可用。
+
+### 蒸馏结论 5
+
+本轮产出:① R1b 条件性修复候选(时间反演一致性,零监督成本,独立
+于 R1 的真值监督路线——R1 判负时仍有处方,降低"R1 白跑"风险);
+② N1 架构章的硬/软二分辩护坐标。**方向类按条件性登记**(仿 E2 先例
+不入队,防路由器空转);触发条件:R1/R2 云结果回传且判负。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)

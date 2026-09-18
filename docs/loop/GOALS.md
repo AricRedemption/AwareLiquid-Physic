@@ -27,30 +27,17 @@ blocked_on: >-
   1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
   领先 35+ 提交);3) N1 正式英文稿是否启动。
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
-pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8
-  (文献坐标;轮 61 蒸馏);updated 见下
-updated: 2026-09-19 05:4x (轮 64:D6-INFO-BUDGET 判读完成——J(t_obs) 图谱
-  近 t³ 无平台,CRB(24)=0.084 层 1 非瓶颈,E1 缺口锁定推断提取层;
-  记录入 PRD §19 轮 64。待下轮 goal_check 弹出)
+pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-10
+  (文献坐标;轮 61/63/65 蒸馏);updated 见下
+updated: 2026-09-19 05:5x (轮 65 经验蒸馏:§10 两条入库(时间反演一致性/
+  Noether 硬软二分);R1b 条件性重入口登记(不入队,仿 E2 先例)。队列空,
+  下一触发:R1/R2 云回传或继续蒸馏或用户停)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue:
-  - id: D6-INFO-BUDGET
-    track: engineering
-    goal: >-
-      信息预算分解(零算力):用现有 identifiability_probe.fisher_j 闭式
-      扫 J(ω; t_obs) 图谱(ω∈[0.7,1.8] × t_obs 8..48),判定 t_obs=24
-      的信息平台位置;把 E1 的 oracle −27% 缺口放进"窗口 Fisher 上界 vs
-      oracle 可读出 vs 实际推断"的信息预算框架。文献坐标 scan §9
-      (PE/concurrent learning/OED)。
-    done_condition: >-
-      D6-INFO-BUDGET 判读记录入 PRD §19(J 图谱平台判定 + 数字 + 信息
-      预算分解表述,服务 D2-CAPACITY 叙事与 N1);pytest 全绿 + audit
-      --check 全过 + 原子提交 push fork wave/loop。
-    check_cmd: grep -q "D6-INFO-BUDGET 判读" docs/PRD.md 2>/dev/null
+goal_queue: []
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
@@ -59,6 +46,9 @@ goal_queue:
 **E2 条件性重入口(不入队,防路由器空转)**:若 E3 修复推断后
 ρ_CB′ 仍 ≥0.9(接口重成第一嫌疑),把 E2(concat/hyper,设计文档 §6
 原闸门)追加回队尾。
+**R1b 条件性重入口(轮 65 登记,不入队)**:若 R1 云结果回传判负
+(辅助辨识损失未兑现 oracle 缺口收敛),把 R1b(时间反演一致性损失,
+零监督成本,scan §10.1)追加回队尾——独立于 R1 的修复路线。
 
 ## 推进规则
 
