@@ -80,6 +80,12 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--device", default="cpu", choices=["cpu"])
     ap.add_argument("--out_dir", default="benchmarks/physics_out_v02/d3_identifiability")
+    ap.add_argument("--window_scan", action="store_true",
+                    help="D6 (round 64/69): scan the WINDOW axis instead of "
+                         "the omega axis — J_mean(t_obs) over --window_list, "
+                         "with Cramer-Rao sigma_w = 1/sqrt(J). Zero training.")
+    ap.add_argument("--window_list", type=int, nargs="+",
+                    default=[8, 12, 16, 24, 32, 40, 48, 64])
     args = ap.parse_args()
 
     g = torch.Generator().manual_seed(args.seed)
@@ -87,6 +93,42 @@ def main():
               torch.randn(1, generator=g).item()) for _ in range(args.n_draws)]
     grid = [args.omega_lo + (args.omega_hi - args.omega_lo) * i / (args.n_grid - 1)
             for i in range(args.n_grid)]
+
+    if args.window_scan:
+        # D6 window atlas (round 64 protocol, toolified round 69): J averaged
+        # over the omega grid per window length; near-t^3 growth means no
+        # saturation plateau (information keeps accruing per step).
+        j_by_t = []
+        for tobs in args.window_list:
+            jm = sum(sum(fisher_j(om, q0, p0, tobs, args.dt) for q0, p0 in draws)
+                     / len(draws) for om in grid) / len(grid)
+            j_by_t.append(jm)
+        crb = [1.0 / max(j, 1e-300) ** 0.5 for j in j_by_t]
+        growth = [j_by_t[i] / max(j_by_t[i - 1], 1e-300)
+                  for i in range(1, len(j_by_t))]
+        t_cube = [(args.window_list[i] / args.window_list[i - 1]) ** 3
+                  for i in range(1, len(args.window_list))]
+        # plateau = information stops accruing with window length; a 2x
+        # total-growth threshold separates "flat" from "still rising" (the
+        # growth-vs-t^3 comparison alone can't: near-cubic growth IS rising).
+        total_growth = j_by_t[-1] / max(j_by_t[0], 1e-300)
+        results = {"window_list": args.window_list, "j_mean": j_by_t,
+                   "crb_sigma_w": crb, "growth_ratios": growth,
+                   "t_cube_reference": t_cube, "total_growth": total_growth,
+                   "plateau": bool(total_growth < 2.0),
+                   "seed_note": "J curve is deterministic; draws averaged"}
+        os.makedirs(args.out_dir, exist_ok=True)
+        with open(os.path.join(args.out_dir, "window_scan.json"), "w") as f:
+            json.dump({"args": vars(args),
+                       "meta": run_metadata({"benchmark": "identifiability_probe",
+                                             "device": args.device}),
+                       "results": results}, f, indent=2)
+        print(f"D6 window scan | J_mean(t_obs) over {args.window_list}, dt={args.dt}")
+        for t, j, s in zip(args.window_list, j_by_t, crb):
+            print(f"  t_obs={t:>3}  J={j:.3e}  CRB sigma_w={s:.4f}")
+        print(f"  plateau={results['plateau']} (growth vs t^3 reference)")
+        print(f"  -> {os.path.join(args.out_dir, 'window_scan.json')}")
+        return
 
     j_mean, j_std = [], []
     for om in grid:
