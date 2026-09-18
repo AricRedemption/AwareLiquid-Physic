@@ -21,7 +21,7 @@ done_condition: >-
 blocked_on: >-
   1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
   领先 35+ 提交);3) N1 正式英文稿是否启动。
-next_trigger_hint: cron 30min 心跳(先 goal_check 路由) / 用户"继续" / SessionStart
+next_trigger_hint: 夜间马拉松(23:00 启动,自循环至 09:00) / 用户"继续" / 兑底心跳(3h)
 pointer: docs/PRD.md §19(轮 44 隐藏集终跑为最新关键记录)
 updated: 2026-09-19 00:58 (goal_queue + 校验路由器上线)
 ```
