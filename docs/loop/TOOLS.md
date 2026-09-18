@@ -7,7 +7,9 @@
 | `sample_efficiency_eval.py` | 样本数-vs-MSE 双曲线(两训练循环对照) | `--sizes --n_seeds --eval_ks --probe_context --start_probe --start_mix --two_stage --adaptive_sampling` |
 | `start_time_sweep.py` | 1 步误差按起点时刻剖面(D1g 机制证据) | `--out_dir d1g_sweep` |
 | `identifiability_probe.py` | 弹簧族隐藏 ω 的观测窗 Fisher 信息 J(ω) | 即跑即出,秒级 |
+| `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_identifiability_probe.py` | M2 场 c(x) 的谱域 Fisher(逐 cos 模式) | 即跑即出,秒级 |
+| `goal_check` | **目标校验路由器**(每轮心跳第一步):验 goal_queue 顶部 done_condition,达成自动弹出晋升 | `./scripts/goal_check`;退出码 0=达成已弹出 / 1=未达成继续迭代 / 2=队列空 |
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}` |
 | `audit_results.py` | 结果 JSON 溯源 schema 审计(--check 为提交门) | `--check [目录]` |

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# goal_check — 目标校验路由器(wave-10 轮 48:N 线与 E 线的串接机制)
+#
+# 每轮心跳第一步:读 docs/loop/GOALS.md 的 goal_queue 顶部目标 →
+# 执行其 check_cmd →
+#   通过   → VERDICT: ACHIEVED(弹出顶部,晋升下一位,改写 GOALS.md)
+#   不通过 → VERDICT: NOT-Achieved(对当前目标迭代一步,未达成不停)
+#
+# 退出码:0 = ACHIEVED(已晋升);1 = NOT-Achieved;2 = 队列空。
+set -euo pipefail
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+GOALS="$REPO/docs/loop/GOALS.md"
+
+python3 - "$GOALS" <<'EOF'
+import re, subprocess, sys
+
+src = open(sys.argv[1]).read()
+block = re.search(r"```yaml\ngoal_queue:\n(.*?)```", src, re.S)
+if not block:
+    print("VERDICT: QUEUE-EMPTY(无 goal_queue,先文献扫描补池)"); sys.exit(2)
+entries = []
+cur = None
+for line in block.group(1).splitlines():
+    m = re.match(r"\s*- id: (\S+)", line)
+    if m:
+        cur = {"id": m.group(1)}; entries.append(cur); continue
+    if cur is not None:
+        for f in ("track", "goal", "done_condition", "check_cmd"):
+            mm = re.match(rf"\s*{f}: (.*)", line)
+            if mm:
+                cur[f] = mm.group(1).strip(); break
+if not entries:
+    print("VERDICT: QUEUE-EMPTY"); sys.exit(2)
+top = entries[0]
+cmd = top.get("check_cmd", "true")
+rc = subprocess.call(cmd, shell=True,
+                     cwd=sys.argv[1].rsplit("/docs", 1)[0])
+goal = top.get("goal", "")
+if rc == 0:
+    rest = block.group(1).split("- id:", 1)[1]      # drop top entry
+    rest = "- id:" + rest.split("\n", 1)[1] if "\n" in rest else rest
+    new_block = "```yaml\ngoal_queue:\n" + rest + "```"
+    src = src.replace(block.group(0), new_block.rstrip("`").rstrip() + "\n```")
+    nxt = re.search(r"- id: (\S+)", rest)
+    print(f"VERDICT: ACHIEVED — 弹出 {top['id']},"
+          f"晋升 {nxt.group(1) if nxt else '(队列空,进入扫描补池)'}")
+    sys.exit(0)
+else:
+    print(f"VERDICT: NOT-Achieved — 对 [{top['id']}] {goal} 迭代一步")
+    print(f"  done_condition: {top.get('done_condition','')}")
+    sys.exit(1)
+EOF
