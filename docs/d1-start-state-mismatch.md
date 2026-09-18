@@ -193,10 +193,31 @@ training-loop artifact (PRD §19 round 9).
 
 ## 6. Open questions
 
-- Cross-task: does the start-mismatch mechanism transfer to the M2 c(x)
-  field family (32-dim hidden parameter)?
-- Uncertainty-adaptive start sampling (vs fixed mixing) — untested.
-- Analytic start-dependence under CfC-style closed forms.
+Resolved since the first draft (kept for the record):
+- *Start-mismatch on M2's c(x) family* — resolved differently than
+  expected (G4 rounds, 2026-09-19): M2's near-zero liquid gain is **not**
+  start-state mismatch; the three-arm decomposition locates it in the
+  inference path — the objective never writes the latent into the context
+  (§5, *Conditioning interfaces*).
+- *Uncertainty-adaptive start sampling* — tested, negative (N2, PRD §19
+  round 22): in-orbit sampling-quality reallocation cannot buy endpoint
+  precision.
+- *Analytic start-dependence under CfC-style closed forms* — done (§8);
+  what remains open there is the gated-architecture prediction P-CfC
+  (untested, needs a new model family).
+
+Open:
+- **R1 (auxiliary identification loss)** — can a direct gradient to the
+  inference path (ground-truth coefficient supervision, the E2C/DVBF
+  recipe) recover the oracle bound (−27%) end-to-end? Preregistered
+  (`docs/d2-capacity-design.md` §12.3), cloud-delivered
+  (`docs/pr-d2-r1r2-cloud.md`); hidden-seed 998 final run required.
+- **R2 (horizon-value of the latent)** — does the one-step objective's
+  information premium grow with training span k_train? Same PR package.
+- **Cross-seed sign stability of the semigroup advantage** — 5/6 pools
+  favour semigroup at k=100 (geometric 0.286x) but one hidden pool
+  inverted (seed 999); a variance model for the advantage would turn the
+  1/6 reversal from anecdote into prediction.
 
 ## 7. Analytic sketch: a coverage-density argument (wave-10 N3 round)
 
@@ -320,3 +341,11 @@ the training loop flips the liquid-vs-static sign (PRD §19 round 9,
 `d1c_start_probe` b54a08a · `d1d_start_mix` fa78fa9 · `d1f_two_stage`
 cd57393 · probe/recipe code `--probe_context/--eval_ks/--start_probe/
 --start_mix/--two_stage` · branch `wave/loop` (fork)
+
+D2-CAPACITY chain (G4 rounds, night of 2026-09-19): design + preregistration
+93e8b73 · E1 three-arm decomposition b4f3fdb · E3 capacity dose 993b7dd ·
+paper section ef41c60 · E4 design 5fc10d9 · E4a starvation probe + R1 code
+fa8c8d6 · distillation 468896b · cloud PR package 4bf4ca0 · artifacts
+`physics_out_v02/d2_capacity/{e1_screen,e1_final,e3_d96,e3_d192,e4a}/`
+(local-only; numbers in PRD §19 rounds 50-57) · k100 cross-seed scan
+audited clean (PRD §19 round 58).
