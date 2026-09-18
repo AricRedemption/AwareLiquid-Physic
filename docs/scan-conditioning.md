@@ -116,6 +116,29 @@ R1 的设计不是拍脑袋:它有 2015-2021 的连续文献线(潜码需监督 
 "现象(实测)→ 机制(命名)→ 修复(有先例的处方)"完整链;若负,
 则硬约束架构与 VAE-land 的差异本身即新发现。**不存在白跑分支**。
 
+## 7. 经验蒸馏 2(轮 59,2026-09-19):隐藏集与多种子报告规范
+
+- 【出处】[CNO / Representative PDE Benchmarks (Raonic et al., ~330 引)](https://openreview.net);
+  PDEBench(Takamoto et al., NeurIPS 2022);The Well(2024)。
+- 【内容】神经 PDE 评测的标准化努力集中在 **OOD/鲁棒性基准**(RPB、
+  PDEBench、The Well);检索证据显示**多种子/隐藏集报告规范极少成文**
+  ——公认空白。
+- 【对我们的映射】本仓的 RSI-Exam 实践(预注册一次性隐藏集终跑、
+  轮 44 首夜即抓可见集过拟合反转、G2 的跨 pool 几何均值报告)恰好落在
+  该空白上——**论文 §5 自主循环小节的 novelty 声明有据**:不是我们自说
+  自话,是社区规范缺失而我们给出了可执行协议。
+- 【适用条件】一切"单次训练+可见集刷分"式结论的论文;对sim2real/
+  隐藏参数族任务尤其成立。
+- 【验证状态】规范空白:已验证(检索侧);我们的协议有效性:已验证
+  (轮 44 真抓到反转)——可直接写进论文。
+
+### 蒸馏结论 2
+
+N1 的 Related Work 已有"自主研究循环"小节;本条给它的 novelty 补上
+文献坐标系(现有基准推进 OOD,但预注册+隐藏集+跨 seed 几何报告的
+完整协议无成文先例)。写作时引用 CNO-RPB/PDEBench 作为"评测标准化
+努力"的最近邻,然后指出隐藏集维度空白。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -128,3 +151,4 @@ R1 的设计不是拍脑袋:它有 2015-2021 的连续文献线(潜码需监督 
 - [Gradient Starvation (Pezeshki et al., NeurIPS 2021)](https://proceedings.neurips.cc)
 - [Gradient Starvation 官方实现 (GitHub)](https://github.com/mpezeshki/Gradient_Starvation)
 - E2C (Watter et al., NeurIPS 2015) / DVBF (Karl et al., ICLR 2017)——见 §6 条目
+- [CNO / Representative PDE Benchmarks (OpenReview)](https://openreview.net)——见 §7
