@@ -366,6 +366,60 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 糊化"的候选解释清单补全(容量✗/饥饿✓待R1/混叠✓本条),给 R2 判读
 预留解读框架。蒸馏轮第 4 次达标(交付 2 条入库)。
 
+## 12. 经验蒸馏 7(轮 68,2026-09-19,QUEUE-EMPTY 轮):摊销推断/神经过程族
+
+> 新 query 族(与前十一族零重叠):amortization gap、NP/ANP 聚合
+> underfitting。直接对话 E1 推断瓶颈的文献命名与第三条修复路线。
+> 标记:[坐标]=解读用;[行动]=触发条件性入口。
+
+### 12.1 Amortization gap:E1 推断瓶颈的文献命名 [坐标+命名]
+
+- 【出处】[Inference Suboptimality in VAEs (Cremer et al., ICML 2018, ~410 引)](http://proceedings.mlr.press/v80/cremer18a/cremer18a.pdf);
+  [Iterative Amortized Inference (Marino et al.)](https://la.disneyresearch.com/publication/iterative-amortized-inference);
+  [Generalization Gap in Amortized Inference (NeurIPS 2022)](https://proceedings.neurips.cc/paper_files/paper/2022/file/ab41313eaa3cbedbe491c24cbfe6547d-Paper-Conference.pdf)。
+- 【内容】摊销推断(编码器一次映射到潜变量后验)与逐实例优化之间存在
+  **amortization gap**;与 approximation gap 可分;缓解靠迭代细化/实例
+  自适应参数化;摊销网络过拟合可主导泛化差距。
+- 【对我们的映射】**E1 的"推断瓶颈"(oracle −27% 兑现于同一接口)
+  结构上就是 amortization gap**:oracle 臂=跳过推断直接注入真值
+  (逐实例上界),liquid 臂=一次性摊销编码器(infer_context(prefix))。
+  N1 论文可直接引 Cremer 2018 给 E1 命名,把物理域结果接进 VI 文献线;
+  D1 小样本线可引 NeurIPS 2022(摊销过拟合)作背景。
+- 【适用条件】编码器摊销潜变量的一切架构(我们满足)。
+- 【验证状态】社区已验证;命名/引用:立即可用。
+
+### 12.2 NP/ANP 聚合 underfitting:R1c(聚合瓶颈)候选 [行动→条件性]
+
+- 【出处】[Conditional Neural Processes (Garnelo et al., 2018)](https://yanndubs.github.io/Neural-Process-Family/text/LNPF.html);
+  [Attentive Neural Processes (Kim et al., ICLR 2019, ~678 引)](https://openreview.net)——
+  vanilla NP 的 **mean 聚合低估 context 信息(underfitting)**,attention
+  聚合是社区验证的修复。
+- 【对我们的映射】M2 的 infer_context 管线对空间维用 **mean-pool**
+  (`model.py`:per-node 共享 Linear → mean-pool over nodes → liquid
+  core)——与 vanilla NP 的均值聚合同型。E1 实测 ctx 对 c(x) 场系数
+  信息不足,候选机制之一:**空间结构被均值池化压掉**(c(x) 是空间场,
+  均值是它的低维投影)。修复候选 **R1c:attention/可学习聚合替代
+  mean-pool**(独立于 R1 监督/R1b 结构的第三条路线)。
+- 【适用条件】潜变量来自空间/集合结构的摊销编码(我们满足)。
+- 【验证状态】社区已验证(ANP 678 引);对我们待验证(R1c 条件性,
+  代码前提已判读:mean-pool 在 model.py 编码管线中确认)。
+
+### 12.3 云回传判负时的三路分流(判读逻辑,轮 68 定稿)
+
+R1(辅助辨识损失)若判负,按失败模式选路:
+- ctx 探针仍 ≈0(信息没进来)→ **R1c**(聚合瓶颈,attention 池化);
+- ctx 有信息但滚出 MSE 不兑现 → 结构路线 **R1b**(T 偶/回程)或接口
+  消融 **E2**(视 ρ_CB′);
+- ctx 有信息且兑现但仅部分 → 监督强度/权重曲线(**R1 权重扫描**)。
+三条路线相互独立、处方可叠加,不存在"全判负则无处可去"分支。
+
+### 蒸馏结论 7
+
+E1 机制链获得 VI 文献命名(amortization gap)+ 第三条独立修复候选
+(R1c,代码前提 mean-pool 已定位)。修复路线谱系补全:
+R1(监督)/R1b(结构)/R1c(聚合器)——云回传判读按 12.3 分流。
+**[行动] 条目走条件性登记**(GOALS 注记,仿 R1b 先例)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
