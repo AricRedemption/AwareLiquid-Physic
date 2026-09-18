@@ -69,19 +69,70 @@ not purchasable by training recipes.
    small-sample accuracy matters more than 27% of large-sample advantage.
    Endpoint 1-step precision remains unpurchasable.
 
-## 5. Related work (scan 2026-09-17)
+## 5. Related work
 
-- **MBRL distribution shift**: compounding rollout error from OOD start
-  states is the core MBRL pathology; remedies = DAgger-style correction,
-  adaptive rollout horizons, uncertainty penalisation. None combined with
-  Hamiltonian hard-constraint architectures or system-ID contexts.
-- **HNN literature**: no curriculum or start-state-distribution work found
-  (Greydanus 2019; Zhong 2021 benchmark; energy-consistent operators 2025).
-- **Two-phase PIML**: rich in PINN/PDE-residual soft-constraint land
-  (DP-PINN, PIFT); absent for hard-constraint training-loop curricula.
-- **CfC** (Hasani et al., Nature MI 2022): closed-form LTC — time-explicit
-  form suggests an *analytic* treatment of the start-point mismatch
-  (future work).
+**Distribution shift in learned dynamics models (model-based RL).** That
+rollouts starting from (or drifting into) states off the training
+distribution compound small one-step errors into large multi-step failures
+is the core pathology of model-based RL. Named remedies include
+DAgger-style data aggregation with self-correcting dynamics models
+(HCRL 2017), adaptive/truncated rollout horizons (AdaMVE, NeurIPS 2019;
+conservative length adaptation), uncertainty penalisation of OOD states,
+and multistep rollout losses that train on the model's own predictions.
+All of these target *control* returns in soft-constraint settings. Our
+result transfers the diagnosis to **system identification under a
+hard-constraint Hamiltonian architecture** — and sharpens it: the mismatch
+survives at one-step horizon (D1b) and is located in the training *start
+distribution* (D1c), i.e. it is a property of the loss-sampling
+distribution on the orbit, not of compounding per se (which our symplectic
+head actually suppresses: energy is conserved by construction).
+
+**Hamiltonian and energy-conserving networks.** Since HNN
+(Greydanus et al., 2019) and its benchmarking against Lagrangian nets
+(Zhong et al., 2021), the literature has focused on architecture (_ports:
+energy-consistent neural operators, 2025_) and on soft PDE-residual
+losses. We find **no prior work on training-loop curricula or start-state
+distributions for hard-constraint Hamiltonian heads** — the D1 series
+(attribution + three failed repair recipes + a characterized tradeoff)
+appears to be the first such treatment.
+
+**Two-phase training in physics-informed modelling.** PINN-adjacent work
+routinely uses multi-phase schedules (DP-PINN's dual-phase scheme; PIFT's
+three-stage low-fidelity→pretrain→physics-finetune; frequency-focused
+curricula). These are all *soft-constraint residual* settings where phases
+trade data fidelity against physical consistency. Our D1f result is the
+analogous experiment for a hard-constraint head: the curriculum trades
+large-sample advantage for small-sample repair and still cannot buy
+endpoint precision — evidence that phase structure interacts differently
+with architectural hard constraints than with residual losses.
+
+**Closed-form continuous-time models.** CfC (Hasani et al., Nature MI
+2022) makes time explicit through a gate product (Eq. 10), and Lemma 1
+bounds its linear-case approximation error *independently of the input
+path*. §8 uses this to argue the mismatch must be a training-distribution
+property of the learned components — and registers the gated-architecture
+prediction P-CfC as an untested cross-architecture falsification.
+
+**Autonomous research loops.** Our iteration engine itself — preregistered
+judgement criteria, one-shot hidden-set final runs (seed 999: mechanism
+transferred, advantage magnitude inverted), and an evolving
+playbook/tool/amendment stack — is a deliberately minimal instance of the
+autonomous-research-loop pattern (AI Scientist, 2024; Autonomous Research
+Loops, ACM 2026). Round 44's catch of a visible-set overfitting conclusion
+on its first hidden-set run is a working demonstration of that community's
+"visible score ≠ improvement" evaluation philosophy.
+
+### Table 1: M2 field task — training-loop ablation (3 seeds, CPU, mean ± std)
+
+| model \ loop | semigroup (all2all) | prefix (v0.1) | sign |
+|---|---|---|---|
+| liquid rollout MSE | 2.0004e-2 ± 3.5e-4 | 2.1591e-2 ± 1.3e-3 | semigroup better 7.4% |
+| static rollout MSE | 2.0426e-2 ± 3.3e-4 | 2.1175e-2 ± 1.4e-3 | — |
+| liquid vs static | **liquid +2.1%** | static +1.9% | **loop flips the sign** |
+
+Artifacts: `physics_out_v02/d2_m2_loop/{sg,prefix}/`. The sign flip is the
+basis for demoting the historical "M2 liquid shows no gain" reading to a
+training-loop artifact (PRD §19 round 9).
 
 ## 6. Open questions
 

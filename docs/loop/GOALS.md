@@ -8,20 +8,20 @@
 ```yaml
 state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 current_goal: >-
-  把"起点失配"机制研究打包为可评审成果(N1 论文),
-  同时保持隐藏集纪律(seed 999 已退役;后续 998 递减)。
+  N1 论文骨架已达 done_condition(Related Work 全文+表 1+主图引用+产物索引,
+  无占位);打包阶段完成。当前转入"等裁定+轻维护"阶段。
 current_action: >-
-  N1 写作深化:扩写 docs/d1-start-state-mismatch.md 的 Related Work 全文
-  (MBRL 分布漂移 / HNN / PINN 两相训练 / CfC 四段已有定位稿),
-  并把 D2 表格数字转为正文表 1。完成条件:骨架文档四节全非占位,
-  含主图引用与产物索引,pytest/audit 不涉及(纯文档)。
+  空转等待:08:30 收尾轮做第三夜 RSI 首算;可做的小项仅剩
+  (a) D2 图表化进附录 (b) N1 正式英文稿(需用户启动)。
 done_condition: >-
   骨架文档无 TODO 占位;引用的每个数字可溯源到 physics_out_v02 产物或
-  PRD §19;主图 docs/assets/d1g-profile-panel.png 已被正文引用。
-blocked_on: null          # 例: D4 需用户裁定算力通道
-next_trigger_hint: cron 30min 心跳 / 用户"继续" / SessionStart
-pointer: docs/PRD.md §19(第 43 轮起为第三夜记录)
-updated: 2026-09-18 23:58 (wave/loop @ 0385c1a 之后)
+  PRD §19;主图 docs/assets/d1g-profile-panel.png 已被正文引用。✓ 已达成
+blocked_on: >-
+  1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
+  领先 35 提交);3) N1 正式英文稿是否启动。
+next_trigger_hint: cron 30min 心跳(空转确认) / 用户"继续" / SessionStart
+pointer: docs/PRD.md §19(轮 44 隐藏集终跑为最新关键记录)
+updated: 2026-09-19 00:37 (wave/loop @ Related Work 全文化提交后)
 ```
 
 ## 状态机
