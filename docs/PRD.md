@@ -556,6 +556,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - 设计文档 §12 全文:`docs/d2-capacity-design.md`。
 - **下一步（强制浮现）**:E4a 探针执行(本机合规)+ R1 辅助损失代码+测试(PR 交付物组装)。
 
+**轮 55 记录（G4-E4A:梯度饥饿确认 + R1 代码落地;~04:50 触发,零训练）**:
+- **E4a 探针判定(`d2_capacity/e4a/grad_starvation.json`,新初始化模型 3 批,无 optimizer step,3.3 秒)**:**‖∂L/∂推断路径‖/‖∂L/∂head‖ = 3.97e-3 < 1e-2 → 预注册分支 ①:饥饿机制确认**。激活级 ‖∂L/∂ctx‖ 仅 4.2e-5(head 梯度 8.4e-2 的 ~1/2000)。**oracle 对照揭示鸡生蛋结构**:head 未学会用 ctx 前.identity 初始化的 FiLM 对 ctx 不敏感),ctx 上的压力本身就近零(oracle-leaf 3.98e-5 ≈ inferred 4.19e-5)——不是核"挡住"梯度,是**耦合塌缩**:head 等 ctx 载信才学用 ctx,core 等 head 用 ctx 才收梯度。R1(直接辅助梯度)正是破局手段,机械依据成立。
+- **R1 代码落地(云算力 PR 交付物)**:`train_semigroup` 加 `aux_head/aux_targets/aux_identify_weight`(weight>0 时辅助头入优化器;梯度经 ctx 直入推断路径;默认 0 逐位不变),field_eval 加 `--aux_identify_weight`(linear ctx→8 系数头,目标=oracle_ctx_matrix);测试 3 例(中性/梯度/索引)全库 **89/89**。探针脚本 `grad_starvation_probe.py`(results 键修 audit)。
+- **云算力命令(PR 正文用,欠账 ~12min 云时)**:
+  `python benchmarks/field_eval.py --inhomogeneous --oracle_ctx --arms liquid_operator --aux_identify_weight 1.0 --n_seeds 3 --seed 0 --out_dir benchmarks/physics_out_v02/d2_capacity/r1_aux`
+  隐藏卷:`--n_seeds 1 --seed 998 --out_dir .../r1_aux_hidden998`。权重钉 1.0(主)。判据(§12.3 已预注册):MSE 较 B(0.020004)降 ≥15% 且线性探针 corr ≥0.5 → 正。
+- **下一步（强制浮现）**:G4-DISTILL 经验蒸馏轮;R1 云结果回传后机械验收。
+
 **轮 44 判定（隐藏集终跑结果，一次性）**：
 - **H1 通过**：seed 999 上 prefix 剖面在 bin 2(其唯一训练起点)呈 **0.27x** 凹陷(可见集 0.37x,更深);all2all 平坦 std/mean **0.12**。D1g 机制**迁移成立**——起点失配不是 seed 过拟合。
 - **H2 失败且反转**：k100@512 比值 **1.293**(闸门 ≤0.60)——隐藏集上 **prefix 优 29%**,可见集(seeds 0/1/2)的 2.2–2.7x 半群优势**符号翻转**。方差源:prefix k100 跨 seed 剧烈波动(2.765→0.915),all2all 相对稳定(1.034→1.183)。

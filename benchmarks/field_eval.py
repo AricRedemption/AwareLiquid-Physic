@@ -306,6 +306,12 @@ def main():
                     help="comma subset of the enabled arms to RUN (e.g. "
                          "'liquid_operator' for E3 dose runs); empty = all "
                          "enabled arms, the historical behaviour")
+    ap.add_argument("--aux_identify_weight", type=float, default=0.0,
+                    help="D2-CAPACITY R1 (wave-10 G4, semigroup loop only): "
+                         "weight of the auxiliary readout loss from the "
+                         "inferred context to the true c(x) coefficients "
+                         "(docs/d2-capacity-design.md §12.3); 0.0 = off, "
+                         "identical RNG and behaviour")
     ap.add_argument("--lr", type=float, default=3e-3)
     ap.add_argument("--lr_decay", type=float, default=1.0,
                     help="per-step exponential lr decay (1.0 = constant)")
@@ -392,10 +398,21 @@ def main():
                                      args.k_train, args.train_steps, args.lr,
                                      args.batch, seed, lr_decay=args.lr_decay)
             else:
+                aux_head = aux_targets = None
+                if args.aux_identify_weight > 0.0 and name == "liquid_operator":
+                    # D2-CAPACITY R1 (docs/d2-capacity-design.md §12.3):
+                    # linear readout inferred-ctx -> true 8 coefficients.
+                    aux_head = torch.nn.Linear(args.context_dim,
+                                               args.context_dim).to(args.device)
+                    aux_targets = oracle_ctx_matrix(cfields, args.context_dim,
+                                                    scale=args.c_var).to(args.device)
                 floss = train_semigroup(model, qs[tr], ps[tr], args.t_obs,
                                         args.k_train, args.train_steps,
                                         args.lr, args.batch, seed,
-                                        lr_decay=args.lr_decay)
+                                        lr_decay=args.lr_decay,
+                                        aux_head=aux_head,
+                                        aux_targets=aux_targets,
+                                        aux_identify_weight=args.aux_identify_weight)
             mse, drift, mse_se = evaluate(model, qs[ev], ps[ev], cfields[ev], args.t_obs,
                                           args.eval_k, args.dt)
             if name == "liquid_operator" and args.oracle_ctx:

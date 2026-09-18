@@ -47,6 +47,14 @@
 - **1-seed 筛查两连中**(轮 51/52,被验证有效的做法):E1 筛查 ρ 0.730/
   0.719 → 终判 0.726/0.742 同判定;E3 冒烟双探针 ≈0 → 终判同。筛查闸门
   实践有效,保持。(出处:轮 51/52;验证状态:已验证,n=2。)
+- **新基准脚本的结果 JSON 顶层必须有 `results` 键**(轮 55):audit_results
+  的 schema 硬要求,探针类脚本裸写 summary/per_batch 会被 --check 拒
+  (付过 1 cycle)。→ 载荷包一层 `"results": {...}`,args/meta 顶层照旧。
+  (出处:轮 55 grad_starvation_probe;验证状态:已验证。)
+- **`ctx.retain_grad()` 量激活级梯度**(轮 55):对非叶张量 ctx(推断头
+  输出)先 retain_grad 再进 rollout,backward 后 ctx.grad 即 ∂L/∂ctx;
+  oracle 对照用 `row.clone().requires_grad_(True)` 叶张量解耦推断图。
+  (出处:轮 55 grad_starvation_probe;验证状态:已验证。)
 
 ## 惯例(已固化的流程约束)
 

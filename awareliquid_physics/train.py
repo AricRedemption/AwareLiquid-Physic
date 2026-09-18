@@ -98,7 +98,10 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
                     batch: int, seed: int, drift_weight: float = 0.0,
                     lr_decay: float = 1.0, start_mix: float = 0.0,
                     start_mix_window: int = 1,
-                    adaptive_sampling: bool = False
+                    adaptive_sampling: bool = False,
+                    aux_head: nn.Module | None = None,
+                    aux_targets: torch.Tensor | None = None,
+                    aux_identify_weight: float = 0.0
                     ) -> float:
     """Semigroup (all2all) training loop — arbitrary start states after the
     prefix, fixed span k_train, optional drift penalty. Returns the final loss.
@@ -118,9 +121,21 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
     per-start-time uncertainty map (context-perturbation disagreement) and
     sample t0 with P ∝ 0.5·uniform + 0.5·softmax(û). False (default) keeps
     the RNG stream and behaviour identical to before.
+    aux_head/aux_targets/aux_identify_weight: D2-CAPACITY R1 (wave-10 G4,
+    docs/d2-capacity-design.md §12.3) — an auxiliary readout from the
+    INFERRED context to the true latent coefficients (simulated data, ground
+    truth available at training time), giving the inference path a direct
+    gradient where E4a measured the one-step loss pressure at ~4e-5
+    (gradient starvation). aux_head: nn.Module ctx->coeffs (its params join
+    the optimizer only when the weight is on); aux_targets: (n_traj, dim)
+    per-trajectory ground truth, indexed by the same batch indices.
+    Weight 0.0 (default) keeps the RNG stream and behaviour identical.
     """
     g = torch.Generator().manual_seed(seed)
-    opt = torch.optim.Adam(model.parameters(), lr=lr)
+    params = list(model.parameters())
+    if aux_identify_weight > 0.0 and aux_head is not None:
+        params += list(aux_head.parameters())
+    opt = torch.optim.Adam(params, lr=lr)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda t: lr_decay ** t)
     n_traj, S = qs.shape[0], qs.shape[1]
     assert S > t_obs + k_train, "trajectory too short for prefix + rollout span"
@@ -168,6 +183,11 @@ def train_semigroup(model: nn.Module, qs: torch.Tensor, ps: torch.Tensor,
             if drift_weight > 0.0:
                 E = _energy_of(model, qs_pred, ps_pred, ctx)
                 loss = loss + drift_weight * ((E - E[0]).pow(2).mean())
+            if aux_identify_weight > 0.0 and aux_head is not None:
+                # R1: gradient flows THROUGH ctx into the inference path —
+                # that pressure is exactly what E4a found missing.
+                loss = loss + aux_identify_weight * (
+                    (aux_head(ctx) - aux_targets[bi]) ** 2).mean()
 
         opt.zero_grad(set_to_none=True)
         loss.backward()
