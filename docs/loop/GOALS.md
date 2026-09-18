@@ -19,16 +19,17 @@ current_action: >-
   弹出并晋升下一位,对新目标执行其首个迭代步;NOT-Achieved → 对当前
   顶部目标迭代一步(未达成不停)。每轮心跳先校验,再干活。
   队列空(穷尽,query 清单见 PRD §19 轮 60 与 scan-conditioning.md)。
-  下一触发:R1/R2 云结果回传(机械验收 §12.3 判据)→ E2 条件性重入口
-  视 ρ_CB′;或 23:00 夜间马拉松;或用户"继续"。
+  下一触发:按最新 GOAL-PROMPT.md(停止条款 v2)进入经验蒸馏轮补池;
+  或 R1/R2 云结果回传(机械验收 §12.3 判据)→ E2 条件性重入口视 ρ_CB′;
+  或用户"继续"。
 done_condition: >-
   队列空时进入文献扫描补队列;队列非空时永不停——每轮 goal_check 路由。
 blocked_on: >-
   1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
   领先 35+ 提交);3) N1 正式英文稿是否启动。
-next_trigger_hint: 夜间马拉松(23:00 启动,自循环至 09:00) / 用户"继续" / 兑底心跳(3h)
+next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
 pointer: docs/PRD.md §19(轮 60 收尾记录;设计 docs/d2-capacity-design.md §12;RSI-INDEX 夜 3 行)
-updated: 2026-09-19 06:25 (夜 3 收口:RSI≈0.66 入账,队列穷尽,待云回传/23:00)
+updated: 2026-09-19 04:07 (一致性终检:修正时间戳与失效触发引用;分支模型 AMM-005 已同步)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
