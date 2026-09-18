@@ -8,3 +8,4 @@ training_logs/
 dist/
 build/
 .venv/
+.loop-lock

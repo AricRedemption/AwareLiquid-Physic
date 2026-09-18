@@ -10,6 +10,7 @@
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 GOALS="$REPO/docs/loop/GOALS.md"
+date +%s > "$REPO/.loop-lock"   # 马拉松存活心跳(供 marathon_guard 新鲜度检查)
 
 python3 - "$GOALS" <<'EOF'
 import re, subprocess, sys
