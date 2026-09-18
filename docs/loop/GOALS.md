@@ -30,11 +30,6 @@ updated: 2026-09-19 00:58 (goal_queue + 校验路由器上线)
 
 ```yaml
 goal_queue:
-- id: G2
-    track: frontier
-    goal: 半群 k100 优势的跨 seed 稳健性量化(轮 44 反转的后续,≥5 seeds)
-    done_condition: physics_out_v02/k100_seed_scan/k100_scan.json 含 ≥5 个 seed 的 k100 比值与符号统计
-    check_cmd: python3 -c "import json,sys; d=json.load(open('benchmarks/physics_out_v02/k100_seed_scan/k100_scan.json')); sys.exit(0 if len(d['results']['seeds'])>=5 else 1)"
 - id: G3
     track: engineering
     goal: hidden 终跑一键化(scripts/hidden_check,自动登记消耗表)
