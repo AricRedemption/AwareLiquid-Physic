@@ -29,9 +29,9 @@ blocked_on: >-
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-10
   (文献坐标;轮 61/63/65 蒸馏);updated 见下
-updated: 2026-09-19 07:0x (轮 71 判读+蒸馏:datasets 无噪确认——D6 CRB
-  为 σ=1 保守假设值,层 1 非瓶颈加强,引用须附假设声明(PRD §19 轮 71);
-  §14 sim-to-real 边界 [坐标] 入库。队列空,下一触发:R1/R2 云回传 /
+updated: 2026-09-19 07:1x (轮 72 数据再判读:E 系列 resolution 附带字段
+  发现超分容量反向信号(d192 超分差 d96 47%,与混叠坐标一致,弱信号如实
+  注记待 R2 复验,PRD §19 轮 72)。队列空,下一触发:R1/R2 云回传 /
   蒸馏 / 用户停)
 ```
 
