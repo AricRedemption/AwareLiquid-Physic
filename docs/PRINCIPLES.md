@@ -30,7 +30,7 @@
 - 支持：M1 弹簧族（隐藏刚度 ω）66–90%；M3 few-shot **3.24x**（单 seed 最佳）/ ~2.9x（3 seeds 均值 2.67/2.67/3.24）。
 - 反面（同样重要）：2D 周期膜 static 1.78e-3 **优于** liquid 1.09e-2（齐次系统无需辨识）；M2 非均匀 1D 5 seeds 接近打平（1.93e-2±4.3e-4 vs 1.75e-2，不稳健）；N-body 混沌系统 liquid 仅 1.7%（14.62 vs 14.87，第一波；更大模型 15.41±1.08 无益，第三波）。
 - 出处：PRD §9、§10（核心结论段）、§11、§12。
-- 待消不确定性：隐藏参数"可辨识度"与 liquid 增益的定量关系**已建模（第十波 D3，2026-09-17）**：**窗长轴**是数量级杠杆——t_obs 24→8 使 J 塌缩 ~27x、semigroup liquid MSE 恶化 2.47x（n=512、3 seeds，prefix 同向 2.06x，次线性同向）；族内频段轴 J 动态范围仅 1.5x，不构成解释变量。跨任务外推（M2 的 32 维 c(x) 场）留待后续波次。证据：`benchmarks/physics_out_v02/d3_window/{tobs8,tobs24}/` + `d3_identifiability/`。
+- 待消不确定性：隐藏参数"可辨识度"与 liquid 增益的定量关系**已建模（第十波 D3，2026-09-17）**：**窗长轴**是数量级杠杆——t_obs 24→8 使 J 塌缩 ~27x、semigroup liquid MSE 恶化 2.47x（n=512、3 seeds，prefix 同向 2.06x，次线性同向）；族内频段轴 J 动态范围仅 1.5x，不构成解释变量。**跨任务外推已完成（轮 42，2026-09-18）**：M2 场族谱域 Fisher 近平坦（动态范围 2.5x,模式 1–15 在均值 ±10% 内）,族支撑 89% 集中于模式 1–4（"32 维场"实为 4 维族）且全维良辨识——M2 增益瓶颈不在可辨识度,候选在 context→势能映射容量（呼应 P4）。证据：`benchmarks/physics_out_v02/d3_window/{tobs8,tobs24}/`、`d3_identifiability/`、`d3_field_identifiability/`。
 
 ### P4 — FiLM 条件化必须配长窗口/半群训练；短窗口下 concat 更稳 · **状态：SUPPORTED（负结果教训）**
 
