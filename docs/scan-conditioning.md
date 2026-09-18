@@ -70,6 +70,52 @@
   "条件化优劣依赖头型与任务对齐"的可检验叙事,E1/E2 就是它的物理域
   实证。
 
+## 6. 经验蒸馏(轮 56,QUEUE-EMPTY 轮,2026-09-19):辅助辨识损失与梯度饥饿
+
+> 本节按 PLAYBOOK 经验蒸馏轮格式:每条【出处 + 适用条件 + 验证状态】,
+> 有效性由 R1 云跑与 RSI-INDEX 收口。
+
+### 6.1 Gradient Starvation(Pezeshki et al., NeurIPS 2021,~462 引)
+
+- 【出处】[NeurIPS Proceedings](https://proceedings.neurips.cc) /
+  [官方实现](https://github.com/mpezeshki/Gradient_Starvation)。
+- 【内容】形式化"易学特征主导梯度信号、压制同样有信息但更难学的特征"
+  的现象,给出耦合动力学理论。
+- 【对我们的映射】E4a 实测正是该现象的机械版:推断路径/头梯度比
+  3.97e-3,且"head 未学用 ctx → ctx 无压力"是耦合塌缩的双侧形式。
+  **我们的增量**:在硬约束物理架构上首次机械测量,而非仅理论刻画。
+- 【适用条件】过参数化网络、特征间梯度竞争;难特征需独立梯度通路才能
+  逃逸——R1 的辅助损失即此通路。
+- 【验证状态】饥饿测量:已验证(本机 E4a);其修复处方对我们:待验证
+  (R1 云跑收口)。
+
+### 6.2 E2C — Embed to Control(Watter et al., NeurIPS 2015)
+
+- 【出处】NeurIPS 2015,原始潜空间动力学控制线。
+- 【内容】辅助损失强制潜动力学局部线性,把潜空间塑形为"对动力学有用"
+  的形状——"潜变量不监督就会编码无关事物"的最早系统证据。
+- 【对我们的映射】R1(辅助辨识损失)是该模式在硬约束哈密顿架构上的
+  直系移植:ctx 不监督就收敛到无信息平台(E1/E3 实测)。
+- 【适用条件】可微潜动力学 + 已知参数族形式(仿真场景满足)。
+- 【验证状态】待验证(R1 云跑;社区已验证于 VAE-land,勿直接外推)。
+
+### 6.3 DVBF — Deep Variational Bayes Filters(Karl et al., ICLR 2017)
+
+- 【出处】ICLR 2017。
+- 【内容】"Latent-force-model"辅助损失:以**真值状态导数**监督潜变量,
+  解决无监督潜动力学简并——与 R1 的 `aux_targets`(仿真真值系数)同构。
+- 【对我们的映射】R1 的直接先例:训练期真值可得时,直接监督潜码是
+  社区验证过的破简并手段。
+- 【适用条件】仿真/有真值场景(与我们完全一致)。
+- 【验证状态】待验证(R1 云跑)。
+
+### 蒸馏结论
+
+R1 的设计不是拍脑袋:它有 2015-2021 的连续文献线(潜码需监督 → 真值
+监督破简并 → 梯度饥饿理论命名我们实测的现象)。R1 若正,论文叙事获得
+"现象(实测)→ 机制(命名)→ 修复(有先例的处方)"完整链;若负,
+则硬约束架构与 VAE-land 的差异本身即新发现。**不存在白跑分支**。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -79,3 +125,6 @@
 - [Mehta et al., Modulated Periodic Activations (ICCV 2021)](https://arxiv.org/abs/2104.03912)
 - [HyPINO: Multi-Physics Neural Operators via HyperPINNs (arXiv 2025)](https://arxiv.org)
 - [CPNO: Physics-informed Chebyshev polynomial neural operator](https://www.sciencedirect.com)
+- [Gradient Starvation (Pezeshki et al., NeurIPS 2021)](https://proceedings.neurips.cc)
+- [Gradient Starvation 官方实现 (GitHub)](https://github.com/mpezeshki/Gradient_Starvation)
+- E2C (Watter et al., NeurIPS 2015) / DVBF (Karl et al., ICLR 2017)——见 §6 条目
