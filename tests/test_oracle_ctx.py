@@ -9,7 +9,7 @@ import torch
 
 from awareliquid_physics.hamiltonian import OperatorHamiltonianHead
 from benchmarks.field_eval import (OracleOperatorWrapper, field_context_probe,
-                                   oracle_ctx_matrix)
+                                   mlp_context_probe, oracle_ctx_matrix)
 
 
 def test_oracle_projection_roundtrip_and_scale():
@@ -86,3 +86,24 @@ def test_field_context_probe_high_corr_and_json_safe():
     res2 = field_context_probe(Stub(), qs, ps, torch.ones(n, out_dim), t_obs=4)
     assert res2["ctx_probe_n_finite"] == 0
     assert res2["ctx_probe_corr_mean"] == 0.0
+
+
+def test_mlp_probe_captures_nonlinear_encoding_linear_misses():
+    """E3 的 MLP 探针必须读出纯二次编码(积/平方),而线性探针读不出——
+    收口'信息在但非线性编码'的判别漏洞。"""
+    torch.manual_seed(0)
+    n, S = 64, 6
+    z = torch.randn(n, 2)
+    coeffs = torch.stack([z[:, 0] * z[:, 1], z[:, 0] ** 2, z[:, 1] ** 2], dim=1)
+    qs = z.reshape(n, 1, 2, 1).expand(n, S, 2, 1).contiguous()
+    ps = torch.randn(n, S, 2, 1)
+
+    class Stub(torch.nn.Module):
+        def forward(self, q_obs, p_obs, k):
+            return None, None, q_obs.reshape(q_obs.shape[0], -1)[:, :2]
+
+    lin = field_context_probe(Stub(), qs, ps, coeffs, t_obs=4)
+    mlp = mlp_context_probe(Stub(), qs, ps, coeffs, t_obs=4, seed=0)
+    assert lin["ctx_probe_corr_mean"] < 0.3
+    assert mlp["ctx_mlp_n_finite"] == 3
+    assert mlp["ctx_mlp_corr_mean"] > 0.7

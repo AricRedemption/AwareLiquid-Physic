@@ -10,44 +10,39 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 周一至五 23:00-09:00(夜间cron);周六 09:00-23:00(全天候)
 current_goal: >-
-  D2-CAPACITY 轮:E1 已判定(E1-c 推断瓶颈:oracle ctx 经同一 FiLM 接口
-  兑现 27% 增益而 liquid 推断 ctx 探针≈0)。当前 E3 推断侧容量阶梯
-  (d_model 96/192 × 3 seeds + MLP 探针,设计文档 §10 预注册)。
+  D2-CAPACITY 线:E1(E1-c 推断瓶颈)、E3(容量否定,目标函数侧主嫌疑)
+  均已入档。当前:N1-RW 写作轮(证据链+文献空位进骨架)→ G4-E4 目标
+  函数侧设计轮。
 current_action: >-
   运行 ./scripts/goal_check 并按其 VERDICT 继续:ACHIEVED → 顶部目标已
   弹出并晋升下一位,对新目标执行其首个迭代步;NOT-Achieved → 对当前
   顶部目标迭代一步(未达成不停)。每轮心跳先校验,再干活。
-  当前顶部 G4-E3:先冒烟校准 d96 单 seed 实测时长(算力闸门),再逐臂
-  分命令跑 d96/d192(3 seeds,各 ≤25 min),按 §10 判定入档。
+  当前顶部 N1-RW:把 D2-CAPACITY 三实验证据链与 scan-conditioning 文献
+  空位写进论文骨架(条件化与推断瓶颈小节)。
 done_condition: >-
   队列空时进入文献扫描补队列;队列非空时永不停——每轮 goal_check 路由。
 blocked_on: >-
   1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
   领先 35+ 提交);3) N1 正式英文稿是否启动。
 next_trigger_hint: 夜间马拉松(23:00 启动,自循环至 09:00) / 用户"继续" / 兑底心跳(3h)
-pointer: docs/PRD.md §19(轮 51 记录为最新;设计 docs/d2-capacity-design.md §10)
-updated: 2026-09-19 03:10 (E1 判定 E1-c 入档,E2 降权出队,E3 预注册补池;算力闸门遵行)
+pointer: docs/PRD.md §19(轮 52 记录为最新;设计 docs/d2-capacity-design.md §11)
+updated: 2026-09-19 03:55 (E3 容量否定入档;N1-RW/E4 补池)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
 goal_queue:
-- id: G4-E1
-    track: engineering
-    goal: D2-CAPACITY E1 实装+筛查(OracleOperator+模式投影+线性探针+测试,1-seed 三臂筛查)
-    done_condition: field_eval 支持 --oracle_ctx,三臂筛查 JSON 落 d2_capacity/e1_screen 且 pytest 全绿
-    check_cmd: test -f benchmarks/physics_out_v02/d2_capacity/e1_screen/field_eval.json
-- id: G4-SCAN
+- id: N1-RW
     track: frontier
-    goal: 条件化接口文献/GitHub 扫描(FiLM/hypernet/concat 在 FNO 与 PDE 基础模型的条件化实践,谁做过、失败在哪)
-    done_condition: docs/scan-conditioning.md 存在且含至少 3 项相关工作注记
-    check_cmd: test -f docs/scan-conditioning.md
-- id: G4-E3
+    goal: 论文骨架写作轮——D2-CAPACITY 证据链(oracle 上界−27% vs 端到端~0%,瓶颈在推断侧目标信号)与条件化文献空位写进 docs/d1-start-state-mismatch.md(Related Work/机制节)
+    done_condition: 骨架含"条件化与推断瓶颈"小节且引用 scan-conditioning.md 的文献与 d2_capacity 三实验
+    check_cmd: grep -q "UFNO-FiLM" docs/d1-start-state-mismatch.md 2>/dev/null
+- id: G4-E4
     track: engineering
-    goal: D2-CAPACITY E3 推断侧容量阶梯(d_model∈{96,192}×3 seeds+MLP 探针,按设计文档 §10 预注册判定)
-    done_condition: e3_d96 与 e3_d192 结果 JSON 落 d2_capacity/ 且判定入 PRD §19
-    check_cmd: test -f benchmarks/physics_out_v02/d2_capacity/e3_d96/field_eval.json -a -f benchmarks/physics_out_v02/d2_capacity/e3_d192/field_eval.json
+    goal: D2-CAPACITY E4 目标函数侧设计轮(为何 semigroup 单步目标不产生辨识压力;视距-增益 vs ctx 梯度路径两假设,设计文档+预注册,遵算力闸门)
+    done_condition: docs/d2-capacity-design.md 含 E4 预注册协议段(§12)且含实测校准时长
+    check_cmd: grep -q "^## 12" docs/d2-capacity-design.md 2>/dev/null
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

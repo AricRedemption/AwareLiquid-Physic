@@ -154,18 +154,60 @@ def field_context_probe(model, qs, ps, coeffs, t_obs):
     xb = torch.cat([ctx[n_half:], torch.ones(n - n_half, 1)], dim=1)
     sol = torch.linalg.lstsq(xa, y[:n_half]).solution
     y_hat = xb @ sol
-    y_true = y[n_half:]
+    return _probe_corr(y_hat, y[n_half:], "ctx_probe")
+
+
+def _probe_corr(y_hat, y_true, prefix):
+    """Per-coefficient Pearson correlation summary, NaN-safe (strict JSON)."""
     corrs = []
-    for j in range(y.shape[1]):
+    for j in range(y_true.shape[1]):
         c = torch.corrcoef(torch.stack([y_hat[:, j], y_true[:, j]]))[0, 1]
         if torch.isfinite(c):
             corrs.append(c.item())
     if not corrs:
-        return {"ctx_probe_corr_mean": 0.0, "ctx_probe_corr_min": 0.0,
-                "ctx_probe_n_finite": 0}
-    return {"ctx_probe_corr_mean": sum(corrs) / len(corrs),
-            "ctx_probe_corr_min": min(corrs),
-            "ctx_probe_n_finite": len(corrs)}
+        return {f"{prefix}_corr_mean": 0.0, f"{prefix}_corr_min": 0.0,
+                f"{prefix}_n_finite": 0}
+    return {f"{prefix}_corr_mean": sum(corrs) / len(corrs),
+            f"{prefix}_corr_min": min(corrs),
+            f"{prefix}_n_finite": len(corrs)}
+
+
+def mlp_context_probe(model, qs, ps, coeffs, t_obs, seed,
+                      hidden=64, steps=500, lr=1e-2):
+    """D2-CAPACITY E3 diagnostic (wave-10 G4, docs/d2-capacity-design.md
+    §10): the NONLINEAR companion of field_context_probe — a small MLP
+    readout (ctx -> coeffs) closes the 'information present but nonlinearly
+    encoded' loophole that a linear probe cannot distinguish from true
+    information loss. Trained by Adam on the FIRST half of the pool
+    (z-scored by train-half statistics), correlation reported on the held-out
+    SECOND half. A probe, not a model: overfitting shows up as a train/test
+    gap and is not defended against beyond weight decay + z-scoring."""
+    model.eval()
+    n = qs.shape[0]
+    with torch.enable_grad():
+        _, _, ctx = model(qs[:, :t_obs], ps[:, :t_obs], 1)
+    ctx = ctx.detach().reshape(n, -1).cpu()
+    y = coeffs.detach().reshape(n, -1).cpu()
+    n_half = n // 2
+    mu = ctx[:n_half].mean(0, keepdim=True)
+    sd = ctx[:n_half].std(0, keepdim=True).clamp_min(1e-6)
+    xa = (ctx[:n_half] - mu) / sd
+    xb = (ctx[n_half:] - mu) / sd
+    g = torch.Generator().manual_seed(seed + 2000)
+    readout = torch.nn.Sequential(
+        torch.nn.Linear(ctx.shape[1], hidden), torch.nn.Tanh(),
+        torch.nn.Linear(hidden, hidden), torch.nn.Tanh(),
+        torch.nn.Linear(hidden, y.shape[1]))
+    opt = torch.optim.Adam(readout.parameters(), lr=lr, weight_decay=1e-4)
+    for _ in range(steps):
+        opt.zero_grad(set_to_none=True)
+        loss = ((readout(xa) - y[:n_half]) ** 2).mean()
+        loss.backward()
+        opt.step()
+    readout.eval()
+    with torch.no_grad():
+        y_hat = readout(xb)
+    return _probe_corr(y_hat, y[n_half:], "ctx_mlp")
 
 
 def make_models(args, seed):
@@ -260,6 +302,10 @@ def main():
                          "arm — trained with the fixed projection of the true "
                          "c(x) as context (docs/d2-capacity-design.md §4-5) — "
                          "plus the linear context probe on the liquid arm")
+    ap.add_argument("--arms", default="",
+                    help="comma subset of the enabled arms to RUN (e.g. "
+                         "'liquid_operator' for E3 dose runs); empty = all "
+                         "enabled arms, the historical behaviour")
     ap.add_argument("--lr", type=float, default=3e-3)
     ap.add_argument("--lr_decay", type=float, default=1.0,
                     help="per-step exponential lr decay (1.0 = constant)")
@@ -305,9 +351,19 @@ def main():
     arms = ("liquid_operator", "static_operator")
     if args.oracle_ctx:
         arms += ("oracle_operator",)
+    if args.arms:
+        want = [s.strip() for s in args.arms.split(",") if s.strip()]
+        unknown = [w for w in want if w not in arms]
+        if unknown:
+            raise SystemExit(f"--arms unknown (or flag-absent) arms: "
+                             f"{unknown}; available here: {arms}")
+        arms = tuple(a for a in arms if a in want)
+        if not arms:
+            raise SystemExit("--arms selected nothing")
     results = {}
     liquid_trained = None
     probe_corrs = []
+    mlp_corrs = []
     for name in arms:
         mses, drifts, mse_ses = [], [], []
         n_par = None
@@ -347,7 +403,10 @@ def main():
                                            scale=args.c_var)
                 probe = field_context_probe(model, qs[ev], ps[ev],
                                             coeffs[ev], args.t_obs)
+                mprobe = mlp_context_probe(model, qs[ev], ps[ev],
+                                           coeffs[ev], args.t_obs, seed)
                 probe_corrs.append(probe["ctx_probe_corr_mean"])
+                mlp_corrs.append(mprobe["ctx_mlp_corr_mean"])
             mses.append(mse)
             drifts.append(drift)
             mse_ses.append(mse_se)
@@ -371,14 +430,19 @@ def main():
             results["ctx_probe"] = {
                 "corr_mean": sum(probe_corrs) / len(probe_corrs),
                 **{f"corr_mean_seed{i}": c for i, c in enumerate(probe_corrs)}}
+        if name == "liquid_operator" and mlp_corrs:
+            results["ctx_probe_mlp"] = {
+                "corr_mean": sum(mlp_corrs) / len(mlp_corrs),
+                **{f"corr_mean_seed{i}": c for i, c in enumerate(mlp_corrs)}}
 
     # Resolution invariance: the SAME trained model at 2x the node count.
-    g3 = torch.Generator(device=args.device).manual_seed(args.seed + 2)
-    mse_hi = resolution_test(liquid_trained, args, g3)
-    results["resolution"] = {"train_N": args.n_nodes, "test_N": args.n_res_test,
-                             "rollout_mse": mse_hi}
-    print(f"  [resolution      ] trained N={args.n_nodes} -> eval N="
-          f"{args.n_res_test} zero-shot rollout_mse {mse_hi:.4e}", flush=True)
+    if "liquid_operator" in results:
+        g3 = torch.Generator(device=args.device).manual_seed(args.seed + 2)
+        mse_hi = resolution_test(liquid_trained, args, g3)
+        results["resolution"] = {"train_N": args.n_nodes, "test_N": args.n_res_test,
+                                 "rollout_mse": mse_hi}
+        print(f"  [resolution      ] trained N={args.n_nodes} -> eval N="
+              f"{args.n_res_test} zero-shot rollout_mse {mse_hi:.4e}", flush=True)
 
     os.makedirs(args.out_dir, exist_ok=True)
     import json
@@ -386,25 +450,32 @@ def main():
         json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "field_eval",
                    "device": args.device}), "results": results}, f, indent=2)
 
-    lq, st = results["liquid_operator"], results["static_operator"]
-    print("\n" + "=" * 70, flush=True)
-    print("FIELD + OPERATOR POTENTIAL | does liquid system-ID add value?", flush=True)
-    print("=" * 70, flush=True)
-    print(f"  rollout MSE:   liquid {lq['rollout_mse']:.3e} | static "
-          f"{st['rollout_mse']:.3e}", flush=True)
-    print(f"  energy drift:  liquid {lq['energy_drift_max']:.3e} | static "
-          f"{st['energy_drift_max']:.3e}", flush=True)
-    gap = 1.0 - lq["rollout_mse"] / st["rollout_mse"]
-    print(f"  liquid advantage over static: {gap * 100:.1f}% "
-          f"(target >= 30%)", flush=True)
+    if "liquid_operator" in results and "static_operator" in results:
+        lq, st = results["liquid_operator"], results["static_operator"]
+        print("\n" + "=" * 70, flush=True)
+        print("FIELD + OPERATOR POTENTIAL | does liquid system-ID add value?", flush=True)
+        print("=" * 70, flush=True)
+        print(f"  rollout MSE:   liquid {lq['rollout_mse']:.3e} | static "
+              f"{st['rollout_mse']:.3e}", flush=True)
+        print(f"  energy drift:  liquid {lq['energy_drift_max']:.3e} | static "
+              f"{st['energy_drift_max']:.3e}", flush=True)
+        gap = 1.0 - lq["rollout_mse"] / st["rollout_mse"]
+        print(f"  liquid advantage over static: {gap * 100:.1f}% "
+              f"(target >= 30%)", flush=True)
     if args.oracle_ctx and "oracle_operator" in results:
         oc = results["oracle_operator"]
-        print(f"  D2-CAPACITY oracle-ctx arm: {oc['rollout_mse']:.3e} | "
-              f"rho_CA {oc['rollout_mse'] / st['rollout_mse']:.3f} | "
-              f"rho_CB {oc['rollout_mse'] / lq['rollout_mse']:.3f} | "
-              f"ctx probe corr_mean "
-              f"{results.get('ctx_probe', {}).get('corr_mean', float('nan')):.3f}",
-              flush=True)
+        lq = results.get("liquid_operator")
+        st = results.get("static_operator")
+        parts = [f"  D2-CAPACITY oracle-ctx arm: {oc['rollout_mse']:.3e}"]
+        if st:
+            parts.append(f"rho_CA {oc['rollout_mse'] / st['rollout_mse']:.3f}")
+        if lq:
+            parts.append(f"rho_CB {oc['rollout_mse'] / lq['rollout_mse']:.3f}")
+        if "ctx_probe" in results:
+            parts.append(f"probe {results['ctx_probe']['corr_mean']:.3f}")
+        if "ctx_probe_mlp" in results:
+            parts.append(f"mlp-probe {results['ctx_probe_mlp']['corr_mean']:.3f}")
+        print(" | ".join(parts), flush=True)
 
 
 if __name__ == "__main__":
