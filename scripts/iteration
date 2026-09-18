@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# iteration — AMM-003 迭代开关按钮(GOALS.md mode/iteration_window 的 CLI)
+#
+# 用法:
+#   ./scripts/iteration start                     # ON,沿用现有 goal/window
+#   ./scripts/iteration start "新的 goal 文本"     # ON 并替换 current_goal
+#   ./scripts/iteration start --window "09:00-23:00"  # 定义生效时段
+#   ./scripts/iteration stop                      # OFF(心跳只确认不干活)
+#   ./scripts/iteration status                    # 查看当前开关/窗口/goal
+#
+# 语义:GOALS.md 的 mode=ON 且当前时间落在 iteration_window 内,心跳才
+# 执行 current_action;否则心跳仅确认状态。夜间 cron(23:00-09:00)不受
+# window 限制(窗口本身即夜间),周六白天自动化受 window 双闸。
+set -euo pipefail
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+GOALS="$REPO/docs/loop/GOALS.md"
+
+cmd="${1:-status}"; shift || true
+case "$cmd" in
+  start)
+    goal=""; window=""
+    while [ $# -gt 0 ]; do
+      case "$1" in
+        --window) window="$2"; shift 2 ;;
+        *) goal="$1"; shift ;;
+      esac
+    done
+    [ -n "$goal" ] && python3 - "$GOALS" "$goal" <<'EOF'
+import re, sys, datetime
+p, goal = sys.argv[1], sys.argv[2]
+s = open(p).read()
+s = re.sub(r"current_action: >-\n(  .*\n)+",
+           "current_action: >-\n      " + goal.replace("\n", "\n      ") + "\n", s, count=1)
+open(p, "w").write(s)
+EOF
+    [ -n "$window" ] && python3 - "$GOALS" "$window" <<'EOF'
+import re, sys
+p, w = sys.argv[1], sys.argv[2]
+s = open(p).read()
+s = re.sub(r"iteration_window: .*", "iteration_window: " + w, s, count=1)
+open(p, "w").write(s)
+EOF
+    python3 - "$GOALS" <<'EOF'
+import re, sys, datetime
+p = sys.argv[1]
+s = open(p).read()
+s = re.sub(r"mode: \w+", "mode: ON", s, count=1)
+s = re.sub(r"updated: .*", "updated: " + datetime.datetime.now().strftime("%F %H:%M") + " (iteration start)", s, count=1)
+open(p, "w").write(s)
+EOF
+    echo "mode=ON ${window:+window=$window }${goal:+goal 已更新}"
+    ;;
+  stop)
+    python3 - "$GOALS" <<'EOF'
+import re, sys, datetime
+p = sys.argv[1]
+s = open(p).read()
+s = re.sub(r"mode: \w+", "mode: OFF", s, count=1)
+s = re.sub(r"updated: .*", "updated: " + datetime.datetime.now().strftime("%F %H:%M") + " (iteration stop)", s, count=1)
+open(p, "w").write(s)
+EOF
+    echo "mode=OFF(心跳将只确认不干活)"
+    ;;
+  status)
+    grep -E "^(state|mode|iteration_window):" "$GOALS" || true
+    grep -A2 "current_action:" "$GOALS" | head -3
+    ;;
+  *) echo "用法: iteration {start [goal] [--window HH:MM-HH:MM] | stop | status}"; exit 1 ;;
+esac

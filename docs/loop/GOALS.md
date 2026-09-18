@@ -7,6 +7,8 @@
 
 ```yaml
 state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
+mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
+iteration_window: 周一至五 23:00-09:00(夜间cron);周六 09:00-23:00(全天候)
 current_goal: >-
   N1 论文骨架已达 done_condition(Related Work 全文+表 1+主图引用+产物索引,
   无占位);打包阶段完成。当前转入"等裁定+轻维护"阶段。
@@ -21,7 +23,7 @@ blocked_on: >-
   领先 35 提交);3) N1 正式英文稿是否启动。
 next_trigger_hint: cron 30min 心跳(空转确认) / 用户"继续" / SessionStart
 pointer: docs/PRD.md §19(轮 44 隐藏集终跑为最新关键记录)
-updated: 2026-09-19 00:37 (wave/loop @ Related Work 全文化提交后)
+updated: 2026-09-19 00:47 (iteration start)
 ```
 
 ## 状态机
