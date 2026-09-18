@@ -13,6 +13,7 @@ dependencies = ["torch>=2.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+plots = ["matplotlib>=3.9"]
 
 [tool.setuptools]
 packages = ["awareliquid_physics"]

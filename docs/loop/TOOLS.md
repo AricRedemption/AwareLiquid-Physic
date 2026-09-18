@@ -8,6 +8,7 @@
 | `start_time_sweep.py` | 1 步误差按起点时刻剖面(D1g 机制证据) | `--out_dir d1g_sweep` |
 | `identifiability_probe.py` | 弹簧族隐藏 ω 的观测窗 Fisher 信息 J(ω) | 即跑即出,秒级 |
 | `field_identifiability_probe.py` | M2 场 c(x) 的谱域 Fisher(逐 cos 模式) | 即跑即出,秒级 |
+| `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}` |
 | `audit_results.py` | 结果 JSON 溯源 schema 审计(--check 为提交门) | `--check [目录]` |
 | `m1_semigroup_eval.py` | 半群 vs prefix 主对照(gen_spring 出处) | — |
