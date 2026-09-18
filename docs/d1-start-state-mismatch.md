@@ -148,6 +148,47 @@ where the training loss sampled it — prefix carves a notch at its single
 training start, all2all flattens across the orbit. The paper figure is this
 4-profile panel.
 
+## 8. CfC equation-level view (wave-10 N3 round, 2026-09-18)
+
+Equations quoted from Hasani et al., *Closed-form Continuous-time Neural
+Models* (arXiv:2106.13898 / Nature MI 2022):
+
+- **LTC ODE (Eq. 1)**: dx/dt = −(w_τ + f(x,I,θ))·x + A·f(x,I,θ)
+- **Approximate closed form (Thm 1, Eq. 2)**:
+  x(t) = (x₀−A)·e^(−[w_τ+f(I(t),θ)]·t)·f(−I(t),θ) + A
+- **Error bound (Lemma 1)**: |x(t) − x̃(t)| ≤ |x(0)−A|·e^(−w_τ·t) — *sharp*,
+  and **independent of the input path**: the linear-case approximation error
+  depends only on elapsed time, never on *where on the trajectory* you start.
+- **Trainable time-gated form (Eq. 10)**:
+  x(t) = σ(−f·t)⊙g + [1−σ(−f·t)]⊙h — time enters *only* through the scalar
+  product f·t inside the gates, interpolating a short-time branch g and a
+  long-time branch h.
+
+**Consequences for the start-mismatch finding:**
+
+1. **The mismatch is not intrinsic to the dynamics or to closed-form
+   continuous-time modelling.** In the linear LTC case the one-step solution
+   error is provably start-independent (Lemma 1). Therefore the start-state
+   dependence we measured (D1c/D1g) must live entirely in the *learned
+   components trained on a partial (state, gap) distribution* — the
+   coverage-density argument is thereby lifted from heuristic to a
+   structural statement about training distributions, not about the model
+   class.
+2. **Lifting to gated architectures (P-CfC, untested).** In Eq. 10 the
+   prediction from start x(t₀) with gap Δt passes through the gate
+   σ(−f·Δt): prefix training exercises (state, gate) pairs in a narrow
+   band, all2all exercises the full band. Prediction: a CfC-style gated
+   head trained prefix-only should show one-step error growing as the gate
+   moves toward the untrained branch — a *cross-architecture* falsification
+   of the same coverage claim. Requires a gated-head variant of our model
+   (new work — registered, not queued).
+3. **Why our symplectic head shows the same phenomenology.** Our
+   Hamiltonian head has no explicit time gate; Δt enters through the
+   integrator. The D1g profiles (prefix notch at its single training start,
+   all2all flat) show the learned ∇V̂ inherits exactly the training-start
+   density — consistent with (1): nothing in the architecture *forces*
+   start-dependence; nothing in prefix training *prevents* it either.
+
 ## Artifact index (commits, wave-10 night 2026-09-16/17)
 
 `d1_small_n` 34f9857→301e19c · `d1b_eval_depth` 5521942 ·
