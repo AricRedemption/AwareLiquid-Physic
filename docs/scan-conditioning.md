@@ -199,6 +199,18 @@ N1 的 Related Work 已有"自主研究循环"小节;本条给它的 novelty 补
 gap 存在 → 新归因因子 + 预注册 pushforward 协议(云交付);gap 不存在
 → 评测口径辩护成立 + 8.3/8.4 收进 Related Work。**不存在白跑分支**。
 
+### 8.5 判读回填(轮 62,D5-EXPOSURE 结案)
+
+- **8.1 pushforward:不适用(已判读)**——本仓训练与评测的滚出段
+  同为自回归(训练损失直接吃自预测,`train_semigroup` 与两处 eval
+  逐路径证据见 PRD §19 轮 62 记录),pushforward 所修的
+  teacher-forced→free-running 漂移由构造消除。
+- **8.2 低幅局限:不适用(前提同上,备用注记保留)**。
+- **8.3 SRNN:引用生效**——Related Work 必引清单已落 PRD §19 轮 62。
+- **8.4 exposure-bias 谱系:降为背景引用**(gap 不存在,无修复需求)。
+- 辩护价值:全部滚出 MSE 数字(R1/R2/E/D 系列)不受 exposure bias
+  混淆,评测口径辩护成立。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)

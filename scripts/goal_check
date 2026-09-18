@@ -36,6 +36,12 @@ if not entries:
     print("VERDICT: QUEUE-EMPTY"); sys.exit(2)
 
 top, rest = entries[0], entries[1:]
+if not top["check_cmd"].strip():
+    # 空 check_cmd 时 subprocess.call("") 返回 0 ⇒ 假阳性 ACHIEVED 误弹
+    # (轮 62 实付 1 cycle)。空命令不构成验收,按未达成路由。
+    print(f"VERDICT: NOT-Achieved — [{top['id']}] check_cmd 为空(假阳性防护),按未达成路由")
+    print(f"  done_condition: {top['done_condition']}")
+    sys.exit(1)
 rc = subprocess.call(top["check_cmd"], shell=True,
                      cwd=path.rsplit("/docs", 1)[0])
 if rc != 0:

@@ -63,6 +63,15 @@
   验证判据),防"档案写了、循环忘了"——队列恢复非空,下轮 goal_check
   自动路由。(出处:轮 61;验证状态:已验证——D5-EXPOSURE 即按此产出。)
 
+- **goal_check 空 check_cmd ⇒ 假阳性 ACHIEVED 误弹**(轮 62,实付 1
+  cycle):路由器对队首目标跑 `subprocess.call(check_cmd, shell=True)`,
+  入队时漏写 check_cmd ⇒ 空命令退出码 0 ⇒ 刚入队未干活的目标被判达成
+  弹出吞掉。→ ① 防线已修:goal_check 空 check_cmd 按未达成路由;
+  ② 入队模板必须带轻量验收锚(grep 式 check_cmd,如 `grep -q "锚"
+  docs/PRD.md`);③ 误弹后恢复:目标回写队首,在提交信息注明"误弹恢复"。
+  (出处:轮 61 入队/轮 62 发现;适用条件:一切经 goal_check 的入队;
+  验证状态:已验证——修复后 NOT-Achieved 路由正确。)
+
 ## 惯例(已固化的流程约束)
 
 - **算力闸门(2026-09-19,AricRedemption 定策,硬规则)**:任何实验动手前,

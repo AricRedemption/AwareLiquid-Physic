@@ -595,6 +595,17 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **队列穷尽声明 + 扫描 query 清单**(6 条,全部已入档 scan-conditioning.md):FiLM×FNO / hypernet×神经算子 / Mehta 调制三分类 / Gradient Starvation / 辅助辨识损失(E2C/DVBF) / 报告规范与多种子。剩余工作全部外部阻塞:R1/R2 云结果回传(欠账 ~70min)、N1 正式英文稿(D4/合入顺序同属人工裁定)。
 - **下一窗口起点**:云结果回传→机械验收 R1/R2 判据(§12.3);或 23:00 夜间马拉松按 GOALS 路由;晨读从本节开始。最近一轮已原子提交。
 
+**轮 62 记录（D5-EXPOSURE 判读：滚出口径一致性;零算力代码判读）**:
+- **动机**(源:轮 61 蒸馏 §8.1):pushforward trick(Brandstetter 2022)针对"训练 teacher-forced、测试 free-running"的输入分布漂移;需判读本仓训练循环是否暴露于模型自预测,否则滚出 MSE 评测口径可能被 exposure bias 混淆。
+- **逐路径证据**(训练输入构造 vs 评测输入构造):
+  - `train_semigroup`(`awareliquid_physics/train.py:169-175`):ctx 从真值前缀 `qs[bi,:t_obs]` 推断;滚出起点 = 真值状态 `qs[bi,t0]`;滚出段 k_train 步经 `model.rollout` **自回归递归**(训练损失直接吃自预测)。
+  - prefix 训练(`benchmarks/liquid_physics_eval.py:119 train`):ctx 从真值窗推断;`model(q_obs,p_obs,k_train)` → forward 从真值末端 `q_obs[:,-1]` 起自回归 k_train(`awareliquid_physics/model.py` forward 契约:"predict k steps forward from the last observed state")。
+  - 评测 `eval_rollout_mse`(`benchmarks/sample_efficiency_eval.py:71-83`)与 field `evaluate`(`liquid_physics_eval.py:137`):同为真值前缀 → 真值末端起点 → 自回归 eval_k。**与训练口径同构**。
+- **结论(定性):exposure gap 不存在,pushforward 不适用**。滚出段在训练与评测中同样自回归——模型训练时就暴露于自身预测,pushforward 所修的分布漂移在本架构由构造消除;ctx 推断两侧都吃真值前缀(部署语义即"真值观测前缀→预测未来",无错配)。训练 vs 评测的真实差异仅:起点分布(随机内点 vs t_obs 端点,已由 D1d/D1e start_mix 预注册归因修复)与滚出视距(k_train=8 vs eval_k=100,D3/E 系列判读维度)——均非 input-distribution 口径错配。
+- **辩护价值**:R1/R2 云跑、E1/E3/E4a、D 系列的全部滚出 MSE 数字**不受 exposure bias 混淆**;评测口径对"训练视距≠评测视距"的既有归因(D1b/D3)不被本因子动摇。
+- **Related Work 引用清单**(gap 不存在分支,坐标已入 scan-conditioning.md §8.3/8.4):SRNN(Chen et al., ICLR 2020)——"哈密顿头+辛积分多步展开训练"直系先例(必引);Brandstetter et al. 2022——引用以说明本架构训练口径已内建 pushforward 等价物(训练即自回归),评审若问长滚出稳定性可引其诊断框架;exposure bias 谱系(Bengio 2015/Lamb 2016)作背景。
+- 零算力声明:本轮全部工作为代码判读+文档,无训练/评测执行。pytest 92 passed + audit 36 passed。
+
 **轮 44 判定（隐藏集终跑结果，一次性）**：
 - **H1 通过**：seed 999 上 prefix 剖面在 bin 2(其唯一训练起点)呈 **0.27x** 凹陷(可见集 0.37x,更深);all2all 平坦 std/mean **0.12**。D1g 机制**迁移成立**——起点失配不是 seed 过拟合。
 - **H2 失败且反转**：k100@512 比值 **1.293**(闸门 ≤0.60)——隐藏集上 **prefix 优 29%**,可见集(seeds 0/1/2)的 2.2–2.7x 半群优势**符号翻转**。方差源:prefix k100 跨 seed 剧烈波动(2.765→0.915),all2all 相对稳定(1.034→1.183)。

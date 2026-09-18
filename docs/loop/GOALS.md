@@ -31,8 +31,9 @@ blocked_on: >-
 next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8
   (文献坐标;轮 61 蒸馏);updated 见下
-updated: 2026-09-19 05:1x (轮 61 经验蒸馏:§8 四条入库(出处+适用条件+
-  验证状态),D5-EXPOSURE 方向类追加队尾,队列恢复非空)
+updated: 2026-09-19 05:2x (轮 62:D5-EXPOSURE 判读完成——exposure gap
+  不存在,pushforward 不适用,证据入 PRD §19 轮 62;引用清单入 scan §8.5;
+  goal_check 空 check_cmd 假阳性坑修复+回写。D5 待下轮 goal_check 弹出)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
@@ -52,7 +53,8 @@ goal_queue:
       (动机/判负标准/seeds/完整命令/冒烟校准时长)入 PRD §19 并登记
       云欠账;gap 不存在 ⇒ 评测口径辩护段落入 PRD §19 + Related Work
       引用清单(scan §8.3/8.4)入 scan 档案。pytest 全绿 + audit
-      --check 全过 + 原子提交 push wave/loop。
+      --check 全过 + 原子提交 push fork wave/loop。
+    check_cmd: grep -q "D5-EXPOSURE 判读" docs/PRD.md 2>/dev/null
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
