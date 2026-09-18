@@ -12,9 +12,18 @@ residual loss.
   * HARD (this module) bakes physics into the ARCHITECTURE: the net outputs a
     scalar energy H(q,p) = T(p) + V(q), and the state is advanced by a velocity-
     Verlet (leapfrog) symplectic integrator. Total energy is then conserved BY
-    CONSTRUCTION — bounded O(dt^2) drift, exactly time-reversible — for ANY
-    learned T, V, trained or not. Conservation is a property of the architecture,
-    not a soft penalty.
+    CONSTRUCTION — bounded O(dt^2) drift — for ANY learned T, V. Conservation
+    is a property of the architecture, not a soft penalty.
+
+  * Honest scope on TIME-REVERSAL (wave-10 round 66): the leapfrog MAP is
+    symmetric for any H, but the physical roundtrip property (flip p at the
+    endpoint, integrate k steps forward, recover the initial state) requires
+    H(q,-p) = H(q,p), i.e. an EVEN kinetic term T. The learned T here is a
+    plain MLP (not even by construction), so roundtrips on a random head
+    drift (measured: max|q_err| ~ 4.6e-1 at k=16, dt=0.1 vs 1.2e-7 for a
+    hand-coded even-T control). Time-reversal symmetry is therefore a
+    STRUCTURAL PRIOR one may add (even-T parametrisation or a consistency
+    loss), not something the current architecture guarantees.
 
 Honest scope (do not overclaim)
 -------------------------------
@@ -89,10 +98,11 @@ class HamiltonianHead(nn.Module):
     """Separable Hamiltonian H(q,p) = T(p) + V(q) advanced by velocity-Verlet.
 
     q, p are (..., dim). Energy conservation is architectural: leapfrog on a
-    separable H has bounded O(dt^2) energy error and is time-reversible for any
-    T, V. Training (a supervised 1-step or k-step trajectory MSE) shapes T, V to
-    match observed dynamics while the CONSERVATION structure is never something
-    the optimizer can break.
+    separable H has bounded O(dt^2) energy error for any T, V (the optimizer
+    can never break the CONSERVATION structure). Time-reversal roundtrip
+    symmetry additionally requires an even T — NOT guaranteed here (module
+    docstring, round-66 note). Training (a supervised 1-step or k-step
+    trajectory MSE) shapes T, V to match observed dynamics.
 
     context_dim > 0 conditions the POTENTIAL V(q | ctx) on an external context
     vector — the hook by which the liquid core (model.py) sets the energy
