@@ -248,6 +248,15 @@ Models* (arXiv:2106.13898 / Nature MI 2022):
    density — consistent with (1): nothing in the architecture *forces*
    start-dependence; nothing in prefix training *prevents* it either.
 
+## Appendix A: M2 field-loop ablation (D2)
+
+![M2 field task: training-loop ablation](assets/d2-loop-ablation.png)
+
+Three seeds, CPU, inhomogeneous 1D field (N=32): under semigroup training
+liquid beats static by 2.1%; under prefix training static wins by 1.9% —
+the training loop flips the liquid-vs-static sign (PRD §19 round 9,
+`physics_out_v02/d2_m2_loop/{sg,prefix}/`). Error bars = across-seed std.
+
 ## Artifact index (commits, wave-10 night 2026-09-16/17)
 
 `d1_small_n` 34f9857→301e19c · `d1b_eval_depth` 5521942 ·

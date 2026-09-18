@@ -30,22 +30,17 @@ updated: 2026-09-19 00:58 (goal_queue + 校验路由器上线)
 
 ```yaml
 goal_queue:
-  - id: G1
-    track: engineering
-    goal: D2 场任务结果图表化进论文附录(主图脚本扩场任务消融 panel)
-    done_condition: docs/assets/ 存在 d2-loop-ablation 图,且骨架文档附录节引用它
-    check_cmd: test -f docs/assets/d2-loop-ablation.png && grep -q "d2-loop-ablation" docs/d1-start-state-mismatch.md
-  - id: G2
+- id: G2
     track: frontier
     goal: 半群 k100 优势的跨 seed 稳健性量化(轮 44 反转的后续,≥5 seeds)
     done_condition: physics_out_v02/k100_seed_scan/k100_scan.json 含 ≥5 个 seed 的 k100 比值与符号统计
     check_cmd: python3 -c "import json,sys; d=json.load(open('benchmarks/physics_out_v02/k100_seed_scan/k100_scan.json')); sys.exit(0 if len(d['results']['seeds'])>=5 else 1)"
-  - id: G3
+- id: G3
     track: engineering
     goal: hidden 终跑一键化(scripts/hidden_check,自动登记消耗表)
     done_condition: scripts/hidden_check 可执行且能跑标准 4 臂隐藏终跑
     check_cmd: test -x scripts/hidden_check
-  - id: G4
+- id: G4
     track: frontier
     goal: M2 context→势能映射容量瓶颈实验设计(P4 候选,设计文档)
     done_condition: docs/d2-capacity-design.md 存在且含预注册协议段
