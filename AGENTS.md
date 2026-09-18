@@ -1,5 +1,9 @@
 # AGENTS.md — AwareLiquid-Physic 工作区宪法
 
+> 本文件为**前缀缓存友好设计:默认冻结**。这里只放跨会话稳定的规则与指针;
+> 演化内容一律放 `docs/loop/`(GOALS.md 状态机、PLAYBOOK 坑清单、
+> AMENDMENTS 提案)。修改本文件属重大变更,走 AMENDMENTS 提案并尽量少改。
+
 物理结构写进架构的连续时序模型:liquid (LTC) 基座推断 context →
 哈密顿头硬约束辛可比滚出(能量守恒由构造保证)。事实来源 `docs/PRD.md`,
 原则台账 `docs/PRINCIPLES.md`,循环治理 `docs/loop/`。

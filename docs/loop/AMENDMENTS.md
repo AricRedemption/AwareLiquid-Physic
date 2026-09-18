@@ -14,6 +14,22 @@
 - 状态:PROPOSED / APPROVED / REJECTED / APPLIED
 ```
 
+### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
+- 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
+  headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:
+  有活(RUNNING)就背靠背跑,没活(IDLE/BLOCKED)退避,窗口外只睡眠——
+  驱动与触发彻底解耦。
+- 提案 diff:新增 `scripts/headless_loop.sh`(监督进程:窗口检查
+  23:00–09:00 → 读 GOALS.md state → RUNNING 则以 `ZCODE_CMD` headless
+  重启一轮("按 AGENTS.md 与 GOALS.md current_action 继续",28 分钟盒)→
+  冷却 120s;IDLE/BLOCKED 睡 1800s;窗口外睡 600s)。
+- 风险与回滚:① 常驻进程占配额(建议仍只在你授权的窗口跑);② headless
+  CLI 具体命令需用户填 `ZCODE_CMD`(桌面版二进制不在 PATH);③ 与 cron
+  并行会双跑——**启用 supervisor 前应停用 cron**(或反之)。回滚:杀进程
+  即可,状态全在 GOALS.md/git。
+- 状态:**PROPOSED**(脚本已入库;是否启用常驻由 AricRedemption 决定,
+  cron 保留为回退心跳)
+
 ## 规则
 
 1. 循环每轮可追加 PROPOSED 提案,但**不得**自行修改 cron 提示词;
