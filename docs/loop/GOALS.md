@@ -10,29 +10,24 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 周一至五 23:00-09:00(夜间cron);周六 09:00-23:00(全天候)
 current_goal: >-
-  D6-INFO-BUDGET(轮 63 入队,源:经验蒸馏轮 63 扫描 §9):信息预算
-  分解——J(ω; t_obs) 图谱平台判定 + E1 缺口进"窗口 Fisher 上界 vs
-  oracle 可读出 vs 实际推断"框架。零算力(闭式 Fisher 扫描+判读+文档)。
+  夜 4 收口(轮 61-72):队列空,蒸馏补池 ×6(18 条入库,scan §8-14)+
+  零算力判读 ×5(D5 口径辩护/D6 信息预算/T 非偶机制发现/无噪确认/超分
+  反向弱信号)+ 工具 +2;RSI 夜 4 行已入账(≈0.45,T̂ 未触发保守计 0)。
+  剩余工作全外部阻塞:R1/R2 云回传(欠账 ~70min,分流表 scan §12.3 就绪)。
 current_action: >-
-  运行 ./scripts/goal_check 并按其 VERDICT 继续:ACHIEVED → 顶部目标已
-  弹出并晋升下一位,对新目标执行其首个迭代步;NOT-Achieved → 对当前
-  顶部目标迭代一步(未达成不停)。每轮心跳先校验,再干活。
-  队列非空(D6-INFO-BUDGET,轮 63 补池)。
-  外部触发仍然有效:R1/R2 云结果回传(机械验收 §12.3 判据)→ E2
-  条件性重入口视 ρ_CB′;或用户"继续"。
+  收尾完成,循环待触发。下一触发:R1/R2 云结果回传(机械验收 PR §3 +
+  三路分流 §12.3)→ 按失败模式路由 R1b/R1c/E2 条件入口;或用户"继续"
+  (先跑 ./scripts/goal_check 路由,队列空则按 PLAYBOOK 蒸馏轮闭环补池)。
 done_condition: >-
-  D6 判读记录(J 图谱平台判定+信息预算分解)入 PRD §19;pytest 全绿
-  + audit --check 全过 + 原子提交 push。
+  条件入口路由表就绪(scan §12.3);队列非空时永不停——每轮 goal_check 路由。
 blocked_on: >-
-  1) D4 GPU 去向;2) origin/master 合入顺序(PR#1 CLEAN 可合, wave/loop
-  领先 35+ 提交);3) N1 正式英文稿是否启动。
-next_trigger_hint: 用户粘贴最新 GOAL-PROMPT.md(启动器已按用户指令删除,无自动触发) / 用户"继续"
+  1) R1/R2 云结果回传(欠账 ~70min);2) D4 GPU 去向;3) origin/master
+  合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
+next_trigger_hint: R1/R2 云结果回传 / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-10
   (文献坐标;轮 61/63/65 蒸馏);updated 见下
-updated: 2026-09-19 07:1x (轮 72 数据再判读:E 系列 resolution 附带字段
-  发现超分容量反向信号(d192 超分差 d96 47%,与混叠坐标一致,弱信号如实
-  注记待 R2 复验,PRD §19 轮 72)。队列空,下一触发:R1/R2 云回传 /
-  蒸馏 / 用户停)
+updated: 2026-09-19 07:2x (夜 4 收尾:RSI 入账 0.45;条件入口路由表就绪;
+  .loop-lock 已删;待云回传或用户触发)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
