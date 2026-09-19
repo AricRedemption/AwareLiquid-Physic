@@ -11,9 +11,11 @@
   `.clamp(max=合法上界)`;派生量先确认 `steps+1` 语义。
 - **`gen_spring` 返回 `steps+1` 个时刻**(轮 22):S 的推导处处可能差一,
   配对比较前先 `S = tensor.shape[1]` 实取,不要用生成参数回推。
-- **管道尾命令吞退出码**(轮 22):`pytest -q | tail -1 && 下一步` 中
+- **管道尾命令吞退出码**(轮 22;**轮 92 复发**):`pytest -q | tail -1 && 下一步` 中
   pytest 失败也会继续(退出码取自 tail)。→ 门禁链写 `pytest -q && ...`
-  或单独跑 pytest 不接管道。
+  或单独跑 pytest 不接管道。(轮 92 复发代价:提交信息误写"全绿"而实际
+  1 failed——状态钉死测试被合法清欠过期,fix-forward 修正;门禁一律
+  单独跑、看退出码、再提交。)
 - **`no_grad` 杀死 symplectic rollout**(轮 2):哈密顿头 `dV_dq` 内部用
   autograd,eval 前向必须 `torch.enable_grad()` 包裹(参考
   `eval_rollout_mse`),输出再 detach。

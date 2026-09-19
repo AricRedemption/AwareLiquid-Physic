@@ -1,5 +1,6 @@
 """goal_check 路由器仪表焊点测试(AMM-013:DEBT-FIRST/MINING-FROZEN)。"""
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -91,8 +92,14 @@ def test_not_achieved_routes_normally_after_debt_cleared(tmp_path):
     assert r.returncode == 1 and "NOT-Achieved" in r.stdout
 
 
-def test_gauge_real_repo_debt_first():
-    """真实仓库当前状态:3 笔 open 欠账 ⇒ 必须路由 DEBT-FIRST。"""
+def test_gauge_real_repo_matches_ledger_state():
+    """真实仓库一致性:路由裁决必须与台账实况相符(状态驱动,不钉死)。"""
+    ledger = (REPO / "docs" / "loop" / "DEBT-LEDGER.md").read_text()
+    has_open_debt = bool(
+        re.search(r"(?m)^\| *D-\d.*?\|\s*\*{0,2}open(?:\(|\s|\*|\|)", ledger))
     r = subprocess.run([str(GOAL_CHECK)], capture_output=True, text=True, cwd=REPO)
-    assert r.returncode == 4 and "DEBT-FIRST" in r.stdout
+    if has_open_debt:
+        assert r.returncode == 4 and "DEBT-FIRST" in r.stdout
+    else:
+        assert r.returncode != 4 and "DEBT-FIRST" not in r.stdout
     (REPO / ".loop-lock").unlink(missing_ok=True)  # 设计会话清理心跳,防阻塞下个马拉松
