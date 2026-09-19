@@ -1088,6 +1088,84 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 稳定坐标入库;本仓 k_train=8 展开式选择被文献背书。蒸馏轮第 15 次
 达标;对照式第三槽 n=6(含 1 次查询自修正,如实注记)。
 
+## 23. 经验蒸馏 18(轮 98,2026-09-20,QUEUE-EMPTY 轮):经典系统辨识基线族
+
+> 第 23 个 query 族,与前 22 族零重叠(此前全部为神经/学习理论轴,本族是
+> **经典方法基线轴**——P3 终收口后 N1 基线表"经典行"的最后缺口)。检索:
+> 3 族一次命中(SINDy 主坐标 / 经典 LS 谱系 / "SINDy vs NODE" 对照式);
+> 2 次补检索当轮钉死 venue(AMM-015 带?不过夜:Gersch/Fronk/Ioannou)。
+> 标记:[坐标] ×3 + [行动] ×1(→ CLASSIC-BASELINE 入队)。
+
+### 23.1 SINDy:方程形式发现的代表作 [坐标]
+
+- 【出处】Discovering governing equations from data by sparse identification
+  of nonlinear dynamical systems,**Brunton, Proctor & Kutz, PNAS 2016**;
+  SINDyc 扩展(ScienceDirect,~644 引);官方库 PySINDy(github.com/
+  dynamicslab/pysindy)。
+- 【内容】候选函数库 + 稀疏回归直接辨识控制方程;依赖测量变量选择与
+  数据质量(原文自述)。
+- 【对我们的映射】与 §21.1(守恒量/对称性发现)分工明确:SINDy 是
+  **方程形式轴**的发现谱系,§21 是守恒量轴;本仓注入的是结构形式
+  (哈密顿方程+辛积分器),函数形式留给数据——注入/发现在方程层
+  的精确分工坐标(N1 discussion 复用轮 86 分层注入框架,此条补
+  "方程发现"行)。干净无噪仿真恰是 SINDy 最佳域,评审问
+  "为何不用 SINDy"的诚实答案:本仓声称的贡献不是方程发现
+  (§21.4/23.1 定位),SINDy 可作 future-work 工具。
+- 【适用条件】N1 Related Work 与答辩。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 23.2 经典最小二乘/谱估计基线谱系 [坐标+行动→CLASSIC-BASELINE]
+
+- 【出处】Gersch & Foutch,**IEEE Trans. Automatic Control, AC-19(6),
+  898-903, 1974**(结构系统参数两阶段 LS,~83 引);Marquardt,**J. SIAM
+  11(2):431-441, 1963**(Levenberg-Marquardt,~4.4 万引,非线性 LS 标准
+  工具);Giarnetti et al. 2015(多谐波 LS 频率估计达 CRB,ScienceDirect,
+  venue 卷期待引用前补注)。
+- 【内容】振子参数的经典估计线:协方差/最小二乘两阶段、非线性 LS、
+  谐波拟合频率估计(干净数据下可达 Cramér-Rao 界)。
+- 【对我们的映射】N1 基线表"经典行"坐标:无噪线性振子上经典 LSQ 是
+  **强基线**(CRB 级)——本仓 M1 的对比主张必须锚"32 维场系数 c(x)
+  低维观测→结构接口"(M2 线,P3 已收口)与"结构性质(守恒/辛)",
+  **不做单参数估计精度的排名主张**(D6 已判单参数信息层非瓶颈);
+  评审"为何不比经典方法"的合规响应=把经典行放进表+三声明。
+- 【适用条件】N1 实验节基线表。
+- 【验证状态】社区已验证;对本仓待执行(CLASSIC-BASELINE,下条)。
+
+### 23.3 SINDy×NODE 混合线与"无方程"对照 [坐标]
+
+- 【出处】Fronk & Petzold,"Interpretable polynomial neural ordinary
+  differential equations",**Chaos 33(4), 2023**(~57 引,SINDy 后验符号化
+  训练好的 NODE);Ioannou et al.,"An Empirical Investigation of Neural
+  ODEs and Symbolic Regression for Dynamical Systems",**NeurIPS ML4PS
+  workshop 2025**;Kacprzyk et al.,"No Equations Needed"(OpenReview,
+  forum id 待引用前补注)。
+- 【内容】NODE(黑箱)与 SINDy(符号)的实证对照与混合(训练后符号化);
+  "无方程"动力学基准线。
+- 【对我们的映射】定位三线表补全:本仓=结构注入(方程形式已知),
+  NODE=黑箱,SINDy=符号发现,混合=后验符号化;本仓差异轴=情境通道
+  (观测前缀→ctx 推断)+硬约束,两条线均无。Fronk & Petzold 的
+  "训练后 SINDy 符号化"是本仓哈密顿头学到的 V(q) 可解释性的现成
+  后续工具(不立项,坐标;与轮 86 逃生门清单同格)。
+- 【适用条件】N1 Related Work;可解释性 future work。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 23.4 经典基线协议登记 [行动→CLASSIC-BASELINE]
+
+- 【内容】LSQ-ω̂(有限差分+线性最小二乘)与 SINDy-库回归两臂,跑 M1
+  同池 eval 集(gen_spring 尾 128,t_obs=24,k=100,与 D-2 TSFM 协议同
+  池),三声明(数据体制差异/非公平基线定位/预期用途=读者参照非排名,
+  仿 §19.4 先例)+判负标准与命令草案预注册;T1 级(闭式/稀疏回归,
+  秒-分钟级,本机合规)。
+- 【对我们的映射】N1 基线表"经典"行;评审合规最便宜响应。
+- 【适用条件】N1 实验节。
+- 【验证状态】对本仓待执行(下轮,判负标准 PRD §19 轮 98)。
+
+### 蒸馏结论 18
+
+三 [坐标] + 一 [行动](CLASSIC-BASELINE 入队:协议+同池经典基线两臂)。
+P3 收口后首个蒸馏轮,产出行动类条目,S1 不触发;检索三连对照式第三槽
+n=7(命中定位素材,0 修正);第 23 族零重叠确认。蒸馏轮第 16 次达标。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

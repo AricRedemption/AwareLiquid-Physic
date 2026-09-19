@@ -716,6 +716,18 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **台账/仪表**:EXP=0.8(修复后);WIP=0;D_count=0;digest_rate=1.0;无新欠账;S1-S4 收口判据均未触发(RSI 连续 2 夜 <0.5 条款需夜账,本马拉松未收尾)。
 - **PLAYBOOK 回写 1 条**(仪表窗口语义与 PRD 布局对账的坑);133+1 测试(130+6 gauge,含 2 项更新)全绿+audit 过(显式退出码)。
 
+**轮 98 记录（蒸馏补池:经典系统辨识基线族 + CLASSIC-BASELINE 预注册;零算力+3 次补检索钉题录）**:
+- **路由**:队列空→goal_check QUEUE-EMPTY(EXP=0.8 修复后真值,蒸馏解禁)⇒ 蒸馏补池。
+- **蒸馏**:第 23 族"经典系统辨识基线族"(与 22 族零重叠——此前全为神经/学习理论轴)3 族一次命中;入库 scan §23:SINDy 主坐标(Brunton, Proctor & Kutz, **PNAS 2016**+PySINDy)/经典 LS 谱系(Gersch & Foutch, **IEEE TAC AC-19(6), 1974**;Marquardt, **J. SIAM 11(2), 1963**;谐波 LS 达 CRB)/SINDy×NODE 混合线(Fronk & Petzold, **Chaos 33(4), 2023**;Ioannou et al., **NeurIPS ML4PS 2025**;"No Equations Needed")+[行动]×1。AMM-015 带?不过夜当场执行:3 处不确定 venue 当轮 2 次补检索钉死(Gersch 非 Annals 系 IEEE TAC;Fronk 非 arXiv 系 Chaos 33(4);Ioannou 定年 2025)。**[坐标]/[行动] 分流**:三 [坐标](SINDy=方程形式发现轴,与 §21 守恒量轴分工;经典 LS=N1 基线表"经典行"坐标,M1 对比主张锚结构与接口不做单参数精度排名;混合线=后验符号化坐标)+一 [行动]。
+- **CLASSIC-BASELINE 预注册(先于执行钉死)**:
+  - **动机**:N1 基线表"经典行";评审"为何不比经典方法"合规响应(仿 TSFM-BASELINE 先例,轮 81/82)。
+  - **交付物**:① docs/classic-baseline-protocol.md(三声明:数据体制差异/非公平基线定位/预期用途=读者参照非排名+命令草案);② 两臂数字:LSQ-ω̂(有限差分+线性 LS)+最小稀疏回归(**自实现 STLSQ,不引 pysindy,防依赖膨胀**)on M1 同池 eval(gen_spring 尾 128,t_obs=24,k=100,与 D-2 同池);估计 ω→真值形式辛积分滚出→k100 MSE,对表 prefix/all2all/oracle/TSFM;③ "CLASSIC-BASELINE 判读"锚写入本节。
+  - **判负标准**:① LSQ 臂数值微分在 t_obs=24、dt=0.1 无噪数据上 ω̂ 相对误差 >5% ⇒ 经典臂标注"此口径下无竞争力"如实呈现(结果本身有信息量,不构成协议失败);② 自实现 STLSQ 在候选库含真项时无法恢复 ω² 项 ⇒ 降级为 LSQ 单臂+协议登记;③ 依赖/环境不可行 ⇒ 降级协议登记不硬凑。
+  - **预期(预注册非预言)**:无噪仿真上经典 LSQ 估计应近精确(≈oracle 级滚出)——这正是诚实呈现的一部分:经典方法在线性无噪域极强,本仓价值主张锚结构性质与 M2 场线(已收口),不锚线性振子单参数精度。
+  - **check_cmd 双锚**:`grep -q "CLASSIC-BASELINE 判读" docs/PRD.md && test -f docs/classic-baseline-protocol.md`。
+  - **算力**:T1(秒-分钟级闭式/稀疏回归),probe_run 护栏。
+- **台账**:CLASSIC-BASELINE 入队(WIP=1);S1 未触发(本蒸馏轮有行动类产出);PLAYBOOK 检索三连 n=7 更新(第三槽再命中,0 修正);蒸馏轮第 16 次达标。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。

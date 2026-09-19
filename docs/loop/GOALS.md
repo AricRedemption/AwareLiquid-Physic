@@ -25,16 +25,15 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队列空→goal_check 路由(gauge 已修复,EXP=0.8
-  真值,预期 QUEUE-EMPTY ⇒ 蒸馏补池):选与既有 22 query 族零重叠的
-  新族,按 PLAYBOOK 检索三连(综述/机制直击/对照式第三槽)执行;条目
-  强制 AMM-015 溯源硬标准(作者+年份当场核验,带?不过夜)+ [坐标]/
-  [行动] 分流;方向类当轮入队(check_cmd 双锚)。备选:整改面消化
-  (scan §9.1/§11.1/§19.3 三条 B 级题录,scan-traceability-audit.md §7)。
-  注意:P3 已终收口(轮 97,M2 headroom 关闭),条件性登记五条全终态
-  (E2 失效/R1b 未触发/R1c 判负/R1d 失效/轮72 留档)——蒸馏条目不得
-  重开已收口线;若连续 2 蒸馏轮无行动类产出 ⇒ 评估收口(S1)。每轮
-  PRD §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
+  下一心跳(执行会话):队首 **CLASSIC-BASELINE**(经典基线协议+同池两臂,
+  T1 秒-分钟级):按 PRD §19 轮 98 预注册执行——① docs/classic-baseline-
+  protocol.md(三声明+命令草案);② LSQ-ω̂(有限差分+线性 LS)+自实现
+  STLSQ 两臂 on M1 同池(gen_spring 尾 128,t_obs=24,k=100,与 D-2 同池),
+  估计 ω→真值形式辛积分滚出→k100 MSE 对表;③ probe_run T1 护栏;
+  判负标准三轮预注册(ω̂ 相对误差>5% ⇒ 如实标注/STLSQ 不恢复 ⇒ 降级
+  单臂/环境不可行 ⇒ 协议登记)。预期(预注册):无噪线性域经典 LSQ 近
+  oracle 级——诚实呈现,价值主张不锚单参数精度。每轮 PRD §19 判读+
+  PLAYBOOK ≥1 条回写+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -42,7 +41,7 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → 蒸馏补池(新 query 族)/ 用户"继续"
+next_trigger_hint: goal_check → CLASSIC-BASELINE / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -51,22 +50,25 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-20 06:25 (轮 97:**台账消化+工具修复轮**——① gauge
-  窗口 bug 修复:rounds[-10:] 文件序取尾遇上 PRD §19 分层布局,窗口
-  实际取到最老轮 ⇒ EXP 恒 0、MINING-FROZEN 每心跳误报(良性方向潜伏);
-  改按头部轮号排序取窗口+WIN_PAT 扩 ID 型头,6 测试含分层回归,修复后
-  EXP=0.8 报警清空;② **P3 终收口正式入档**:四路处方全负+机制解释完备
-  ⇒ M2 系统辨识链路 headroom 关闭,N1 定位锚结构性质轴+硬约束边界
-  声明;③ 条件性登记五条全终态(E2 失效/R1b 未触发/R1c 判负/R1d 失效
-  [与轮 95 预注册冲突取后者]/轮 72 留档);④ 本会话被误报路由的两轮
-  (94/96)产出独立有效,判定不改写;下一心跳蒸馏补池(新 query 族,
-  AMM-015 硬标准);判读见 PRD §19 "轮 97 判读")
+updated: 2026-09-20 06:50 (轮 98:**蒸馏补池,CLASSIC-BASELINE 入队**——
+  第 23 族"经典系统辨识基线族"(22 族外首个经典方法轴)3 族一次命中:
+  scan §23 三 [坐标](SINDy=方程发现轴 PNAS 2016/经典 LS 谱系 IEEE TAC
+  1974+J.SIAM 1963/混合线 Chaos 2023+ML4PS 2025)+一 [行动](经典基线
+  协议+同池两臂入队);AMM-015 带?不过夜当场执行(3 处 venue 当轮
+  补检索钉死);判负标准三轮预注册(ω̂>5% 误差如实标注/STLSQ 不恢复
+  降级单臂/环境不可行协议登记);S1 未触发(有行动类产出);检索三连
+  n=7;下一心跳 CLASSIC-BASELINE 执行(T1);判读见 PRD §19 "轮 98 记录")
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: CLASSIC-BASELINE
+    track: engineering
+    goal: 经典基线协议+同池两臂(轮 98 蒸馏入队,scan §23.4):LSQ-ω̂(有限差分+线性 LS)与最小稀疏回归(自实现 STLSQ,不引 pysindy)on M1 同池 eval(gen_spring 尾 128,t_obs=24,k=100,与 D-2 同池);三声明仿 §19.4;T1 秒-分钟级
+    done_condition: docs/classic-baseline-protocol.md 落地(三声明+命令草案)+两臂数字入 PRD §19("CLASSIC-BASELINE 判读"锚)
+    check_cmd: grep -q "CLASSIC-BASELINE 判读" docs/PRD.md && test -f docs/classic-baseline-protocol.md
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
