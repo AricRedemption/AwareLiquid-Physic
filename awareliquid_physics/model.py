@@ -94,14 +94,30 @@ class LiquidOperatorHamiltonianModel(nn.Module):
     def __init__(self, phase_dim: int, d_model: int = 64, context_dim: int = 16,
                  n_scales: int = 4, modes: int = 12, width: int = 32,
                  fno_depth: int = 4, hidden_dim: int = 64, t_depth: int = 2,
-                 dt: float = 0.1, core_dt: float = 1.0, reflect_pad: int = 8):
+                 dt: float = 0.1, core_dt: float = 1.0, reflect_pad: int = 8,
+                 pool: str = "mean"):
         super().__init__()
         self.phase_dim = int(phase_dim)
         self.context_dim = int(context_dim)
         self.dt = float(dt)
+        if pool not in ("mean", "attn"):
+            raise ValueError(f"unknown pool: {pool!r} (expected 'mean' or 'attn')")
+        self.pool = pool
 
-        # Per-node encoder: resolution-invariant (shared Linear + mean pool).
+        # Per-node encoder: resolution-invariant (shared Linear + pool).
+        # NOTE (R1C-AGG, wave-10 round 95): with pool="mean" the encoder input
+        # equals the spatial mean field, which is medium-independent on the
+        # periodic grid (mean of the Laplacian accel vanishes identically) —
+        # the aggregation layer carries EXACTLY zero information about c(x).
+        # pool="attn" replaces the mean with a learned softmax aggregation
+        # that keeps per-node structure. See PRD §19 round 95.
         self.node_enc = nn.Linear(2 * phase_dim, d_model)
+        if pool == "attn":
+            self.pool_score = nn.Linear(d_model, 1)
+            # Zero-init scores: training starts at the uniform (= mean) pool
+            # and the weights learn to deviate from there.
+            nn.init.zeros_(self.pool_score.weight)
+            nn.init.zeros_(self.pool_score.bias)
         self.core = LiquidCore(d_model, d_model, n_scales=n_scales, dt=core_dt)
         self.context_proj = nn.Linear(d_model, context_dim)
         # Operator-conditioned Hamiltonian: V(q | ctx) in function space.
@@ -112,12 +128,20 @@ class LiquidOperatorHamiltonianModel(nn.Module):
                                            t_depth=t_depth,
                                            reflect_pad=reflect_pad)
 
+    def _pool_nodes(self, x: torch.Tensor) -> torch.Tensor:
+        """(B, T, N, d_model) -> (B, T, d_model): aggregation over spatial nodes.
+        mean = legacy average; attn = learned additive-attention softmax over N."""
+        if self.pool == "mean":
+            return x.mean(dim=2)
+        w = torch.softmax(self.pool_score(x).squeeze(-1), dim=-1)  # (B, T, N)
+        return (w.unsqueeze(-1) * x).sum(dim=2)
+
     def infer_context(self, q_obs: torch.Tensor, p_obs: torch.Tensor) -> torch.Tensor:
         """(B, T_obs, N, phase_dim) x2 -> (B, context_dim). System identification
         from the observed prefix via the liquid recurrence."""
         x = torch.cat([q_obs, p_obs], dim=-1)          # (B, T, N, 2*phase_dim)
         x = self.node_enc(x)                           # (B, T, N, d_model)
-        x = x.mean(dim=2)                              # (B, T, d_model) — pool over N
+        x = self._pool_nodes(x)                        # (B, T, d_model) — pool over N
         return self.context_proj(self.core.encode(x))  # (B, context_dim)
 
     def rollout(self, q0: torch.Tensor, p0: torch.Tensor, context: torch.Tensor,

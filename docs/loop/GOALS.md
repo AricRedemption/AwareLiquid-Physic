@@ -25,16 +25,15 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队首 **R1C-AGG**(聚合轴修复,T1 当轮直跑):按
-  PRD §19 轮 95 预注册执行——① model.py 池化参数化(--pool {mean,attn},
-  默认 mean 逐位等价+回归测试);② tests/test_context_pool.py;③ attn 臂
-  field_eval --oracle_ctx 3 seeds 对照(mean 基线 0.020004/oracle 0.014834
-  勿重跑);④ probe_run T1 护栏(实测基线 ~8min,预计 ≤15min);⑤ 判读按
-  预注册判负标准(corr<0.5 或几何比>0.95 ⇒ 判负,四路全负触发 P3 终收口
-  证据完备)。机制背景:聚合层均值场恒等式——c(x) 信息在 mean-pool 处
-  精确湮灭(retention 8.6e-11),attn 聚合是四路处方最后一路。每轮 PRD
-  §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。整改面随轮消化:scan
-  §9.1/§11.1/§19.3 三条 B 级题录(docs/scan-traceability-audit.md §7)。
+  下一心跳(执行会话):队列空→goal_check 路由。**P3 终收口整理轮候选**:
+  R1C-AGG 判负(轮 96)⇒ 四路处方全负,"M2 系统辨识链路 headroom 关闭"
+  证据完备(预注册条款,PRD §19 轮 96)——把该收口结论整理成 PRD 收口行
+  +N1 定位素材(结构性质轴+硬约束边界诚实声明,锚 D-2 追记口径),
+  T0 零算力;或按路由裁决走蒸馏补池/整改面消化(scan §9.1/§11.1/§19.3
+  三条 B 级题录,docs/scan-traceability-audit.md §7)。条件性登记全部
+  终态:E2 失效(轮 90)/R1b 未触发/R1c 判负结案(轮 96)/R1d 先决未到
+  (上游全结 ⇒ 恒不触发,可在收口行注明失效)。每轮 PRD §19 判读+
+  PLAYBOOK ≥1 条回写+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -42,7 +41,7 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → R1C-AGG / 用户"继续"
+next_trigger_hint: goal_check → 队列空路由(P3 收口整理/蒸馏)/ 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -51,27 +50,22 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-20 03:40 (轮 95:**MINING-FROZEN 证据轮,R1C-AGG 裁决
-  入队**——① R1b/R1c 裁决点机械执行:corr 0.058≈0 ⇒ §12.3 第一路触发,
-  R1c 入队(R1b/E2/R1d 维持条件性登记);② 机制发现:**聚合层均值场
-  恒等式**——周期网格 accel 空间均值恒为零 ⇒ mean-pool 后编码器输入
-  与介质 c 严格无关(T_obs×N 观测坍缩为 2 标量),探针实测 c 信息保留
-  8.6e-11=精确零,回溯统一解释 E1/E3/D-3 三轮"信息没进来";oracle
-  缺口 −26% 仍在 ⇒ 湮灭点在观测→ctx 之间,attn 聚合=最后一路处方;
-  ③ 轮 72 复验条件处置(前提未兑现,弱信号留档);④ 判负标准预注册:
-  attn 判负 ⇒ 四路全负,P3 终收口证据完备;3 新测试+probe_run 级 T0
-  探针,判读见 PRD §19 "轮 95 判读")
+updated: 2026-09-20 05:55 (轮 96:**R1C-AGG 结案判负,弹出**——聚合轴
+  修复 attn 臂 T1 直跑 ~8min(冒烟先行,params 113,303=基线+49):3 seeds
+  rollout MSE 0.020484±5.96e-4,ctx 探针 corr 0.0171——判负标准双触
+  (corr<0.5 且 geo 比 1.003>0.95)⇒ 判负如实入档;**四路处方全负
+  (R1/R2/E2/R1c)⇒ P3 终收口"M2 headroom 关闭"证据完备**(轮 95 预注册
+  条款生效);实现留库:pool∈{mean,attn} 参数化,mean 路径逐位等价
+  (tests/test_context_pool.py 3 项,零初始化=旧行为起步,PLAYBOOK 回写);
+  附带诊断兑现轮 72 弱信号载体(resolution 0.0399 单点留档);下一心跳
+  队列空:P3 收口整理轮(T0)或蒸馏补池,goal_check 裁决;判读见 PRD
+  §19 "R1C-AGG 判读")
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue:
-- id: R1C-AGG
-    track: engineering
-    goal: 聚合轴修复(轮 95 裁决入队,scan §12.3 第一路):model.py 池化参数化(--pool {mean,attn},默认 mean 逐位等价)+ attn 臂 E1 式对照 3 seeds vs mean 基线(轮 51 B 臂勿重跑)vs oracle(勿重跑);机制背景=聚合层均值场恒等式(c 信息精确湮灭,retention 8.6e-11,PRD §19 轮 95)
-    done_condition: tests/test_context_pool.py 落地+attn 臂判读写入 PRD §19("R1C-AGG 判读"锚);判负标准已预注册(corr<0.5 或几何比>0.95 ⇒ 四路全负触发 P3 终收口证据完备)
-    check_cmd: grep -q "R1C-AGG 判读" docs/PRD.md && test -f tests/test_context_pool.py
+goal_queue: []
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

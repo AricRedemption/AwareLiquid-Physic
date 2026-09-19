@@ -216,7 +216,8 @@ def make_models(args, seed):
         phase_dim=1, d_model=args.d_model, context_dim=args.context_dim,
         n_scales=args.n_scales, modes=args.modes, width=args.width,
         fno_depth=args.fno_depth, hidden_dim=args.hidden, t_depth=2,
-        dt=args.dt, core_dt=1.0, reflect_pad=args.reflect_pad).to(args.device)
+        dt=args.dt, core_dt=1.0, reflect_pad=args.reflect_pad,
+        pool=getattr(args, "pool", "mean")).to(args.device)
     static_ham = OperatorHamiltonianHead(
         dim=1, width=args.width, modes=args.modes, fno_depth=args.fno_depth,
         context_dim=args.context_dim, hidden_dim=args.hidden, t_depth=2,
@@ -306,6 +307,12 @@ def main():
                     help="comma subset of the enabled arms to RUN (e.g. "
                          "'liquid_operator' for E3 dose runs); empty = all "
                          "enabled arms, the historical behaviour")
+    ap.add_argument("--pool", default="mean", choices=["mean", "attn"],
+                    help="R1C-AGG (wave-10 round 95): liquid-arm node "
+                         "aggregation — 'mean' is the historical behaviour "
+                         "(exact c(x) information annihilation, PRD §19 "
+                         "round 95), 'attn' is the learned softmax "
+                         "aggregation under test")
     ap.add_argument("--aux_identify_weight", type=float, default=0.0,
                     help="D2-CAPACITY R1 (wave-10 G4, semigroup loop only): "
                          "weight of the auxiliary readout loss from the "
