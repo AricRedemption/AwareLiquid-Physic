@@ -739,6 +739,69 @@ D6(信息充足)→ E3(容量否定)→ E4a(梯度饥饿)→ 谱偏置(频域
 获得混沌文献对照下的加强表述;评估节写作素材(VPT/复合误差/
 Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 
+## 19. 经验蒸馏 14(轮 81,2026-09-19 14:00,QUEUE-EMPTY 轮):时间序列基础模型族
+
+> 第 19 个 query 族,与前十八族零重叠——大规模预训练零样本预测器
+> (TSFM)vs 本仓小样本结构化线,是 N1 评审必问的定位轴。检索:
+> 3 族一次命中。标记:[坐标] ×3 + [行动] ×1(→ TSFM-BASELINE)。
+
+### 19.1 TSFM 范式坐标 [坐标]
+
+- 【出处】[Foundation Models for Time Series: A Survey (arXiv 2025-04)](https://arxiv.org);
+  Chronos(Amazon,数值 token 化复用 LLM 架构)/ TimesFM / TTM / Toto;
+  [Benchmarking Foundation Models for TS Forecasting (MDPI 2025)](https://www.mdpi.com)。
+- 【内容】跨域海量预训练 + 零样本预测已成为时间线主流范式之一。
+- 【对我们的映射】三轴正交定位:① 数据体制(跨域大预训练 vs
+  小样本+情境推断);② 保证(无结构保证 vs 守恒由构造+辛滚出);
+  ③ 接口(裸序列 vs (q,p) 状态与物理积分器耦合)。N1 一句话:
+  不同体制的互补工具,非同台排名。
+- 【适用条件】N1 positioning 与评审答辩。
+- 【验证状态】社区已验证;引用立即可用。
+
+### 19.2 "Dynamics is what you need"——交锋与审计文献 [坐标]
+
+- 【出处】[Dynamics is what you need for time-series forecasting!
+  (Brachet et al., OpenReview)](https://openreview.net);
+  "Are Time Series Foundation Models Ready to..."(ACM,零样本声明
+  vs 专门基线审计);[Synthetic Series-Symbol Data Generation for
+  TSFMs (NeurIPS)](https://neurips.cc)。
+- 【内容】① 预测任务需要动力学结构(DYN 层,同性质 I/O 才可系统
+  辨识)——与本线"结构必要"论点直接同向;② TSFM 零样本声明被
+  专门基线审计压缩;③ TSFM 社区反向把系统辨识当预训练目标。
+- 【对我们的映射】DYN-layer 论文是结构必要性的直接盟友引用;
+  TSFM 审计线支持我们"公平基线需分类框架"的主张;TSFM→SI 趋势
+  说明两条线是互补谱系而非敌我。
+- 【适用条件】N1 Related Work;答辩"为何不用大模型直接预测"。
+- 【验证状态】社区已验证;引用立即可用。
+
+### 19.3 天气气候宏观轴 [坐标]
+
+- 【出处】[PINN variants in weather (ScienceDirect 2026 系统综述)](https://www.sciencedirect.com);
+  GraphCast/Aurora 类基础模型 vs 物理方法的竞争格局。
+- 【内容】基础模型广度 vs 物理结构的同一条轴在天气域已展开成
+  宏观对话。
+- 【对我们的映射】N1 用一句话把本仓定位接入宏观对话即可
+  (同类轴、更小尺度),不展开——超本仓范围。
+- 【适用条件】N1 introduction 的宏观语境句。
+- 【验证状态】社区已验证;引用立即可用。
+
+### 19.4 TSFM 零样本参考基线协议 [行动→TSFM-BASELINE]
+
+- 【内容】Chronos/TimesFM 零样本 on M1 弹簧观测序列 q(t) 的
+  **类别跨界参考基线**协议:数据体制差异声明、非公平基线定位、
+  预期用途(读者参照而非排名)三声明 + 云跑候选登记
+  (判负标准与命令草案预注册)。
+- 【对我们的映射】评审"对比过基础模型吗"的最便宜合规响应:
+  协议+欠账登记(算力闸门合规,本机不跑)。
+- 【适用条件】N1 实验节基线表。
+- 【验证状态】对本仓待执行(下轮,判负标准 PRD §19 轮 81)。
+
+### 蒸馏结论 14
+
+三 [坐标] + 一 [行动](TSFM-BASELINE 入队:跨界参考基线协议+云欠账
+登记)。N1 定位的最后一条主要评审轴(基础模型)素材齐备。蒸馏轮
+第 12 次达标;检索三连对照式第三槽 n=3(轮 81 vs 槽再命中)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -774,3 +837,6 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 - [Compounding Prediction Errors in Learned Dynamics Models (Lambert et al. 2022)](https://arxiv.org/html/2203.09637v1)——见 §18.2
 - [Any-step Dynamics Model (OpenReview 2024)](https://openreview.net/forum?id=JZCxlrwjZ8)——见 §18.2
 - [Adaptable Hamiltonian NN (Han et al., PRR 2021)](https://link.aps.org)——见 §18.3
+- [Foundation Models for Time Series: A Survey (arXiv 2025)](https://arxiv.org)——见 §19.1
+- [Dynamics is what you need for time-series forecasting! (Brachet et al., OpenReview)](https://openreview.net)——见 §19.2
+- [PINN variants in weather (ScienceDirect 2026)](https://www.sciencedirect.com)——见 §19.3
