@@ -6,6 +6,10 @@
 
 ## 1. UFNO-FiLM:Feature-Modulated UFNO(arXiv,2025-11)
 
+> SCAN-AUDIT 修订(轮 94):题录升级——**Abdellatif et al., 2025**
+> (Heriot-Watt;arXiv ID 待补,见 scan-traceability-audit.md §6.4)。
+> 原记录仅年月,升级后 B→A。
+
 - **谁做过**:UFNO-FiLM——把 FiLM 条件化接进 UNet 增强的 Fourier Neural
   Operator(UFNO),用于**地下流动(subsurface flow)预测**,条件输入是
   PDE 系数/输入场。
@@ -18,6 +22,10 @@
 - 引用潜力:高(2025 新作,FiLM+UFNO 直接同构)。
 
 ## 2. HyperFNO(Alesiani,NeurIPS ML4PS workshop)
+
+> SCAN-AUDIT 修订(轮 94):题录升级——Alesiani,**NeurIPS ML4PS 2022**
+> workshop(全文 PDF:ml4physicalsciences.github.io/2022/files/
+> NeurIPS_ML4PS_2022_89.pdf);原记录缺年份,补 2022。B→A。
 
 - **谁做过**:用**超网**生成 FNO 的适配参数,条件于 PDE 参数配置,目的
   是跨宽参数域泛化。
@@ -37,6 +45,9 @@
   Related Work 有清晰的空位可占("低维推断码 → 谱势能的接口表达力"
   无同类工作直接研究;UFNO-FiLM/HyperFNO 都是监督条件码)。
 - 引用潜力:必引(领域奠基石,定位空位)。
+- SCAN-AUDIT 降档注记(轮 94):上文"无同类工作直接研究"按 AMM-015 降档
+  为"**当前 query 族下未检索到同类**(轮 43 检索口径)"——存在性命题的
+  最弱证据不配最强断言。
 
 ## 4. Mehta et al., Modulated Periodic Activations(ICCV 2021,~227 引)
 
@@ -50,6 +61,11 @@
 - 引用潜力:高(ICCV,方法论分类学)。
 
 ## 5. HyPINO(NeurIPS 2025)+ CPNO(2024)
+
+> SCAN-AUDIT 修订(轮 94):① HyPINO 题录升级——**Bischof et al.
+> (ETH Zurich), NeurIPS 2025**(arXiv ID 待补);② CPNO 题录
+> **事实错误修正**——原记"2024"实为 **Biao Chen et al.,
+> arXiv:2602.01737(2026-02 预印)**,检索一致定年 2026。
 
 - **谁做过**:HyPINO——超网按 PDE 参数生成 PINN 权重,零样本跨物理泛化;
   CPNO——把"参数依赖调制"内嵌进 Chebyshev 谱算子网络,声称近最优函数
@@ -84,6 +100,8 @@
 - 【对我们的映射】E4a 实测正是该现象的机械版:推断路径/头梯度比
   3.97e-3,且"head 未学用 ctx → ctx 无压力"是耦合塌缩的双侧形式。
   **我们的增量**:在硬约束物理架构上首次机械测量,而非仅理论刻画。
+  (SCAN-AUDIT 降档注记,轮 94:"首次"按 AMM-015 降档为"**据当前
+  检索未见先例**——非证真首创"。)
 - 【适用条件】过参数化网络、特征间梯度竞争;难特征需独立梯度通路才能
   逃逸——R1 的辅助损失即此通路。
 - 【验证状态】饥饿测量:已验证(本机 E4a);其修复处方对我们:待验证
@@ -133,6 +151,9 @@ R1 的设计不是拍脑袋:它有 2015-2021 的连续文献线(潜码需监督 
   隐藏参数族任务尤其成立。
 - 【验证状态】规范空白:已验证(检索侧);我们的协议有效性:已验证
   (轮 44 真抓到反转)——可直接写进论文。
+  (SCAN-AUDIT 修订,轮 94:上行"已验证(检索侧)"违反 AMM-015 禁令
+  ——轮 88 只降档了内容行,本状态行漏网;降档为"**检索未见(非证真
+  空白)**"。)
 
 ### 蒸馏结论 2
 
@@ -140,6 +161,9 @@ N1 的 Related Work 已有"自主研究循环"小节;本条给它的 novelty 补
 文献坐标系(现有基准推进 OOD,但预注册+隐藏集+跨 seed 几何报告的
 完整协议无成文先例)。写作时引用 CNO-RPB/PDEBench 作为"评测标准化
 努力"的最近邻,然后指出隐藏集维度空白。
+(SCAN-AUDIT 降档注记,轮 94:"无成文先例"降档为"当前 query 族下
+未检索到成文先例";CNO 主锚题录升级:Raonic et al., arXiv 2022,
+ETH 2023 修订版,~331 引。)
 
 ## 8. 经验蒸馏 3(轮 61,2026-09-19,QUEUE-EMPTY 轮):长时程滚出稳定性与多步训练族
 
@@ -163,6 +187,11 @@ N1 的 Related Work 已有"自主研究循环"小节;本条给它的 novelty 补
   代码判读先行(→ D5-EXPOSURE 入队)。
 
 ### 8.2 Pushforward 的低幅信息局限(Havrilla et al.?, NeurIPS 2023)
+
+> SCAN-AUDIT 修订(轮 94,**事实错误修正**):本文实为 **PDE-Refiner——
+> Lippe, Veeling, Perdikaris, Turner & Brandstetter, NeurIPS 2023,
+> arXiv:2308.05732**。原记"Havrilla et al.?"系作者误记(链接与题名
+> 无误);带?题录不得过夜的坑已入 PLAYBOOK。
 
 - 【出处】[Achieving Accurate Long Rollouts with Neural PDE Solvers (NeurIPS 2023)](https://papers.neurips.cc/paper_files/paper/2023/file/d529b943af3dba734f8a7d49efcb6d09-Paper-Conference.pdf)。
 - 【内容】pushforward 解决输入漂移但**捕捉不了低幅信息**,长程统计
@@ -220,6 +249,10 @@ gap 存在 → 新归因因子 + 预注册 pushforward 协议(云交付);gap 不
 > 工具的文献命名。
 
 ### 9.1 Persistent Excitation(自适应控制经典条件)
+
+> SCAN-AUDIT 注记(轮 94):本条主锚无作者题录(综述根链+HAL 无作者)
+> ——B 级,整改登记 scan-traceability-audit.md §7(下一蒸馏轮补经典
+> 教材题录+HAL 预印本作者)。
 
 - 【出处】 adaptive control 系统辨识经典条件([ScienceDirect 综述](https://www.sciencedirect.com);线性情形 HAL 2023)。
 - 【内容】PE 要求输入信号足够" rich "以保证参数收敛;是参数可辨识性
@@ -280,6 +313,10 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 
 ### 10.1 时间反演对称一致性损失(Time-Reversal Symmetric ODE Networks, NeurIPS)
 
+> SCAN-AUDIT 修订(轮 94):主锚题录升级——Time-Reversal Symmetric
+> ODE Network = **Huh, Kang, Chun, Kim & Kim(KAIST), NeurIPS 2021,
+> arXiv:2007.11362**;原记录无作者年份。B→A。
+
 - 【出处】[TR-Symmetric ODE Networks (NeurIPS)](https://proceedings.neurips.cc);
   [TS-IDM (Cheng et al., OpenReview)](https://openreview.net);
   [TSDA (Barkley et al., ICML 2024)](https://arxiv.org)。
@@ -337,6 +374,11 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 
 ### 11.1 谱混叠与不可约误差 [坐标]
 
+> SCAN-AUDIT 注记(轮 94):三条出处均为聚合站根链(RG/EmergentMind/
+> arXiv 根),无作者题录——B 级,整改登记 scan-traceability-audit.md
+> §7(下一次云回传证据轮按需逐条补 ID;该组条目语义为社区共识实践,
+> 引用前必须先补题录)。
+
 - 【出处】FNO 实践综述([ResearchGate 2025](https://www.researchgate.net));
   不可约混叠/人工耗散报告([EmergentMind 2025](https://www.emergentmind.com));
   高频监督缓解谱偏置([arXiv 2025](https://arxiv.org))。
@@ -351,6 +393,10 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 - 【验证状态】社区已验证;对我们:待云数据触发解读(条件性)。
 
 ### 11.2 分辨率不变性的实证边界 [坐标]
+
+> SCAN-AUDIT 修订(轮 94):主锚题录升级——**Resolution-Invariant
+> Fluid Dynamics Modeling: Fourier Neural Operator**(Research Square
+> rs-8218223, 2025-11,全文 PDF 路径可定位)。原仅资产根链。B→A。
 
 - 【出处】[FNO vs CNN 跨分辨率实证 (Research Square 2025)](https://assets-eu.researchsquare.com);
   [Neural Spectral Methods (ICLR 2024)](https://proceedings.iclr.cc)。
@@ -719,6 +765,11 @@ D6(信息充足)→ E3(容量否定)→ E4a(梯度饥饿)→ 谱偏置(频域
 
 ### 18.3 Lyapunov 视界标度与守恒系统的评估边界 [坐标]
 
+> SCAN-AUDIT 修订(轮 94):题录升级——Learning Chaos in a Linear Way =
+> **Cheng, arXiv:2503.14702**(ICLR 2025);RF-HNN = **Choi et al.,
+> arXiv:2607.28977**(2026-07)。原 alphaxiv 裸链按 AMM-015 不算法标,
+> 已补精确 ID。B→A。
+
 - 【出处】[Learning Chaos in a Linear Way](https://www.alphaxiv.org);
   [Extrapolating the Emergence of Hamiltonian Chaos (RF-HNN)](https://arxiv.org);
   [Adaptable Hamiltonian NN (Han et al., PRR 2021, ~76 引)](https://link.aps.org);
@@ -749,6 +800,10 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 
 ### 19.1 TSFM 范式坐标 [坐标]
 
+> SCAN-AUDIT 修订(轮 94):主锚题录升级——Foundation Models for Time
+> Series: A Survey = **Jain et al.(Dell), arXiv:2504.04011, 2025-04**。
+> B→A。
+
 - 【出处】[Foundation Models for Time Series: A Survey (arXiv 2025-04)](https://arxiv.org);
   Chronos(Amazon,数值 token 化复用 LLM 架构)/ TimesFM / TTM / Toto;
   [Benchmarking Foundation Models for TS Forecasting (MDPI 2025)](https://www.mdpi.com)。
@@ -761,6 +816,9 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 - 【验证状态】社区已验证;引用立即可用。
 
 ### 19.2 "Dynamics is what you need"——交锋与审计文献 [坐标]
+
+> SCAN-AUDIT 修订(轮 94):主锚题录升级——Brachet, Richard & Hudelot,
+> **ECAI 2025**(DBLP conf/ecai/BrachetRH25);原缺年份与 venue。B→A。
 
 - 【出处】[Dynamics is what you need for time-series forecasting!
   (Brachet et al., OpenReview)](https://openreview.net);
@@ -777,6 +835,10 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 - 【验证状态】社区已验证;引用立即可用。
 
 ### 19.3 天气气候宏观轴 [坐标]
+
+> SCAN-AUDIT 注记(轮 94):主锚 ScienceDirect 2026 系统综述无作者
+> 题录——B 级,整改登记 scan-traceability-audit.md §7(N1 introduction
+> 动笔前补作者/DOI)。
 
 - 【出处】[PINN variants in weather (ScienceDirect 2026 系统综述)](https://www.sciencedirect.com);
   GraphCast/Aurora 类基础模型 vs 物理方法的竞争格局。
@@ -900,6 +962,10 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
   keynote"+icml.cc/virtual/2024 链接系题录误记,审计抓出——精确链接待
   SCAN-AUDIT 补,按 AMM-015 溯源标准不确定题录须标注);
   LieGNN / LieSD(2025)/ LieNLSD(2025,非线性对称)。
+  - SCAN-AUDIT 修订(轮 94,**轮 88 待办销账**):LieGAN 精确题录 =
+    **Yang et al., "Generative Adversarial Symmetry Discovery",
+    ICML 2023, arXiv:2302.00236**。LieGNN/LieSD/LieNLSD 谱系二级注记:
+    无作者题录,引用前需补。
 - 【内容】从数据发现连续李群对称性(Lie 代数空间对抗学习),发现的
   对称可插入等变下游模型;非线性对称的显式计数已出现。
 - 【对我们的映射】时间平移对称(自治性)与时间反演对称(轮 66)
@@ -961,6 +1027,13 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 
 ### 22.2 反向 vs 前向:展开 BPTT / adjoint / 辛伴随三分 [坐标]
 
+> SCAN-AUDIT 修订(轮 94):题录升级——辛伴随两版:**NeurIPS 2021 版**
+> = Matsubara, "Symplectic Adjoint Method for Exact Gradient of Neural
+> ODE", arXiv:2102.08532;**扩展版** = Matsubara, "The Symplectic
+> Adjoint Method: Memory-Efficient Exact Gradient of Symplectic
+> Integrators"(IEEE;~21-22 引与本条引用数吻合,主锚取此版)。
+> 原仅 arXiv 根链。B→A。
+
 - 【出处】[Symplectic Adjoint Method (Matsubara et al., ~21 引)](https://arxiv.org)
   (辛积分器专用:精确梯度+低内存+快于 adjoint 的中间方案);
   adjoint(Chen 2018 谱系):O(1) 内存+近似梯度+~2x 前向代价;
@@ -975,6 +1048,13 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 - 【验证状态】社区已验证;本仓 k_train=8 无需变更。
 
 ### 22.3 前向稳定 ≠ 反向稳定 [坐标]
+
+> SCAN-AUDIT 修订(轮 94):题录升级——SymODEN = **Zhong, Datta,
+> Kolter, Kiziltan & Pappas, ICLR 2020**(OpenReview);Hamiltonian
+> Matching = **Canizares, Murari, Sherry, Shumaylov & Schönlieb,
+> NeurReps Workshop @ NeurIPS 2024**(arXiv 2024-10;原记"(NeurIPS)"
+> 实为主会 workshop,venue 修正);Pascanu 梯度爆炸解密 =
+> arXiv:1211.5063。B→A。
 
 - 【出处】BPTT/截断谱系(D2L、TBPTT、Pascanu 梯度爆炸解密);
   SymODEN(OpenReview);Hamiltonian Matching for Symplectic Neural
@@ -1009,6 +1089,10 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 达标;对照式第三槽 n=6(含 1 次查询自修正,如实注记)。
 
 ## Sources
+
+> SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
+> "SCAN-AUDIT 修订(轮 94)"注记与 docs/scan-traceability-audit.md
+> 等级表为准(修后可复核率 94%,判负标准对账见审计报告 §9)。
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
 - [Feature-wise transformations (Distill 2018, FiLM)](https://distill.pub)

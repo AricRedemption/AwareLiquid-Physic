@@ -99,10 +99,15 @@ head actually suppresses: energy is conserved by construction).
 (Greydanus et al., 2019) and its benchmarking against Lagrangian nets
 (Zhong et al., 2021), the literature has focused on architecture (_ports:
 energy-consistent neural operators, 2025_) and on soft PDE-residual
-losses. We find **no prior work on training-loop curricula or start-state
-distributions for hard-constraint Hamiltonian heads** — the D1 series
+losses. We find **no prior work found in our retrieval (query families:
+adaptive-control training curricula, HNN/PH training protocols) on
+training-loop curricula or start-state distributions for
+hard-constraint Hamiltonian heads** — the D1 series
 (attribution + three failed repair recipes + a characterized tradeoff)
 appears to be the first such treatment.
+<!-- SCAN-AUDIT (round 94): existence claim downgraded per AMM-015 —
+     "no prior work" → "no prior work found in our retrieval"; retrieval-
+     bounded, not proof of absence. -->
 
 **Two-phase training in physics-informed modelling.** PINN-adjacent work
 routinely uses multi-phase schedules (DP-PINN's dual-phase scheme; PIFT's

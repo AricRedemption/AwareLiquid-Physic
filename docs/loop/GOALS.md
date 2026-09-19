@@ -25,14 +25,15 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队首 **SCAN-AUDIT**(溯源审计轮,T0 零算力,
-  AMM-015):scan §1-22 约 49 条入库逐条判溯源等级(题录可复核/仅域名根/
-  缺出处三档)+ 已知错题录修订(LieGAN 年份)+ 缺证性声明全库降档扫
-  ("公认空白"类→"当前 query 族下未检索到");判负标准 PRD §19 轮 88
-  治理轮;done_condition=docs/scan-traceability-audit.md 落地+判读写入
-  PRD §19。完成弹出后按两轨交替补池/迭代(goal_check 裁决)。
-  [轮 90 判负遗产:R1b/R1c 条件重入口字面触发,列队列候选非欠账]
-  每轮 PRD §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
+  下一心跳(执行会话):队列空→goal_check 路由(EXP<20% 则 MINING-FROZEN
+  补证据轮,否则蒸馏补池)。**队列空已触发条件性登记裁决点**(GOALS 注记
+  AMM-021 后唯一源=scan §12.3):按 D-3 判读机械分流——R1 判负且 ctx 探针
+  ≈0(corr 0.058,信息没进来)⇒ 路由指向 **R1c**(attention/可学习聚合替代
+  mean-pool,代码前提 model.py 编码管线已定位);R1b(T 偶结构)仅在
+  ctx 有信息但不兑现分支触发,当前不入队;裁决结论与入队决定写入当轮
+  PRD §19 判读。整改面随轮消化:scan §9.1/§11.1/§19.3 三条 B 级题录
+  (docs/scan-traceability-audit.md §7)。每轮 PRD §19 判读+PLAYBOOK
+  ≥1 条回写+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -40,33 +41,31 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → SCAN-AUDIT / 用户"继续"
+next_trigger_hint: goal_check → 队列空路由(证据轮/蒸馏/R1b-R1c 裁决)/ 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
   蒸馏);docs/dh-dissipation-design.md(轮 74);docs/koopman-bridge.md(轮 76);
   docs/spectral-bias-naming.md(轮 78);docs/eval-norms-vpt.md(轮 80);
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
-  docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93)
-updated: 2026-09-20 01:50 (轮 93:**GRAD-PATH 结案通过,双锚弹出**——
-  create_graph 梯度路径语义审计(训练态=精确 DP 梯度穿能量网混合偏导,
-  eval 态场为图外常数 params_with_grad=0)+零训练探针(图内存严格线性
-  斜率 1.0000:M1 2.94→47.05MB/M2 38.87→621.95MB@B=32,k_train=8 实驻
-  ~3/39MB 零压力;范数比 k128/k8 ×78.7/×129.4≈每步+3.7-4.1% 温和指数
-  增长在预声明界内,k≈260 触界投影如实注记)+辛伴随触发条件式草案
-  (不立项不欠账);判负标准①②均未触发;判读入 PRD §19;新坑
-  (requires_grad 原地改标假真)入 PLAYBOOK;下一心跳 SCAN-AUDIT(队首))
+  docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
+  docs/scan-traceability-audit.md(轮 94 溯源审计)
+updated: 2026-09-20 03:05 (轮 94:**SCAN-AUDIT 结案通过,弹出**——溯源
+  审计轮(T0+14 次检索复核):50 条外部条目逐条三档评级,可复核率修前
+  68.0%→修后 **94.0%**(判负①<80% 未触发,管线不降速;判负②≥95% 未
+  满足,剩 3 条 B 整改登记);判负③ 触发:**2 处题录事实错误当轮修订**
+  (§8.2 "Havrilla et al.?"实为 PDE-Refiner/Lippe et al. arXiv:2308.05732;
+  §5b CPNO 2024 实为 arXiv:2602.01737/2026)+轮 88 待办销账(LieGAN=
+  Yang et al. ICML 2023 arXiv:2302.00236);缺证性降档扫 4 处修订
+  (§7 状态行漏网"已验证(检索侧)"等);IR 首算 2/6≈0.33(无 S2);
+  新坑 2 条入 PLAYBOOK;队列转空,下一心跳 goal_check 路由+R1b/R1c
+  裁决点(判读见 PRD §19 "SCAN-AUDIT 判读"))
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue:
-- id: SCAN-AUDIT
-    track: frontier
-    goal: 溯源审计轮(T0,AMM-015):scan §1-22 约 49 条入库逐条判溯源等级(题录可复核/仅域名根/缺出处三档)+已知错题录修订(LieGAN 年份)+缺证性声明全库降档扫("公认空白"类→"当前 query 族下未检索到");判负标准 PRD §19 轮 88 治理轮
-    done_condition: docs/scan-traceability-audit.md 落地(逐条溯源等级表+修订清单+题录可复核率)+判读写入 PRD §19
-    check_cmd: grep -q "SCAN-AUDIT 判读" docs/PRD.md && test -f docs/scan-traceability-audit.md
+goal_queue: []
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
