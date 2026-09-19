@@ -10,33 +10,38 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  轮 78(2026-09-19 13:2x):SB-NAMING 达成——E1 缺口谱偏置命名
-  **有条件采纳**(范围限定 M2 场线:ctx 本身是 c(x) 的 8 个空间频率
-  系数,模式序数即频率轴;M1 线不适用,ctx=ω 无频域差异轴);
-  R1d 探针协议草案落地(逐模式提取扫描,云跑候选);弹出后队列空。
+  轮 79(2026-09-19 13:35):队列空→蒸馏补池第 18 族(混沌/长时程
+  评估协议族,scan §18,3 坐标+1 行动入库);D5 滚出口径获混沌文献
+  对照下的加强表述(λ=0 代数增长 vs 指数压视界);EVAL-NORM 已入队
+  并预注册(PRD §19 轮 79)。R1/R2 云回传仍待。
 current_action: >-
-  下一心跳先跑 ./scripts/goal_check:队列空 ⇒ 蒸馏补池轮(先 grep
-  scan §5-17 既有族选零重叠;方向类当轮入队带双锚 check_cmd;
-  AMM-006:穷尽非停止理由);若 R1/R2 云结果到达,优先机械验收
-  (scan §12.3 四路分流)。
+  下一心跳先跑 ./scripts/goal_check 路由:EVAL-NORM(NOT-Achieved 预期)
+  ⇒ 对其迭代一轮:docs/eval-norms-vpt.md(VPT 口径定义+既有 eval_ks
+  产物再判读,判负标准 PRD §19 轮 79);若 R1/R2 云结果到达,优先
+  机械验收(scan §12.3 四路分流)。
 done_condition: >-
   队列非空时永不停——每轮 goal_check 路由;队列空则蒸馏补池,
   循环不自行停止。
 blocked_on: >-
   1) R1/R2 云结果回传(欠账 ~70min);2) D4 GPU 去向;3) origin/master
   合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check(队列空⇒蒸馏补池) / R1/R2 云结果回传 / 用户"继续"
-pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-17
-  (文献坐标;轮 61/63/65/73/75/77 蒸馏);docs/dh-dissipation-design.md
+next_trigger_hint: goal_check → EVAL-NORM / R1/R2 云结果回传 / 用户"继续"
+pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-18
+  (文献坐标;轮 61/63/65/73/75/77/79 蒸馏);docs/dh-dissipation-design.md
   (轮 74);docs/koopman-bridge.md(轮 76);docs/spectral-bias-naming.md(轮 78)
-updated: 2026-09-19 13:25 (轮 78 SB-NAMING 达成:谱偏置命名有条件采纳
-  (M2 范围限定),R1d 协议草案就绪;队列空,下一轮蒸馏补池)
+updated: 2026-09-19 13:38 (轮 79 蒸馏补池:混沌评估族 3+1 入库 scan §18;
+  EVAL-NORM 入队+预注册;R1/R2 仍外部阻塞)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: EVAL-NORM
+    track: engineering
+    goal: VPT 口径再判读轮(从既有 eval_ks 产物提取阈值穿越视距,semigroup/prefix 新呈现轴;判负标准 PRD §19 轮 79;零算力)
+    done_condition: docs/eval-norms-vpt.md 落地(VPT 定义+逐产物再判读数字+两线视距对比)+判读写入 PRD §19
+    check_cmd: grep -q "EVAL-NORM 判读" docs/PRD.md && test -f docs/eval-norms-vpt.md
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

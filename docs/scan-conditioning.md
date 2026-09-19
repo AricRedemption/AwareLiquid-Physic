@@ -677,6 +677,68 @@ E1 缺口获得文献机制命名候选(谱偏置/低频优先),证据链四层�
 D6(信息充足)→ E3(容量否定)→ E4a(梯度饥饿)→ 谱偏置(频域
 动力学)。蒸馏轮第 10 次达标;检索三连对照式第三槽 n=2(升已验证)。
 
+## 18. 经验蒸馏 13(轮 79,2026-09-19 13:35,QUEUE-EMPTY 轮):混沌/长时程评估协议族
+
+> 第 18 个 query 族,与前十七族零重叠(§7 是统计/报告规范,§11 是
+> 算子谱实践,§17 是训练动力学——本族是**长时程预测的评估指标与
+> 视界理论轴**:VPT/复合误差/Lyapunov 标度)。检索:3 族一次命中。
+> 标记:[坐标] ×3 + [行动] ×1(→ EVAL-NORM 入队)。
+
+### 18.1 VPT:混沌预测的标准指标范式 [坐标]
+
+- 【出处】[Data-driven forecasting of high-dimensional chaotic systems
+  (Vlachas et al., Proc. R. Soc. A 2018, ~750 引)](https://royalsocietypublishing.org);
+  [Long-term prediction of chaotic systems with ML (Fan et al. 2020, ~229 引)](https://link.aps.org);
+  [Zero-shot forecasting of chaotic systems (arXiv 2025)](https://arxiv.org)。
+- 【内容】VPT(valid prediction time)= 预测保持在真值容差内
+  (归一化 RMSE 阈值)的时长,是混沌系统预测的标准报告口径;
+  标准 benchmark:Lorenz 63/96、Kuramoto-Sivashinsky。
+- 【对我们的映射】N1 评估节可把 VPT 作为 **k 步 MSE 的补充可解释
+  口径**(阈值穿越视距),在既有 eval_ks 曲线上即可提取(零算力
+  再判读,EVAL-NORM 目标);评审问"为什么报 k 步 MSE 而不是 VPT"
+  有现成答案:同一现象的不同呈现,且我们的域更良性(见 §18.3)。
+- 【适用条件】一切长时程滚出结果的写作与答辩。
+- 【验证状态】社区已验证(标准指标);对本仓再判读待执行(EVAL-NORM)。
+
+### 18.2 复合误差与多步滚出评估 [坐标]
+
+- 【出处】[Investigating Compounding Prediction Errors in Learned
+  Dynamics Models (Lambert et al., arXiv:2203.09637)](https://arxiv.org/html/2203.09637v1);
+  [Any-step Dynamics Model (OpenReview 2024)](https://openreview.net/forum?id=JZCxlrwjZ8);
+  multistep rollout loss 谱系。
+- 【内容】自回归滚出的复合误差是学习动力学模型的核心评估对象;
+  "一步损失好 ≠ 长视距好"是文献共识,误差-滚出长度曲线是标准
+  证据形态。
+- 【对我们的映射】① 本仓 eval_ks 阶梯(D1b/D3/E 系列)正是该
+  证据形态,评估设计有文献背书(N1 引用);② 与 §8.1 pushforward
+  判读互补:训练口径已内建自回归(D5),评估口径本条背书。
+- 【适用条件】N1 评估方法节;一切滚出类结论的呈现。
+- 【验证状态】社区已验证;引用立即可用。
+
+### 18.3 Lyapunov 视界标度与守恒系统的评估边界 [坐标]
+
+- 【出处】[Learning Chaos in a Linear Way](https://www.alphaxiv.org);
+  [Extrapolating the Emergence of Hamiltonian Chaos (RF-HNN)](https://arxiv.org);
+  [Adaptable Hamiltonian NN (Han et al., PRR 2021, ~76 引)](https://link.aps.org);
+  Lyapunov 谱匹配设计原则文献。
+- 【内容】混沌系统(λ>0)预测视界 ~ (1/λ)·ln(精度)——指数发散
+  压死视界;缓解路线 = 结构保持(辛)/Lyapunov 谱匹配/物理约束。
+- 【对我们的映射】① **评估边界声明(N1 必写)**:本仓基准为守恒
+  可积系统(λ=0),误差代数增长,滚出 MSE 在长视距仍保持语义——
+  D5 滚出口径辩护在非混沌域比混沌文献更硬气;② 反向诚实边界:
+  本架构未在混沌域验证,不声称混沌预测能力;③ 结构保持路线
+  (辛/HNN)在混沌文献中同被列为缓解方向——与本仓设计选型互证;
+  RF-HNN/Adaptable-HNN 是"参数外推+混沌涌现"的邻接坐标。
+- 【适用条件】N1 范围声明与 limitation 节。
+- 【验证状态】社区已验证;声明立即可用。
+
+### 蒸馏结论 13
+
+三 [坐标] + 一 [行动](EVAL-NORM 入队:VPT 口径套既有 eval_ks 曲线
+的再判读,零算力,轮 72 附带诊断扫描法的推广)。D5 滚出口径辩护
+获得混沌文献对照下的加强表述;评估节写作素材(VPT/复合误差/
+Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -707,3 +769,8 @@ D6(信息充足)→ E3(容量否定)→ E4a(梯度饥饿)→ 谱偏置(频域
 - [Spectral bias in physics-informed and operator learning (arXiv:2602.19265)](https://arxiv.org/html/2602.19265v1)——见 §17.2
 - [Spectral Bias in Practice (NeurIPS 2022)](https://papers.neurips.cc/paper_files/paper/2022/file/306264db5698839230be3642aafc849c-Paper-Conference.pdf)——见 §17.2
 - [High-Frequency Scaling (Khodakarami et al. 2025)](https://www.osti.gov)——见 §17.3
+- [Data-driven forecasting of high-dimensional chaotic systems (Vlachas et al. 2018)](https://royalsocietypublishing.org)——见 §18.1
+- [Long-term prediction of chaotic systems with ML (Fan et al. 2020)](https://link.aps.org)——见 §18.1
+- [Compounding Prediction Errors in Learned Dynamics Models (Lambert et al. 2022)](https://arxiv.org/html/2203.09637v1)——见 §18.2
+- [Any-step Dynamics Model (OpenReview 2024)](https://openreview.net/forum?id=JZCxlrwjZ8)——见 §18.2
+- [Adaptable Hamiltonian NN (Han et al., PRR 2021)](https://link.aps.org)——见 §18.3
