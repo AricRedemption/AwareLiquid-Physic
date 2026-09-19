@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# probe_run — 本机探针训练资源护栏(AMM-008 算力闸门 v3)
+# 用法: ./scripts/probe_run <T1|T2> <est_minutes> -- <command...>
+#        ./scripts/probe_run --dry-run <T1|T2> <est_minutes> -- <command...>
+# 档位: T1 ≤15min(微探针,当轮串行) / T2 ≤60min(本机探针训练,后台,同一时刻仅1个)
+#       T3(>60min/全量/多seed终局)不在本工具管辖——走云 PR,直接拒绝。
+# 护栏: CPU 线程=⌊0.6×逻辑核⌋(OMP/MKL/VECLAS/OPENBLAS 全设)+ nice -n 15;
+#       不做硬超时(防误杀训练);GPU/MPS 无法用环境变量限核——风扇满速/发烫请人工中止。
+# 溯源: stderr 打一行 [probe_run] tier/est/threads/nice/ts/cmd,回传结果 JSON 的
+#       meta 请照抄该行字段(exec_tier/tier_est_min/threads/nice)。
+set -euo pipefail
+
+DRY=0
+if [[ "${1:-}" == "--dry-run" ]]; then DRY=1; shift; fi
+
+usage() { sed -n '2,9p' "$0" >&2; exit 2; }
+[[ $# -ge 3 && "$3" == "--" ]] || usage
+TIER="$1"; EST="$2"; shift 3
+
+[[ "$EST" =~ ^[0-9]+([.][0-9]+)?$ ]] || { echo "probe_run: est_minutes 非数字: $EST" >&2; exit 2; }
+case "$TIER" in
+  T1) MAX=15 ;;
+  T2) MAX=60 ;;
+  *)  echo "probe_run: 档位 $TIER 不归本机管辖(T3 走云 PR,见 AMM-008)" >&2; exit 3 ;;
+esac
+awk -v e="$EST" -v m="$MAX" 'BEGIN{exit !(e<=m)}' || {
+  echo "probe_run: $TIER 上限 ${MAX}min,登记 ${EST}min 超线——拆分或转 T3 云 PR" >&2; exit 3; }
+
+CORES=$("${PYTHON_BIN:-python3}" -c 'import os;print(os.cpu_count() or 1)')
+THREADS=$(( CORES * 6 / 10 )); [[ $THREADS -ge 1 ]] || THREADS=1
+TS=$(date +%Y-%m-%dT%H:%M:%S)
+echo "[probe_run] tier=$TIER est=${EST}min threads=$THREADS/$CORES nice=15 ts=$TS cmd=$*" >&2
+
+if [[ $DRY -eq 1 ]]; then
+  echo "[probe_run] dry-run: 将以 nice -n 15 env OMP/MKL/VECLIB/OPENBLAS_NUM_THREADS=$THREADS 执行" >&2
+  exit 0
+fi
+
+exec nice -n 15 env \
+  OMP_NUM_THREADS="$THREADS" MKL_NUM_THREADS="$THREADS" \
+  VECLIB_MAXIMUM_THREADS="$THREADS" OPENBLAS_NUM_THREADS="$THREADS" \
+  "$@"
