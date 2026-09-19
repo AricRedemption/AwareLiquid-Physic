@@ -25,15 +25,15 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话,AMM-011 角色下所有执行归你):按 DEBT-LEDGER 顺序清欠
-  ——D-3 R1 主跑(T1,完整命令 docs/pr-d2-r1r2-cloud.md,3 seeds 过判据
-  [降≥15% 且 corr≥0.5]后再跑隐藏卷 998 一次性)→ D-4 R2 视距扫描(T2
-  后台可拆 3 档)。[D-2 已部分清偿(轮 89):Chronos 臂 T1 直跑完成并判读
-  入档 PRD §19 "D-2 判读";余项=TimesFM 臂,权重下载受限挂起转 T3 PR
-  登记,~/.cache/timesfm/torch_model.ckpt 断点续传中——权重到位则先
-  T1 补跑 --models timesfm --timesfm_path <path>(~10min)再 D-3]
+  下一心跳(执行会话,AMM-011 角色下所有执行归你):按 DEBT-LEDGER 顺序
+  清欠——D-4 R2 视距扫描(T2 后台,可拆 3×~20min 逐档跑:K=8/16/32,
+  完整命令 docs/pr-d2-r1r2-cloud.md §2;注意 k=8 档须逐位复现 e1_final
+  A/B 臂作管线校验,不复现即停)。[D-3 已结案(轮 90 判负:辅助辨识在
+  硬约束架构失效,E2 重入口失效,998 未消耗);D-2 余项=TimesFM 臂权重
+  受限挂起(~/.cache/timesfm/torch_model.ckpt 断点续传中,到位则先 T1
+  补跑 --models timesfm --timesfm_path <path> ~10min)]
   ——每笔 PRD §19 判读(锚"<id> 判读")+台账置 closed+digest_rate 更新;
-  R1/R2 回传判读走 scan §12.3 四路分流;清零后恢复 GRAD-PATH(队首)。
+  R2 判读走 scan §12.3 视距轴判据;清零后恢复 GRAD-PATH(队首)。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -49,10 +49,10 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/spectral-bias-naming.md(轮 78);docs/eval-norms-vpt.md(轮 80);
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86)
-updated: 2026-09-19 23:20 (轮 89:D-2 Chronos 臂 T1 直跑清偿(4.6min,
-  n64 k100 1.20±0.17 ≈1.25× 真值方差,近无信息水平,协议预期兑现;判读入
-  PRD §19);TimesFM 臂权重下载受限挂起转 T3 登记;工具 tsfm_baseline_eval
-  +3 测试;121 测试+audit 40 全绿;下一心跳 D-3 R1 主跑)
+updated: 2026-09-19 23:45 (轮 90:D-3 R1 主跑 T1 清偿判负(0.019938 vs
+  0.020004=0.9967,corr 0.058<0.2——辅助辨识在硬约束架构失效,负判据双
+  条件成立;998 未消耗;E2 重入口失效,R1b/R1c 条件字面触发列候选);
+  判读入 PRD §19;台账 D-3 closed,digest 2/4;下一心跳 D-4 R2 K=8 档起)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
@@ -77,6 +77,9 @@ goal_queue:
 **E2 条件性重入口(不入队,防路由器空转)**:若 E3 修复推断后
 ρ_CB′ 仍 ≥0.9(接口重成第一嫌疑),把 E2(concat/hyper,设计文档 §6
 原闸门)追加回队尾。
+**(轮 90 注记:D-3 R1 判负 ⇒ 按 PR 包 §3.4 预注册,E2 条件性重入口
+失效——推断侧方向关闭;R1b/R1c 重入口条件字面触发,列为队列候选
+非欠账,待 D_count=0 队列恢复后按路由裁决。)**
 **R1b 条件性重入口(轮 65 登记,轮 66 修订,不入队)**:若 R1 云结果
 回传判负(辅助辨识损失未兑现 oracle 缺口收敛),把 R1b 追加回队尾——
 先决条件已判明:当前 T 非偶 ⇒ 回程一致性需先补结构(硬:T 偶参数化;

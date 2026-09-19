@@ -272,6 +272,11 @@
   Chronos `from_pretrained` 本地目录);离线路径参数已在工具预留
   (`tsfm_baseline_eval.py --timesfm_path`)。
 
+- **后台长训练日志 0 字节 ≠ 卡死**(轮 90):field_eval.py 训练 ~8min
+  期间 stdout 全缓冲,后台日志一直 0 字节,无法判活(卡死/正常不可分)。
+  → 长任务后台跑一律加 `python -u`(或 `PYTHONUNBUFFERED=1`)再接
+  probe_run;或脚本内逐 seed print(flush=True)。
+
 ## 惯例(已固化的流程约束)
 
 - **算力闸门 v3.1(2026-09-19 AMM-008+010,AricRedemption 定策)**:实验动手前,
