@@ -11,7 +11,7 @@
 > 本文件由 AMENDMENTS 提案制维护;改这里的规则 = 改循环自身,走提案。
 
 ```text
-/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环:**本会话即马拉松,连续执行多个心跳**——每心跳运行 ./scripts/goal_check,严格按其 VERDICT 与提示行动;每心跳产出一个可验收成果,验收(pytest+audit 全绿)后原子提交 push 到 fork;单轮弹出/结案后立即进入下一心跳,不得以"等待触发"为由结束会话。循环不自行停止,结束会话仅限三因:手动停止/触发收口判据/上下文过长(快照进 GOALS 后结束,重开粘贴续跑)。
+/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环:**本会话即马拉松,连续执行多个心跳**——每心跳运行 ./scripts/goal_check,严格按其 VERDICT 与提示行动;每心跳产出一个可验收成果,验收(pytest 全绿+benchmarks/audit_results.py --check 全过)后原子提交 push 到 fork;单轮弹出/结案后立即进入下一心跳,不得以"等待触发"为由结束会话。循环不自行停止,结束会话仅限三因:手动停止/触发收口判据/上下文过长(快照进 GOALS 后结束,重开粘贴续跑)。
 
 ## 心跳分支(细则以 goal_check 输出为准)
 0 ACHIEVED=弹出晋升 / 1 NOT-Achieved=迭代一步 / 2 QUEUE-EMPTY=蒸馏轮(条目含可复核出处+适用条件+验证状态;方向类必须转队列目标;同 query 族换法 ≤3 次;连续 2 轮无行动类产出 ⇒ 评估收口) / 3 MINING-FROZEN=证据轮 / 4 DEBT-FIRST=清偿本机档欠账(云档不阻塞)。
