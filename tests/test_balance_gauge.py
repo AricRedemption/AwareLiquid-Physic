@@ -70,11 +70,29 @@ def test_wip_over_limit_alarms(tmp_path):
 
 def test_exp_below_20_alarms(tmp_path):
     prd = PRD + "".join(
-        f"**轮 {60+i} 记录（蒸馏补池:族;零算力）**:\n-\n" for i in range(8))
+        f"**轮 {200+i} 记录（蒸馏补池:族;零算力）**:\n-\n" for i in range(10))
     out = run_with(tmp_path, prd, GOALS_EMPTY)
-    assert out["mining"] == 9      # 窗口10 = 蒸馏×9(轮87+60..67) + 证据×1(D-1)
+    assert out["mining"] == 10     # 窗口10 = 轮号最大的 200..209, 全为蒸馏补池
     assert out["exp_ratio"] < 0.20
     assert any("冻结蒸馏" in a for a in out["alarms"])
+
+
+def test_window_is_newest_by_round_number_not_file_order(tmp_path):
+    """轮 97 回归:PRD §19 多时代分层布局(旧轮散布)下,窗口必须按轮号取
+    最近 10 轮;旧版 rounds[-10:] 按文件序取尾,会把文件尾部最老的轮当
+    '近 10 轮',EXP 恒低误报 MINING-FROZEN。fixture:文件头=最新 3 轮,
+    文件尾=远古 8 轮(仿真实 PRD 分层)。"""
+    newest = (
+        "**ID-PROBE 判读（轮 96:ID 型判读头也应匹配;算力轮）**:\n-\n"
+        "**轮 95 判读（SOMETHING 判读:数字判读;算力轮）**:\n-\n"
+        "**轮 94 判读（AUDIT 判读:纯写作;零算力）**:\n-\n")
+    old = "".join(
+        f"**轮 {n} 记录（远古轮;零算力）**:\n-\n" for n in range(8, 0, -1))
+    out = run_with(tmp_path, newest + old, GOALS_EMPTY)
+    assert out["window"] == 10
+    assert out["evidence"] == 2        # 轮96/95 按轮号入选;旧版只剩 1
+    assert out["t0"] == 8              # 轮94 + 远古 7 轮(轮 1 被挤出窗口)
+    assert out["mining"] == 0
 
 
 def test_empty_window_no_crash(tmp_path):

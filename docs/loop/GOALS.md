@@ -25,15 +25,16 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队列空→goal_check 路由。**P3 终收口整理轮候选**:
-  R1C-AGG 判负(轮 96)⇒ 四路处方全负,"M2 系统辨识链路 headroom 关闭"
-  证据完备(预注册条款,PRD §19 轮 96)——把该收口结论整理成 PRD 收口行
-  +N1 定位素材(结构性质轴+硬约束边界诚实声明,锚 D-2 追记口径),
-  T0 零算力;或按路由裁决走蒸馏补池/整改面消化(scan §9.1/§11.1/§19.3
-  三条 B 级题录,docs/scan-traceability-audit.md §7)。条件性登记全部
-  终态:E2 失效(轮 90)/R1b 未触发/R1c 判负结案(轮 96)/R1d 先决未到
-  (上游全结 ⇒ 恒不触发,可在收口行注明失效)。每轮 PRD §19 判读+
-  PLAYBOOK ≥1 条回写+原子提交 push。
+  下一心跳(执行会话):队列空→goal_check 路由(gauge 已修复,EXP=0.8
+  真值,预期 QUEUE-EMPTY ⇒ 蒸馏补池):选与既有 22 query 族零重叠的
+  新族,按 PLAYBOOK 检索三连(综述/机制直击/对照式第三槽)执行;条目
+  强制 AMM-015 溯源硬标准(作者+年份当场核验,带?不过夜)+ [坐标]/
+  [行动] 分流;方向类当轮入队(check_cmd 双锚)。备选:整改面消化
+  (scan §9.1/§11.1/§19.3 三条 B 级题录,scan-traceability-audit.md §7)。
+  注意:P3 已终收口(轮 97,M2 headroom 关闭),条件性登记五条全终态
+  (E2 失效/R1b 未触发/R1c 判负/R1d 失效/轮72 留档)——蒸馏条目不得
+  重开已收口线;若连续 2 蒸馏轮无行动类产出 ⇒ 评估收口(S1)。每轮
+  PRD §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -41,7 +42,7 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → 队列空路由(P3 收口整理/蒸馏)/ 用户"继续"
+next_trigger_hint: goal_check → 蒸馏补池(新 query 族)/ 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -50,16 +51,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-20 05:55 (轮 96:**R1C-AGG 结案判负,弹出**——聚合轴
-  修复 attn 臂 T1 直跑 ~8min(冒烟先行,params 113,303=基线+49):3 seeds
-  rollout MSE 0.020484±5.96e-4,ctx 探针 corr 0.0171——判负标准双触
-  (corr<0.5 且 geo 比 1.003>0.95)⇒ 判负如实入档;**四路处方全负
-  (R1/R2/E2/R1c)⇒ P3 终收口"M2 headroom 关闭"证据完备**(轮 95 预注册
-  条款生效);实现留库:pool∈{mean,attn} 参数化,mean 路径逐位等价
-  (tests/test_context_pool.py 3 项,零初始化=旧行为起步,PLAYBOOK 回写);
-  附带诊断兑现轮 72 弱信号载体(resolution 0.0399 单点留档);下一心跳
-  队列空:P3 收口整理轮(T0)或蒸馏补池,goal_check 裁决;判读见 PRD
-  §19 "R1C-AGG 判读")
+updated: 2026-09-20 06:25 (轮 97:**台账消化+工具修复轮**——① gauge
+  窗口 bug 修复:rounds[-10:] 文件序取尾遇上 PRD §19 分层布局,窗口
+  实际取到最老轮 ⇒ EXP 恒 0、MINING-FROZEN 每心跳误报(良性方向潜伏);
+  改按头部轮号排序取窗口+WIN_PAT 扩 ID 型头,6 测试含分层回归,修复后
+  EXP=0.8 报警清空;② **P3 终收口正式入档**:四路处方全负+机制解释完备
+  ⇒ M2 系统辨识链路 headroom 关闭,N1 定位锚结构性质轴+硬约束边界
+  声明;③ 条件性登记五条全终态(E2 失效/R1b 未触发/R1c 判负/R1d 失效
+  [与轮 95 预注册冲突取后者]/轮 72 留档);④ 本会话被误报路由的两轮
+  (94/96)产出独立有效,判定不改写;下一心跳蒸馏补池(新 query 族,
+  AMM-015 硬标准);判读见 PRD §19 "轮 97 判读")
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)

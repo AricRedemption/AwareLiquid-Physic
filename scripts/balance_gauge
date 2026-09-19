@@ -18,10 +18,11 @@ import re
 import sys
 from pathlib import Path
 
-WIN_PAT = re.compile(r"^\*\*(?:轮\s*\d+|D-\d+)[^*]*（[^）]*）\*\*")
+WIN_PAT = re.compile(r"^\*\*(?:轮\s*\d+|D-\d+|[A-Z][A-Za-z0-9-]*)[^*]*（[^）]*）\*\*")
 STATUS_PAT = re.compile(r"^(open|closed|void)\b")
 EST_PAT = re.compile(r"~?\s*(\d+)(?:-(\d+))?\s*min")
 TIER_PAT = re.compile(r"T([123])\b")
+ROUND_NUM_PAT = re.compile(r"轮\s*(\d+)")
 
 
 def classify(header: str) -> str:
@@ -34,10 +35,23 @@ def classify(header: str) -> str:
 
 
 def parse_rounds(prd_text: str) -> list:
+    """轮 97 修复(坑:PRD §19 多时代分层布局,文件序≠时间序,旧版
+    rounds[-n:] 窗口取到的是最老 10 轮,EXP 恒 0 误触发 MINING-FROZEN)。
+    现按头部内"轮 N"编号取最近 N 轮;ID 型判读头(GRAD-PATH/SCAN-AUDIT/
+    R1C-AGG…)同样匹配;无编号头部继承最近前驱编号(D-1..D-4 紧邻
+    轮 88+ 区段的既有布局)。"""
     rounds = []
-    for line in prd_text.splitlines():
+    for idx, line in enumerate(prd_text.splitlines()):
         if WIN_PAT.match(line.strip()):
-            rounds.append({"header": line.strip()[:80], "class": classify(line)})
+            nums = [int(x) for x in ROUND_NUM_PAT.findall(line)]
+            rounds.append({"header": line.strip()[:80], "class": classify(line),
+                           "key": max(nums) if nums else None, "idx": idx})
+    last = 0
+    for r in rounds:
+        if r["key"] is None:
+            r["key"] = last
+        else:
+            last = r["key"]
     return rounds
 
 
@@ -103,7 +117,8 @@ def main():
     args = ap.parse_args()
 
     rounds = parse_rounds(Path(args.prd).read_text(encoding="utf-8"))
-    win = rounds[-args.window:]
+    ranked = sorted(rounds, key=lambda r: (-r["key"], r["idx"]))
+    win = ranked[:args.window]
     n = len(win)
     ev = sum(1 for r in win if r["class"] == "evidence")
     mining = sum(1 for r in win if r["class"] == "mining")
