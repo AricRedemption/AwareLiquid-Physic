@@ -404,7 +404,7 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 - 【验证状态】社区已验证(ANP 678 引);对我们待验证(R1c 条件性,
   代码前提已判读:mean-pool 在 model.py 编码管线中确认)。
 
-### 12.3 云回传判负时的三路分流(判读逻辑,轮 68 定稿)
+### 12.3 云回传判负时的三路分流(判读逻辑,轮 68 定稿;轮 77 追加第四路)
 
 R1(辅助辨识损失)若判负,按失败模式选路:
 - ctx 探针仍 ≈0(信息没进来)→ **R1c**(聚合瓶颈,attention 池化);
@@ -412,6 +412,11 @@ R1(辅助辨识损失)若判负,按失败模式选路:
   消融 **E2**(视 ρ_CB′);
 - ctx 有信息且兑现但仅部分 → 监督强度/权重曲线(**R1 权重扫描**)。
 三条路线相互独立、处方可叠加,不存在"全判负则无处可去"分支。
+- **轮 77 追加(谱偏置族,§17.3):表征轴第四路 R1d**——R1b/R1c 均
+  未兑现缺口收敛时,ctx(或 q)输入的 **Fourier 特征重参数化/高频
+  缩放**(反制谱偏置,处方谱系见 §17.3)与监督(R1)/结构(R1b)/
+  聚合(R1c)三轴正交可叠加;先决条件:SB-NAMING 文档的命名对账
+  成立(判负标准届时预注册)。新增路线,不改轮 68 原判定行。
 
 ### 蒸馏结论 7
 
@@ -611,6 +616,67 @@ R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
 N1 Related Work 素材,判负标准预注册 PRD §19 轮 75)。蒸馏轮第 9 次
 达标;检索三连的对照式第三槽("vs")专产定位素材(初验证 n=1)。
 
+## 17. 经验蒸馏 12(轮 77,2026-09-19 13:10,QUEUE-EMPTY 轮):谱偏置/频率原理族
+
+> 第 17 个 query 族,与前十六族零重叠(§6 Gradient Starvation 是梯度
+> 竞争轴,§11 是算子谱实践轴,本族是**学习动力学的频率轴**)——直击
+> D6 判读锁定的"E1 缺口 = 优化可达性"的文献机制命名。检索:3 族一次
+> 命中(综述 / PINN-算子场景 / GD 机制+对照)。标记:[坐标] ×3 +
+> [行动] ×1(→ SB-NAMING 入队 + R1d 条件性登记)。
+
+### 17.1 谱偏置主坐标:F-Principle 低频优先 [坐标]
+
+- 【出处】[On the Spectral Bias of Neural Networks (Rahaman et al.,
+  ICML 2019, ~3514 引)](https://proceedings.mlr.press);
+  [On understanding and overcoming spectral biases (Xu et al. 2025, ~62 引)](https://www.sciencedirect.com);
+  F-Principle overview(Xu & Zhang)。
+- 【内容】梯度下降拟合目标函数**从低频到高频**(频率原理);机制
+  由 NTK/梯度动力学解释——低频分量梯度信号占比大、先被消减。
+- 【对我们的映射】E1 缺口(oracle −27%,锁定推断提取层)的**机制
+  命名候选**:若 ctx→V 的目标分量在 q/隐空间含高频成分,GD 低频
+  优先 ⇒ ctx 信号欠提取是**优化动力学性质而非容量或信息问题**——
+  与 E3(容量否定,+46% 参数零效应)、E4a(ctx 梯度 3.97e-3 饥饿)、
+  D6(层 1 信息充足)四层证据链兼容且互补。注意与 §6 Gradient
+  Starvation 的分工:那是梯度竞争("谁抢预算"),这是频域先后
+  ("什么先学"),两机制可并存。
+- 【适用条件】一切"信息在、读得出、却学不快"的判读场合。
+- 【验证状态】社区已验证;对本仓为**命名假设**,由 SB-NAMING 文档
+  对账证据链(判负标准 PRD §19 轮 77)。
+
+### 17.2 PINN/算子学习场景的谱偏置(最邻近场景) [坐标]
+
+- 【出处】[Spectral bias in physics-informed and operator learning
+  (arXiv:2602.19265, 2026)](https://arxiv.org/html/2602.19265v1);
+  [Spectral Bias in Practice: the Role of Function Frequency in GD (NeurIPS 2022)](https://papers.neurips.cc/paper_files/paper/2022/file/306264db5698839230be3642aafc849c-Paper-Conference.pdf)。
+- 【内容】PINN/算子学习普遍受低频偏置拖累(波方程正/逆问题典型);
+  函数频率直接调制 GD 动态(NeurIPS 2022 机制实证)。
+- 【对我们的映射】① 本仓波场任务(M2)与弹簧滚出训练落在文献
+  场景带内,N1 mechanism-chain 引用合规;② 判读 M2 场任务时的
+  频域语言来自本坐标(截断外混叠 §11.1 是分辨率轴,本条是训练
+  动力学轴,注意区分)。
+- 【适用条件】N1 机制链章节;M2 判读报告的频域表述。
+- 【验证状态】社区已验证;引用立即可用。
+
+### 17.3 处方谱系:Fourier 特征/高频缩放/多分辨率 [坐标+行动→R1d 条件性]
+
+- 【出处】§17.1/17.2 综述的 mitigation 章节:Fourier feature
+  mappings;[High-Frequency Scaling (Khodakarami et al. 2025)](https://www.osti.gov);
+  [Multigrid Deep Learning (NeurIPS 2024)](https://neurips.cc);顺序拟合。
+- 【对我们的映射】**R1d 条件性登记**(仿 R1b/R1c 先例,不入队):
+  R1 判负且 R1b/R1c 均未兑现缺口收敛 ⇒ 表征轴第四路——ctx(或 q)
+  输入的 Fourier 特征重参数化/高频缩放,与监督/结构/聚合三轴正交
+  可叠加;分流表 §12.3 已追加(新增不改史)。先决条件:SB-NAMING
+  命名对账成立;判负标准届时预注册。
+- 【适用条件】R 线修复族;N1 future work 边界。
+- 【验证状态】处方社区已验证;对本仓待验证(条件性)。
+
+### 蒸馏结论 12
+
+三 [坐标] + 一 [行动](SB-NAMING 入队,R1d 登记为分流表第四路)。
+E1 缺口获得文献机制命名候选(谱偏置/低频优先),证据链四层齐备:
+D6(信息充足)→ E3(容量否定)→ E4a(梯度饥饿)→ 谱偏置(频域
+动力学)。蒸馏轮第 10 次达标;检索三连对照式第三槽 n=2(升已验证)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -636,3 +702,8 @@ N1 Related Work 素材,判负标准预注册 PRD §19 轮 75)。蒸馏轮第 9 �
 - [Koopman operator dynamical models (Bevanda et al. 2021)](https://www.sciencedirect.com)——见 §16.2
 - [Hamiltonian Neural Koopman Operator (Zhang et al. 2024)](https://link.aps.org)——见 §16.3
 - [Physics-informed deep Koopman for Lagrangian systems (Wang et al. 2024)](https://link.springer.com)——见 §16.3
+- [On the Spectral Bias of Neural Networks (Rahaman et al., ICML 2019)](https://proceedings.mlr.press)——见 §17.1
+- [On understanding and overcoming spectral biases (Xu et al. 2025)](https://www.sciencedirect.com)——见 §17.1
+- [Spectral bias in physics-informed and operator learning (arXiv:2602.19265)](https://arxiv.org/html/2602.19265v1)——见 §17.2
+- [Spectral Bias in Practice (NeurIPS 2022)](https://papers.neurips.cc/paper_files/paper/2022/file/306264db5698839230be3642aafc849c-Paper-Conference.pdf)——见 §17.2
+- [High-Frequency Scaling (Khodakarami et al. 2025)](https://www.osti.gov)——见 §17.3
