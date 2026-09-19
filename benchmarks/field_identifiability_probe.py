@@ -82,6 +82,30 @@ def fisher_for_mode(base_u_fn, a_pert: float):
     return (du ** 2).sum().item()
 
 
+def fisher_pair(base_u_fn, a_pert: float):
+    """R1C-AGG 先决探针 (wave-10 轮 95): full-field Fisher 与 mean-pool
+    (空间均值) Fisher 的成对中心差分。
+
+    模型编码器对共享线性层先做空间均值池化 (model.py:104,119-120:
+    mean_N(node_enc(o)) == node_enc(mean_N(o)), 线性可交换), 故聚合层
+    输入恰为均值场轨迹 m(t)。J_meanpool = sum_t (mean_j du_j(t))^2 度量
+    该均值泛函对 c(x) 第 k 模式的可辨识性; 由 Cauchy-Schwarz 恒有
+    0 <= J_meanpool <= J_full。
+
+    机制发现 (轮 95, 比预注册更强的形态): 周期网格上加速度的空间均值
+    恒为零——Σ_i c_i²(q_{i+1}−q_i) 与 reindex 后的 Σ c_{i-1}²(q_i−q_{i-1})
+    逐项抵消 (对任意 c(x) 成立) ⇒ m(t) = m(0)+t·p̄(0) 严格匀速且与介质
+    无关。聚合层对 c(x) 一切模式 (含 k=0) 的信息保留为**精确零** (FD
+    噪声级), 非均匀介质的模态耦合也不改变该恒等式。
+    """
+    up = base_u_fn(+a_pert)
+    lo = base_u_fn(-a_pert)
+    du = (up - lo) / (2 * a_pert)          # (t_obs+1, N)
+    j_full = (du ** 2).sum().item()
+    j_pool = ((du.mean(dim=1)) ** 2).sum().item()
+    return j_full, j_pool
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--n_traj", type=int, default=8)
@@ -96,6 +120,9 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--a_pert", type=float, default=1e-3,
                     help="FD amplitude of the mode coefficient")
+    ap.add_argument("--meanpool", action="store_true",
+                    help="R1C-AGG 先决: 同时计算空间均值池化的 Fisher 谱"
+                         "(模型聚合层信息保留率, 轮 95)")
     ap.add_argument("--device", default="cpu", choices=["cpu"])
     ap.add_argument("--out_dir",
                     default="benchmarks/physics_out_v02/d3_field_identifiability")
@@ -109,10 +136,12 @@ def main():
     N = args.n_nodes
     half = N // 2                     # real field: unique cos frequencies
     j_means, j_stds, support = [], [], []
+    j_pool_means = []
     for i in range(args.n_traj):
         q0, p0, c = qs[i, 0, :, 0], ps[i, 0, :, 0], cs[i]
         support.append(torch.fft.rfft(c - c.mean()).abs())
         row = []
+        row_pool = []
         for k in range(half + 1):
             mk = mode_field(N, k)
 
@@ -120,7 +149,13 @@ def main():
                 u = rollout(q0, p0, c + a * mk, args.steps, args.dt)
                 return u[:args.t_obs + 1]     # observation window only
 
-            row.append(fisher_for_mode(base_u_fn, args.a_pert))
+            if args.meanpool:
+                j_full, j_pool = fisher_pair(base_u_fn, args.a_pert)
+                row.append(j_full)
+                row_pool.append(j_pool)
+            else:
+                row.append(fisher_for_mode(base_u_fn, args.a_pert))
+        j_pool_means.append(row_pool)
         j_means.append(row)
     J = torch.tensor(j_means)
     j_mean = J.mean(dim=0)
@@ -137,6 +172,17 @@ def main():
         "family_spectral_support_frac": sup_frac.tolist(),
         "dynamic_range_j": (j_mean.max() / max(j_mean.min(), 1e-300)).item(),
     }
+    if args.meanpool:
+        JP = torch.tensor(j_pool_means)
+        jp_mean = JP.mean(dim=0)
+        retention = [jp / max(jf, 1e-300)
+                     for jp, jf in zip(jp_mean.tolist(), j_mean.tolist())]
+        total_retention = (jp_mean.sum() / max(j_mean.sum().item(), 1e-300)).item()
+        results.update({
+            "j_meanpool_window": jp_mean.tolist(),
+            "meanpool_retention_frac_per_mode": retention,
+            "meanpool_total_retention_frac": total_retention,
+        })
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "field_identifiability.json"), "w") as f:
         json.dump({"args": vars(args),
@@ -151,6 +197,13 @@ def main():
         print(f"  k={k:>2}: J {j_mean[k]:10.3e} ({j_frac[k] * 100:5.1f}%) "
               f"| family support {sup_frac[k] * 100:5.1f}% | {bar}")
     print(f"  dynamic range: {results['dynamic_range_j']:.1f}x")
+    if args.meanpool:
+        print("  mean-pool retention per mode (J_pool / J_full):")
+        for k in range(half + 1):
+            print(f"    k={k:>2}: {retention[k]:8.4f} "
+                  f"({results['j_frac_window'][k] * 100:5.1f}% of full-field J)")
+        print(f"  total retention (sum_k J_pool / sum_k J_full): "
+              f"{total_retention:.4f}")
 
 
 if __name__ == "__main__":
