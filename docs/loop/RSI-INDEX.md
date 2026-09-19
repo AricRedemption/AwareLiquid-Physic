@@ -1,8 +1,11 @@
 # LOOP RSI-INDEX — 本循环的递归自改进指数(对齐 RSI-Exam / RSI Index 体系)
 
-> 对齐 2026-09 前沿评价体系:RSI-Exam(rsi-exam.ai,88 任务 6 域,锚定计分
-> 0=弱基线 / 0.6=前沿参照 / 1.0=上界,隐藏集一次性终跑)与 OpenAI System
-> Card 2026 / Vals AI 的 RSI Index(开放式 AI R&D 任务对标基线)。
+> 对齐 2026-09 前沿评价体系:[RSI-Exam](https://rsi-exam.ai)(rsi-exam.ai,
+> 88 任务 6 域,35 公开/53 私有,HuggingFace 有数据集页;轮 88 治理轮复核
+> 为真实信源——同日早前"未寻得独立信源"系治理会话自身检索不力的误报,
+> 撤销),锚定计分 0=弱基线 / 0.6=前沿参照 / 1.0=上界,隐藏集一次性终跑;
+> 与 [Vals AI RSI Index](https://www.vals.ai)(开放式 AI R&D 任务对标基线)
+> 互为参照。
 > 哲学采纳:**"刷高可见集 ≠ 改进"——只有对未见数据的一次性迁移才算数。**
 
 ## 锚定(仿 RSI-Exam)

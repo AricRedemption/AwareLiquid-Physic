@@ -122,7 +122,9 @@ R1 的设计不是拍脑袋:它有 2015-2021 的连续文献线(潜码需监督 
   PDEBench(Takamoto et al., NeurIPS 2022);The Well(2024)。
 - 【内容】神经 PDE 评测的标准化努力集中在 **OOD/鲁棒性基准**(RPB、
   PDEBench、The Well);检索证据显示**多种子/隐藏集报告规范极少成文**
-  ——公认空白。
+  ——当前 query 族下未检索到成文规范(轮 88 治理轮修订:原"公认空白"
+  系弱检索下的过强断言,按 AMM-015 缺证性降档规范改写;§映射 novelty
+  声明强度相应降为"检索未见,非证真空白")。
 - 【对我们的映射】本仓的 RSI-Exam 实践(预注册一次性隐藏集终跑、
   轮 44 首夜即抓可见集过拟合反转、G2 的跨 pool 几何均值报告)恰好落在
   该空白上——**论文 §5 自主循环小节的 novelty 声明有据**:不是我们自说
@@ -894,7 +896,9 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 ### 21.2 对称性发现:LieGAN 谱系 [坐标]
 
 - 【出处】[L-conv: Lie Algebra Convolutional Networks (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/hash/148148d62be67e0916a833931bd32b26-Abstract.html);
-  [LieGAN 自动对称发现 (ICML 2024 keynote)](https://icml.cc/virtual/2024/38573);
+  LieGAN 自动对称发现(ICML 2023;轮 88 治理轮修订:原记"ICML 2024
+  keynote"+icml.cc/virtual/2024 链接系题录误记,审计抓出——精确链接待
+  SCAN-AUDIT 补,按 AMM-015 溯源标准不确定题录须标注);
   LieGNN / LieSD(2025)/ LieNLSD(2025,非线性对称)。
 - 【内容】从数据发现连续李群对称性(Lie 代数空间对抗学习),发现的
   对称可插入等变下游模型;非线性对称的显式计数已出现。

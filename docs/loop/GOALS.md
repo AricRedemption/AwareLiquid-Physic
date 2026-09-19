@@ -57,9 +57,14 @@ updated: 2026-09-19 17:29 (治理轮 3 终审:AMM-013 落地+GOAL-PROMPT 终审
 goal_queue:
 - id: GRAD-PATH
     track: engineering
-    goal: 滚出训练梯度路径审计轮(create_graph 语义+内存/梯度范数冒烟探针 k=8/32/128+辛伴随升级草案;判负标准 PRD §19 轮 87;探针零训练)
+    goal: 滚出训练梯度路径审计轮(create_graph 梯度路径语义审计+内存/梯度范数冒烟探针 k=8/32/128+辛伴随升级草案;判负标准 PRD §19 轮 87;探针零训练)
     done_condition: docs/grad-path-audit.md 落地(梯度路径语义审计+探针数字+辛伴随草案)+判读写入 PRD §19
     check_cmd: grep -q "GRAD-PATH 判读" docs/PRD.md && test -f docs/grad-path-audit.md
+- id: SCAN-AUDIT
+    track: frontier
+    goal: 溯源审计轮(T0,AMM-015):scan §1-22 约 49 条入库逐条判溯源等级(题录可复核/仅域名根/缺出处三档)+已知错题录修订(LieGAN 年份)+缺证性声明全库降档扫("公认空白"类→"当前 query 族下未检索到");判负标准 PRD §19 轮 88 治理轮
+    done_condition: docs/scan-traceability-audit.md 落地(逐条溯源等级表+修订清单+题录可复核率)+判读写入 PRD §19
+    check_cmd: grep -q "SCAN-AUDIT 判读" docs/PRD.md && test -f docs/scan-traceability-audit.md
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
