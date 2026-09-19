@@ -16,7 +16,8 @@ current_goal: >-
   结案判负(coverage 1.6%/0/0,过度自信方向,N1 上限 L2 坐实,判读见 PRD
   §19 "D-1 判读")。台账 D_count=3。对齐修正 5 处:DEBT-LEDGER 清偿顺序
   T1 化/TOOLS probe_run 行 T1≤30/本文件时间戳实测化/AMM-008 核数以实测
-  为准(8核→4线程)/GOAL-PROMPT"算力目标一生"段 v3.1 化。
+  为准(8核→4线程)/GOAL-PROMPT"算力目标一生"段 v3.1 化(该段已于 v4.0
+  重写时并入"算力纪律"节,此为历史日志)。
   治理轮 3(2026-09-19 17:29,设计会话终审):AMM-013 仪表强制化落地
   (goal_check 焊入 DEBT-FIRST/MINING-FROZEN 硬出口+台账指标自动化,真实
   仓库验证路由正确);AMM-014 欠账分级提案 PROPOSED 待批(云债不阻塞循环);
@@ -46,9 +47,9 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/spectral-bias-naming.md(轮 78);docs/eval-norms-vpt.md(轮 80);
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86)
-updated: 2026-09-19 17:52 (AMM-014 批准落地:欠账分级 L-debt 阻塞/C-debt
-  挂起不阻塞,gauge+goal_check+三文档同步;台账 3 笔 open 均 L-debt,
-  DEBT-FIRST 路由不变;下一心跳 D-2 TSFM 基线 T1 直跑)
+updated: 2026-09-19 18:53 (AMM-017:GOAL-PROMPT v4.1 简洁化~650 字+
+  一致性修正四处;16 组规则清点零损失;台账 3 笔 open 均 L-debt,
+  下一心跳 D-2 TSFM 基线 T1 直跑)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
@@ -69,7 +70,7 @@ goal_queue:
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
 养成交付节奏;新方向(文献扫描/用户指定)追加到队尾并标 track。
-队列空才允许空转/扫描补池。
+队列空 ⇒ 按 goal_check 路由(蒸馏/证据轮/清欠,以路由器裁决为准)。
 **E2 条件性重入口(不入队,防路由器空转)**:若 E3 修复推断后
 ρ_CB′ 仍 ≥0.9(接口重成第一嫌疑),把 E2(concat/hyper,设计文档 §6
 原闸门)追加回队尾。
