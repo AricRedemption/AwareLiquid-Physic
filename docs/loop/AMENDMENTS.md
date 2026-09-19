@@ -349,6 +349,20 @@
 - 状态:**APPLIED**(用户 2026-09-20 会话问"为什么没有不断自循环"暴露缺陷,
   设计者修复自身 v4.1 措辞;本轮实施)
 
+### AMM-019: 承重句门禁——prompt 措辞回归固化为 pytest 不变式(APPLIED)
+- 动机(AricRedemption 2026-09-20 会话观察,原话"整个工程都挺好,但是稍微
+  一两句表述就天差地别的结果"):AMM-018 修复了单次回归,但"措辞改变行为"
+  的风险面仍在——每次重写 prompt 都可能无声丢掉承重语义,而现有防线只在
+  马拉松现场(停止了才被发现)。
+- 提案 diff(新增 tests/test_goal_prompt_invariants.py):27 条承重句不变式
+  (会话连续/禁等待触发停机/资源红线 80%/Probe-First/消化轮/隐藏集 999/
+  分支纪律…)逐条正则断言存在于 GOAL-PROMPT 粘贴块;借**既有验收门**
+  (pytest 全绿才可提交)自动拦截措辞回归——改 prompt 的提交丢任何一条
+  承重句即门禁红。附零出处复检(粘贴块禁 AMM-xxx 引用,v4.0 规矩)。
+- 风险与回滚:措辞进化可能被误伤(换了说法但语义在)⇒ 届时同步更新
+  INVARIANTS 表并在 AMENDMENTS 留痕(表即文档,名=保护的行为)。回滚 = git revert。
+- 状态:**APPLIED**(用户会话要求防止 Agent 偏移;本轮实施)
+
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
   headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:
