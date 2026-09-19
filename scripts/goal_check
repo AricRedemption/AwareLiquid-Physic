@@ -1,25 +1,55 @@
 #!/usr/bin/env bash
-# goal_check — 目标校验路由器(wave-10 轮 49:N 线与 E 线的串接机制)
+# goal_check — 目标校验路由器(wave-10 轮 49 建立;轮 88 AMM-013 仪表焊点)
 #
-# 每轮心跳第一步:读 docs/loop/GOALS.md 的 goal_queue 顶部目标 →
-# 执行其 check_cmd →
-#   通过   → VERDICT: ACHIEVED(弹出顶部并写回 GOALS.md,晋升下一位)
-#   不通过 → VERDICT: NOT-Achieved(对当前目标迭代一步,未达成不停)
+# 每轮心跳第一步:
+#   0. 跑 balance_gauge(AMM-012/013) →
+#      open 欠账 >0        → VERDICT: DEBT-FIRST(退出码 4;禁蒸馏/队列迭代,先清欠)
+#   1. 读 GOALS.md goal_queue 顶部 → 执行 check_cmd →
+#      通过   → VERDICT: ACHIEVED(弹出顶部并写回 GOALS.md,晋升下一位)
+#      不通过 → VERDICT: NOT-Achieved(对当前目标迭代一步,未达成不停)
+#   2. 队列空时:
+#      EXP<20%(窗口≥5)     → VERDICT: MINING-FROZEN(退出码 3;补证据轮,禁蒸馏)
+#      否则                 → VERDICT: QUEUE-EMPTY(退出码 2;蒸馏补池)
 #
-# 退出码:0 = ACHIEVED(已写回);1 = NOT-Achieved;2 = 队列空。
+# 退出码:0=ACHIEVED 1=NOT-Achieved 2=QUEUE-EMPTY 3=MINING-FROZEN 4=DEBT-FIRST
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 GOALS="$REPO/docs/loop/GOALS.md"
 date +%s > "$REPO/.loop-lock"   # 马拉松存活心跳(供 marathon_guard 新鲜度检查)
 
-python3 - "$GOALS" <<'EOF'
-import re, subprocess, sys
+python3 - "$GOALS" "$REPO" <<'EOF'
+import json, re, subprocess, sys
 
-path = sys.argv[1]
+path, repo = sys.argv[1], sys.argv[2]
+gauge = None
+try:
+    raw = subprocess.run(
+        ["python3", f"{repo}/scripts/balance_gauge", "--prd", f"{repo}/docs/PRD.md",
+         "--goals", path, "--ledger", f"{repo}/docs/loop/DEBT-LEDGER.md"],
+        capture_output=True, text=True, timeout=30)
+    gauge = json.loads(raw.stdout)
+except Exception as e:   # 仪表故障不阻塞路由,降级为纯队列路由
+    print(f"  [gauge 不可用:{e};降级纯队列路由]")
+
+if gauge and gauge.get("debt", {}).get("count_open", 0) > 0:
+    print(f"VERDICT: DEBT-FIRST — open 欠账 {gauge['debt']['open']},"
+          f"按 DEBT-LEDGER 顺序清欠(禁蒸馏/禁队列迭代,AMM-007/013)")
+    sys.exit(4)
+
 src = open(path).read()
 block_m = re.search(r"```yaml\ngoal_queue:\n(.*?)```", src, re.S)
+
+def queue_empty_exit():
+    # 队列空的两种写法(无 block / block 内空)都必须过 MINING-FROZEN 闸
+    if (gauge and gauge.get("window", 0) >= 5
+            and gauge.get("exp_ratio") is not None and gauge["exp_ratio"] < 0.20):
+        print(f"VERDICT: MINING-FROZEN — EXP={gauge['exp_ratio']}<20%"
+              f"(AMM-012):禁蒸馏,先补证据轮(T0 数字判读/T1 探针/台账消化)")
+        sys.exit(3)
+    print("VERDICT: QUEUE-EMPTY"); sys.exit(2)
+
 if not block_m:
-    print("VERDICT: QUEUE-EMPTY(无 goal_queue,先文献扫描补池)"); sys.exit(2)
+    queue_empty_exit()
 FIELDS = ("track", "goal", "done_condition", "check_cmd")
 entries, cur = [], None
 for line in block_m.group(1).splitlines():
@@ -33,7 +63,7 @@ for line in block_m.group(1).splitlines():
             if mm:
                 cur[f] = mm.group(1)
 if not entries:
-    print("VERDICT: QUEUE-EMPTY"); sys.exit(2)
+    queue_empty_exit()
 
 top, rest = entries[0], entries[1:]
 if not top["check_cmd"].strip():

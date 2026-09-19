@@ -6,8 +6,10 @@ EXP 占比:PRD §19 轮记录头分类(滑动窗口,默认 10):
   evidence = 算力轮(T1/T2 执行+判读)或非零算力的判读/达成轮
   t0       = 零算力判读/写作轮(证据性存疑,单列不计入 EXP 分母的警告值)
 WIP:GOALS.md goal_queue 的 [行动] 条目数(上限 2,AMM-012)。
+DEBT:DEBT-LEDGER.md 台账行解析(D_count/D_min/digest_rate,AMM-009/013)。
 
-用法: ./scripts/balance_gauge [--window 10] [--prd docs/PRD.md] [--goals docs/loop/GOALS.md]
+用法: ./scripts/balance_gauge [--window 10] [--prd docs/PRD.md]
+      [--goals docs/loop/GOALS.md] [--ledger docs/loop/DEBT-LEDGER.md]
 输出: 一行 JSON(stdout)。规则不变式在此计算,文档只引用结论,不复述实例值。
 """
 import argparse
@@ -17,6 +19,8 @@ import sys
 from pathlib import Path
 
 WIN_PAT = re.compile(r"^\*\*(?:轮\s*\d+|D-\d+)[^*]*（[^）]*）\*\*")
+STATUS_PAT = re.compile(r"^(open|closed|void)\b")
+EST_PAT = re.compile(r"~?\s*(\d+)(?:-(\d+))?\s*min")
 
 
 def classify(header: str) -> str:
@@ -49,11 +53,41 @@ def parse_wip(goals_text: str) -> int:
     return wip
 
 
+def parse_debts(ledger_text: str) -> dict:
+    debts = []
+    for line in ledger_text.splitlines():
+        if not line.lstrip().startswith("| D-"):
+            continue
+        debts.append([c.strip() for c in line.split("|")])
+    out = {"open": [], "closed": 0, "void": 0, "d_min": 0}
+    for cells in debts:
+        did = next((c for c in cells if re.match(r"^D-\d+$", c)), None)
+        if did is None:
+            continue
+        raw = next((c for c in cells if STATUS_PAT.match(c.strip("*_ "))), "open")
+        status = raw.strip("*_ ")   # next() 返回原始 cell,判断前必须剥壳
+        if status.startswith("open"):
+            out["open"].append(did)
+            m = next((EST_PAT.match(c.strip()) for c in cells
+                      if EST_PAT.match(c.strip())), None)
+            if m:
+                out["d_min"] += int(m.group(2) or m.group(1))
+        elif status.startswith("closed"):
+            out["closed"] += 1
+        else:
+            out["void"] += 1
+    total = len(out["open"]) + out["closed"] + out["void"]
+    out["count_open"] = len(out["open"])
+    out["digest_rate"] = round((out["closed"] + out["void"]) / total, 3) if total else None
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--window", type=int, default=10)
     ap.add_argument("--prd", default="docs/PRD.md")
     ap.add_argument("--goals", default="docs/loop/GOALS.md")
+    ap.add_argument("--ledger", default="docs/loop/DEBT-LEDGER.md")
     args = ap.parse_args()
 
     rounds = parse_rounds(Path(args.prd).read_text(encoding="utf-8"))
@@ -64,15 +98,18 @@ def main():
     t0 = sum(1 for r in win if r["class"] == "t0")
     exp_ratio = round(ev / n, 3) if n else None
     wip = parse_wip(Path(args.goals).read_text(encoding="utf-8"))
+    debt = parse_debts(Path(args.ledger).read_text(encoding="utf-8"))
 
     alarms = []
+    if debt["count_open"] > 0:
+        alarms.append(f"DEBT-FIRST:open欠账{debt['open']},禁蒸馏先清欠(AMM-007/013)")
     if n >= 5 and exp_ratio is not None and exp_ratio < 0.20:
         alarms.append("EXP<20%:冻结蒸馏,先补证据轮(AMM-012)")
     if wip > 2:
         alarms.append(f"WIP={wip}>2:蒸馏只许产[坐标](AMM-012)")
 
     print(json.dumps({"window": n, "evidence": ev, "mining": mining, "t0": t0,
-                      "exp_ratio": exp_ratio, "wip": wip,
+                      "exp_ratio": exp_ratio, "wip": wip, "debt": debt,
                       "alarms": alarms,
                       "caveat": "文本启发式分类;T0 带数字判读是否计证据由消化轮人工终判"},
                      ensure_ascii=False))
@@ -80,3 +117,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+

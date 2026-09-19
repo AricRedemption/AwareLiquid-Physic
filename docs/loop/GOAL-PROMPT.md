@@ -9,7 +9,7 @@
 > 本文件由 AMENDMENTS 提案制维护;改这里的规则 = 改循环自身,走提案。
 
 ```text
-/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环迭代本项目:每轮先跑 ./scripts/goal_check 校验顶部目标——NOT-Achieved 则对该目标迭代一轮,ACHIEVED 则弹出晋升下一个,QUEUE-EMPTY 则**先查 docs/loop/DEBT-LEDGER.md(AMM-009 欠账优先):有 open 欠账先清欠**(按台账顺序 T1/T2 本机执行并验收),无欠账才进入**经验蒸馏轮**(社区/论文扫描:找有效经验与前沿方向,每条按"出处+适用条件+验证状态"入库——操作类固化进 PLAYBOOK、工具类实现进 TOOLS、**方向类必须转换成 GOALS 队列目标**;本轮交付=≥1 个新队列目标,仅归档不入队不算完成;连续 2 轮蒸馏产出全为 [坐标] 类 ⇒ 按停止规则收口);直到你手动停止或触发收口判据,中途不停。
+/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环迭代本项目:每轮先跑 ./scripts/goal_check 校验,按其 VERDICT 路由——**DEBT-FIRST(退出码 4)**:open 欠账在册 ⇒ 按 docs/loop/DEBT-LEDGER.md 顺序清欠(T1/T2 本机执行+PRD §19 机械验收+台账置 closed),禁蒸馏禁队列迭代;**MINING-FROZEN(退出码 3)**:EXP<20% ⇒ 禁蒸馏,补证据轮(T0 数字判读/T1 探针/台账消化);**NOT-Achieved** ⇒ 对顶部目标迭代一轮;**ACHIEVED** ⇒ 弹出晋升下一个;**QUEUE-EMPTY** ⇒ 经验蒸馏轮(社区/论文扫描:找有效经验与前沿方向,每条按"出处+适用条件+验证状态"入库——操作类固化进 PLAYBOOK、工具类实现进 TOOLS、**方向类必须转换成 GOALS 队列目标**;本轮交付=≥1 个新队列目标,仅归档不入队不算完成;连续 2 轮蒸馏产出全为 [坐标] 类 ⇒ 按停止规则收口);直到你手动停止或触发收口判据,中途不停。
 
 迭代纪律:
 - 启动自检(防双马拉松,第一优先):先跑 `./scripts/marathon_guard`——exit 1 ⇒ 已有活马拉松(锁龄 <100 分钟),本次转为"仅确认状态并结束";exit 0 ⇒ 放行进入循环体(循环内每轮 goal_check 自动刷新 .loop-lock 存活心跳;收尾时删除它)。绝不并行第二马拉松。

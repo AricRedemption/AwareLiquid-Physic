@@ -229,6 +229,29 @@
   期(清欠)天然满足,WIP 上限主要约束恢复挖掘后的阶段。回滚 = git revert。
 - 状态:**APPLIED**(用户 2026-09-19 会话原话裁定;本轮实施)
 
+### AMM-013: 仪表强制化——goal_check 焊入 DEBT-FIRST/MINING-FROZEN 硬出口 + 台账指标自动化
+- 动机(AricRedemption 2026-09-19 "请继续优化"会话裁定):AMM-007/012 的
+  欠账优先与 EXP 冻结此前只是提示语,执行会话可无视(goal_check 照样路由
+  蒸馏);台账 D_count/digest_rate 仍手工数——违反"数值只活在单一执行点"
+  的通用规则原则。本轮把规则从文档层下沉到路由器代码层:机器裁决优于
+  自觉遵守。
+- 提案 diff:
+  1. `scripts/balance_gauge` 增台账解析(--ledger:D_count/D_min/digest_rate,
+     状态列剥 markdown 加粗后识别 open/closed/void);
+  2. `scripts/goal_check` 路由优先级:DEBT-FIRST(退出码 4,open 欠账>0,
+     禁蒸馏禁队列迭代)> 队列路由(ACHIEVED/NOT-Achieved)> MINING-FROZEN
+     (退出码 3,队列空且 EXP<20% 窗口≥5)> QUEUE-EMPTY;仪表故障降级纯
+     队列路由不阻塞;`goal_queue: []` 单行写法与空 block 两条路径都过冻结闸
+     (测试抓到的真 bug);
+  3. GOAL-PROMPT 主指令行按 VERDICT 五分支改写;TOOLS 退出码表同步;
+  4. 测试:router 5 例(含真实仓库 DEBT-FIRST 验证)+ gauge 台账解析,
+     fixture 全隔离。
+- 风险与回滚:DEBT-FIRST 优先于队列迭代 ⇒ GRAD-PATH 等零算力目标在清欠期
+  被压后——符合用户"先清欠再迭代方向"裁定;台账解析依赖表格格式 ⇒ 格式
+  变更会静默失明,gauge 输出含 debt 字段可目检。回滚 = git revert。
+- 状态:**APPLIED**(用户"请继续优化"会话裁定;本轮实施,真实仓库验证
+  DEBT-FIRST 路由正确)
+
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
   headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:
