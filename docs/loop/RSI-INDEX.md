@@ -21,7 +21,7 @@
 | 过程纪律 | D | 闸门执行率、audit 通过率、坑复发数 | D=1.0、audit 全过、坑复发 0(playbook 后) |
 | 工具累积 | T+ | 新工具数(带测试) | N1: +4 · N2: +1 |
 | 自改进 | A | 提案数 / 采纳数(AMENDMENTS.md) | 0 / 0(机制新立) |
-| 算力债 | B | open 欠账 D_count / D_min / 最老债龄 / digest_rate(docs/loop/DEBT-LEDGER.md,AMM-009) | 轮 88 治理轮观测:3 / ~85min / 31 / 1-4(D-1 判负结案) |
+| 算力债 | B | open 欠账 D_count / D_min / 最老债龄 / digest_rate(docs/loop/DEBT-LEDGER.md,AMM-009;balance_gauge 自动计量) | 轮 88 治理轮观测:3 / ~85min / 31 / 1/4(D-1 判负结案) |
 | 平衡仪表 | EXP | `./scripts/balance_gauge` 自动计量(AMM-012;EXP≥30% 参考,<20% 冻结蒸馏)+ [行动] WIP(≤2) | 首测(轮 88 后窗口 10):EXP=0%(0 证据+8 t0+2 蒸馏)→ **报警触发,与夜 4 失衡现场定量吻合**;WIP=1;清欠后应回升,连续 2 窗 <30% 即机制失效信号 |
 
 **复合指数(暂定)**:`RSI_loop = 0.4·K̂ + 0.3·T̂ + 0.2·D + 0.1·Â`

@@ -11,7 +11,7 @@
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_identifiability_probe.py` | M2 场 c(x) 的谱域 Fisher(逐 cos 模式) | 即跑即出,秒级 |
 | `goal_check` | **目标校验路由器**(每轮心跳第一步;AMM-013 起内置仪表闸):DEBT-FIRST/队列路由/MINING-FROZEN 自动裁决 | `./scripts/goal_check`;退出码 0=ACHIEVED 已弹出 / 1=NOT-Achieved / 2=QUEUE-EMPTY / 3=MINING-FROZEN 补证据轮 / 4=DEBT-FIRST 先清欠 |
-| `probe_run` | **本机探针训练资源护栏**(AMM-008+010 闸门 v3.1):档位/时长校验(T1≤30/T2≤60,T3 拒绝)+ 线程=⌊0.6×逻辑核⌋ + nice 15 + PROBE_TIER/EST 溯源透传(stderr 可抄进结果 meta) | `./scripts/probe_run T1\|T2 <est_min> -- <cmd>`;`--dry-run` 只打印不执行;测试 `tests/test_probe_run.py` |
+| `probe_run` | **本机探针训练资源护栏**(AMM-008+010 闸门 v3.1):档位/时长校验(上限数值以脚本内置为唯一执行点)+ 线程=⌊0.6×逻辑核⌋ + nice 15 + PROBE_TIER/EST 溯源透传(stderr 可抄进结果 meta) | `./scripts/probe_run T1\|T2 <est_min> -- <cmd>`;`--dry-run` 只打印不执行;测试 `tests/test_probe_run.py` |
 | `balance_gauge` | **平衡仪表计量器**(AMM-012):PRD §19 轮记录头自动分类(mining/evidence/t0)+GOALS 队列 WIP,算 EXP 占比+报警线;数值自动计算不手工维护 | `./scripts/balance_gauge [--window 10]`;测试 `tests/test_balance_gauge.py` |
 | `probabilistic_eval.py` | 概率预测 + **校准检验**(D-1,coverage95/z 矩,`calibration_stats` 函数;--context_dim 1 = ω 后验忠实实例化) | `probe_run T1 -- ... probabilistic_eval.py --train_steps 500 --context_dim 1 --seed N --out_dir ...`;测试 `tests/test_calibration_stats.py` |
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
