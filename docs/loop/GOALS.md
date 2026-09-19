@@ -10,10 +10,13 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  治理轮 2(2026-09-19 15:0x,设计会话):AMM-010(T1 放宽 ≤30min 当轮
-  直跑 + Probe-First 大训练准入)+ AMM-011(设计/执行会话角色分离)落地;
-  D-1 UQ 校准已结案判负(coverage 1.6%/0/0,过度自信方向,N1 上限 L2 坐实,
-  判读见 PRD §19 "D-1 判读")。台账 D_count=3。
+  治理轮 2+对齐修正(2026-09-19 15:09,设计会话):AMM-010(T1 放宽 ≤30min
+  当轮直跑 + Probe-First 大训练准入)+ AMM-011(设计/执行会话角色分离)+
+  AMM-012(训练↔方向平衡:EXP≥30%/WIP≤2/消化耦合)落地;D-1 UQ 校准已
+  结案判负(coverage 1.6%/0/0,过度自信方向,N1 上限 L2 坐实,判读见 PRD
+  §19 "D-1 判读")。台账 D_count=3。对齐修正 5 处:DEBT-LEDGER 清偿顺序
+  T1 化/TOOLS probe_run 行 T1≤30/本文件时间戳实测化/AMM-008 核数以实测
+  为准(8核→4线程)/GOAL-PROMPT"算力目标一生"段 v3.1 化。
 current_action: >-
   下一心跳(执行会话,AMM-011 角色下所有执行归你):按 DEBT-LEDGER 顺序清欠
   ——D-2 TSFM 基线(T1 直跑,协议 docs/tsfm-baseline-protocol.md,依赖安装
@@ -37,8 +40,8 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/spectral-bias-naming.md(轮 78);docs/eval-norms-vpt.md(轮 80);
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86)
-updated: 2026-09-19 14:38 (治理轮:AMM-007/008/009 落地,欠账台账 4 笔
-  open,程序计数器重定向清欠优先;GRAD-PATH 保持队首待欠账清零)
+updated: 2026-09-19 15:09 (治理轮 2:AMM-010/011/012 落地+对齐修正 5 处;
+  D-1 判负结案,台账 3 笔 open~85min;下一心跳 D-2 TSFM 基线 T1 直跑)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
