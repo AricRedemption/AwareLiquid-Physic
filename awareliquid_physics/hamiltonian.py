@@ -107,15 +107,38 @@ class HamiltonianHead(nn.Module):
     context_dim > 0 conditions the POTENTIAL V(q | ctx) on an external context
     vector — the hook by which the liquid core (model.py) sets the energy
     landscape. context_dim = 0 (default) is the pure autonomous Hamiltonian.
+
+    Dissipation slot (DH-DESIGN, round 74, default OFF): rayleigh=True adds a
+    damping force F_d = -gamma(p) * dT/dp with gamma = softplus(MLP(p)) >= 0
+    per coordinate, so dH/dt = -sum_i gamma_i qdot_i^2 <= 0 BY CONSTRUCTION in
+    the continuous limit (port-Hamiltonian flavour: dissipation is a PSD field
+    acting on the energy gradient flow, not a free-form force). Default off
+    leaves the conservative path BITWISE unchanged (flag short-circuit, no new
+    parameters). See docs/dh-dissipation-design.md and tests/test_dissipation.py.
     """
 
     def __init__(self, dim: int, hidden_dim: int = 64, depth: int = 2,
-                 context_dim: int = 0):
+                 context_dim: int = 0, rayleigh: bool = False):
         super().__init__()
         self.dim = int(dim)
         self.context_dim = int(context_dim)
+        self.rayleigh = bool(rayleigh)
         self.T = _energy_mlp(dim, hidden_dim, depth)                       # T(p)
         self.V = _energy_mlp(dim + self.context_dim, hidden_dim, depth)    # V(q | ctx)
+        if self.rayleigh:
+            # PSD damping-field net: dim -> dim per-coordinate gamma >= 0.
+            layers: list[nn.Module] = []
+            d = dim
+            for _ in range(depth):
+                layers += [nn.Linear(d, hidden_dim), nn.Tanh()]
+                d = hidden_dim
+            layers += [nn.Linear(d, dim)]
+            self.G = nn.Sequential(*layers)
+
+    def _damping_force(self, p: torch.Tensor) -> torch.Tensor:
+        """F_d = -gamma(p) * dT/dp  (gamma >= 0 via softplus => dH/dt <= 0)."""
+        gamma = torch.nn.functional.softplus(self.G(p))
+        return -gamma * self.dT_dp(p)
 
     # -- energy & its gradients (the conservative vector field) ---------------
 
@@ -181,8 +204,26 @@ class HamiltonianHead(nn.Module):
         H(.|ctx) is conserved by the symplectic scheme exactly as in the
         autonomous case; across steps a changing context does real work (the
         liquid core drives the system), which is physically correct.
+
+        With rayleigh=True the damping force enters BOTH kicks (splitting of
+        the damped vector field): monotone energy decay holds in the continuous
+        limit, up to O(dt^2) splitting error discretely (probed in
+        tests/test_dissipation.py). Default off: the conservative path is
+        BITWISE unchanged.
         """
         dt = float(dt)
+        if self.rayleigh:
+            # Damping force F_d = -gamma * dT/dp ENTERS the kick as +dt/2*F_d
+            # (thick-bar sign: p_dot = -dV/dq + F_d). First round-74 run had
+            # F_d inside the -0.5*dt*(...) parenthesis — a sign flip that
+            # turned damping into ANTI-damping; the monotonicity probe caught
+            # it (every step gained energy, dt-linear drift).
+            p_half = p - 0.5 * dt * self.dV_dq(q, context) \
+                + 0.5 * dt * self._damping_force(p)
+            q_next = q + dt * self.dT_dp(p_half)
+            p_next = p_half - 0.5 * dt * self.dV_dq(q_next, context) \
+                + 0.5 * dt * self._damping_force(p_half)
+            return q_next, p_next
         p_half = p - 0.5 * dt * self.dV_dq(q, context)
         q_next = q + dt * self.dT_dp(p_half)
         p_next = p_half - 0.5 * dt * self.dV_dq(q_next, context)
