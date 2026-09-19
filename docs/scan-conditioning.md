@@ -935,6 +935,75 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 文献对照下的精确表述与已知失败模式清单。蒸馏轮第 14 次达标;
 检索三连对照式第三槽 n=5(hard vs discovered 权衡再命中)。
 
+## 22. 经验蒸馏 17(轮 87,2026-09-19 15:10,QUEUE-EMPTY 轮):可微分仿真器/梯度路径族
+
+> 第 22 个 query 族,与前二十一族零重叠(训练梯度**穿过积分器**的
+> 精度/显存/稳定性轴——本仓 create_graph 展开式 BPTT 的文献坐标)。
+> 检索:3 族命中(第三槽首轮过窄,搜索自修正两次后命中,如实注记)。
+> 标记:[坐标] ×3 + [行动] ×1(→ GRAD-PATH)。
+
+### 22.1 可微物理训练范式 [坐标]
+
+- 【出处】[Solver-in-the-Loop: Learning from Differentiable Physics
+  (Um et al., NeurIPS 2020, ~473 引)](https://proceedings.neurips.cc);
+  [Physics-based Deep Learning 免费教材](https://physicsbaseddeeplearning.org)(DP 章节)。
+- 【内容】把完整数值仿真器放进训练环,梯度穿过求解器所有运算;
+  DP 训练可同时修正求解器数值误差。
+- 【对我们的映射】本仓 train_semigroup/prefix 正是 DP 形态
+  (梯度穿过 k 步辛滚出+液基细胞)——范式有标准出处可引
+  (N1 方法节);Um 2020 是 DP 训练的奠基引用。
+- 【适用条件】N1 方法节与相关工作。
+- 【验证状态】社区已验证;引用立即可用。
+
+### 22.2 反向 vs 前向:展开 BPTT / adjoint / 辛伴随三分 [坐标]
+
+- 【出处】[Symplectic Adjoint Method (Matsubara et al., ~21 引)](https://arxiv.org)
+  (辛积分器专用:精确梯度+低内存+快于 adjoint 的中间方案);
+  adjoint(Chen 2018 谱系):O(1) 内存+近似梯度+~2x 前向代价;
+  展开式 autograd(本仓 create_graph 路线):精确梯度+O(k) 内存。
+- 【内容】三者权衡:展开式=离散解的**精确**梯度但内存线性于步数;
+  adjoint=常数内存但梯度近似且额外解算;辛伴随=对辛积分器兼得。
+- 【对我们的映射】① 本仓 k_train=8 小步数,展开式精确梯度是
+  正确选择,无需改;② **升级协议坐标**:若未来加大训练滚出视距
+  (k_train↑),Matsubara 辛伴随是首选中间方案(结构匹配本仓积分器),
+  先于 adjoint/截断;③ N1 可引用以说明训练口径的梯度精确性。
+- 【适用条件】训练视距扩展的协议设计;N1 方法节。
+- 【验证状态】社区已验证;本仓 k_train=8 无需变更。
+
+### 22.3 前向稳定 ≠ 反向稳定 [坐标]
+
+- 【出处】BPTT/截断谱系(D2L、TBPTT、Pascanu 梯度爆炸解密);
+  SymODEN(OpenReview);Hamiltonian Matching for Symplectic Neural
+  Integrators (NeurIPS)。
+- 【内容】重复乘雅可比使长展开的反向梯度可爆炸/消失;**前向辛稳定
+  不保证反向梯度稳定**(伴随动力学可指数增长);缓解=截断 BPTT/
+  梯度裁剪/伴随法;辛结构主要保前向滚出稳定,不自动保反向。
+- 【对我们的映射】① 与 E4a(ctx 梯度饥饿)的弱假说连线:反向
+  灵敏度沿滚出链的结构性衰减可能是 ctx 通道梯度弱的因素之一
+  ——**弱假说不下结论**,若未来审计梯度路径可作为解释候选;
+  ② k_train=8 短链下风险低(D 系列结论不受威胁)。
+- 【适用条件】梯度路径审计;长视距训练协议设计。
+- 【验证状态】社区已验证;假说待 GRAD-PATH 审计(不下结论)。
+
+### 22.4 滚出训练梯度路径审计 [行动→GRAD-PATH]
+
+- 【内容】① 审计 create_graph=self.training 的梯度路径语义
+  (ctx→FiLM→V→滚出链的通路,hamiltonian.py/model.py docstring
+  已有部分声明);② 冒烟探针:合成张量上实测 k=8/32/128 展开图
+  的内存/梯度范数标度(零训练,秒级);③ 判读:本仓 k_train=8
+  的展开式选择合理性 + k↑ 时的辛伴随升级草案(云跑候选)。
+- 【对我们的映射】训练口径的梯度精确性/显存证据化;E4a 弱假说
+  的审计入口。
+- 【适用条件】N1 方法节;未来长视距训练协议。
+- 【验证状态】对本仓待执行(下轮,判负标准 PRD §19 轮 87)。
+
+### 蒸馏结论 17
+
+三 [坐标] + 一 [行动](GRAD-PATH 入队)。DP 训练范式奠基引用
+(Um 2020)+ 三分梯度方案权衡(展开/adjoint/辛伴随)+ 前向≠反向
+稳定坐标入库;本仓 k_train=8 展开式选择被文献背书。蒸馏轮第 15 次
+达标;对照式第三槽 n=6(含 1 次查询自修正,如实注记)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -980,3 +1049,6 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 - [AI Poincaré (Liu et al., PR 2021)](https://link.aps.org)——见 §21.1
 - [L-conv (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/hash/148148d62be67e0916a833931bd32b26-Abstract.html)——见 §21.2
 - [hPINNs: Hard Constraints (SIAM)](https://epubs.siam.org/doi/10.1137/21M1397908)——见 §21.3
+- [Solver-in-the-Loop (Um et al., NeurIPS 2020)](https://proceedings.neurips.cc)——见 §22.1
+- [Physics-based Deep Learning (免费教材)](https://physicsbaseddeeplearning.org)——见 §22.1
+- [Symplectic Adjoint Method (Matsubara et al.)](https://arxiv.org)——见 §22.2

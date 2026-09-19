@@ -10,15 +10,17 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  轮 86(2026-09-19 15:0x):SD-POS 达成——docs/structure-injection-vs-
-  discovery.md 落地(分层注入三层表+发现谱系上游定位+失败模式与
-  逃生门清单);新原则入库"每注入一个结构必配逃生门";判负未触发;
-  弹出后队列空。
+  轮 87(2026-09-19 15:10):队列空→蒸馏补池第 22 族(可微分仿真器/
+  梯度路径族,scan §22,3 坐标+1 行动入库);DP 训练范式奠基引用
+  (Um 2020)+ 展开式/adjoint/辛伴随三分权衡 + 前向稳定≠反向稳定;
+  本仓 k_train=8 展开式选择被文献背书;GRAD-PATH 已入队并预注册
+  (PRD §19 轮 87)。R1/R2 云回传仍待。
 current_action: >-
-  下一心跳先跑 ./scripts/goal_check:队列空 ⇒ 蒸馏补池轮(先 grep
-  scan §5-21 既有族选零重叠;方向类当轮入队带双锚 check_cmd;
-  AMM-006:穷尽非停止理由);若 R1/R2 云结果到达,优先机械验收
-  (scan §12.3 四路分流)。
+  下一心跳先跑 ./scripts/goal_check 路由:GRAD-PATH(NOT-Achieved
+  预期)⇒ 对其迭代一轮:docs/grad-path-audit.md(create_graph 梯度
+  路径审计+内存/梯度范数冒烟探针+辛伴随升级草案),判负标准
+  PRD §19 轮 87;若 R1/R2 云结果到达,优先机械验收(scan §12.3
+  四路分流)。
 done_condition: >-
   队列非空时永不停——每轮 goal_check 路由;队列空则蒸馏补池,
   循环不自行停止。
@@ -26,20 +28,25 @@ blocked_on: >-
   1) R1/R2 云结果回传(欠账 ~70min)+TSFM 基线(~15min)+UQ 校准
   (~3-5min,均 PR 形态);2) D4 GPU 去向;3) origin/master 合入顺序
   (PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check(队列空⇒蒸馏补池) / R1/R2 云结果回传 / 用户"继续"
-pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-21
-  (文献坐标;轮 61/63/65/73/75/77/79/81/83/85 蒸馏);docs/dh-dissipation-design.md
+next_trigger_hint: goal_check → GRAD-PATH / R1/R2 云结果回传 / 用户"继续"
+pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-22
+  (文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87 蒸馏);docs/dh-dissipation-design.md
   (轮 74);docs/koopman-bridge.md(轮 76);docs/spectral-bias-naming.md(轮 78);
   docs/eval-norms-vpt.md(轮 80);docs/tsfm-baseline-protocol.md(轮 82);
   docs/uq-audit.md(轮 84);docs/structure-injection-vs-discovery.md(轮 86)
-updated: 2026-09-19 15:05 (轮 86 SD-POS 达成:分层注入定位+逃生门纪律
-  入库;队列空,下一轮蒸馏补池;R1/R2 仍外部阻塞)
+updated: 2026-09-19 15:12 (轮 87 蒸馏补池:梯度路径族 3+1 入库 scan §22;
+  GRAD-PATH 入队+预注册;R1/R2 仍外部阻塞)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: GRAD-PATH
+    track: engineering
+    goal: 滚出训练梯度路径审计轮(create_graph 语义+内存/梯度范数冒烟探针 k=8/32/128+辛伴随升级草案;判负标准 PRD §19 轮 87;探针零训练)
+    done_condition: docs/grad-path-audit.md 落地(梯度路径语义审计+探针数字+辛伴随草案)+判读写入 PRD §19
+    check_cmd: grep -q "GRAD-PATH 判读" docs/PRD.md && test -f docs/grad-path-audit.md
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
