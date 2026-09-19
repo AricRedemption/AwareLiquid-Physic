@@ -872,6 +872,69 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 后验覆盖)。蒸馏轮第 13 次达标;检索三连对照式第三槽 n=4
 (DE vs BNN 正面对比再命中)。
 
+## 21. 经验蒸馏 16(轮 85,2026-09-19 14:50,QUEUE-EMPTY 轮):守恒律/对称性自动发现族
+
+> 第 21 个 query 族,与前二十族零重叠(结构**发现**轴——本仓哲学是
+> 结构**注入**,该族是其对照面,N1 必答"为何硬编码而非自动发现")。
+> 检索:3 族一次命中。标记:[坐标] ×3 + [行动] ×1(→ SD-POS)。
+
+### 21.1 守恒量自动发现谱系 [坐标]
+
+- 【出处】[AI Poincaré: Machine Learning Conservation Laws from
+  Trajectories (Liu et al., PR 2021, ~241 引)](https://link.aps.org);
+  ConservNet(分组轨迹守恒残差);Mebratie & Ma 2024/2025。
+- 【内容】从轨迹数据自动发现守恒量:可微神经函数沿轨迹导数为零
+  + 符号回归转可解释式;GNN 处理变维状态。
+- 【对我们的映射】N1 discussion 坐标:本仓在"知道守恒什么"的域
+  (能量)选择注入;发现谱系服务"不知道守恒什么"的域(真实系统)。
+  二者是同一工具链的上下游,不是竞争关系。
+- 【适用条件】N1 discussion 与 future work。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 21.2 对称性发现:LieGAN 谱系 [坐标]
+
+- 【出处】[L-conv: Lie Algebra Convolutional Networks (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/hash/148148d62be67e0916a833931bd32b26-Abstract.html);
+  [LieGAN 自动对称发现 (ICML 2024 keynote)](https://icml.cc/virtual/2024/38573);
+  LieGNN / LieSD(2025)/ LieNLSD(2025,非线性对称)。
+- 【内容】从数据发现连续李群对称性(Lie 代数空间对抗学习),发现的
+  对称可插入等变下游模型;非线性对称的显式计数已出现。
+- 【对我们的映射】时间平移对称(自治性)与时间反演对称(轮 66)
+  在本仓分别是"由构造满足"与"R1b 候选先验"——发现谱系提供
+  "先发现再注入"的替代管线坐标;对本仓保守基准属 future work。
+- 【适用条件】N1 future work;对称性先验的来源讨论。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 21.3 硬编码偏差的权衡边界 [坐标]
+
+- 【出处】[hPINNs: Hard Constraints for Inverse Design (SIAM)](https://epubs.siam.org/doi/10.1137/21M1397908)(硬 vs 软约束对照);
+  [Fundamental flaws of PINNs (ScienceDirect)](https://www.sciencedirect.com/science/article/pii/S0360835225008502)
+  (硬编码物理偏差导致过平滑/锐利 fronts 失效)。
+- 【内容】硬编码偏差有已知失败模式:过平滑、多尺度分辨失败——
+  偏差是先验赌注,赌错则伤害表达。
+- 【对我们的映射】① 本仓是**分层注入**:守恒律层硬(H 结构+辛
+  积分器),函数形式层自由(T/V 是 MLP)——恰在"保证"与"表达"
+  之间取中间态;② 轮 80 的 VPT 判读与本条互证:θ 敏感窗就是
+  注入偏差不覆盖的表达细节;③ N1 limitation 节引用:结构注入的
+  代价是"若真实结构不是注入的结构"(如耗散、非可分),架构表达
+  受限——耗散槽位(§15)正是预留的逃生门。
+- 【适用条件】N1 limitation;架构哲学答辩。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 21.4 结构注入 vs 结构发现定位小节 [行动→SD-POS]
+
+- 【内容】把 §21.1-21.3 汇成 N1 discussion 定位小节:分层注入哲学
+  (守恒层硬/函数层自由)、发现谱系为上游工具、注入失败模式与
+  逃生门(耗散槽位、R1b T 偶)。
+- 【对我们的映射】评审"为何硬编码"一击必答。
+- 【适用条件】N1 discussion。
+- 【验证状态】对本仓待执行(下轮,判负标准 PRD §19 轮 85)。
+
+### 蒸馏结论 16
+
+三 [坐标] + 一 [行动](SD-POS 入队)。本仓架构哲学(分层注入)获得
+文献对照下的精确表述与已知失败模式清单。蒸馏轮第 14 次达标;
+检索三连对照式第三槽 n=5(hard vs discovered 权衡再命中)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -914,3 +977,6 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 - [Deep Ensembles as Approximate Bayesian Inference (Wilson & Izmailov)](https://cims.nyu.edu/~andrewgw/deepensembles)——见 §20.2
 - [BNN vs Deep Ensembles (arXiv:2509.19180)](https://arxiv.org/html/2509.19180v1)——见 §20.2
 - [Repulsive Deep Ensembles are Bayesian (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/file/1c63926ebcabda26b5cdb31b5cc91efb-Paper.pdf)——见 §20.2
+- [AI Poincaré (Liu et al., PR 2021)](https://link.aps.org)——见 §21.1
+- [L-conv (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/hash/148148d62be67e0916a833931bd32b26-Abstract.html)——见 §21.2
+- [hPINNs: Hard Constraints (SIAM)](https://epubs.siam.org/doi/10.1137/21M1397908)——见 §21.3
