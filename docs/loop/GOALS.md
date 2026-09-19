@@ -8,7 +8,7 @@
 ```yaml
 state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
-iteration_window: 周一至五 23:00-09:00(夜间cron);周六 09:00-23:00(全天候)
+iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
   夜 4 收口(轮 61-72):队列空,蒸馏补池 ×6(18 条入库,scan §8-14)+
   零算力判读 ×5(D5 口径辩护/D6 信息预算/T 非偶机制发现/无噪确认/超分
