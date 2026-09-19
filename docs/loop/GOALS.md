@@ -10,15 +10,15 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  轮 85(2026-09-19 14:50):队列空→蒸馏补池第 21 族(守恒律/对称性
-  自动发现族,scan §21,3 坐标+1 行动入库);本仓"分层注入"哲学
-  (守恒层硬/函数层自由)获文献对照精确表述+已知失败模式清单;
-  SD-POS 已入队并预注册(PRD §19 轮 85)。R1/R2 云回传仍待。
+  轮 86(2026-09-19 15:0x):SD-POS 达成——docs/structure-injection-vs-
+  discovery.md 落地(分层注入三层表+发现谱系上游定位+失败模式与
+  逃生门清单);新原则入库"每注入一个结构必配逃生门";判负未触发;
+  弹出后队列空。
 current_action: >-
-  下一心跳先跑 ./scripts/goal_check 路由:SD-POS(NOT-Achieved 预期)
-  ⇒ 对其迭代一轮:docs/structure-injection-vs-discovery.md 定位小节
-  (分层注入+发现谱系上游+失败模式与逃生门),判负标准 PRD §19
-  轮 85;若 R1/R2 云结果到达,优先机械验收(scan §12.3 四路分流)。
+  下一心跳先跑 ./scripts/goal_check:队列空 ⇒ 蒸馏补池轮(先 grep
+  scan §5-21 既有族选零重叠;方向类当轮入队带双锚 check_cmd;
+  AMM-006:穷尽非停止理由);若 R1/R2 云结果到达,优先机械验收
+  (scan §12.3 四路分流)。
 done_condition: >-
   队列非空时永不停——每轮 goal_check 路由;队列空则蒸馏补池,
   循环不自行停止。
@@ -26,25 +26,20 @@ blocked_on: >-
   1) R1/R2 云结果回传(欠账 ~70min)+TSFM 基线(~15min)+UQ 校准
   (~3-5min,均 PR 形态);2) D4 GPU 去向;3) origin/master 合入顺序
   (PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → SD-POS / R1/R2 云结果回传 / 用户"继续"
+next_trigger_hint: goal_check(队列空⇒蒸馏补池) / R1/R2 云结果回传 / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-21
   (文献坐标;轮 61/63/65/73/75/77/79/81/83/85 蒸馏);docs/dh-dissipation-design.md
   (轮 74);docs/koopman-bridge.md(轮 76);docs/spectral-bias-naming.md(轮 78);
   docs/eval-norms-vpt.md(轮 80);docs/tsfm-baseline-protocol.md(轮 82);
-  docs/uq-audit.md(轮 84)
-updated: 2026-09-19 14:52 (轮 85 蒸馏补池:结构发现族 3+1 入库 scan §21;
-  SD-POS 入队+预注册;R1/R2 仍外部阻塞)
+  docs/uq-audit.md(轮 84);docs/structure-injection-vs-discovery.md(轮 86)
+updated: 2026-09-19 15:05 (轮 86 SD-POS 达成:分层注入定位+逃生门纪律
+  入库;队列空,下一轮蒸馏补池;R1/R2 仍外部阻塞)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue:
-- id: SD-POS
-    track: frontier
-    goal: 结构注入 vs 结构发现定位小节(N1 discussion;判负标准 PRD §19 轮 85;纯文档)
-    done_condition: docs/structure-injection-vs-discovery.md 落地(分层注入哲学+发现谱系上游定位+失败模式与逃生门清单)+判读写入 PRD §19
-    check_cmd: grep -q "SD-POS 判读" docs/PRD.md && test -f docs/structure-injection-vs-discovery.md
+goal_queue: []
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
