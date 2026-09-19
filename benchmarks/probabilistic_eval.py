@@ -37,6 +37,17 @@ def gen_spring(n_traj, steps, dt, omega_lo, omega_hi, g, device="cpu"):
     return qs, ps, omega
 
 
+def calibration_stats(mu, logvar, omega_true):
+    """D-1 校准检验(uq-audit §5):z=(mu−ω_true)/exp(0.5·logvar) 逐样本,
+    ±1.96σ 经验覆盖 + z 矩。完美校准 ⇒ coverage≈0.95, z_mean≈0, z_std≈1。"""
+    mu, logvar, omega_true = (torch.as_tensor(t, dtype=torch.float32).flatten()
+                              for t in (mu, logvar, omega_true))
+    z = (mu - omega_true) / torch.exp(0.5 * logvar)
+    return {"calib_coverage_95": (z.abs() <= 1.96).float().mean().item(),
+            "calib_z_mean": z.mean().item(),
+            "calib_z_std": z.std().item()}
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--n_train", type=int, default=512)
@@ -104,13 +115,21 @@ def main():
                "ensemble_mean_mse": mse_mean,
                "ensemble_mean_mse_stderr": rollout_mse_stderr(q_mean, q_true),
                "ensemble_spread": spread,
-               "context_logvar_mean": logvar_mean}
+               "context_logvar_mean": logvar_mean,
+               **calibration_stats(mu, logvar, omega[ev])}
     os.makedirs(args.out_dir, exist_ok=True)
     with open(os.path.join(args.out_dir, "probabilistic_eval.json"), "w") as f:
-        json.dump({"args": vars(args), "meta": run_metadata({"benchmark": "probabilistic_eval",
-                   "device": args.device}), "results": results}, f, indent=2)
+        json.dump({"args": vars(args),
+                   "meta": run_metadata({"benchmark": "probabilistic_eval",
+                   "device": args.device,
+                   "exec_tier": os.environ.get("PROBE_TIER", "manual"),
+                   "tier_est_min": os.environ.get("PROBE_EST_MIN", ""),
+                   "threads": os.environ.get("OMP_NUM_THREADS", "")}),
+                   "results": results}, f, indent=2)
     print(f"  params {results['params']:>6,} | ensemble_mean_mse {mse_mean:.4e} "
-          f"| ensemble_spread {spread:.4e} | context_logvar {logvar_mean:.3f}",
+          f"| ensemble_spread {spread:.4e} | context_logvar {logvar_mean:.3f} "
+          f"| coverage95 {results['calib_coverage_95']:.3f} "
+          f"| z {results['calib_z_mean']:+.2f}±{results['calib_z_std']:.2f}",
           flush=True)
 
 

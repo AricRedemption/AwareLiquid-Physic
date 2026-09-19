@@ -12,6 +12,7 @@
 | `field_identifiability_probe.py` | M2 场 c(x) 的谱域 Fisher(逐 cos 模式) | 即跑即出,秒级 |
 | `goal_check` | **目标校验路由器**(每轮心跳第一步):验 goal_queue 顶部 done_condition,达成自动弹出晋升 | `./scripts/goal_check`;退出码 0=达成已弹出 / 1=未达成继续迭代 / 2=队列空 |
 | `probe_run` | **本机探针训练资源护栏**(AMM-008 闸门 v3):档位/时长校验(T1≤15/T2≤60,T3 拒绝)+ 线程=⌊0.6×逻辑核⌋ + nice 15 + 溯源行(stderr 可抄进结果 meta) | `./scripts/probe_run T1\|T2 <est_min> -- <cmd>`;`--dry-run` 只打印不执行;测试 `tests/test_probe_run.py` |
+| `probabilistic_eval.py` | 概率预测 + **校准检验**(D-1,coverage95/z 矩,`calibration_stats` 函数;--context_dim 1 = ω 后验忠实实例化) | `probe_run T1 -- ... probabilistic_eval.py --train_steps 500 --context_dim 1 --seed N --out_dir ...`;测试 `tests/test_calibration_stats.py` |
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}` |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}`;G4-E1 起:`--oracle_ctx`(三臂上界分解+线性/MLP 双探针)、`--arms`(选臂子集,算力闸门合规) |

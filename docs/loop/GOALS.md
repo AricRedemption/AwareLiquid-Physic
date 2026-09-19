@@ -10,26 +10,26 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  轮 87 后治理轮(2026-09-19 14:38,用户会话裁定):AMM-007/008/009 落地——
-  收口判据 S1-S4(可判定停止指标)+ 算力闸门 v3(零训练改分档限时限核,
-  probe_run 护栏 ⌊0.6×核⌋/nice15)+ 算力欠账台账(DEBT-LEDGER,4 笔迁入,
-  ~88min);马拉松轮 85/86/87 已自行提交,陈旧 .loop-lock 已按收尾协议清除。
+  治理轮 2(2026-09-19 15:0x,设计会话):AMM-010(T1 放宽 ≤30min 当轮
+  直跑 + Probe-First 大训练准入)+ AMM-011(设计/执行会话角色分离)落地;
+  D-1 UQ 校准已结案判负(coverage 1.6%/0/0,过度自信方向,N1 上限 L2 坐实,
+  判读见 PRD §19 "D-1 判读")。台账 D_count=3。
 current_action: >-
-  下一心跳按 AMM-009 欠账优先(open>0 禁新蒸馏族):按台账顺序清欠
-  D-1 UQ 校准(T1,~3-5min,当轮 probe_run 串行)→ D-2 TSFM 基线(T2,
-  ~15min,后台+权重下载)→ D-3 R1 主跑+隐藏卷 998(T2,~12min)→
-  D-4 R2 视距扫描(T2,~58min 可拆 3 档)——每笔 PRD §19 机械验收+
-  台账置 closed+digest_rate 更新;R1/R2 回传后走 scan §12.3 四路分流。
-  欠账清零后恢复 goal_queue 迭代(GRAD-PATH 在队首,零算力轮)。
+  下一心跳(执行会话,AMM-011 角色下所有执行归你):按 DEBT-LEDGER 顺序清欠
+  ——D-2 TSFM 基线(T1 直跑,协议 docs/tsfm-baseline-protocol.md,依赖安装
+  与权重下载自行处置;环境不可得 ⇒ 按规则转 T3 PR 并如实登记)→ D-3 R1
+  主跑(T1,完整命令 docs/pr-d2-r1r2-cloud.md,3 seeds 过判据[降≥15% 且
+  corr≥0.5]后再跑隐藏卷 998 一次性)→ D-4 R2 视距扫描(T2 后台可拆 3 档)
+  ——每笔 PRD §19 判读(锚"<id> 判读")+台账置 closed+digest_rate 更新;
+  R1/R2 回传判读走 scan §12.3 四路分流;清零后恢复 GRAD-PATH(队首)。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
   保留重入口:结果回传/用户指令/新欠账)。
 blocked_on: >-
-  1) D-2 TSFM 权重下载网络 + D-3/D-4 默认本机 T2 串行(用户可改裁云 T3,
-  PR 形态 docs/pr-d2-r1r2-cloud.md 就绪);2) D4 GPU 去向;3) origin/master
-  合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → 清欠 D-1…D-4 / GRAD-PATH / 用户"继续"
+  1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
+  去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
+next_trigger_hint: goal_check → 清欠 D-2…D-4 / GRAD-PATH / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87

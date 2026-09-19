@@ -24,8 +24,8 @@ def test_dry_run_reports_thread_cap_and_env():
     assert "nice -n 15" in r.stderr
 
 
-def test_t1_rejects_over_15min():
-    r = run([SCRIPT, "--dry-run", "T1", "16", "--", "echo"])
+def test_t1_rejects_over_30min():
+    r = run([SCRIPT, "--dry-run", "T1", "31", "--", "echo"])
     assert r.returncode == 3 and "T1" in r.stderr
 
 
@@ -39,8 +39,8 @@ def test_t3_rejected_outright():
     assert r.returncode == 3 and "云 PR" in r.stderr
 
 
-def test_t1_boundary_15_and_t2_boundary_60_pass():
-    for tier, est in (("T1", "15"), ("T2", "60")):
+def test_t1_boundary_30_and_t2_boundary_60_pass():
+    for tier, est in (("T1", "30"), ("T2", "60")):
         r = run([SCRIPT, "--dry-run", tier, est, "--", "echo"])
         assert r.returncode == 0, (tier, r.stderr)
 
