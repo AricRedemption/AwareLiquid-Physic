@@ -83,19 +83,26 @@ def test_empty_window_no_crash(tmp_path):
 
 
 def test_ledger_parsing_bold_closed_and_dmin(tmp_path):
-    """closed 带加粗壳必须认出;d_min 只取预计列,不吃目标文本里的 min 数字。"""
+    """closed 带加粗壳必须认出;d_min 只取预计列;T3 ⇒ C-debt 不进 open_local。"""
     prd = "".join(f"**轮 {900+i} 记录（X 判读;算力轮）**:\n-\n" for i in range(6))
     ledger = (
         "## 台账\n\n| id | 目标 | 锚 | 档位 | 预计 | 状态 | 轮 | 龄 |\n"
         "|---|---|---|---|---|---|---|---|\n"
         "| D-1 | 500 步 ~5min 训练 | y | T1 | 实测 3×~12s | **closed(判负)** | 84 | 0 |\n"
         "| D-2 | TSFM 3 seeds ~90min 全量 | y | T1 | ~15min 推理 | open | 82 | 5 |\n"
-        "| D-4 | R2 可拆 3×~20min | y | T2 | ~58min(墙钟 ~90min) | open | 56 | 31 |\n")
+        "| D-4 | R2 可拆 3×~20min | y | T2 | ~58min(墙钟 ~90min) | open | 56 | 31 |\n"
+        "| D-5 | 全量 GPU 训练 | y | T3 | ~480min 云跑 | open | 80 | 40 |\n")
     p, g, d = tmp_path / "p.md", tmp_path / "g.md", tmp_path / "d.md"
     p.write_text(prd), g.write_text(GOALS_EMPTY), d.write_text(ledger, encoding="utf-8")
     r = subprocess.run([sys.executable, SCRIPT, "--prd", str(p), "--goals", str(g),
                         "--ledger", str(d)], capture_output=True, text=True)
     debt = json.loads(r.stdout)["debt"]
-    assert debt["open"] == ["D-2", "D-4"] and debt["closed"] == 1 and debt["void"] == 0
-    assert debt["d_min"] == 73          # 15+58;D-1 的 ~5min(closed)与文本 ~90min 不计
-    assert debt["digest_rate"] == round(1 / 3, 3)
+    assert debt["open_local"] == ["D-2", "D-4"]      # T1/T2 ⇒ L-debt
+    assert debt["open_cloud"] == ["D-5"]             # T3 ⇒ C-debt
+    assert debt["closed"] == 1 and debt["void"] == 0
+    assert debt["d_min_local"] == 73                 # 15+58;closed 与文本数字不计
+    assert debt["d_min_cloud"] == 480
+    assert debt["digest_rate"] == round(1 / 4, 3)
+    alarms = json.loads(r.stdout)["alarms"]
+    assert any("DEBT-FIRST" in a for a in alarms)
+    assert any("C-DEBT" in a for a in alarms)

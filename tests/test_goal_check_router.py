@@ -55,6 +55,7 @@ MINING10 = rounds([("蒸馏补池:族", "零算力")] * 10)
 LEDGER_OPEN = ("| D-2 | x | y | T1 | ~15min 推理 | open | 82 | 5 |\n"
                "| D-4 | x | y | T2 | ~58min(可拆) | open | 56 | 31 |\n")
 LEDGER_ALL_CLOSED = "| D-1 | x | y | T1 | 实测 | **closed(判负)** | 84 | 0 |\n"
+LEDGER_CLOUD_ONLY = "| D-5 | 全量训练 | y | T3 | ~480min 云跑 | open | 80 | 40 |\n"
 
 
 def test_debt_first_overrides_queue(tmp_path):
@@ -74,6 +75,14 @@ def test_queue_empty_normal_when_exp_healthy(tmp_path):
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_EMPTY)
     r = run(tmp_path)
     assert r.returncode == 2 and "QUEUE-EMPTY" in r.stdout
+
+
+def test_cloud_only_debt_does_not_block(tmp_path):
+    """AMM-014:纯云档(C-debt)欠账 ⇒ 不触发 DEBT-FIRST,队列正常路由。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_CLOUD_ONLY, QUEUE_ONE)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "NOT-Achieved" in r.stdout
+    assert "DEBT-FIRST" not in r.stdout
 
 
 def test_not_achieved_routes_normally_after_debt_cleared(tmp_path):

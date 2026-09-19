@@ -46,9 +46,9 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/spectral-bias-naming.md(轮 78);docs/eval-norms-vpt.md(轮 80);
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86)
-updated: 2026-09-19 17:29 (治理轮 3 终审:AMM-013 落地+GOAL-PROMPT 终审
-  修正 5 处+AMM-014 提案待批;台账 3 笔 open~85min 全 L-debt,DEBT-FIRST
-  路由正确;下一心跳 D-2 TSFM 基线 T1 直跑)
+updated: 2026-09-19 17:52 (AMM-014 批准落地:欠账分级 L-debt 阻塞/C-debt
+  挂起不阻塞,gauge+goal_check+三文档同步;台账 3 笔 open 均 L-debt,
+  DEBT-FIRST 路由不变;下一心跳 D-2 TSFM 基线 T1 直跑)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)

@@ -277,8 +277,10 @@
 - 风险与回滚:C-debt 不阻塞 ⇒ 云债可能长期挂着无人管 ⇒ 缓解=老化一次性
   升级 + digest_rate 连续 2 收尾夜=0 计入 S2 收口判据(已存在);分级被滥用
   (把可本机的标成 C-debt)⇒ 降级义务留痕可审计。回滚 = git revert。
-- 状态:**PROPOSED**(待 AricRedemption 批准;批准后本轮实施 gauge/goal_check/
-  台账注记三处改动)
+- 状态:**APPLIED**(2026-09-19,AricRedemption 批准,原话"本地的欠账要还,
+  这个快速能决定方向,但是大算力的可以放着,等后续放开去迭代新的方向";
+  本轮实施:gauge 拆 debt_local/cloud_open+goal_check 条件收窄 open_local+
+  GOAL-PROMPT/PLAYBOOK/台账三处同步+纯云债不阻塞路由测试)
 
 ### AMM-015: 挖掘层弱项清偿——溯源硬标准 + 缺证性降档 + SCAN-AUDIT 存量对账(APPLIED)
 - 动机(AricRedemption 2026-09-19 会话问"首轮评估的弱项都解决好了么"):首轮

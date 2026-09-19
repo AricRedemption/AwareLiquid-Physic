@@ -21,6 +21,7 @@ from pathlib import Path
 WIN_PAT = re.compile(r"^\*\*(?:轮\s*\d+|D-\d+)[^*]*（[^）]*）\*\*")
 STATUS_PAT = re.compile(r"^(open|closed|void)\b")
 EST_PAT = re.compile(r"~?\s*(\d+)(?:-(\d+))?\s*min")
+TIER_PAT = re.compile(r"T([123])\b")
 
 
 def classify(header: str) -> str:
@@ -54,30 +55,41 @@ def parse_wip(goals_text: str) -> int:
 
 
 def parse_debts(ledger_text: str) -> dict:
-    debts = []
+    """AMM-014 欠账分级:T1/T2 ⇒ L-debt(阻塞 DEBT-FIRST);T3 ⇒ C-debt
+    (挂起不阻塞);档位未知按本机档保守处理。"""
+    rows = []
     for line in ledger_text.splitlines():
         if not line.lstrip().startswith("| D-"):
             continue
-        debts.append([c.strip() for c in line.split("|")])
-    out = {"open": [], "closed": 0, "void": 0, "d_min": 0}
-    for cells in debts:
+        rows.append([c.strip() for c in line.split("|")])
+    out = {"open_local": [], "open_cloud": [], "closed": 0, "void": 0,
+           "d_min_local": 0, "d_min_cloud": 0}
+    for cells in rows:
         did = next((c for c in cells if re.match(r"^D-\d+$", c)), None)
         if did is None:
             continue
         raw = next((c for c in cells if STATUS_PAT.match(c.strip("*_ "))), "open")
         status = raw.strip("*_ ")   # next() 返回原始 cell,判断前必须剥壳
+        tier = next((TIER_PAT.search(c).group(0) for c in cells
+                     if TIER_PAT.search(c)), "T1")
         if status.startswith("open"):
-            out["open"].append(did)
             m = next((EST_PAT.match(c.strip()) for c in cells
                       if EST_PAT.match(c.strip())), None)
-            if m:
-                out["d_min"] += int(m.group(2) or m.group(1))
+            est = int(m.group(2) or m.group(1)) if m else 0
+            local = tier in ("T1", "T2")
+            (out["open_local"] if local else out["open_cloud"]).append(did)
+            if est:
+                if local:
+                    out["d_min_local"] += est
+                else:
+                    out["d_min_cloud"] += est
         elif status.startswith("closed"):
             out["closed"] += 1
         else:
             out["void"] += 1
-    total = len(out["open"]) + out["closed"] + out["void"]
-    out["count_open"] = len(out["open"])
+    total = (len(out["open_local"]) + len(out["open_cloud"])
+             + out["closed"] + out["void"])
+    out["count_open"] = len(out["open_local"]) + len(out["open_cloud"])
     out["digest_rate"] = round((out["closed"] + out["void"]) / total, 3) if total else None
     return out
 
@@ -101,8 +113,12 @@ def main():
     debt = parse_debts(Path(args.ledger).read_text(encoding="utf-8"))
 
     alarms = []
-    if debt["count_open"] > 0:
-        alarms.append(f"DEBT-FIRST:open欠账{debt['open']},禁蒸馏先清欠(AMM-007/013)")
+    if debt["open_local"]:
+        alarms.append(f"DEBT-FIRST:本机档欠账{debt['open_local']},"
+                      f"禁蒸馏禁队列迭代先清欠(AMM-007/014)")
+    if debt["open_cloud"]:
+        alarms.append(f"C-DEBT:云档欠账{debt['open_cloud']}挂起不阻塞,"
+                      f"债龄>5一次性升级(AMM-014)")
     if n >= 5 and exp_ratio is not None and exp_ratio < 0.20:
         alarms.append("EXP<20%:冻结蒸馏,先补证据轮(AMM-012)")
     if wip > 2:
