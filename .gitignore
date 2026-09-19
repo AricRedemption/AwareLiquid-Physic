@@ -10,3 +10,4 @@ dist/
 build/
 .venv/
 .loop-lock
+benchmarks/grad_path_probe/

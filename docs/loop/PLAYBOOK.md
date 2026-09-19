@@ -286,6 +286,28 @@
   档 k 倒数比) × 限速因子 2**,宁松勿紧;用户可见的"超时感"多半来自
   估计定紧而非真慢。
 
+- **`requires_grad` 标志会被 `_grad` 原地改标污染成假真**(轮 93,机制发现型坑):
+  hamiltonian.py `_grad` 对数据叶子 `x.requires_grad_(True)` 是**原地**操作——
+  同一批 q0/p0 被第一个 dV_dq 改标后,整条滚出链(含 loss)的
+  `requires_grad` 在 **eval 态也为 True**(梯度经被改标叶子挂图,但参数收不到
+  梯度)。→ ① 一切"是否仍有梯度路径"的语义判据必须落在**梯度流终点**
+  (backward 后 `params_with_grad==0`),不能用中间张量的 requires_grad 标志;
+  ② eval 态图内存判读要分口径:saved_tensors_hooks pack 钩子在训练态计的是
+  驻留至 backward 的量(≈展开图内存),eval 态计的是内层 backward 的**瞬态**
+  保存体积(每次调用即释放,实测 ≈ 驻留的 43-44%)——两态数字不可直排。
+  (出处:轮 93 grad_path_probe;适用条件:一切涉及 `_grad` 家族头的
+  梯度语义审计/内存审计;验证状态:已验证——M1/M2 全档 params_with_grad=0,
+  训练态逐组范数正常。)
+
+- **CPU 图内存精确计量用 saved_tensors_hooks,不用 RSS**(轮 93,被验证
+  有效的做法):展开式 BPTT 的图驻留内存探针以
+  `torch.autograd.graph.saved_tensors_hooks` pack 钩子累计 save-for-backward
+  字节——CPU 上 RSS 峰值含解释器/分配器噪声无法分辨图增量;pack 口径
+  对 k=8/32/128 给出严格线性标度(斜率 1.0000),共享存储重复保存会使
+  绝对值有上界性偏差但标度不受影响(引用绝对值注明"pack 事件总量")。
+  (出处:轮 93 grad_path_probe;适用条件:一切 autograd 图内存/图规模
+  计量;验证状态:已验证——M1/M2 两头斜率 1.0000,seed 0 逐位复现。)
+
 ## 惯例(已固化的流程约束)
 
 - **算力闸门 v3.1(2026-09-19 AMM-008+010,AricRedemption 定策)**:实验动手前,
