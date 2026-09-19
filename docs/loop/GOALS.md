@@ -26,10 +26,12 @@ current_goal: >-
   去 PR 专属措辞)。
 current_action: >-
   下一心跳(执行会话,AMM-011 角色下所有执行归你):按 DEBT-LEDGER 顺序清欠
-  ——D-2 TSFM 基线(T1 直跑,协议 docs/tsfm-baseline-protocol.md,依赖安装
-  与权重下载自行处置;环境不可得 ⇒ 按规则转 T3 PR 并如实登记)→ D-3 R1
-  主跑(T1,完整命令 docs/pr-d2-r1r2-cloud.md,3 seeds 过判据[降≥15% 且
-  corr≥0.5]后再跑隐藏卷 998 一次性)→ D-4 R2 视距扫描(T2 后台可拆 3 档)
+  ——D-3 R1 主跑(T1,完整命令 docs/pr-d2-r1r2-cloud.md,3 seeds 过判据
+  [降≥15% 且 corr≥0.5]后再跑隐藏卷 998 一次性)→ D-4 R2 视距扫描(T2
+  后台可拆 3 档)。[D-2 已部分清偿(轮 89):Chronos 臂 T1 直跑完成并判读
+  入档 PRD §19 "D-2 判读";余项=TimesFM 臂,权重下载受限挂起转 T3 PR
+  登记,~/.cache/timesfm/torch_model.ckpt 断点续传中——权重到位则先
+  T1 补跑 --models timesfm --timesfm_path <path>(~10min)再 D-3]
   ——每笔 PRD §19 判读(锚"<id> 判读")+台账置 closed+digest_rate 更新;
   R1/R2 回传判读走 scan §12.3 四路分流;清零后恢复 GRAD-PATH(队首)。
 done_condition: >-
@@ -47,9 +49,10 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/spectral-bias-naming.md(轮 78);docs/eval-norms-vpt.md(轮 80);
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86)
-updated: 2026-09-19 18:53 (AMM-017:GOAL-PROMPT v4.1 简洁化~650 字+
-  一致性修正四处;16 组规则清点零损失;台账 3 笔 open 均 L-debt,
-  下一心跳 D-2 TSFM 基线 T1 直跑)
+updated: 2026-09-19 23:20 (轮 89:D-2 Chronos 臂 T1 直跑清偿(4.6min,
+  n64 k100 1.20±0.17 ≈1.25× 真值方差,近无信息水平,协议预期兑现;判读入
+  PRD §19);TimesFM 臂权重下载受限挂起转 T3 登记;工具 tsfm_baseline_eval
+  +3 测试;121 测试+audit 40 全绿;下一心跳 D-3 R1 主跑)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)

@@ -15,7 +15,7 @@
 | id | 目标 | PRD §19 锚 | 档位 | 预计 | 状态 | 登记轮 | 债龄(心跳轮) |
 |---|---|---|---|---|---|---|---|
 | D-1 | UQ 校准检验(重训 probabilistic 500 步,z=(mu−ω_true)/σ,±1.96σ 覆盖∈[90,98]%,seeds 0/1/2) | 轮 84 判读 + **D-1 判读**(已回填) | **T1** | 实测 3×~12s | **closed(判负:覆盖 1.6%/0/0,过度自信方向,N1 上限 L2 坐实)** | 84 | 88 治理轮结案 |
-| D-2 | TSFM 零样本参考基线(Chronos/TimesFM on M1 q(t) 外推 k=100,3 seeds,k100 rollout MSE 同表;协议 docs/tsfm-baseline-protocol.md) | 轮 82 判读·欠账登记行 | **T1**(AMM-010 重标,当轮直跑) | ~15min 推理+权重下载 | open | 82 | 5(轮 82→87) |
+| D-2 | TSFM 零样本参考基线(Chronos/TimesFM on M1 q(t) 外推 k=100,3 seeds,k100 rollout MSE 同表;协议 docs/tsfm-baseline-protocol.md) | 轮 82 判读·欠账登记行 + **D-2 判读**(Chronos 臂已回填) | **T1**(AMM-010 重标,当轮直跑) | Chronos 臂实测 4.6min;TimesFM 臂 ~10min 推理+权重 814MB(下载受限挂起) | **open(收窄:Chronos 臂本机完成;TimesFM 权重下载受限→T3 PR 登记/到位后 T1 补跑)** | 82 | 7(轮 82→89) |
 | D-3 | R1 辅助辨识主跑+隐藏卷 998(三臂,判据 MSE 降 ≥15% 且探针 corr ≥0.5;完整命令 docs/pr-d2-r1r2-cloud.md) | 轮 56 欠账登记行 + 隐藏卷 PR §3 | **T1**(AMM-010 重标,当轮直跑) | ~12min(限核墙钟 ~20min) | open | 56 | 31(跨夜累计) |
 | D-4 | R2 视距扫描(k_train∈{8,16,32}×3 seeds,比值单调走阔 ≥1.5x;可拆 3×~20min 逐档跑) | 同 D-3 锚 | **T2** | ~58min(限核墙钟 ~90min,可拆) | open | 56 | 31(跨夜累计) |
 
@@ -28,7 +28,7 @@ BLOCKED-HUMAN,按 D-1→D-2→D-3→D-4 顺序清偿(短债先清,快的先赢�
 | 指标 | 定义 | 当前值 | 报警线 |
 |---|---|---|---|
 | D_count | open 欠账条数(L:3 / C:0,AMM-014 分账) | 3 | 本机档(L)>0 ⇒ 禁蒸馏禁队列迭代(AMM-007/014) |
-| D_min | open 预计总分钟(L:~85 / C:0,限核前) | ~85min | — |
+| D_min | open 预计总分钟(L:~80 / C:0,限核前;D-2 剩 TimesFM 臂 ~10min 待权重) | ~80min | — |
 | age_max | 最老 open 债龄(心跳轮) | 31(D-3/D-4) | >5 且无本机档位 ⇒ 升级 BLOCKED-HUMAN |
 | digest_rate | 已结案(含判负 void)/累计登记 | **1/4 = 0.25**(D-1 判负结案,2026-09-19 治理轮) | 连续 2 收尾夜 =0 且 D_count>0 ⇒ 优先级最高 |
 | IR | 未消化 [行动] 蒸馏条目 / 近 10 轮实验类判读数 | 待首算(≈7/6≈1.2,人工估) | >5 ⇒ 计入 AMM-007 S2 |
@@ -44,6 +44,12 @@ open →(probe_run 起跑)→ running →(PRD 判据机械验收过)→ closed
 1. 顺序:D-2(T1 直跑)→ D-3(T1 直跑)→ D-4(T2 后台,可拆);
    (D-1 已于治理轮结案,AMM-010 后 D-2/D-3 重标 T1——v1 版本的"T2 后台"
    表述已过时,以本行为准);
+   1'. **D-2 进度注记(轮 89,2026-09-19)**:Chronos 臂已完成并判读入档
+   (PRD §19 "D-2 判读",实测 4.6min);TimesFM 臂权重下载受限挂起,
+   按 GOALS 预授权"环境不可得转 T3 PR"登记,不阻塞后续清偿——下一笔
+   可执行本机债为 **D-3**;权重(~/.cache/timesfm/torch_model.ckpt,
+   curl 断点续传中)到位后 D-2 余项 T1 ~10min 补跑
+   (`--models timesfm --timesfm_path <path>`);
 2. 每笔结案:PRD §19 写判读(以 `<id> 判读` 为 grep 锚)+ 台账置 closed +
    digest_rate 更新;
 3. 全部清零后:恢复 goal_queue 迭代(GRAD-PATH 在队首),蒸馏补池解禁;

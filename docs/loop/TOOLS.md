@@ -14,6 +14,7 @@
 | `probe_run` | **本机探针训练资源护栏**(AMM-008+010 闸门 v3.1):档位/时长校验(上限数值以脚本内置为唯一执行点)+ 线程=⌊0.6×逻辑核⌋ + nice 15 + PROBE_TIER/EST 溯源透传(stderr 可抄进结果 meta) | `./scripts/probe_run T1\|T2 <est_min> -- <cmd>`;`--dry-run` 只打印不执行;测试 `tests/test_probe_run.py` |
 | `balance_gauge` | **平衡仪表计量器**(AMM-012/014):PRD §19 轮记录头自动分类(mining/evidence/t0)+GOALS 队列 WIP+台账欠账分账(L/C),算 EXP 占比与报警线;数值自动计算不手工维护 | `./scripts/balance_gauge [--window 10]`;测试 `tests/test_balance_gauge.py` |
 | `probabilistic_eval.py` | 概率预测 + **校准检验**(D-1,coverage95/z 矩,`calibration_stats` 函数;--context_dim 1 = ω 后验忠实实例化) | `probe_run T1 -- ... probabilistic_eval.py --train_steps 500 --context_dim 1 --seed N --out_dir ...`;测试 `tests/test_calibration_stats.py` |
+| `tsfm_baseline_eval.py` | D-2 TSFM 零样本参考基线(Chronos/TimesFM on M1 q(t) 外推 k=100,同池 d1b 尾 128,q-only 口径,3 seeds,逐池 JSONL 断点续跑;公平性三声明入 meta) | `probe_run T1 20 -- ... tsfm_baseline_eval.py --models chronos,timesfm --timesfm_path <ckpt>`;依赖 `chronos-forecasting`+`timesfm[torch]`(venv,不在 lock);测试 `tests/test_tsfm_baseline.py` |
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}` |
 | `field_eval.py` | M2 场任务 liquid vs static + resolution | `--train_loop {semigroup,prefix}`;G4-E1 起:`--oracle_ctx`(三臂上界分解+线性/MLP 双探针)、`--arms`(选臂子集,算力闸门合规) |
@@ -27,4 +28,5 @@
 `d1_small_n` `d1b_eval_depth` `d1c_start_probe` `d1d_start_mix`
 `d1f_two_stage` `d1g_sweep` `n2_adaptive` `d2_m2_loop/{sg,prefix}`
 `d3_window/{tobs8,tobs24}` `d3_identifiability` `d3_field_identifiability`
+`tsfm_baseline`(轮 89,D-2)
 `physics_out_v02`(第九波 canonical,勿覆盖)

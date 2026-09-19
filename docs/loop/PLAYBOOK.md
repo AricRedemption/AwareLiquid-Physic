@@ -256,6 +256,22 @@
   适用条件:一切"队列空+外部阻塞"的马拉松;验证状态:待验证——首次清欠
   回传后核对 RSI B 维度与 K 产出是否回升。)
 
+- **长推理必须逐池流式落盘+断点续跑**(轮 89,2026-09-19):D-2 首跑把
+  6 池结果全攒内存、只在结尾写 JSON,工具调用超时杀进程 ⇒ 10 分钟算力
+  全损。→ 推理类脚本逐池 append JSONL + 启动时跳过已完成池;probe_run
+  无硬超时是给训练的,外层工具调用有自己的超时,别赌。
+- **chronos-forecasting 2.x API 变更**(轮 89):`predict(inputs,
+  prediction_length=…)` 位置参数(`context=` kw 已删);返回
+  `(n, num_samples, horizon)` **样本张量**,点预测要自己 `median(dim=1)`;
+  `torch_dtype` 已弃用→`dtype`;chronos-t5 训练视距仅 64,k=100 合法但
+  告警(按协议保留并注记)。
+- **HF xet 大权重断点续传不可靠**(轮 89):xet 通道 etag 每次请求变化,
+  `.incomplete` 换名作废重下,且未认证限速 ~3MB/min(TimesFM 814MB 实测
+  ~2.7h)。→ 大权重用 `curl -L -C -` 种子接力(把 .incomplete 拷为目标
+  文件再续传),模型侧用本地路径加载(TimesFm `TimesFmCheckpoint(path=)`,
+  Chronos `from_pretrained` 本地目录);离线路径参数已在工具预留
+  (`tsfm_baseline_eval.py --timesfm_path`)。
+
 ## 惯例(已固化的流程约束)
 
 - **算力闸门 v3.1(2026-09-19 AMM-008+010,AricRedemption 定策)**:实验动手前,
