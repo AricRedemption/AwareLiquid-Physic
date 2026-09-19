@@ -10,40 +10,37 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  轮 83(2026-09-19 14:20):队列空→蒸馏补池第 20 族(不确定性量化
-  与校准族,scan §20,3 坐标+1 行动入库);两条立即可用表述:无噪域
-  UQ=纯认知不确定性;seed 区间=训练方差口径(不可称后验覆盖);
-  UQ-AUDIT 已入队并预注册(PRD §19 轮 83)。R1/R2 云回传仍待。
+  轮 84(2026-09-19 14:3x):UQ-AUDIT 达成——probabilistic_eval 口径
+  审计(有方差语义,coverage 不可计算)+ 产物代际审计(唯一产物是
+  train_steps=5 冒烟级,无实跑 UQ 信息量)+ 判负②触发执行(seed
+  区间固定"训练方差"口径)+ N1 表述等级规范 L1/L2/L3 + 校准协议
+  云欠账登记(~3-5min);弹出后队列空。
 current_action: >-
-  下一心跳先跑 ./scripts/goal_check 路由:UQ-AUDIT(NOT-Achieved 预期)
-  ⇒ 对其迭代一轮:docs/uq-audit.md(probabilistic_eval 概率口径审计
-  +多种子 spread 语义对账+校准协议草案),判负标准 PRD §19 轮 83;
-  若 R1/R2 云结果到达,优先机械验收(scan §12.3 四路分流)。
+  下一心跳先跑 ./scripts/goal_check:队列空 ⇒ 蒸馏补池轮(先 grep
+  scan §5-20 既有族选零重叠;方向类当轮入队带双锚 check_cmd;
+  AMM-006:穷尽非停止理由);若 R1/R2 云结果到达,优先机械验收
+  (scan §12.3 四路分流)。
 done_condition: >-
   队列非空时永不停——每轮 goal_check 路由;队列空则蒸馏补池,
   循环不自行停止。
 blocked_on: >-
-  1) R1/R2 云结果回传(欠账 ~70min)+TSFM 基线推理(~15min,PR 形态);
-  2) D4 GPU 去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);
-  4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → UQ-AUDIT / R1/R2 云结果回传 / 用户"继续"
+  1) R1/R2 云结果回传(欠账 ~70min)+TSFM 基线(~15min)+UQ 校准
+  (~3-5min,均 PR 形态);2) D4 GPU 去向;3) origin/master 合入顺序
+  (PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
+next_trigger_hint: goal_check(队列空⇒蒸馏补池) / R1/R2 云结果回传 / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-20
   (文献坐标;轮 61/63/65/73/75/77/79/81/83 蒸馏);docs/dh-dissipation-design.md
   (轮 74);docs/koopman-bridge.md(轮 76);docs/spectral-bias-naming.md(轮 78);
-  docs/eval-norms-vpt.md(轮 80);docs/tsfm-baseline-protocol.md(轮 82)
-updated: 2026-09-19 14:22 (轮 83 蒸馏补池:UQ/校准族 3+1 入库 scan §20;
-  UQ-AUDIT 入队+预注册;R1/R2 仍外部阻塞)
+  docs/eval-norms-vpt.md(轮 80);docs/tsfm-baseline-protocol.md(轮 82);
+  docs/uq-audit.md(轮 84)
+updated: 2026-09-19 14:35 (轮 84 UQ-AUDIT 达成:口径审计+表述等级规范+
+  校准协议欠账;队列空,下一轮蒸馏补池;R1/R2 仍外部阻塞)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue:
-- id: UQ-AUDIT
-    track: engineering
-    goal: 概率口径审计轮(probabilistic_eval 概率语义+多种子 spread 对账校准规范;判负标准 PRD §19 轮 83;零算力)
-    done_condition: docs/uq-audit.md 落地(工具口径审计+spread 语义对账+校准协议升级草案)+判读写入 PRD §19
-    check_cmd: grep -q "UQ-AUDIT 判读" docs/PRD.md && test -f docs/uq-audit.md
+goal_queue: []
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
