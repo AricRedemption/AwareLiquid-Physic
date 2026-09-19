@@ -10,30 +10,37 @@ state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
-  夜 4 收口(轮 61-72):队列空,蒸馏补池 ×6(18 条入库,scan §8-14)+
-  零算力判读 ×5(D5 口径辩护/D6 信息预算/T 非偶机制发现/无噪确认/超分
-  反向弱信号)+ 工具 +2;RSI 夜 4 行已入账(≈0.45,T̂ 未触发保守计 0)。
-  剩余工作全外部阻塞:R1/R2 云回传(欠账 ~70min,分流表 scan §12.3 就绪)。
+  轮 73(午间马拉松,2026-09-19 12:23 重启):队列空→蒸馏补池第 15 族
+  (耗散/端口哈密顿结构族,scan §15,3 坐标+1 行动入库);DH-DESIGN
+  已入队并预注册(PRD §19 轮 73,判负标准先行)。R1/R2 云回传仍待
+  (欠账 ~70min 不变,条件入口路由表 scan §12.3 不变)。
 current_action: >-
-  收尾完成,循环待触发。下一触发:R1/R2 云结果回传(机械验收 PR §3 +
-  三路分流 §12.3)→ 按失败模式路由 R1b/R1c/E2 条件入口;或用户"继续"
-  (先跑 ./scripts/goal_check 路由,队列空则按 PLAYBOOK 蒸馏轮闭环补池)。
+  下一心跳先跑 ./scripts/goal_check 路由:DH-DESIGN(NOT-Achieved 预期)
+  ⇒ 对其迭代一轮:设计文档(Rayleigh 槽位 vs port 形态对照)+ 最小槽位
+  (R≡0 逐位等价)+ 闭式阻尼谐振子能量探针(单调衰减),判据 A/B 见
+  PRD §19 轮 73;若 R1/R2 云结果到达,优先机械验收(§12.3 三路分流)。
 done_condition: >-
-  条件入口路由表就绪(scan §12.3);队列非空时永不停——每轮 goal_check 路由。
+  队列非空时永不停——每轮 goal_check 路由;DH-DESIGN 达成即弹出,
+  队列再空则继续蒸馏补池(AMM-006:穷尽非停止理由)。
 blocked_on: >-
   1) R1/R2 云结果回传(欠账 ~70min);2) D4 GPU 去向;3) origin/master
   合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: R1/R2 云结果回传 / 用户"继续"
-pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-10
-  (文献坐标;轮 61/63/65 蒸馏);updated 见下
-updated: 2026-09-19 07:2x (夜 4 收尾:RSI 入账 0.45;条件入口路由表就绪;
-  .loop-lock 已删;待云回传或用户触发)
+next_trigger_hint: goal_check → DH-DESIGN / R1/R2 云结果回传 / 用户"继续"
+pointer: docs/PRD.md §19(判读报告落点);docs/scan-conditioning.md §8-15
+  (文献坐标;轮 61/63/65/73 蒸馏);updated 见下
+updated: 2026-09-19 12:25 (轮 73 蒸馏补池:耗散族 3+1 入库 scan §15;
+  DH-DESIGN 入队+预注册判负标准;R1/R2 仍外部阻塞)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: DH-DESIGN
+    track: engineering
+    goal: 耗散扩展设计轮(Rayleigh 槽位最小预留+闭式探针;判负标准已预注册 PRD §19 轮 73;无训练)
+    done_condition: 设计文档 docs/dh-dissipation-design.md 落地(Rayleigh vs port 两形态对照+T 偶交互声明)+R≡0 逐位等价回归过+闭式阻尼谐振子能量单调探针过+判读写入 PRD §19
+    check_cmd: grep -q "DH-DESIGN 判读" docs/PRD.md && test -f docs/dh-dissipation-design.md
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

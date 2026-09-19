@@ -485,6 +485,74 @@ R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
 一条代码判读(datasets 无噪确认)+ 一条 [坐标] 入库(sim-to-real
 边界与处方)。蒸馏轮第 7 次达标。
 
+## 15. 经验蒸馏 10(轮 73,2026-09-19 12:23,QUEUE-EMPTY 轮):耗散/端口哈密顿结构族
+
+> 第 15 个 query 族,与前十四族零重叠——结构扩展轴此前只扫过守恒系
+> (SRNN §8.3、时间反演/Noether §10),耗散结构首扫。触发:R1/R2 云
+> 回传未到,按 AMM-006 蒸馏补池。检索:3 族一次命中(port-HNN /
+> Rayleigh 耗散 HNN / 耗散×辛训练稳定性)。
+> 标记:[坐标] ×3 + [行动] ×1(→ DH-DESIGN 入队)。
+
+### 15.1 D-HNN:哈密顿+Rayleigh 耗散分离参数化 [坐标+行动→DH-DESIGN]
+
+- 【出处】[Dissipative Hamiltonian Neural Networks (Sosanya & Greydanus,
+  arXiv:2201.10085)](https://arxiv.org/abs/2201.10085);
+  [官方 PyTorch 实现](https://github.com/greydanus/dissipative_hnns);
+  [作者博客](http://greydanus.github.io/2022/01/25/dissipative-hnns)。
+- 【内容】两个网络分别学 H(q,p) 与 Rayleigh 耗散函数 R(q,p):
+  q̇=∂H/∂p, ṗ=−∂H/∂q−∂R/∂p。保守/耗散显式解耦,耗散通道可解释。
+- 【对我们的映射】① 当前头能量守恒由构造(P0-3)⇒ 无法表达任何
+  能量衰减——对保守基准是优点,对真实系统叙事是**显式边界**(N1
+  Related Work 必答"真实系统耗散怎么办");② 最小扩展形态:
+  HamiltonianHead 加 Rayleigh 槽位,默认关,R≡0 与现状逐位等价;
+  ③ **与 T 偶(R1b)的结构交互**:Rayleigh 力 −∂R/∂p(R 二次型)
+  是 p 奇函数 ⇒ 耗散系统物理上时间反演不可逆——守恒部分 T 偶
+  参数化与耗散部分正交、可叠加;回程一致性冒烟仅对保守部分适用。
+- 【适用条件】保守+耗散混合动力系统;本仓当前基准(弹簧/波场)
+  全保守 ⇒ 扩展不改变任何现有结论,纯预留位+N1 坐标。
+- 【验证状态】社区已验证(damped oscillator 等任务);对本仓待验证
+  (判据已预注册 PRD §19 轮 73)。
+
+### 15.2 Port-HNN:(J−R)∇H 结构分解与能量单调由构造 [坐标]
+
+- 【出处】[Port-Hamiltonian Neural Networks (Desai et al., Phys. Rev. E
+  2021, ~147 引)](https://link.aps.org);
+  [Stable Port-Hamiltonian NN (Roth et al., NeurIPS 2025 poster, ~26 引)](https://openreview.net/forum?id=epIGnGgcKD);
+  [Port-metriplectic NN (Hernández et al. 2023)](https://cnam.hal.science)。
+- 【内容】ẋ=(J(x)−R(x))∇H(x):J 反对称(储能/互联)、R 半正定
+  (耗散);梯度结构直接给 dH/dt=−∇HᵀR∇H≤0——**能量单调由构造
+  保证**,与本仓 P0-3"守恒由构造"同一哲学。Roth 2025 加稳定性
+  保证与耗散元件建模;port-metriplectic 扩到热力学双结构。
+- 【对我们的映射】DH-DESIGN 若开工,形态二选一:port 形态的
+  "单调由构造"哲学同构但改动面大;D-HNN 形态实现最薄(仅加一项
+  力),适合最小槽位。设计文档须两形态对照后定夺并写明取舍。
+- 【适用条件】需要能量单调/稳定性结构保证的耗散系统学习。
+- 【验证状态】社区已验证(Desai 147 引;Roth NeurIPS 2025);
+  本仓未验证(设计轮评估)。
+
+### 15.3 耗散×辛积分器的数值边界 [坐标]
+
+- 【出处】检索综合:[contact 变分原理 HLNN (APS 2025)](https://link.aps.org/doi/10.1103/9gnh-89jd);
+  [Exact conservation laws for NN integrators (Müller et al. 2023)](https://www.sciencedirect.com);
+  D-HNN 实现细节(greydanus/dissipative_hnns)。
+- 【内容】显式辛积分器 + Rayleigh 力通常需分裂步(守恒子步辛 +
+  耗散子步显式),长期稳定性的定量证据在文献中弱于纯守恒情形;
+  contact 哈密顿是另一数值载体。
+- 【对我们的映射】DH-DESIGN 判负标准之一预注册于此:若分裂步在
+  leapfrog 框架下引入不可接受的能量伪注入(闭式阻尼谐振子探针
+  单调性失败),则"辛可比+耗散"在本仓积分器上不可兼得——判负
+  如实入档,坐标留 N1,不硬凑。
+- 【适用条件】任何给辛滚出加耗散项的实现。
+- 【验证状态】社区部分验证(方法存在,稳定性边界未定量化);
+  对本仓待验证(探针判据已预注册)。
+
+### 蒸馏结论 10
+
+三 [坐标] + 一 [行动](DH-DESIGN 入队,check_cmd 双锚:PRD 判读锚
++设计文档产物锚)。本族把"真实系统耗散"从 N1 隐式边界升级为显式
+坐标+架构预留位;与 R1b(T 偶)的结构交互已标注(正交可叠加)。
+蒸馏轮第 8 次达标。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -498,3 +566,9 @@ R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
 - [Gradient Starvation 官方实现 (GitHub)](https://github.com/mpezeshki/Gradient_Starvation)
 - E2C (Watter et al., NeurIPS 2015) / DVBF (Karl et al., ICLR 2017)——见 §6 条目
 - [CNO / Representative PDE Benchmarks (OpenReview)](https://openreview.net)——见 §7
+- [D-HNN (Sosanya & Greydanus, arXiv:2201.10085)](https://arxiv.org/abs/2201.10085)——见 §15.1
+- [D-HNN 官方实现 (GitHub)](https://github.com/greydanus/dissipative_hnns)——见 §15.1
+- [Port-HNN (Desai et al., Phys. Rev. E 2021)](https://link.aps.org)——见 §15.2
+- [Stable Port-Hamiltonian Neural Networks (Roth et al., NeurIPS 2025)](https://openreview.net/forum?id=epIGnGgcKD)——见 §15.2
+- [Port-metriplectic NN (Hernández et al. 2023)](https://cnam.hal.science)——见 §15.2
+- [Contact Hamiltonian Lagrangian NN (APS)](https://link.aps.org/doi/10.1103/9gnh-89jd)——见 §15.3
