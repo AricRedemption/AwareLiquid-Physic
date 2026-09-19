@@ -606,6 +606,15 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **收尾判定依据**:队列空;三条条件性入口(E2/R1b/R1c)全部依赖 R1/R2 云回传(欠账 ~70min 云 CPU,PR §3 验收协议就绪);蒸馏族已用 14 个,§13/§14 起产出全为 [坐标] 类,边际递减。剩余工作无一可在本机合规推进(算力闸门)。下次触发:R1/R2 云结果回传(按 §12.3 分流)/ 用户"继续"。
 - **下一窗口起点**:云回传→机械验收(§12.3);晨读从本节开始。
 
+**轮 75 记录（蒸馏补池:Koopman/流映射族 + KM-BRIDGE 预注册;零算力）**:
+- **蒸馏**:第 16 族"Koopman/流映射算子学习族"(机制直连 train_semigroup)3 检索一次命中;3 [坐标] + 1 [行动] 入库 scan §16:Deep-OSG/OSG-Net(半群性质作学习目标——train_semigroup 的直系文献先例)、Koopman 综述坐标(Brunton SIAM 2022:可观空间线性化 vs 本仓状态空间结构化,正交)、Hamiltonian Neural Koopman(混合线,噪声鲁棒卖点与 §14 无噪范围互补,噪声线的现成对照臂)。
+- **KM-BRIDGE 预注册(先于实现钉死)**:
+  - **动机**:N1 Related Work 两处必答——"半群训练 vs flow-map learning"(Deep-OSG 先例)与"为何不用 Koopman"(可观空间线性化的定位差异);检索素材已足,缺一份把定位写死的文档。
+  - **交付物**:① `docs/koopman-bridge.md` 定位文档(三线对照表:Koopman / HNK 混合 / 本仓半群-结构线;各线"线性化在哪、结构保证在哪、情境通道在哪";评审问答 2 条);② 判读以 "KM-BRIDGE 判读" 锚写入本节;③ 文档内引用 scan §16 全部坐标锚。
+  - **判负标准**:若写作中发现三线定位无可辩护的实质差异(纯重叠、本仓线无独立卖点)⇒ 判负,降级为 scan 坐标留档不入 N1,如实入档。纯文档轮,无代码无训练。
+  - **seeds/命令/时长**:N/A(纯写作);预计 ~15 分钟(<1h 合规)。入队 check_cmd 双锚:`grep -q "KM-BRIDGE 判读" docs/PRD.md && test -f docs/koopman-bridge.md`。
+- 零算力声明:全检索+文档,无执行。
+
 **轮 74 判读（DH-DESIGN 判读:耗散槽位落地;零算力探针）**:
 - **交付**:① 设计文档 `docs/dh-dissipation-design.md`(选型:port 风味 PSD 阻尼场——γ(p)=softplus(G(p))≥0 逐坐标,F_d=−γ⊙∇pT ⇒ dH/dt=−Σγ(∇pT)²≤0 由构造;damped 分裂 kick 加力;默认关逐位等价);② `HamiltonianHead` rayleigh 槽位(默认 False,无新参数,检查点兼容);③ 探针 `tests/test_dissipation.py` ×3。
 - **判据 A ✓**:默认关 state_dict 无 G 键;保守路径与手写 kick-drift-kick 参照 16 步 rollout 逐位相等(torch.equal)。

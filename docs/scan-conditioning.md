@@ -553,6 +553,64 @@ R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
 坐标+架构预留位;与 R1b(T 偶)的结构交互已标注(正交可叠加)。
 蒸馏轮第 8 次达标。
 
+## 16. 经验蒸馏 11(轮 75,2026-09-19 12:50,QUEUE-EMPTY 轮):Koopman/流映射算子学习族
+
+> 第 16 个 query 族,与前十五族零重叠——与 M1 半群训练循环**机制直连**
+> 的最近邻文献族首次扫描。检索:3 族一次命中(综述 / 半群机制关键词 /
+> "Koopman vs Hamiltonian" 对照式)。标记:[坐标] ×3 + [行动] ×1
+> (→ KM-BRIDGE 入队)。
+
+### 16.1 Deep-OSG/OSG-Net:半群性质作为学习目标 [坐标]
+
+- 【出处】[Deep-OSG (Chen et al., J. Comput. Phys. 2023, ~17 引)](https://www.sciencedirect.com);
+  [OSG-Net (SIAM)](https://epubs.siam.org);neural flow maps 谱系。
+- 【内容】对未知自治动力系统,用 DNN 学流映射(flow map)并**直接
+  处理半群性质**(时间平移复合封闭)——与 `train_semigroup`
+  "k 步滚出损失对 k 索引一致"的训练循环机制同题。
+- 【对我们的映射】N1 Related Work **直系先例,必引**:本仓半群线的
+  差异 = ① 半群训练作用于**结构化**滚出(哈密顿头+辛积分器)而非
+  自由流映射 DNN;② 与 context 推断(liquid 基座)耦合,Deep-OSG
+  无情境通道。评审若问"半群训练和 flow-map learning 什么关系",
+  本条即答案。
+- 【适用条件】一切涉及 train_semigroup 的写作与答辩。
+- 【验证状态】社区已验证;定位引用立即可用。
+
+### 16.2 Koopman 主线坐标:可观空间线性化(综述) [坐标]
+
+- 【出处】[Modern Koopman Theory (Brunton et al., SIAM Review 2022, ~1168 引)](https://epubs.siam.org);
+  [Koopman models: learning, analysis and control (Bevanda et al. 2021, ~344 引)](https://www.sciencedirect.com);
+  [kooplearn 库](https://github.com)。
+- 【内容】Koopman 算子把非线性状态动力学提升为**可观函数空间的
+  全局线性**算子;优势 = 谱分解工具箱 + 对观测噪声的鲁棒性;
+  代价 = 无能量/守恒结构保证,提升空间维度高。
+- 【对我们的映射】N1 定位一句话:**本仓线 = 状态空间结构化
+  (canonical 方程 + 辛积分器,守恒由构造),Koopman 线 = 可观空间
+  线性化(鲁棒、谱工具),两者正交**;§14 已判本仓数据无噪 ⇒
+  Koopman 的鲁棒性优势在本范围不构成威胁,仅在噪声扩展线上成为
+  对照选项(与 16.3 呼应)。
+- 【适用条件】N1 Related Work 与评审答辩。
+- 【验证状态】社区已验证;定位引用立即可用。
+
+### 16.3 Hamiltonian Neural Koopman:混合线坐标 [坐标]
+
+- 【出处】[Learning Hamiltonian neural Koopman operator (Zhang et al. 2024, ~20 引)](https://link.aps.org);
+  [Physics-informed deep Koopman for Lagrangian systems (Wang et al. 2024)](https://link.springer.com)。
+- 【内容】混合线把 Koopman 线性化与哈密顿结构叠加("可观空间线性 +
+  能量结构先验"),卖点恰是**噪声扰动数据上的鲁棒学习**。
+- 【对我们的映射】① 必引(最接近的混合先例);② 本仓差异 =
+  液基 **context 推断**(观测前缀→能量景观条件化)在 Koopman/HNK
+  两线中均无对应物;③ 若未来开噪声线(scan §14 处方谱系),
+  HNK 是现成对照臂候选。
+- 【适用条件】N1 Related Work;噪声扩展线的对照设计。
+- 【验证状态】社区已验证;本仓对照未验证(条件性,噪声线不开则不适用)。
+
+### 蒸馏结论 11
+
+三 [坐标](Deep-OSG 直系先例 / Koopman 综述定位 / HNK 混合线)+
+一 [行动](KM-BRIDGE 入队:Koopman/流映射 vs 本仓半群线的定位文档,
+N1 Related Work 素材,判负标准预注册 PRD §19 轮 75)。蒸馏轮第 9 次
+达标;检索三连的对照式第三槽("vs")专产定位素材(初验证 n=1)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -572,3 +630,9 @@ R1/R2 回传)。蒸馏轮第 6 次达标(交付 2 条入库)。
 - [Stable Port-Hamiltonian Neural Networks (Roth et al., NeurIPS 2025)](https://openreview.net/forum?id=epIGnGgcKD)——见 §15.2
 - [Port-metriplectic NN (Hernández et al. 2023)](https://cnam.hal.science)——见 §15.2
 - [Contact Hamiltonian Lagrangian NN (APS)](https://link.aps.org/doi/10.1103/9gnh-89jd)——见 §15.3
+- [Deep-OSG (Chen et al., J. Comput. Phys. 2023)](https://www.sciencedirect.com)——见 §16.1
+- [OSG-Net (SIAM)](https://epubs.siam.org)——见 §16.1
+- [Modern Koopman Theory (Brunton et al., SIAM Review 2022)](https://epubs.siam.org)——见 §16.2
+- [Koopman operator dynamical models (Bevanda et al. 2021)](https://www.sciencedirect.com)——见 §16.2
+- [Hamiltonian Neural Koopman Operator (Zhang et al. 2024)](https://link.aps.org)——见 §16.3
+- [Physics-informed deep Koopman for Lagrangian systems (Wang et al. 2024)](https://link.springer.com)——见 §16.3
