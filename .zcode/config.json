@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "enabled": true,
+    "events": {
+      "Stop": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "bash scripts/stop_gate.sh",
+              "timeoutMs": 15000
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

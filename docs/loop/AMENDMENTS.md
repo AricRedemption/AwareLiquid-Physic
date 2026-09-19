@@ -388,7 +388,12 @@
 - 风险与回滚:stop_gate 3 次上限+四条件闸防死循环;ignite 双保险(mode/
   state/锁三查)防僵尸点火;eval 注入面=conf 仅用户可写。回滚 = 删两脚本+
   还原 config.json/crontab。
-- 状态:**PROPOSED**(工件已入库沉睡;激活待用户三输入)
+- 状态:**PARTIAL-APPLIED**(2026-09-20 更新:用户澄清主场景=Desktop 对话区
+  非 CLI ⇒ 主引擎定为 stop_gate,工作区 .zcode/config.json 已激活(可随时删
+  还原);ignite.sh 维持沉睡留给将来 CLI 场景。**Desktop 是否读取工作区 hook
+  配置尚未实测**——验证法:下次粘贴 GOAL-PROMPT 跑完一轮后观察能否自动
+  继续,或查 ZCode 日志 hook 触发记录;若 Desktop 不读 ⇒ 退化为纯行为指令层
+  (AMM-018 仍然有效),无副作用)
 
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
