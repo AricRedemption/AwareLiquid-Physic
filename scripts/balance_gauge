@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""balance_gauge — AMM-012 平衡仪表计量器(通用规则,数值自动计算不手工维护)
+
+EXP 占比:PRD §19 轮记录头分类(滑动窗口,默认 10):
+  mining   = 蒸馏补池轮
+  evidence = 算力轮(T1/T2 执行+判读)或非零算力的判读/达成轮
+  t0       = 零算力判读/写作轮(证据性存疑,单列不计入 EXP 分母的警告值)
+WIP:GOALS.md goal_queue 的 [行动] 条目数(上限 2,AMM-012)。
+
+用法: ./scripts/balance_gauge [--window 10] [--prd docs/PRD.md] [--goals docs/loop/GOALS.md]
+输出: 一行 JSON(stdout)。规则不变式在此计算,文档只引用结论,不复述实例值。
+"""
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+WIN_PAT = re.compile(r"^\*\*(?:轮\s*\d+|D-\d+)[^*]*（[^）]*）\*\*")
+
+
+def classify(header: str) -> str:
+    if "蒸馏补池" in header:
+        return "mining"
+    if "算力轮" in header or ("零算力" not in header and
+                              ("判读" in header or "达成" in header)):
+        return "evidence"
+    return "t0"
+
+
+def parse_rounds(prd_text: str) -> list:
+    rounds = []
+    for line in prd_text.splitlines():
+        if WIN_PAT.match(line.strip()):
+            rounds.append({"header": line.strip()[:80], "class": classify(line)})
+    return rounds
+
+
+def parse_wip(goals_text: str) -> int:
+    in_queue = False
+    wip = 0
+    for line in goals_text.splitlines():
+        if line.strip().startswith("goal_queue:"):
+            in_queue = True
+        elif in_queue and line.strip().startswith("```"):
+            break
+        elif in_queue and re.match(r"^\s*-\s*id:", line):
+            wip += 1
+    return wip
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--window", type=int, default=10)
+    ap.add_argument("--prd", default="docs/PRD.md")
+    ap.add_argument("--goals", default="docs/loop/GOALS.md")
+    args = ap.parse_args()
+
+    rounds = parse_rounds(Path(args.prd).read_text(encoding="utf-8"))
+    win = rounds[-args.window:]
+    n = len(win)
+    ev = sum(1 for r in win if r["class"] == "evidence")
+    mining = sum(1 for r in win if r["class"] == "mining")
+    t0 = sum(1 for r in win if r["class"] == "t0")
+    exp_ratio = round(ev / n, 3) if n else None
+    wip = parse_wip(Path(args.goals).read_text(encoding="utf-8"))
+
+    alarms = []
+    if n >= 5 and exp_ratio is not None and exp_ratio < 0.20:
+        alarms.append("EXP<20%:冻结蒸馏,先补证据轮(AMM-012)")
+    if wip > 2:
+        alarms.append(f"WIP={wip}>2:蒸馏只许产[坐标](AMM-012)")
+
+    print(json.dumps({"window": n, "evidence": ev, "mining": mining, "t0": t0,
+                      "exp_ratio": exp_ratio, "wip": wip,
+                      "alarms": alarms,
+                      "caveat": "文本启发式分类;T0 带数字判读是否计证据由消化轮人工终判"},
+                     ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    sys.exit(main())
