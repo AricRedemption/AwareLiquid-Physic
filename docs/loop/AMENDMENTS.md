@@ -363,6 +363,33 @@
   INVARIANTS 表并在 AMENDMENTS 留痕(表即文档,名=保护的行为)。回滚 = git revert。
 - 状态:**APPLIED**(用户会话要求防止 Agent 偏移;本轮实施)
 
+### AMM-020: 循环驱动器两层化——ZCode Stop hook(可选层)+ 跨 Agent 点火器(可移植层)
+- 动机(AricRedemption 2026-09-20 会话:批准验证 + 裁定"后续不一定用 ZCode,
+  可能用其他软件"):轮 93 实证行为层会偶发失效;社区三机制(Ralph bash 循环/
+  Stop hook/prompt 回归测试)中本仓已有后者,缺循环驱动器。驱动器必须
+  **不绑任何 Agent 软件**,活在仓库层(纯文件+bash)。
+- 验证结果(2026-09-20):
+  1. ZCode 支持 `Stop` 事件 hook,**可请求继续,上限 3 次/会话**——覆盖
+     轮 93 失效模式;配置走工作区 .zcode/config.json(hooks.enabled:true),
+     不碰用户级配置;
+  2. 当前机器无任何 agent CLI 在 PATH(zcode/claude/codex 均无)⇒ 外部
+     点火器的 AGENT_CMD 只能由用户提供。
+- 提案 diff(两工件,**均未激活**):
+  1. `scripts/stop_gate.sh`(可选层,仅 ZCode 生效):Stop 时查 队列非空+
+     mode=ON+锁新鲜+state≠IDLE ⇒ exit 2 请求继续;安装需写 .zcode/config.json
+     且上线前小会话试跑核对实际续跑行为;
+  2. `scripts/ignite.sh`(可移植层,Ralph 式):锁新鲜不点火/mode=OFF 不点火/
+     IDLE 不点火,否则按 docs/loop/agent-cmd.conf 的 AGENT_CMD 模板
+     ({PROMPT} 占位)喂 GOAL-PROMPT 正文;驱动=机器级 crontab/launchd,
+     独立于任何 Agent 软件,换软件只改 conf 一行。
+- 待用户输入(激活前置):① 是否启用 stop_gate(写 .zcode/config.json);
+  ② agent-cmd.conf 一行(所用软件的 headless 命令模板);③ 是否装 crontab。
+  三者齐前两脚本为仓库内沉睡件,不影响任何现有流程。
+- 风险与回滚:stop_gate 3 次上限+四条件闸防死循环;ignite 双保险(mode/
+  state/锁三查)防僵尸点火;eval 注入面=conf 仅用户可写。回滚 = 删两脚本+
+  还原 config.json/crontab。
+- 状态:**PROPOSED**(工件已入库沉睡;激活待用户三输入)
+
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
   headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:
