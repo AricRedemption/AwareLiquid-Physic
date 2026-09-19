@@ -802,6 +802,76 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 登记)。N1 定位的最后一条主要评审轴(基础模型)素材齐备。蒸馏轮
 第 12 次达标;检索三连对照式第三槽 n=3(轮 81 vs 槽再命中)。
 
+## 20. 经验蒸馏 15(轮 83,2026-09-19 14:20,QUEUE-EMPTY 轮):不确定性量化与校准族
+
+> 第 20 个 query 族,与前十九族零重叠(概率性声明与校准规范轴——
+> 本仓已有 probabilistic_eval.py 工具与多种子协议,文献规范未扫)。
+> 检索:3 族一次命中。标记:[坐标] ×3 + [行动] ×1(→ UQ-AUDIT)。
+
+### 20.1 UQ 分类学坐标:无噪域的简化 [坐标]
+
+- 【出处】[A Survey on UQ Methods for DNNs (He et al. 2023, ~295 引)](https://www.jiangteam.org);
+  [Comprehensive Survey on UQ for DNNs (arXiv 2024-04)](https://arxiv.org);
+  [UQ for NODEs/UDE (Schmid et al. 2025)](https://pmc.ncbi.nlm.nih.gov);
+  ML+数据同化+UQ for dynamical systems 综述(Automatica)。
+- 【内容】UQ 方法按不确定性来源分类:**偶然(数据噪声)vs 认知
+  (模型)**;NODE/微分方程学习场景的 UQ 有专门综述。
+- 【对我们的映射】轮 71 已判本仓数据**无观测噪声** ⇒ 偶然不确定性
+  由构造为零,本仓一切 UQ 语义都是**认知不确定性(模型)**——
+  N1 写概率性声明时必须带此限定,且认知 UQ 的首选廉价工具是
+  多种子/集成(见 §20.2)。
+- 【适用条件】N1 概率性/不确定性声明的范围限定。
+- 【验证状态】社区已验证;范围声明立即可用。
+
+### 20.2 Deep Ensembles vs BNN:种子即集成 [坐标]
+
+- 【出处】[Deep Ensembles as Approximate Bayesian Inference
+  (Wilson & Izmailov)](https://cims.nyu.edu/~andrewgw/deepensembles);
+  [BNN vs Deep Ensembles head-to-head (arXiv:2509.19180, 2025)](https://arxiv.org/html/2509.19180v1);
+  [Repulsive Deep Ensembles are Bayesian (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/file/1c63926ebcabda26b5cdb31b5cc91efb-Paper.pdf);
+  物理流场预报的 DE 应用(ScienceDirect 2023)。
+- 【内容】DE 在精度与校准上普遍匹敌或优于 BNN 且更便宜(后验
+  多模式覆盖);但朴素 DE 的贝叶斯性依赖成员多样性(排斥项)。
+- 【对我们的映射】① 本仓 **3-seed 协议本身就是一个迷你 DE**——
+  seed 区间作为认知不确定性的呈现有文献背书(N1 可写);② 诚实
+  边界:n=3 的多样性不足以支撑强贝叶斯解读,只能作"训练方差"
+  口径,不能称后验覆盖;③ 若未来开 UQ 线,DE 是首选形态。
+- 【适用条件】N1 实验节的多种子表述;未来 UQ 线选型。
+- 【验证状态】社区已验证;表述升级待 UQ-AUDIT 对账。
+
+### 20.3 校准规范:覆盖误差是概率性声明的验收判据 [坐标]
+
+- 【出处】预测区间校准/coverage 规范(skforecast、sklearn calibration
+  实践文档);[Calibrated Probabilistic Forecasts for Arbitrary
+  Sequences (Marx 2025)](https://pmc.ncbi.nlm.nih.gov);forecast scoring
+  统计基础(Berkeley/Tibshirani 讲义)。
+- 【内容】概率性预测的验收不是"区间存在"而是**覆盖率对准名义
+  水平**(如 90% 区间实测覆盖 ~90%);校准误差/coverage error 是
+  标准判据。
+- 【对我们的映射】本仓任何概率性结论(如"seed 区间")若要升级为
+  校准声明,必须报 coverage——**有 spread ≠ 校准**;这是 UQ-AUDIT
+  的对账判据之一。
+- 【适用条件】一切含不确定性区间的结论呈现。
+- 【验证状态】社区已验证;判据立即可用。
+
+### 20.4 概率口径审计 [行动→UQ-AUDIT]
+
+- 【内容】审计 `benchmarks/probabilistic_eval.py` 的概率口径与既有
+  多种子产物的 spread 语义:① 工具输出是点估计还是区间?② seed
+  区间若作认知不确定性呈现,coverage 语义是否可辩护?③ 升级草案
+  (校准协议,云跑候选)。
+- 【对我们的映射】N1 若含任何概率性表述,先过本审计;否则降级
+  为纯点估计表述。
+- 【适用条件】N1 概率性表述;probabilistic_eval 工具的语义修订。
+- 【验证状态】对本仓待执行(下轮,判负标准 PRD §19 轮 83)。
+
+### 蒸馏结论 15
+
+三 [坐标] + 一 [行动](UQ-AUDIT 入队)。两条立即可用表述:无噪域
+UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
+后验覆盖)。蒸馏轮第 13 次达标;检索三连对照式第三槽 n=4
+(DE vs BNN 正面对比再命中)。
+
 ## Sources
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
@@ -840,3 +910,7 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 - [Foundation Models for Time Series: A Survey (arXiv 2025)](https://arxiv.org)——见 §19.1
 - [Dynamics is what you need for time-series forecasting! (Brachet et al., OpenReview)](https://openreview.net)——见 §19.2
 - [PINN variants in weather (ScienceDirect 2026)](https://www.sciencedirect.com)——见 §19.3
+- [A Survey on UQ Methods for DNNs (He et al. 2023)](https://www.jiangteam.org)——见 §20.1
+- [Deep Ensembles as Approximate Bayesian Inference (Wilson & Izmailov)](https://cims.nyu.edu/~andrewgw/deepensembles)——见 §20.2
+- [BNN vs Deep Ensembles (arXiv:2509.19180)](https://arxiv.org/html/2509.19180v1)——见 §20.2
+- [Repulsive Deep Ensembles are Bayesian (NeurIPS 2021)](https://proceedings.neurips.cc/paper/2021/file/1c63926ebcabda26b5cdb31b5cc91efb-Paper.pdf)——见 §20.2
