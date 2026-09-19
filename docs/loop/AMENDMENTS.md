@@ -252,6 +252,34 @@
 - 状态:**APPLIED**(用户"请继续优化"会话裁定;本轮实施,真实仓库验证
   DEBT-FIRST 路由正确)
 
+### AMM-014: 欠账分级——L-debt 阻塞 / C-debt 不阻塞,大算力欠账不瘫痪循环(PROPOSED 待批)
+- 动机(AricRedemption 2026-09-19 会话提问"如果欠账一直都是大算力的欠账怎么办"):
+  AMM-013 把 DEBT-FIRST 焊成硬出口后,一笔仅云可执行(T3)的欠账会阻塞一切直到
+  债龄>5 升级 BLOCKED-HUMAN——循环全停。"一笔债瘫痪全局"违背阻塞局部性原则;
+  阻塞应精确到"本机现在就能做而没做的事"。
+- 提案 diff:
+  1. **欠账按可执行档分级**(由台账档位列推导,不加新列):T1/T2 ⇒ **L-debt**
+     (本机档);仅 T3 ⇒ **C-debt**(云档)。DEBT-FIRST 硬出口只对 **L-debt**
+     生效;C-debt 不阻塞队列迭代与(受 EXP/WIP 约束的)蒸馏,只在 gauge
+     alarms 里提示;
+  2. **C-debt 降级义务(判级前置)**:标 C-debt 前必须先记录"探针降级尝试"——
+     从大协议抽 T1/T2 子协议(减 seeds/减步数/减 k_train),能降先降(结论标
+     probe-grade,只解锁路由不解锁终局);确实降不了才标 C-debt。防止"懒得分级
+     全推给云"的偷懒通道;
+  3. **C-debt 老化 = 一次性升级,不重复**:债龄 >5 心跳轮 ⇒ 在当轮收尾记录
+     高亮 + GOALS blocked_on 列出,由人三选一(本机批跑/云 PR/作废或降级);
+     升级一次后循环继续跑,**不进 BLOCKED-HUMAN 全停**(人已知情,循环没有
+     义务陪等);
+  4. `balance_gauge` 输出拆 debt_local_open / debt_cloud_open;`goal_check`
+     DEBT-FIRST 条件从 count_open>0 改为 debt_local_open>0;
+  5. 回答本提案动机的口径:**大算力欠账的正确姿势 = 探针降级先行 + PR 挂起
+     + 循环不停**;它不阻塞迭代,只通过 digest_rate/age 在收尾时向人施压。
+- 风险与回滚:C-debt 不阻塞 ⇒ 云债可能长期挂着无人管 ⇒ 缓解=老化一次性
+  升级 + digest_rate 连续 2 收尾夜=0 计入 S2 收口判据(已存在);分级被滥用
+  (把可本机的标成 C-debt)⇒ 降级义务留痕可审计。回滚 = git revert。
+- 状态:**PROPOSED**(待 AricRedemption 批准;批准后本轮实施 gauge/goal_check/
+  台账注记三处改动)
+
 ### AMM-002: headless supervisor——GOALS.md 驱动的连续循环引擎
 - 动机:cron 是固定 30 分钟网格的心跳,有活时浪费等待、没活时空转;前沿
   headless agent 范式("wake fresh + state file")是**监督进程 + 状态文件**:
