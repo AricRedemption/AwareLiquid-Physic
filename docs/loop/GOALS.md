@@ -25,13 +25,12 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队首 **VERLET-ORDER**(观测阶数验证探针,T1
-  秒级):按 PRD §19 轮 103 预注册执行——benchmarks/verlet_order_probe.py,
-  dt∈{0.2,0.1,0.05,0.025} 单轨弹簧扫描,energy_drift 与 rollout MSE 的
-  log2 相邻比值收敛阶;判据 p̂∈[1.8,2.2] ⇒ 2 阶确认,出界 ⇒ 排查后
-  如实入档;产物过 audit;probe_run T1 护栏。理论背景:影子哈密顿/
-  后向误差分析(hω≈0.18 界内,N1 methods 素材,scan §25)。每轮 PRD
-  §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
+  下一心跳(执行会话):队列空→goal_check 路由。**消化轮(轮 105 预置)**:
+  N1 写作素材索引——25 族蒸馏/审计/探针产出的 N1 可用资产(定位三轴表/
+  methods 三件套/机制链/诚实边界清单)汇总成 docs/n1-asset-index.md,
+  T0 零算力,供 N1 启动(用户决策,blocked_on 4)时一步取用;或按路由
+  蒸馏第 26 族(S1 计数:轮 103 重置后无新增)。若蒸馏连续 2 轮无行动
+  产出 ⇒ S1 评估。每轮 PRD §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -39,7 +38,7 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → VERLET-ORDER / 用户"继续"
+next_trigger_hint: goal_check → 消化轮(N1 素材索引)/ 蒸馏第 26 族 / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -48,27 +47,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-20 06:20 (**轮 99:CLASSIC-BASELINE 结案完成,弹出;
-  本马拉松会话快照收尾**)——经典基线双臂 768 轨:LSQ-ω̂ 与 STLSQ 一致,
-  k100 MSE 2.72e-6/ω̂ 误差 0.069%(判负①②均未触发);预注册预期兑现:
-  无噪线性域经典估计近 oracle 级(比学习 oracle 低 4 个数量级),三声明
-  保护下作 N1 基线表上界参照,不作排名主张;协议文档
-  docs/classic-baseline-protocol.md 落地;FD 边界态坑(解析 (A,B) 拟合
-  替代 FD 边界)入 PLAYBOOK;137 测试+audit 全绿;**会话快照**:本马拉
-  松连续 6 心跳(轮 94-99),上下文已长,按 GOAL-PROMPT 第三停止因
-  收尾——重开会话粘贴 GOAL-PROMPT 从 current_action 续跑(队列空,
-  蒸馏第 24 族或按路由);判读见 PRD §19 "CLASSIC-BASELINE 判读")
+updated: 2026-09-20 09:15 (轮 104:**VERLET-ORDER 结案 PASS,弹出**——
+  观测阶数探针(固定视距 T=10,dt 四档):energy drift 渐近阶 **2.021**/
+  q RMSE 阶 **1.999** 双轴确认 2 阶实现;初读两异常排查留痕:MSE 轴 4.0
+  系平方指标阶翻倍(非 bug)、最粗对预渐近混叠(排除规则入 docstring);
+  判负未触发;N1 methods 三件套齐备(阶数/影子哈密顿理论 hω 界内/固定
+  步长策略,scan §25);口径坑(平方指标阶翻倍/固定视距约定)入
+  PLAYBOOK;139 测试+audit 全绿;下一心跳消化轮(N1 素材索引)或蒸馏
+  第 26 族;判读见 PRD §19 "VERLET-ORDER 判读")
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue:
-- id: VERLET-ORDER
-    track: engineering
-    goal: 观测阶数验证探针(轮 103 蒸馏入队,scan §25.4):dt∈{0.2,0.1,0.05,0.025} 单轨弹簧扫描,energy_drift 与 rollout MSE 的 log2 收敛阶;理论背景=影子哈密顿/后向误差分析(hω≈0.18 界内,PRD §19 轮 103)
-    done_condition: benchmarks/verlet_order_probe.py 落地+判读写入 PRD §19("VERLET-ORDER 判读"锚);判负标准已预注册(p̂∉[1.8,2.2] ⇒ 排查后如实入档)
-    check_cmd: grep -q "VERLET-ORDER 判读" docs/PRD.md && test -f benchmarks/verlet_order_probe.py
+goal_queue: []
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
