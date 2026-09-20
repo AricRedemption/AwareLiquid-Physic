@@ -25,15 +25,13 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队列空→goal_check 路由(蒸馏解禁,新 query 族
-  需与 23 族零重叠)。**快照注记(轮 99 会话收尾)**:本马拉松已连续
-  6 心跳(轮 94-99:溯源审计/聚合恒等式/attn 判负/gauge 修复/经典基线),
-  会话上下文已长,按 GOAL-PROMPT 第三停止因快照收尾;重开会话粘贴
-  GOAL-PROMPT 即从此处续跑——队列空,蒸馏补池(第 24 族,AMM-015 硬
-  标准)或按路由;整改面 scan §9.1/§11.1/§19.3 三条 B 级题录随蒸馏轮
-  消化;N1 正式英文稿启动仍待用户决策(blocked_on 4)。若连续 2 蒸馏轮
-  无行动类产出 ⇒ 评估收口(S1)。每轮 PRD §19 判读+PLAYBOOK ≥1 条
-  回写+原子提交 push。
+  下一心跳(执行会话):队首 **VERLET-ORDER**(观测阶数验证探针,T1
+  秒级):按 PRD §19 轮 103 预注册执行——benchmarks/verlet_order_probe.py,
+  dt∈{0.2,0.1,0.05,0.025} 单轨弹簧扫描,energy_drift 与 rollout MSE 的
+  log2 相邻比值收敛阶;判据 p̂∈[1.8,2.2] ⇒ 2 阶确认,出界 ⇒ 排查后
+  如实入档;产物过 audit;probe_run T1 护栏。理论背景:影子哈密顿/
+  后向误差分析(hω≈0.18 界内,N1 methods 素材,scan §25)。每轮 PRD
+  §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -41,7 +39,7 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → 蒸馏补池(第 24 族)/ 用户"继续"
+next_trigger_hint: goal_check → VERLET-ORDER / 用户"继续"
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -65,7 +63,12 @@ updated: 2026-09-20 06:20 (**轮 99:CLASSIC-BASELINE 结案完成,弹出;
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: VERLET-ORDER
+    track: engineering
+    goal: 观测阶数验证探针(轮 103 蒸馏入队,scan §25.4):dt∈{0.2,0.1,0.05,0.025} 单轨弹簧扫描,energy_drift 与 rollout MSE 的 log2 收敛阶;理论背景=影子哈密顿/后向误差分析(hω≈0.18 界内,PRD §19 轮 103)
+    done_condition: benchmarks/verlet_order_probe.py 落地+判读写入 PRD §19("VERLET-ORDER 判读"锚);判负标准已预注册(p̂∉[1.8,2.2] ⇒ 排查后如实入档)
+    check_cmd: grep -q "VERLET-ORDER 判读" docs/PRD.md && test -f benchmarks/verlet_order_probe.py
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
