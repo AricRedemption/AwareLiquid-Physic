@@ -25,12 +25,14 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):队列空→goal_check 路由。**消化轮(轮 105 预置)**:
-  N1 写作素材索引——25 族蒸馏/审计/探针产出的 N1 可用资产(定位三轴表/
-  methods 三件套/机制链/诚实边界清单)汇总成 docs/n1-asset-index.md,
-  T0 零算力,供 N1 启动(用户决策,blocked_on 4)时一步取用;或按路由
-  蒸馏第 26 族(S1 计数:轮 103 重置后无新增)。若蒸馏连续 2 轮无行动
-  产出 ⇒ S1 评估。每轮 PRD §19 判读+PLAYBOOK ≥1 条回写+原子提交 push。
+  下一心跳(执行会话):**收口评估**(轮 106)——队列空,25 族蒸馏完毕,
+  行动线全终态(实验线 M1 正/M2 P3 收口/UQ L2 上限/TSFM+经典基线齐),
+  剩余工作全部依赖用户决策(N1 启动/PR#1 合入/D4 通道,blocked_on 1-4)。
+  按 GOAL-PROMPT 收口判据评估:S1 未触发(蒸馏轮计数 103 重置后无连续
+  2 轮无行动)/S2 未触发(IR=0.33)/S3 未触发(夜账 0.61→0.48 非连续)/
+  S4 手动——四条均未字面触发,但**推进规则 2 适用**:剩余工作需要人决策
+  ⇒ state: BLOCKED-HUMAN + 收尾(RSI 已入账轮 102,EXP=0.8),保留重入口
+  (用户指令/新欠账/N1 启动)。每轮 PRD §19 判读+原子提交 push。
 done_condition: >-
   欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
   路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
@@ -38,7 +40,7 @@ done_condition: >-
 blocked_on: >-
   1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
   去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → 消化轮(N1 素材索引)/ 蒸馏第 26 族 / 用户"继续"
+next_trigger_hint: goal_check → 收口评估(BLOCKED-HUMAN 候选)/ 用户"继续"/ N1 启动指令
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -47,14 +49,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-20 09:15 (轮 104:**VERLET-ORDER 结案 PASS,弹出**——
-  观测阶数探针(固定视距 T=10,dt 四档):energy drift 渐近阶 **2.021**/
-  q RMSE 阶 **1.999** 双轴确认 2 阶实现;初读两异常排查留痕:MSE 轴 4.0
-  系平方指标阶翻倍(非 bug)、最粗对预渐近混叠(排除规则入 docstring);
-  判负未触发;N1 methods 三件套齐备(阶数/影子哈密顿理论 hω 界内/固定
-  步长策略,scan §25);口径坑(平方指标阶翻倍/固定视距约定)入
-  PLAYBOOK;139 测试+audit 全绿;下一心跳消化轮(N1 素材索引)或蒸馏
-  第 26 族;判读见 PRD §19 "VERLET-ORDER 判读")
+updated: 2026-09-20 09:30 (轮 105:**消化轮,N1 素材索引落地**——
+  docs/n1-asset-index.md:25 族蒸馏+审计+探针资产按 11 节汇总(定位
+  三轴五线对照/基座/条件化/机制链含 M2 恒等式与 P3 收口/Methods
+  三件套 2.021+1.999+hω 界内/基线表四行数字锚/诚实边界 6 条/报告
+  规范/future work 7 项),N1 启动时一步取用;下一心跳收口评估
+  (推进规则 2:剩余工作全依赖用户决策 ⇒ BLOCKED-HUMAN 候选);判读
+  见 PRD §19 "轮 105 记录")
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
