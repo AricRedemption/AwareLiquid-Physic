@@ -1166,6 +1166,70 @@ UQ=纯认知不确定性(限定声明);seed 区间=训练方差口径(不可称
 P3 收口后首个蒸馏轮,产出行动类条目,S1 不触发;检索三连对照式第三槽
 n=7(命中定位素材,0 修正);第 23 族零重叠确认。蒸馏轮第 16 次达标。
 
+## 24. 经验蒸馏 19(轮 100,2026-09-20,QUEUE-EMPTY 轮):结构化状态空间模型族
+
+> 第 24 个 query 族,与前 23 族零重叠(§13 是 CfC 闭式基座轴,本族是
+> **SSM 线轴**——N1 基座答辩"为何不用 Mamba/S4"必问轴)。检索:3 族
+> 一次命中(谱系综述 / 时序直击 / "SSM vs 连续时间 RNN" 对照式);
+> 1 次补检索当轮钉死 SUBNET venue(AMM-015 带?不过夜)。标记:
+> [坐标] ×3;无 [行动](理由见 24.4 注记)。
+
+### 24.1 SSM 谱系主坐标:S4/Mamba/S5 [坐标]
+
+- 【出处】Gu, Goel & Ré,"Efficiently Modeling Long Sequences with
+  Structured State Spaces",**ICLR 2022**(arXiv:2111.00396,S4/HiPPO);
+  Gu & Dao,"Mamba: Linear-Time Sequence Modeling with Selective State
+  Spaces",**arXiv:2312.00752**(COLM 2024);Smith, Warrington &
+  Linderman,"Simplified State Space Layers for Sequence Modeling",**ICLR
+  2023**(arXiv:2208.04933,S5);谱系综述 Somvanshi,**arXiv:2503.18970**,
+  2025。
+- 【内容】结构化(HiPPO 初始化/对角化/选择性)线性状态空间的深度
+  学习谱系:长序列线性时间建模,连续时间数学基础。
+- 【对我们的映射】N1 基座答辩"为何不用 Mamba/S4"的定位坐标:同
+  "状态空间"词汇、正交任务轴——SSM 学**序列变换**(语言/音频长
+  上下文,自由线性动力学),本仓学**物理系统辨识**(参数化哈密顿+
+  守恒由构造+情境推断);且 SSM 的 HiPPO 连续时间基础与本仓 ODE
+  基座同源,可作"状态空间视角"盟友引用而非竞品。
+- 【适用条件】N1 基座小节与答辩。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 24.2 连续时间对照线:Neural CDE / Latent ODE / SUBNET [坐标]
+
+- 【出处】Kidger et al.,"Neural Controlled Differential Equations for
+  Irregular Time Series",**NeurIPS 2020**(~1200 引;"Neural CDE 之于
+  RNN 如 Neural ODE 之于 ResNet");Rubanova, Chen & Duvenaud,"Latent
+  ODEs for Irregularly-Sampled Time Series",**NeurIPS 2019**;
+  Beintema, Schoukens & Tóth,"Continuous-time identification of dynamic
+  state-space models by deep subspace encoding",**ICLR 2023**(SUBNET-CT,
+  ~38 引;原版 SUBNET L4DC/PMLR 144, 2021)。
+- 【内容】连续时间序列模型三线:CDE(连续时间 RNN 类比)/Latent ODE
+  (不规则采样推断)/结构化 SSM 辨识(SUBNET:深子空间编码器辨识
+  连续时间状态空间,实证优于黑箱 NODE)。
+- 【对我们的映射】① **SUBNET-CT 是本仓"结构化优于无结构"论点的
+  盟友实证**——连续时间系统辨识上结构化 SSM 优于黑箱 NODE,与
+  "哈密顿结构+辛滚出优于自由滚出"同向(N1 Related Work 盟友引用);
+  ② Neural CDE/Latent ODE 的卖点是不规则采样,本仓仿真数据均匀采样
+  (轮 71),该优势轴不构成对比压力,如实注记;③ 定位三轴表第四线
+  补全(结构注入/线性化在哪儿/情境通道:SSM/CDE/NODE 三线均无
+  情境推断+硬约束组合,与 §16 Koopman、§19 TSFM 同框架)。
+- 【适用条件】N1 Related Work 与基座答辩。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 24.3 边界注记(非条目) [坐标]
+
+SSM 对照基线(M1 上跑 S4D/LRU 臂)**不预登记**:依赖不在 lock、
+N1 现无此评审压力实据;若评审轮真出现该需求,按 §19.4 TSFM 先例
+届时预注册(三声明+判负标准+Probe-First),防空转欠账。本族三 [坐标]
+即完整交付;S1 观察:第 24 族无行动类产出(第 1 次),下轮蒸馏若再无
+行动产出即触发 S1 评估——如实预留,不硬造行动条目。
+
+### 蒸馏结论 19
+
+三 [坐标] 入库(S4/Mamba/S5 谱系定位/连续时间三线盟友与边界/S1 观察
+注记)。第 24 族零重叠确认;检索三连对照式第三槽 n=8(Neural CDE
+"连续时间 RNN 类比"再命中定位素材,0 修正);AMM-015 带?不过夜执行
+(SUBNET venue 当轮钉死 ICLR 2023)。蒸馏轮第 17 次达标。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
