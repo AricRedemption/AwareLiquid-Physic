@@ -253,6 +253,13 @@ gap 存在 → 新归因因子 + 预注册 pushforward 协议(云交付);gap 不
 > SCAN-AUDIT 注记(轮 94):本条主锚无作者题录(综述根链+HAL 无作者)
 > ——B 级,整改登记 scan-traceability-audit.md §7(下一蒸馏轮补经典
 > 教材题录+HAL 预印本作者)。
+>
+> SCAN-AUDIT 整改回填(轮 101):**B→A**——主锚补精确题录:① PE 经典
+> 教材定义 = Slotine & Li,"Applied Nonlinear Control",Prentice Hall,
+> 1991(PE 条件 §8.31);② 线性情形锚定 Green & Moore,"Persistence of
+> excitation in linear systems",Systems & Control Letters,1986(~212 引);
+> 原"HAL 2023"链接未能钉住作者,**弃用改锚** Green & Moore(原文
+> 保留不改写)。
 
 - 【出处】 adaptive control 系统辨识经典条件([ScienceDirect 综述](https://www.sciencedirect.com);线性情形 HAL 2023)。
 - 【内容】PE 要求输入信号足够" rich "以保证参数收敛;是参数可辨识性
@@ -378,6 +385,14 @@ D6-INFO-BUDGET(已入队尾):用现有 Fisher 工具把 E1 的 27% 差距
 > arXiv 根),无作者题录——B 级,整改登记 scan-traceability-audit.md
 > §7(下一次云回传证据轮按需逐条补 ID;该组条目语义为社区共识实践,
 > 引用前必须先补题录)。
+>
+> SCAN-AUDIT 整改回填(轮 101):**B→A(部分,1 断言降格)**——两条聚合
+> 链升级为精确锚(均为本档已有记录的交叉引用):① "高频监督缓解谱偏置"
+> = §17.3 的 Khodakarami et al. 2025(HFS,arXiv 2025-03,osti 链);
+> ② "FNO 谱偏置实践" = §17.1 的 Xu et al. 2025(ScienceDirect,62 引,
+> MscaleFNO)。③ EmergentMind"部分混叠误差不随训练数据规模消失"的
+> 原始论文**未能定位** ⇒ 该断言**降格为"未复核"(不得以强断言引用)**;
+> 条目其余主张(混叠伪振荡+缓解三策略)由两个精确锚支撑。
 
 - 【出处】FNO 实践综述([ResearchGate 2025](https://www.researchgate.net));
   不可约混叠/人工耗散报告([EmergentMind 2025](https://www.emergentmind.com));
@@ -839,6 +854,11 @@ Lyapunov 边界)齐备。蒸馏轮第 11 次达标。
 > SCAN-AUDIT 注记(轮 94):主锚 ScienceDirect 2026 系统综述无作者
 > 题录——B 级,整改登记 scan-traceability-audit.md §7(N1 introduction
 > 动笔前补作者/DOI)。
+>
+> SCAN-AUDIT 整改回填(轮 101):**B→A**——主锚钉死 = **Waqas, M. et al.,
+> "Physics-informed neural networks and variants in weather forecasting",
+> systematic review, ScienceDirect, 2026**(作者+年+题名+期刊宿主可定位;
+> DOI 卷期待引用前补注)。
 
 - 【出处】[PINN variants in weather (ScienceDirect 2026 系统综述)](https://www.sciencedirect.com);
   GraphCast/Aurora 类基础模型 vs 物理方法的竞争格局。
