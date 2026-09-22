@@ -429,6 +429,14 @@
   队列编辑与 check_cmd 编写;验证状态:已验证——真队列已改单行,弹出
   行为经真 goal_check 复核。)
 
+- **GOALS 相邻多块重构=单起止锚一次 splice**(轮 109):对 current_action
+  →next_trigger_hint 这类相邻块做两次顺序 index 替换时,第一次的替换
+  区间可能吞掉第二次的起锚——python str.index 抛 ValueError 尚属幸运
+  (die 在 write 前,文件无脏),若锚恰好仍存在则会静默 splice 到错误
+  位置。→ 相邻多块重构:定位"首块起点+末块终点"一次性切片替换;
+  替换后 grep 目检一次。(出处:轮 109;适用条件:一切脚本化 GOALS
+  重构;验证状态:已验证——首试即触发,单 splice 重跑通过。)
+
 ## 惯例(已固化的流程约束)
 
 - **算力闸门 v3.1(2026-09-19 AMM-008+010,AricRedemption 定策)**:实验动手前,

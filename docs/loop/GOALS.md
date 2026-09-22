@@ -25,19 +25,16 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  轮 108 已完成(D4-KAGGLE-QUOTA 结案:kaggle_quota_check.py+协议+测试
-  落地,check_cmd 三锚全真合法弹出;开场修复 goal_check 折叠标量假阳性
-  变体——">-" 被当 shell 重定向,护栏+回归测试+PLAYBOOK 契约)。本机无
-  Kaggle 凭证 ⇒ 读数 KAGGLE_NO_CREDS 如实入档,派发线待用户放凭证
-  (~/.kaggle/kaggle.json,材料非决策)+首个候选预注册后激活。下一心跳:
-  队列空 ⇒ N1 初稿 v1 迭代(n1-paper-draft.md 4 处 TODO 补数/口径复核)
-  或蒸馏补池,以 goal_check 裁决为准。
+  **v5.0 T1 探针环已生效(AMM-024,2026-09-22 用户裁定)**:心跳单元=
+  T1 可行动目标(预注册判负 → probe_run T1 ≤30min → 当轮判读 →
+  dir/<slug> PR 提交即终点);超 T1 方向入 AMM-024 停车场(T3-MENU:
+  N1 v1+/T2/T3 候选/Kaggle 派发线/隐藏卷,停放待用户重启)。下一心跳:
+  队列空 ⇒ 蒸馏轮收方向(只收 T1 可行动),或按 goal_check 裁决。
 blocked_on: >-
-  1) N1 终稿/投稿/venue/署名(初稿已自主启动,轮 107);2) 隐藏集
-  seed 消耗(一次性终跑);3) Kaggle API 凭证(材料供给,非决策——
-  放 ~/.kaggle/kaggle.json 后派发线才可实跑);4) PR#1 合入=用户线下
-  处理,非循环阻塞(09-22 指令);5) D-2 环境(低优先,线已判负)。
-next_trigger_hint: goal_check → 队首 D4-KAGGLE-QUOTA / 用户指令 / 初稿 v1 迭代
+  1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
+  Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
+  不阻塞 v5 循环。
+next_trigger_hint: goal_check → 队列空蒸馏收方向(T1 可行动)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -46,11 +43,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-22 22:10 (轮 108:**D4-KAGGLE-QUOTA 结案弹出**——
-  kaggle_quota_check.py(余量读数,失败码结构化,TIERS 档位唯一源)+
-  kaggle-quota-protocol.md(派发闭环+判负预注册)+5 离线测试;开场修复
-  goal_check ">-" 假阳性(护栏+回归+PLAYBOOK);AMM-023 实施完毕;
-  145 测试+audit 全绿;判读见 PRD §19 "轮 108 记录")
+
+updated: 2026-09-23 07:57 (轮 109 设计:**v5.0 T1 探针环生效(AMM-024)**——
+  用户裁定收缩到本机自给层:心跳=T1 探针→PR 提交即终点;T2/T3/Kaggle/
+  N1 v1+/隐藏卷入停车场待重启;GOAL-PROMPT v5.0 承重句 27/27 过门禁;
+  蒸馏收方向加 T1 可行动约束防卡死;路由器/仪表/收口判据不变)
 
 ```
 
