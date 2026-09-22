@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN       # RUNNING | BLOCKED-HUMAN | IDLE
+state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -25,18 +25,19 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  轮 106 收口评估**已结案**(2026-09-22 21:40 会话续完 09-20 半途事务:
-  遗留 tmp 经 diff+balance_gauge 复核后 mv 续完,非重写)。S1-S4 逐条未
-  字面触发;推进规则 2 触发(队列空/25 族蒸馏完毕/行动线全终态,剩余
-  工作全依赖用户决策)⇒ BLOCKED-HUMAN 收尾。马拉松轮 94-106 共 13 心跳
-  结案,判读见 PRD §19 "轮 106 记录"。恢复条件=下列任一重入口:用户
-  四项决策/N1 启动指令/新欠账登记/云结果回传。
+  轮 108 已完成(D4-KAGGLE-QUOTA 结案:kaggle_quota_check.py+协议+测试
+  落地,check_cmd 三锚全真合法弹出;开场修复 goal_check 折叠标量假阳性
+  变体——">-" 被当 shell 重定向,护栏+回归测试+PLAYBOOK 契约)。本机无
+  Kaggle 凭证 ⇒ 读数 KAGGLE_NO_CREDS 如实入档,派发线待用户放凭证
+  (~/.kaggle/kaggle.json,材料非决策)+首个候选预注册后激活。下一心跳:
+  队列空 ⇒ N1 初稿 v1 迭代(n1-paper-draft.md 4 处 TODO 补数/口径复核)
+  或蒸馏补池,以 goal_check 裁决为准。
 blocked_on: >-
-  1) N1 正式英文稿是否启动(素材已备:docs/n1-asset-index.md 一步取用);
-  2) origin/master 合入顺序(PR#1 CLEAN 可合);3) D4 GPU 通道去向;
-  4) _results 回传检查;5) D-2 依赖环境(chronos/timesfm,低优先——
-  该线已判负)。
-next_trigger_hint: 用户四项决策之一 / N1 启动指令 / 新欠账 / 结果回传 ⇒ 重入马拉松
+  1) N1 终稿/投稿/venue/署名(初稿已自主启动,轮 107);2) 隐藏集
+  seed 消耗(一次性终跑);3) Kaggle API 凭证(材料供给,非决策——
+  放 ~/.kaggle/kaggle.json 后派发线才可实跑);4) PR#1 合入=用户线下
+  处理,非循环阻塞(09-22 指令);5) D-2 环境(低优先,线已判负)。
+next_trigger_hint: goal_check → 队首 D4-KAGGLE-QUOTA / 用户指令 / 初稿 v1 迭代
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -45,11 +46,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-22 21:40 (轮 106:**收口评估结案,BLOCKED-HUMAN**——
-  上会话半途 tmp 经 diff 单差异块+balance_gauge 逐项复核后 mv 续完;
-  PRD §19 轮 106 记录入档(S1-S4 未触发/推进规则 2 收口/收尾清单五项/
-  马拉松累计 13 心跳);verlet_order_probe 补登 TOOLS;半途 tmp 恢复
-  协议+收尾段不立夜账两条入 PLAYBOOK;139 测试+audit 全绿后原子提交)
+updated: 2026-09-22 22:10 (轮 108:**D4-KAGGLE-QUOTA 结案弹出**——
+  kaggle_quota_check.py(余量读数,失败码结构化,TIERS 档位唯一源)+
+  kaggle-quota-protocol.md(派发闭环+判负预注册)+5 离线测试;开场修复
+  goal_check ">-" 假阳性(护栏+回归+PLAYBOOK);AMM-023 实施完毕;
+  145 测试+audit 全绿;判读见 PRD §19 "轮 108 记录")
+
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)

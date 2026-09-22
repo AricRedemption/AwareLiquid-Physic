@@ -24,6 +24,15 @@ QUEUE_ONE = """goal_queue:
     check_cmd: "false"
 """
 
+QUEUE_FOLDED = """goal_queue:
+- id: Y
+    track: engineering
+    goal: 折叠标量目标
+    done_condition: 永不达成
+    check_cmd: >-
+      test -f nowhere.txt
+"""
+
 QUEUE_EMPTY = "goal_queue: []"
 
 
@@ -90,6 +99,19 @@ def test_not_achieved_routes_normally_after_debt_cleared(tmp_path):
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ONE)
     r = run(tmp_path)
     assert r.returncode == 1 and "NOT-Achieved" in r.stdout
+
+
+def test_folded_scalar_check_cmd_never_executed(tmp_path):
+    """轮 108 回归:check_cmd 用 YAML 折叠标量 `>-` 时,单行解析器把 ">-"
+    截成命令本体,shell 将 ">-" 解释为重定向——静默创建名为 "-" 的空文件
+    且 exit 0 ⇒ 假 ACHIEVED 误弹(轮 62 空命令防护的变体)。必须拒绝执行
+    并按未达成路由,且不得留下 "-" 文件。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_FOLDED)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "NOT-Achieved" in r.stdout
+    assert not (tmp_path / "-").exists()
+    # 队列不得被误弹
+    assert "goal_queue:" in (tmp_path / "docs" / "loop" / "GOALS.md").read_text()
 
 
 def test_gauge_real_repo_matches_ledger_state():
