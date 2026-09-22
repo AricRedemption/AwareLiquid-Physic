@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
+state: BLOCKED-HUMAN       # RUNNING | BLOCKED-HUMAN | IDLE
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -25,22 +25,18 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  下一心跳(执行会话):**收口评估**(轮 106)——队列空,25 族蒸馏完毕,
-  行动线全终态(实验线 M1 正/M2 P3 收口/UQ L2 上限/TSFM+经典基线齐),
-  剩余工作全部依赖用户决策(N1 启动/PR#1 合入/D4 通道,blocked_on 1-4)。
-  按 GOAL-PROMPT 收口判据评估:S1 未触发(蒸馏轮计数 103 重置后无连续
-  2 轮无行动)/S2 未触发(IR=0.33)/S3 未触发(夜账 0.61→0.48 非连续)/
-  S4 手动——四条均未字面触发,但**推进规则 2 适用**:剩余工作需要人决策
-  ⇒ state: BLOCKED-HUMAN + 收尾(RSI 已入账轮 102,EXP=0.8),保留重入口
-  (用户指令/新欠账/N1 启动)。每轮 PRD §19 判读+原子提交 push。
-done_condition: >-
-  欠账优先:D_count=0 前心跳只清欠/验收,不扩池;恢复队列后每轮 goal_check
-  路由;收口按 AMM-007 判据 S1-S4 任一满足即 state: IDLE(写收尾+RSI 入账,
-  保留重入口:结果回传/用户指令/新欠账)。
+  轮 106 收口评估**已结案**(2026-09-22 21:40 会话续完 09-20 半途事务:
+  遗留 tmp 经 diff+balance_gauge 复核后 mv 续完,非重写)。S1-S4 逐条未
+  字面触发;推进规则 2 触发(队列空/25 族蒸馏完毕/行动线全终态,剩余
+  工作全依赖用户决策)⇒ BLOCKED-HUMAN 收尾。马拉松轮 94-106 共 13 心跳
+  结案,判读见 PRD §19 "轮 106 记录"。恢复条件=下列任一重入口:用户
+  四项决策/N1 启动指令/新欠账登记/云结果回传。
 blocked_on: >-
-  1) D-2 依赖环境(chronos/timesfm 安装+权重下载,执行会话处置);2) D4 GPU
-  去向;3) origin/master 合入顺序(PR#1 CLEAN 可合);4) N1 正式英文稿是否启动。
-next_trigger_hint: goal_check → 收口评估(BLOCKED-HUMAN 候选)/ 用户"继续"/ N1 启动指令
+  1) N1 正式英文稿是否启动(素材已备:docs/n1-asset-index.md 一步取用);
+  2) origin/master 合入顺序(PR#1 CLEAN 可合);3) D4 GPU 通道去向;
+  4) _results 回传检查;5) D-2 依赖环境(chronos/timesfm,低优先——
+  该线已判负)。
+next_trigger_hint: 用户四项决策之一 / N1 启动指令 / 新欠账 / 结果回传 ⇒ 重入马拉松
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -49,13 +45,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/tsfm-baseline-protocol.md(轮 82);docs/uq-audit.md(轮 84);
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
-updated: 2026-09-20 09:30 (轮 105:**消化轮,N1 素材索引落地**——
-  docs/n1-asset-index.md:25 族蒸馏+审计+探针资产按 11 节汇总(定位
-  三轴五线对照/基座/条件化/机制链含 M2 恒等式与 P3 收口/Methods
-  三件套 2.021+1.999+hω 界内/基线表四行数字锚/诚实边界 6 条/报告
-  规范/future work 7 项),N1 启动时一步取用;下一心跳收口评估
-  (推进规则 2:剩余工作全依赖用户决策 ⇒ BLOCKED-HUMAN 候选);判读
-  见 PRD §19 "轮 105 记录")
+updated: 2026-09-22 21:40 (轮 106:**收口评估结案,BLOCKED-HUMAN**——
+  上会话半途 tmp 经 diff 单差异块+balance_gauge 逐项复核后 mv 续完;
+  PRD §19 轮 106 记录入档(S1-S4 未触发/推进规则 2 收口/收尾清单五项/
+  马拉松累计 13 心跳);verlet_order_probe 补登 TOOLS;半途 tmp 恢复
+  协议+收尾段不立夜账两条入 PLAYBOOK;139 测试+audit 全绿后原子提交)
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)

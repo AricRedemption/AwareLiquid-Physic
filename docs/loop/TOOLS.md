@@ -23,6 +23,7 @@
 | `oracle_ctx_matrix` / `OracleOperatorWrapper` / `field_context_probe` / `mlp_context_probe` | D2-CAPACITY 工具组:真 c(x) 8 系数投影、前缀指纹查表注入、线性/非线性可读出探针 | `benchmarks/field_eval.py`;测试 `tests/test_oracle_ctx.py` |
 | `grad_path_probe.py` | **GRAD-PATH 梯度路径探针**(轮 93,零训练):k=8/32/128 展开图内存(saved_tensors_hooks pack 口径)/节点数/逐组梯度范数标度+eval 对照(params_with_grad 语义锚),判负阈值钉在代码内(MEM_SLOPE_OK/GNORM_RATIO_BOUNDS),M1/M2 两头,seed 0 逐位复现 | `probe_run T1 5 -- .venv/bin/python benchmarks/grad_path_probe.py --heads m1,m2 --ks 8 32 128 --out_dir grad_path_probe`;测试 `tests/test_grad_path_probe.py` |
 | `classic_baseline_eval.py` | **经典系统辨识基线两臂**(轮 99,CLASSIC-BASELINE):LSQ-ω̂(中心差分+过原点线性 LS)与自实现 STLSQ(多项式库,零依赖)on M1 同池 768 轨,解析 (A,B) 边界态+Verlet k100 滚出;无噪线性域近 oracle 级(2.7e-6),三声明协议 docs/classic-baseline-protocol.md | `probe_run T1 5 -- .venv/bin/python benchmarks/classic_baseline_eval.py`(秒级);测试 `tests/test_classic_baseline.py` |
+| `verlet_order_probe.py` | **Verlet 观测阶数探针**(轮 104,VERLET-ORDER;09-22 收尾补登记——入库时漏登 TOOLS):固定视距 T=10、dt 四档,energy drift 与 q RMSE 双轴 log2 收敛阶,判负带 p̂∈[1.8,2.2] 预注册在代码内;口径:点均精度以 RMSE 轴为准(MSE 平方量观测阶翻倍,raw MSE 留参照),最粗对预渐近混叠排除规则入 docstring;结果 2.021/1.999 双轴确认 2 阶(N1 methods 素材) | `probe_run T1 5 -- .venv/bin/python benchmarks/verlet_order_probe.py`(零训练,秒级);测试 `tests/test_verlet_order_probe.py` |
 | `audit_results.py` | 结果 JSON 溯源 schema 审计(--check 为提交门) | `--check [目录]` |
 | `m1_semigroup_eval.py` | 半群 vs prefix 主对照(gen_spring 出处) | — |
 | `energy_drift_eval.py` | P0-3 守恒漂移对照 | — |
