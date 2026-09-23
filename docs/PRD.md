@@ -829,6 +829,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
   - **判定**:M1 五行同表成立(补口径列后);oracle 移出归 M2;判负=同表口径混杂,已按预注册三声明协议精神当轮修复,不改任何研究判定行(纯呈现层修订,AMM-022 授权的 v0 迭代修订)。
 - **台账**:147 测试+audit 49 项全绿显式退出码(本轮零代码,门禁复跑确认);N1 v0 剩余 TODO 2 处均为停车场/人决项(title/venue、998 清单);PLAYBOOK +1 坑(数字搬运上下文丢失:基线行必带任务列);队列空,下一心跳按 goal_check 路由(蒸馏收 T1 方向或消化),RSI 夜账不单列(收尾段口径)。
 
+**轮 112 记录（蒸馏补池:第 26 族缩放律/样本效率族 + M1-CAP-AXIS 预注册占位;零算力检索轮）**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮;选族先 grep 档案既有 25 族清单(轮 61 惯例),定**缩放律/样本效率族**(文献的 Kaplan 谱系/算子学习缩放/结构×缩放交叉,与前 25 族零重叠;样本效率本仓只有自家协议轴)。
+- **蒸馏(3 检索三槽一次命中,题录当场核验 AMM-015)**:3 [坐标] + 1 [行动] 入库 scan §26——① Li, Kudugunta & Zettlemoyer "(Mis)Fitting: A Survey of Scaling Laws" arXiv:2502.18969(方法论+误拟合陷阱);② ★Ngo & Ravanbakhsh "Scaling Laws and Symmetry, Evidence from Neural Force Fields" arXiv:2510.09768 **ICLR 2026**——**对称结构改变缩放律形状而非平移常数**,N1"结构必要论"第二盟友(与 §19 Brachet 并列),并为容量轴探针供机制动机;③ Velasquez et al. "Neurosymbolic AI as an antithesis to scaling laws" PNAS Nexus 4(5):pgaf117 2025——structure vs scale 叙事期刊级引用;附带弱坐标 1 条带 ? 登记 SCAN-AUDIT(multi-fidelity scaling laws,作者未核)。
+- **M1-CAP-AXIS 入队([行动],T1 可行动约束过关)**:d_model∈{24,48,96}×n32 同池同预算双臂,判读=liquid edge 随容量走向——不收窄 ⇒ 结构效应(E3 容量否定的 M1 侧对照,"结构效应跨任务");收窄 ⇒ 机制降档如实入档。双锚单行 check_cmd(grep 判读锚+产物文件);**预注册判负标准执行前写入 PRD §19**(下心跳迭代时),冒烟校准时长后 probe_run T1。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 19 次达标(≥1 条入库+1 新目标)。
+- **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列 M1-CAP-AXIS(frontier)待迭代;下一心跳=goal_check 路由迭代。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。

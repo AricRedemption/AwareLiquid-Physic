@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 队列空蒸馏收方向(只收 T1 可行动)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → M1-CAP-AXIS 迭代(T1 探针:预注册→probe_run→当轮判读→PR)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,18 +44,23 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 09:20 (轮 111 消化轮:**BASELINE-SCOPE 判负修复**——
-  摘要 oracle 0.0148 系 M2 场任务误标 spring(TODO#53 抓实锤,根因=轮 105
-  索引漏任务列逐层丢失);基线表重建(M1 五行同表成立,q-only/q+p 口径列
-  +uncertainty 列补齐,oracle 行移出归 M2),两处 TODO 销账,剩余 TODO
-  均停车场/人决项;147 测试+audit 绿;下一心跳=蒸馏收 T1 方向或路由)
+updated: 2026-09-23 09:35 (轮 112 蒸馏轮:第 26 族缩放律/样本效率族入库
+  scan §26——Ngo&Ravanbakhsh ICLR 2026 对称性改变缩放律形状[强坐标]/
+  Velasquez PNAS Nexus 2025 神经符号对立面/Li et al. 综述,题录全核验;
+  [行动] M1-CAP-AXIS 入队(E3 容量否定的 M1 侧对照,T1 可行动,双锚
+  单行契约);S1 重置;147 测试+audit 绿;下一心跳=迭代 M1-CAP-AXIS)
 
 ```
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: M1-CAP-AXIS
+  track: frontier
+  goal: M1容量轴探针——d_model∈{24,48,96}×n32同池同预算(2000步,seed0,prefix/all2all双臂), E3容量否定的M1侧对照, 判读=liquid edge随容量走向
+  done_condition: PRD §19有"M1-CAP-AXIS 判读"锚且benchmarks/physics_out_v02/m1_cap_axis/m1_cap_axis.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "M1-CAP-AXIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/m1_cap_axis/m1_cap_axis.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
