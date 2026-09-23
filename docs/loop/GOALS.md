@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 四条 pr-pending(PR#1/#2/#3/#4)待合并全跳过 ⇒ 仪表路由(EXP=0.2 蒸馏解冻:第 29 族收方向/台账消化按裁决)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → SIGN-FLIP-PROBE 为队首 actionable(其余四条 pr-pending 跳过)⇒ 迭代 SIGN-FLIP-PROBE(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,13 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 07:30 (**轮 124:蒸馏第 29 族 SBI/NPE 入库**——
-  scan §29 五 [坐标](Cranmer PNAS 2020 综述/Talts 2018 SBC/Hermans
-  Trust Crisis=摊销后验过度自信通病/D-1 判负获社区标准诊断命名/
-  Falkiewicz NeurIPS 2023 coverage 正则=停车场参照);S1 不重置累计
-  1/2(无 [行动],D-1 闭线不动),下个蒸馏轮必须产出 [行动] 否则评估
-  收口;对照槽惯例 n=10。下一心跳=goal_check 裁决(队列空,蒸馏须带
-  [行动]))
+updated: 2026-09-24 08:00 (**轮 125:蒸馏第 30 族训练随机性/损失景观族,
+SIGN-FLIP-PROBE 入队**——选族启发式 n=3 含机制核对拦截(尖锐前沿族
+撞 §17.1 当场弃);轮 113 符号反转异常获机制框架(Lubana ICML 2023
+sign-symmetry 盆地);S1 重置([行动]);蒸馏第 23 次达标。下一心跳=
+goal_check 路由迭代 SIGN-FLIP-PROBE(预注册先行→冒烟→probe_run→判读))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -80,6 +78,11 @@ goal_queue:
   done_condition: PRD §19有"R1D-MODE-SCAN 判读"锚且benchmarks/physics_out_v02/r1d_mode_scan/r1d_mode_scan.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "R1D-MODE-SCAN 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/r1d_mode_scan/r1d_mode_scan.json
   status: pr-pending(PR#4, 判读NEGATIVE=判负分支已执行, 合并后check过自动弹出)
+- id: SIGN-FLIP-PROBE
+  track: engineering
+  goal: 半群符号反转异常定位——轮113记录开放问题(符号反转1/3全容量点恒定)的机制探针: 跨seed扫描追踪符号统计与稳定性(3-seed T1诊断级, 多seed终局维持停车场), 与sign-symmetry盆地机制对账(scan§30.3: tanh奇激活符号对称盆地=机制性不同解)
+  done_condition: PRD §19有"SIGN-FLIP-PROBE 判读"锚且benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "SIGN-FLIP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

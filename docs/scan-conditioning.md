@@ -1630,6 +1630,69 @@ Neural Surrogates"(arXiv,2025-11,多保真数据轴,作者待核)。
 (自家钩子=ctx 推断摊销后验+D-1 过自信判负 → SBI/NPE 族),零重叠
 grep 确认;题录当场核验,1 处弱坐标带 ? 登记 SCAN-AUDIT。
 
+## 30. 经验蒸馏 25(轮 125,2026-09-24,QUEUE-EMPTY 轮):训练随机性/损失景观族
+
+> 新 query 族(与前 29 族零重叠:§20.2 引 Wilson & Izmailov 是 UQ/集成
+> 理论语境的模式多样性,本族是**优化景观与训练随机性的方法论轴**
+> ——模式连接机制/符号-置换对称/种子敏感度测量;§17.1 Rahaman 是
+> 函数拟合频率原理,均不同轴)。选族过程留痕:尖锐前沿族首候选因
+> 机制引用核心(Rahaman)撞 §17.1 当场放弃(轮 114 启发式的机制核对
+> 扩展,n=3)。标记:[坐标]×3 + [行动]×1。三槽:① 景观综述/模式
+> 连接 ② 种子敏感度机制 ③ 对照式(对称性盆地 vs 模式连接)。
+> 题录当场核验(AMM-015)。
+
+### 30.1 模式连接:不同种子的解由低损失路径相连 [坐标]
+
+- 【出处】[Garipov, Izmailov, Podoprikhin, Vetrov & Wilson, "Loss
+  Surfaces, Mode Connectivity, and Fast Ensembling of DNNs", NeurIPS
+  2018;平行:Draxler et al., AISTATS 2018](https://arxiv.org/abs/1802.10026)
+- 【内容】独立训练(不同种子)的解通常由训练误差不升的简单曲线连接
+  (mode connectivity);快照集成由此可行。
+- 【对我们的映射】本仓 3-seed 协议=迷你 DE(§20.2)的解-多样性面
+  获得景观机制:各 seed 的解若模式连接,则集成多样性=盆地内位置差;
+  若不连接(见 30.3 的符号对称盆地),多样性=机制不同的解——这给出
+  "seed 间数字分歧是两种性质"的可检验区分。
+- 【适用条件】一切多种子数字分歧的解读与 N1 实验章表述。
+- 【验证状态】题录当场核验;社区已验证;对本仓为方法论定位引用。
+
+### 30.2 种子敏感度:种子对结论的实质影响 [坐标]
+
+- 【出处】[Schader et al., "Don't let your analysis go to seed: on the
+  impact of random seeds", 2024(PMC 收录)](https://pmc.ncbi.nlm.nih.gov)
+- 【内容】随机种子对 ML 结论(含因果效应估计)有实质影响,种子敏感性
+  应作为结果表述的一部分报告。
+- 【对我们的映射】本仓"1-seed 筛查→3-seed 终局"分级纪律的文献面:
+  筛查级结论必须带 seed 口径限定词(现行惯例)的做法与该文献的规范
+  一致;.seed 敏感异常(轮 113 符号反转)按 30.3 机制对账。
+- 【适用条件】一切筛查级数字的表述与 PLAYBOOK 口径条款互证。
+- 【验证状态】题录当场核验(标题+年份+PMC 收录);社区已验证。
+
+### 30.3 ★符号对称盆地:机制性不同的解 [坐标]
+
+- 【出处】[Lubana, Dick, Tanaka, "Mechanistic Mode Connectivity",
+  ICML 2023,arXiv:2211.08422,~93 引](https://arxiv.org/abs/2211.08422);
+  参照:Ainsworth, Hayase & Srinivasa "Git Re-Basin"(ICML 2023);
+  Entezari, Sedghi & Saukh 置换不变性立场文(arXiv 2022)
+- 【内容】置换对称使解精确等价可连;**符号对称**(奇激活如 tanh 的
+  入/出权同翻)诱导**机制上不同**的盆地——不同 seed 落入何盆地由
+  架构与训练制度决定;置换对齐后大部分解同一盆地(Git Re-Basin)。
+- 【对我们的映射】**轮 113 记录的开放异常(半群符号反转 1/3 全容量
+  点恒定)获得机制框架**:tanh 能量网的符号对称盆地=种子落入符号
+  翻转的机制性不同解,"全容量点恒定"=盆地归属随容量稳定。异常
+  从"复现性疑虑"升级为"符号对称盆地的实例化",可被探针证伪/证实
+  (见 [行动])。
+- 【适用条件】SIGN-FLIP-PROBE 机制对账;一切 seed 间定性分歧解读。
+- 【验证状态】题录当场核验(arXiv ID+PMLR v202+引用数约数);
+  社区已验证。
+
+### 蒸馏结论 25
+
+3 [坐标](30.3 ★)+ 1 [行动](SIGN-FLIP-PROBE 入队,engineering)。
+第 30 族;**S1 重置(有 [行动] 产出);蒸馏轮第 23 次达标**。选族
+启发式 n=3(机制引用核心先 grep 既有族,尖锐前沿族撞 §17.1 当场
+放弃);弱坐标:arXiv 2026-01 "Training instability follows
+low-dimensional dynamics" 作者未核,带 ? 登记 SCAN-AUDIT。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

@@ -893,6 +893,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮无 [行动] 产出(SBI 族为定位/诊断命名坐标,不收 T1 行动——D-1 线已闭,SBC 探针有幽灵方向之嫌,轮 121 教训条款不动闭线)⇒ 累计 1/2,**下个蒸馏轮必须产出 [行动],否则评估收口**;蒸馏轮第 22 次达标(≥1 条入库)。
 - **台账**:零算力轮;PLAYBOOK 对照槽惯例 n 升级(n=10,轮 124 三槽一次命中);scan §29+蒸馏结论 24;157 测试+audit 全绿显式退出码(零代码轮);队列四条 pr-pending 不变;下一心跳=goal_check 裁决。
 
+**轮 125 记录(蒸馏补池:第 30 族训练随机性/损失景观族 + SIGN-FLIP-PROBE 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮(S1 1/2,本轮必须产出 [行动] 否则评估收口);选族按轮 114 启发式+第三步机制核对(轮 125 新增,见 PLAYBOOK):首候选"尖锐前沿/非平滑族"因机制引用核心 Rahaman 撞 §17.1 **当场放弃**;换自家最硬钩子=**轮 113 记录的开放异常(半群符号反转 1/3 全容量点恒定)**→ 文献族 **训练随机性/损失景观族**(与 §20.2 分界:UQ 集成理论轴 vs 优化景观方法论轴,家族头显式声明)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:3 [坐标]+1 [行动] 入库 scan §30——① Garipov, Izmailov, Podoprikhin, Vetrov & Wilson "Loss Surfaces, Mode Connectivity, and Fast Ensembling of DNNs"(NeurIPS 2018,平行 Draxler AISTATS 2018):模式连接=seed 间数字分歧的两种性质区分(盆地内位置差 vs 机制不同解)可检验化;② Schader et al. "Don't let your analysis go to seed"(2024,PMC):种子敏感度应入结果表述=本仓"1-seed 筛查带口径限定词"惯例的文献互证;③★Lubana, Dick & Tanaka "Mechanistic Mode Connectivity"(ICML 2023,arXiv:2211.08422,~93 引;参照 Git Re-Basin ICML 2023+Entezari 置换立场文):**符号对称(奇激活 tanh 入/出权同翻)诱导机制性不同的盆地**——轮 113 符号反转异常获得机制框架("1/3 全容量点恒定"=符号翻转盆地归属随容量稳定),异常从复现性疑虑升级为可证伪的机制实例化。
+- **SIGN-FLIP-PROBE 入队([行动],engineering,T1 可行动)**:跨 seed 扫描追踪符号统计与稳定性(3-seed T1 诊断级——诊断性扫描非终局裁决,多 seed 终局维持停车场),与 sign-symmetry 盆地机制对账(预言:符号翻转 seed 落符号对称盆地,翻转在固定 seed 跨容量/预算稳定);双锚单行 check_cmd;判负标准下心跳执行前预注册。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 23 次达标。
+- **台账**:零算力轮;scan §30+蒸馏结论 25;PLAYBOOK 选族启发式 n=3(第三步机制核对新增:机制引用核心 grep 既有族,撞车即弃);弱坐标(arXiv 2026-01 训练不稳定性低维动力学,作者未核)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列五条(四 pr-pending+SIGN-FLIP-PROBE actionable);下一心跳=goal_check 路由迭代 SIGN-FLIP-PROBE。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。
