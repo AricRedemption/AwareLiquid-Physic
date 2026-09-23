@@ -245,7 +245,12 @@ interface-reachable upper bound, not a reachable gain.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
-   injection is a revocable bet list, not dogma.
+   injection is a revocable bet list, not dogma. The nonseparable hatch
+   is locally validated [B, 1-seed screening]: on the magnetic family
+   (equal budget, same pool) the separable head saturates at its analytic
+   bias floor while the nonseparable head reaches 2.4e-06 rollout MSE — a
+   60669x gap with both arms' architectural conservation intact (PRD §19
+   round 110); multi-seed finals remain parked.
 6. **Closed-form base layer not disentangled** (CfC approximation vs
    full LTC dynamics); **chaotic domain not verified** (conservation
    claims restricted to the integrable regime; Lyapunov-boundary
@@ -281,4 +286,5 @@ retained. [v0-TODO: 终稿前如需 [C] 级声明,预注册 998 一次性终跑�
 *Draft provenance: round 107, T0, assets from docs/n1-asset-index.md
 (25-family distillation, traceability 100% A-grade entry-level); all
 pointers resolve into docs/scan-conditioning.md, docs/PRD.md §19, and the
-protocol documents listed per row.*
+protocol documents listed per row. Updated round 110: escape-hatch
+nonseparable validation added to Limitations 5 (T1 probe, PRD §19).*

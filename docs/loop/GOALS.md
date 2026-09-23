@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 队列空蒸馏收方向(T1 可行动)/ 用户指令 / 停车场重启
+next_trigger_hint: 消化轮(T0:N1 v0 口径 TODO#53/#201 基线同表复核)→ 之后 goal_check 路由 / 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,10 +44,10 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 07:57 (轮 109 设计:**v5.0 T1 探针环生效(AMM-024)**——
-  用户裁定收缩到本机自给层:心跳=T1 探针→PR 提交即终点;T2/T3/Kaggle/
-  N1 v1+/隐藏卷入停车场待重启;GOAL-PROMPT v5.0 承重句 27/27 过门禁;
-  蒸馏收方向加 T1 可行动约束防卡死;路由器/仪表/收口判据不变)
+updated: 2026-09-23 09:05 (轮 110 证据轮:**ESC-DOOR-VAB PASS**——逃生门#3
+  (可分→Nonseparable 头)磁族同池同预算 A/B,比值 60669×(1.449e-01 vs
+  2.388e-06),双臂辛性俱在,判负①-④全未触发,[C]→[B] 升级;选向过
+  停车场对账(噪声注入线在停不动);147 测试+audit 绿;下一心跳=消化轮)
 
 ```
 
