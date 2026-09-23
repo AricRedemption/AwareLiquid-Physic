@@ -843,6 +843,18 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 20 次达标。
 - **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列 M1-CAP-AXIS(PR#1 待合并,跳过)+OMEGA-EXTRAP 待迭代;PLAYBOOK +1 选族启发式;下一心跳=迭代 OMEGA-EXTRAP。
 
+**轮 115 记录（OMEGA-EXTRAP 迭代:T1 ω 带外外推探针,dir/omega-extrap 分支;T1 算力轮）**:
+- **路由**:goal_check 对队首 M1-CAP-AXIS 报 NOT-Achieved(PR#1 未合并)⇒ 按在途 PR 注记跳过 ⇒ 迭代队列次位 OMEGA-EXTRAP;AMM-024 流程=dir/<slug> 分支,PR 提交即终点。
+- **OMEGA-EXTRAP 预注册(先于执行钉死)**:
+  - **动机**:N1 Limitations 第 1 条 scope 声明"noise-free + 插值域",带外行为未量化;scan §27.1 记载参数域分布移位是领域公认失效轴、§27.2 给出"分布接近度-泛化"定量范式、§27.3 给出判负后处方路由。本探针把 scope 声明升级为**量化的带外退化曲线** [B]。
+  - **协议**:训练池 ω∈[0.7,1.8](house 带,n_train 256,gen_steps 160,dt 0.1,t_obs 24,seed 0)双臂**等预算**:liquid(LiquidHamiltonianModel d48/ctx8)与 static(HamiltonianHead 无 ctx,StaticHamWrapper 模式),train_semigroup 2000 步,lr 3e-3,batch 64;评估池三条(各 128 轨,独立生成种子):带内 [0.7,1.8] anchor / 带外低带 [0.3,0.6] / 带外高带 [1.9,2.2];每带 k100 rollout MSE(q+p 口径)+ ctx→ω 线性解码(闭式最小二乘,带内池拟合,逐带解码 rel err 与 corr)。主量:D(arm, band)=MSE_band / MSE_inband(退化比)。
+  - **判负标准(相对判据,轮 74 对照臂归因条款——house 无带外先例,不设绝对魔数)**:①管线失败:任一 loss 非有限,或带内 liquid MSE > 5× 带内 static(house 预期 liquid≤static,5× 反转=训练失败级)⇒ 排查重跑;②结构放大 OOD 风险:D(liquid) ≥ D(static)×2 于**两条带外带同时成立** ⇒ "ctx+结构带外更脆"如实入档;③近带即崩:D(liquid, 低带或高带) ≥ 100 ⇒ 强限制 scope+处方路由 §27.3。通过/其余=量化退化曲线入档;若 D(liquid) < D(static) 于两带且 ctx 带外 corr ≥ 0.8 ⇒ "结构缓解带外退化"弱判定。预期(预注册非预言):退化随带距增长,liquid 带外不劣于 static(§27.3 结构约束的外推辩护候选)。
+  - **时长实测校准(AMM-008)**:双臂 2×2000 步(~18ms/步)+6 次 k100 评估 ⇒ **预计 ≤10min,T1**(步时取轮 113 冒烟同族实测)。
+  - **命令/产物**:`./scripts/probe_run T1 10 -- .venv/bin/python benchmarks/omega_extrap_probe.py`;产物 benchmarks/physics_out_v02/omega_extrap/(results 键包裹,exec_tier 透传);判读锚="OMEGA-EXTRAP 判读"。
+  - **结论分级**:T1 筛查(seed 0 单 seed),只解锁 N1 scope/机制链表述;终局声明须多 seed(停车场)。
+- **判读(OMEGA-EXTRAP 判读)**:**PASS,三项判负全未触发(实跑 ~3.5min,est 10min 内)**。主结果(k100 MSE,q+p):liquid 带内 7.669e-01/低带 7.529/高带 2.654,static 带内 2.330/低带 9.756/高带 5.897——**带外绝对序保持:liquid 在全部三带占优**(带内 3.0× 优势收窄到低带 1.3×/高带 2.2×);相对退化 D:liquid 9.8/3.5 vs static 4.2/2.5(liquid 相对退化更快=可失去的更多,判负②按"两带同时 ≥2×"未触发)。**ctx→ω 线性解码:带外 corr≈0(低带 −0.012/高带 0.014)**,线性通道不向带外迁移——但绝对 MSE 有界且序保持 ⇒ **"结构保持、推断退化"分离**,与 scan §27.3 预注册预期一致(守恒结构带外仍在,退化的是 ctx 推断);strict 缓解判据(structure_mitigates)未达(corr ≥0.8 条款失败)。判读 caveat 两点如实注记:①跨带 corr 可比性受限(带真值方差不同:带内 ω 宽 1.1 vs 带外 0.3),corr 读数只作方向性证据;②带内线性解码 corr 本身仅 0.385(与 E1/D6 推断瓶颈线一致),ctx 通道即使带内也弱。N1 scope 升级:插值域声明获得量化退化曲线 [B](1-seed 筛查口径,多 seed=停车场)。
+- **台账**:149 测试(147+2)+audit 51 项全绿显式退出码;产物 benchmarks/physics_out_v02/omega_extrap/(gitignored,数字已抄本判读行);TOOLS +omega_extrap_probe;PLAYBOOK +1 坑(近常数预测的 Pearson corr 数值无意义+跨带 corr 可比性 caveat);PR 提交即本轮终点(AMM-024);队列 OMEGA-EXTRAP 待合并后由 goal_check 弹出。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。
