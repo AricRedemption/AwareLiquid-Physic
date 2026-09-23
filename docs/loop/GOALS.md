@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 队首双 PR(PR#1/#2)待合并则跳过 ⇒ 迭代 NBODY-POOL-AUDIT(dir/<slug>:预注册→probe_run→当轮判读→PR)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 三条 pr-pending(PR#1/#2/#3)待合并全跳过 ⇒ 仪表路由(EXP=0.2 已清线:蒸馏/消化按裁决)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,12 +44,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 05:00 (**轮 119:GOAL-PROMPT v6.0+RSI v2 生效(用户授权
-  Agent 自裁治理)**——RSI v2 era 锚定:复合指数 era 内比较(Era B K̂=K/2),
-  S3-v2=连续 2 完整会话段 K=0 且 T+=0 真停滞才 IDLE(Era B 绝对值 0.3-0.5
-  属设计常态),T 不变;夜 7/8/9 重算 0.48/0.50/0.50 无停滞;rsi_night 机械化
-  夜账草稿器落地;v6.0 承重句门禁 27/27 过;队列三条 pr-pending 状态驱动
-  跳过。下一心跳=goal_check 裁决(EXP=0.1 ⇒ 证据轮 T1 探针))
+updated: 2026-09-24 05:50 (**轮 120:证据轮 ESC-DOOR-TEVEN PASS,逃生门#2
+  [C]→[B]**——goal_check MINING-FROZEN(EXP=0.1)⇒ 证据轮,选向复用两道
+  对账惯例(首次复用即验证 n=2);T 偶参数化 A/B:回程闭合比 9.7e8×(B 臂
+  机器地板与拟合质量无关)+单频控制臂前向无代价反获 12.8× 增益,五项判负
+  全未触发;如实注记带池×自主头族偏置+控制臂补强;新坑入 PLAYBOOK(异频
+  族池×自主头=偏置地板,轴-偏置正交性先对表);仪表 EXP=0.2 报警清空。
+  下一心跳=goal_check 裁决(三 PR 全跳过 ⇒ 仪表路由))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 

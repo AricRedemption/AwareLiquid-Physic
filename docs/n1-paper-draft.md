@@ -256,8 +256,16 @@ interface-reachable upper bound, not a reachable gain.
 3. **M2 closed.** Field-reconstruction headroom is closed with an
    all-negative evidence chain; we do not promise it back.
 4. **Conservation ≠ time-reversal.** T-symmetry is an independent
-   property (T-non-even finding); the R1b relaxation path exists and was
-   never needed.
+   property (T-non-even finding); the R1b relaxation path exists as a
+   conditional registration. The T-even hatch is locally validated
+   [B, 1-seed screening; PRD §19 round 120]: on the spring family (equal
+   budget, same pool) the free-T head's flip-and-retrace closure degrades
+   with horizon (5.6e-3 at k=200, q+p口径) while the T-even-parameterized
+   head stays at the float floor (5.8e-12) REGARDLESS of fit quality — a
+   9.7e8x gap; a single-frequency control puts both arms in the fit
+   regime and shows the even constraint costs nothing in-distribution
+   (B/A forward 0.078, i.e. a 12.8x gain). Multi-seed finals remain
+   parked.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -303,4 +311,6 @@ retained. [v0-TODO: 终稿前如需 [C] 级声明,预注册 998 一次性终跑�
 (25-family distillation, traceability 100% A-grade entry-level); all
 pointers resolve into docs/scan-conditioning.md, docs/PRD.md §19, and the
 protocol documents listed per row. Updated round 110: escape-hatch
-nonseparable validation added to Limitations 5 (T1 probe, PRD §19).*
+nonseparable validation added to Limitations 5 (T1 probe, PRD §19).
+Updated round 120: T-even escape-hatch validation added to Limitations 4
+(T1 probe + single-frequency control, PRD §19).*
