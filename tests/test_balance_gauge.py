@@ -3,6 +3,7 @@ import json
 import subprocess
 import sys
 import os
+from pathlib import Path
 
 SCRIPT = os.path.join(os.path.dirname(__file__), "..", "scripts", "balance_gauge")
 
@@ -124,3 +125,30 @@ def test_ledger_parsing_bold_closed_and_dmin(tmp_path):
     alarms = json.loads(r.stdout)["alarms"]
     assert any("DEBT-FIRST" in a for a in alarms)
     assert any("C-DEBT" in a for a in alarms)
+
+
+def test_wip_excludes_pr_pending_entries(tmp_path):
+    """AMM-026 回归:带 `status: pr-pending` 的条目=已完成待合并,不计入
+    WIP(用户侧合并延迟不得造成蒸馏假报警)。"""
+    goals = """```yaml
+goal_queue:
+- id: P1
+  track: frontier
+  goal: x
+  done_condition: y
+  check_cmd: "false"
+  status: pr-pending(PR#1)
+- id: W1
+  track: frontier
+  goal: y
+  done_condition: z
+  check_cmd: "false"
+```
+"""
+    g = tmp_path / "GOALS.md"
+    g.write_text(goals, encoding="utf-8")
+    root = os.path.dirname(os.path.dirname(os.path.abspath(SCRIPT)))
+    r = subprocess.run(["python3", SCRIPT, "--goals", str(g)],
+                       capture_output=True, text=True, cwd=root)
+    assert r.returncode == 0
+    assert json.loads(r.stdout)["wip"] == 1

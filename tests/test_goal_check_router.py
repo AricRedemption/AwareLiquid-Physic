@@ -125,3 +125,74 @@ def test_gauge_real_repo_matches_ledger_state():
     else:
         assert r.returncode != 4 and "DEBT-FIRST" not in r.stdout
     (REPO / ".loop-lock").unlink(missing_ok=True)  # 设计会话清理心跳,防阻塞下个马拉松
+
+
+QUEUE_PENDING_MIXED = """goal_queue:
+- id: P1
+    track: frontier
+  goal: 已完成待合并
+    done_condition: 已判读
+    check_cmd: "false"
+    status: pr-pending(PR#1)
+- id: A2
+    track: engineering
+  goal: 可行动目标
+    done_condition: 某条件
+    check_cmd: "false"
+"""
+
+QUEUE_PENDING_PASS = """goal_queue:
+- id: P1
+    track: frontier
+  goal: 已完成且已合并
+    done_condition: 已判读
+    check_cmd: "true"
+    status: pr-pending(PR#1)
+- id: A2
+    track: engineering
+  goal: 可行动目标
+    done_condition: 某条件
+    check_cmd: "false"
+"""
+
+QUEUE_ALL_PENDING = """goal_queue:
+- id: P1
+    track: frontier
+  goal: 待合并一
+    done_condition: 已判读
+    check_cmd: "false"
+    status: pr-pending(PR#1)
+- id: P2
+    track: frontier
+  goal: 待合并二
+    done_condition: 已判读
+    check_cmd: "false"
+    status: pr-pending(PR#2)
+"""
+
+
+def test_pr_pending_skipped_to_next_actionable(tmp_path):
+    """AMM-026 回归:pr-pending 条目永不迭代(防重跑探针),路由机械跳到
+    下一条可行动目标——恢复由状态驱动,不再依赖 GOALS 散文注记。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_PENDING_MIXED)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "NOT-Achieved" in r.stdout
+    assert "[A2]" in r.stdout and "[P1]" not in r.stdout.split("VERDICT")[-1]
+
+
+def test_pr_pending_passing_pops_normally(tmp_path):
+    """合并落地(check_cmd 过)后,pr-pending 条目照常弹出且保留 status 字段。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_PENDING_PASS)
+    r = run(tmp_path)
+    assert r.returncode == 0 and "ACHIEVED" in r.stdout and "P1" in r.stdout
+    goals = (tmp_path / "docs" / "loop" / "GOALS.md").read_text()
+    assert "id: A2" in goals and "status: pr-pending(PR#1)" not in goals
+
+
+def test_all_pr_pending_falls_through_to_gauge(tmp_path):
+    """全部条目 pr-pending 且未合并 ⇒ 状态驱动跳过后按队列空走仪表路由
+    (EXP 健康时 QUEUE-EMPTY=蒸馏/证据,而非对已完目标空转迭代)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_PENDING)
+    r = run(tmp_path)
+    assert r.returncode == 2 and "QUEUE-EMPTY" in r.stdout
+    assert r.stdout.count("[skip]") == 2

@@ -44,16 +44,14 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 03:15 (**用户质询永动断停⇒治理诊断+循环恢复**:三层
-  根因=①快照删锁解除 stop-gate 拦截②"上下文过长"过保守执行(harness
-  有自动压缩,真耗尽才触发)③跨会话永动缺外部点火器(cron 空/ignite
-  沉睡);AMM-025 提案 PROPOSED 待批(快照不删锁+语义澄清+cron 待用户
-  批准);PLAYBOOK 治理坑已回写,新纪律=快照不删锁、锁自过期。轮 118
-  NBODY-POOL-AUDIT PASS(retention 1.083e-2 挤压非湮灭,轮 95 边界闭合,
-  PR#3)。队列三条全在途(PR#1/#2/#3)⇒ 下一心跳按注记跳过 ⇒ 蒸馏第
-  29 族(选族启发式)或按 goal_check 裁决)
-
-```
+updated: 2026-09-24 04:20 (**整体验收轮(轮 119)+状态机正式化**:用户
+  验收基准="只贴一个 Goal prompt,结合本机 RSI 体系迭代"——逐条对表结果:
+  ①启动/路由/双门/原子提交/快照续跑全链实证过(轮 110-118);②状态机缺口
+  已补=队列 status 字段+goal_check 状态驱动跳过(pr-pending 永不迭代)+gauge
+  WIP 修正,恢复机械化了(AMM-026 PROPOSED);③RSI 断喂已修=夜 7/8/9 补账
+  (0.35/0.33/0.27)——**S3 字面武装(连续 3 夜<0.5),待用户裁定口径修订或
+  停车场重启**;④WIP 假报警已消。当前路由=MINING-FROZEN(EXP=0.1)⇒下一
+  心跳=证据轮(T1 探针);150 测试+audit 绿;提交=f45d1b8 后续)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -64,26 +62,28 @@ goal_queue:
   goal: M1容量轴探针——d_model∈{24,48,96}×n32同池同预算(2000步,seed0,prefix/all2all双臂), E3容量否定的M1侧对照, 判读=liquid edge随容量走向
   done_condition: PRD §19有"M1-CAP-AXIS 判读"锚且benchmarks/physics_out_v02/m1_cap_axis/m1_cap_axis.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "M1-CAP-AXIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/m1_cap_axis/m1_cap_axis.json
+  status: pr-pending(PR#1)
 - id: OMEGA-EXTRAP
   track: frontier
   goal: ω带外外推探针——M1于ω∈[0.7,1.8]训练(2000步,seed0), 带内anchor+带外[0.3,0.6]/[1.9,2.2]评估k100 MSE与ctx线性解码, liquid/static双臂(结构约束是否缓解带外退化)
   done_condition: PRD §19有"OMEGA-EXTRAP 判读"锚且benchmarks/physics_out_v02/omega_extrap/omega_extrap.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "OMEGA-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/omega_extrap/omega_extrap.json
+  status: pr-pending(PR#2)
 - id: NBODY-POOL-AUDIT
   track: engineering
   goal: NBody聚合语义审计——闭合轮95恒等式声明边界(代码审计model.py粒子池化聚合语义+ctx信息Fisher式探针移植, 判读=信息保留率, 文献预期无M2型湮灭scan§28.3)
   done_condition: PRD §19有"NBODY-POOL-AUDIT 判读"锚且benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "NBODY-POOL-AUDIT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json
+  status: pr-pending(PR#3)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
 养成交付节奏;新方向(文献扫描/用户指定)追加到队尾并标 track。
 队列空 ⇒ 按 goal_check 路由(蒸馏/证据轮/清欠,以路由器裁决为准)。
-**在途 PR 注记(防重迭代)**:M1-CAP-AXIS(PR #1)、OMEGA-EXTRAP(PR #2)、
-NBODY-POOL-AUDIT(PR #3)均已完成探针+当轮判读 PASS,PR 提交待合并——
-合并前 wave/loop 的 goal_check 对队首报 NOT-Achieved 属预期,**按本注记
-跳过重迭代(严禁重跑探针),跳过后若队列次位亦在途则继续跳过、转入
-蒸馏/消化;合并后锚随 PRD 进线,goal_check 自动弹出**。
+**在途 PR 注记(备份说明,AMM-026 起非承载)**:任务级恢复已由队列
+`status: pr-pending` 字段机械承载(goal_check 状态驱动跳过/弹出,回归
+测试在位)——本注记仅作人类可读备份:PR#1=M1-CAP-AXIS、PR#2=OMEGA-
+EXTRAP、PR#3=NBODY-POOL-AUDIT,均判读 PASS 待合并,合并后自动弹出。
 **条件性重入口(唯一源=scan §12.3 四路分流表;此处只存状态,不复制逻辑)**:
 E2 已失效(轮 90:R1 判负 ⇒ 推断侧方向关闭);R1b/R1c 已字面触发=
 **队列候选**,待队列空时按 §12.3 裁决是否入队;R1d 先决=SB-NAMING

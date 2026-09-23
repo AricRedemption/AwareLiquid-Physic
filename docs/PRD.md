@@ -843,6 +843,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 20 次达标。
 - **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列 M1-CAP-AXIS(PR#1 待合并,跳过)+OMEGA-EXTRAP 待迭代;PLAYBOOK +1 选族启发式;下一心跳=迭代 OMEGA-EXTRAP。
 
+**轮 116 记录（消化轮:判读完消化义务;T0 零算力;记录于轮 119 回填）**:
+- **路由**:轮 115 判读轮(Omega-EXTRAP,dir 分支)⇒ 纪律条款判读完下一心跳=消化轮;消化在 wave/loop 侧执行。
+- **消化三件套**:①回填=N1 资产索引补两探针 [B] 级数字(M1-CAP-AXIS 容量轴=E3 的 M1 侧对照 r 2.40→2.31→1.53 弱结构效应判定;OMEGA-EXTRAP 带外退化曲线 liquid 全三带绝对占优+ctx 解码带外 corr≈0),均带在途 PR 溯源标注(轮 111 数字搬运条款:任务/口径/状态限定词随行);②分流=队列状态核对(M1-CAP-AXIS/OMEGA-EXTRAP 双 PR 在途);③条件重入口清零(§12.3 五条终态不变)。
+- **治理**:GOALS 在途 PR 注记扩为双 PR;updated 戳推进。
+- **台账**:147 测试+audit 全绿显式退出码(零代码轮);本轮无新 [行动](消化轮不计 S1);下一心跳=goal_check 路由。
+
 **轮 117 记录（蒸馏补池:第 28 族图网络学习模拟器/GNN 动力学族 + NBODY-POOL-AUDIT 入队;T0 零算力检索轮）**:
 - **路由**:goal_check 队首 M1-CAP-AXIS NOT-Achieved(PR#1 未合并)⇒ 按在途 PR 注记跳过 ⇒ 蒸馏第 28 族。选族按轮 114 启发式(自家钩子→文献族):house 钩子=NBody 基准(P2-1)+轮 95 恒等式声明边界("NBody 粒子池化未审计");文献族=**图网络学习模拟器/GNN 动力学**(26+ 族零重叠;N1 定位表缺 GNN 一线)。
 - **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:4 [坐标] + 1 [行动] 入库 scan §28——① Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec & Battaglia "Learning to simulate complex physics with graph networks"(ICML 2020,~2,243 引):GNS 奠基,边消息求和=力叠加原理规范实现;② Pfaff, Fortunato, Sanchez-Gonzalez & Battaglia "Learning mesh-based simulation with graph networks"(ICLR 2021 outstanding,arXiv:2010.03409):网格域扩展;③ ★聚合语义坐标(Wang 2024 Springer 综述 sum 单射/mean 丢总量 + GNS 求和惯例):轮 95 均值场恒等式适用边界的**文献面**——NBody 动力学侧对势求和是物理必然,ctx 推断侧池化语义待审计;④ ★Sanchez-Gonzalez, Bapst, Cranmer & Battaglia "Hamiltonian Graph Networks with ODE Integrators"(arXiv:1909.12790,NeurIPS 2019 ML4 PS workshop,~236 引):**本仓 NBody 头的最近邻先例**(图网络×哈密顿×积分器三合一),差异轴=ctx 推断通道+头形式,N1 定位表必引。

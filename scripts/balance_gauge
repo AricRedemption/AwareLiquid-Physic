@@ -56,15 +56,30 @@ def parse_rounds(prd_text: str) -> list:
 
 
 def parse_wip(goals_text: str) -> int:
+    """WIP = 进行中队列条目数(AMM-012 上限 2)。AMM-026(轮 119)起,
+    带 `status: pr-pending` 的条目=已完成待合并,**不计入 WIP**——
+    否则用户侧合并延迟会造成 WIP 假报警。"""
     in_queue = False
     wip = 0
+    seen_entry = False
+    has_status = False
     for line in goals_text.splitlines():
-        if line.strip().startswith("goal_queue:"):
+        s = line.strip()
+        if s.startswith("goal_queue:"):
             in_queue = True
-        elif in_queue and line.strip().startswith("```"):
+            continue
+        if in_queue and s.startswith("```"):
+            if seen_entry and not has_status:
+                wip += 1
             break
-        elif in_queue and re.match(r"^\s*-\s*id:", line):
-            wip += 1
+        if not in_queue:
+            continue
+        if re.match(r"^\s*-\s*id:", line):
+            if seen_entry and not has_status:
+                wip += 1
+            seen_entry, has_status = True, False
+        elif re.match(r"^\s*status:", line):
+            has_status = True
     return wip
 
 
