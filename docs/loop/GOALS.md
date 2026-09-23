@@ -44,15 +44,14 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 11:05 (**上下文过长快照,会话按三因条款结束重开粘贴
-  续跑**;续跑点:下一心跳=goal_check → 队首双 PR(PR#1/#2)待合并则
-  跳过 ⇒ 迭代 NBODY-POOL-AUDIT——dir/nbody-pool-audit 分支,预注册
-  判负标准先行(聚合语义代码审计+ctx Fisher 式探针,文献预期无 M2 型
-  湮灭 scan §28.3),probe_run T1,当轮判读,PR 即终点。本会话续跑段
-  五心跳:轮 114 蒸馏 §27 OOD 族+OMEGA-EXTRAP 入队/轮 115 OMEGA-EXTRAP
-  PASS("结构保持、推断退化"分离,PR#2)/轮 116 消化回填资产索引/
-  轮 117 蒸馏 §28 GNN 族+NBODY-POOL-AUDIT 入队。147 测试+audit 绿;
-  仪表 EXP=0.2 报警空;S1 重置。重启后直接跑 goal_check 按此续)
+updated: 2026-09-24 03:15 (**用户质询永动断停⇒治理诊断+循环恢复**:三层
+  根因=①快照删锁解除 stop-gate 拦截②"上下文过长"过保守执行(harness
+  有自动压缩,真耗尽才触发)③跨会话永动缺外部点火器(cron 空/ignite
+  沉睡);AMM-025 提案 PROPOSED 待批(快照不删锁+语义澄清+cron 待用户
+  批准);PLAYBOOK 治理坑已回写,新纪律=快照不删锁、锁自过期。轮 118
+  NBODY-POOL-AUDIT PASS(retention 1.083e-2 挤压非湮灭,轮 95 边界闭合,
+  PR#3)。队列三条全在途(PR#1/#2/#3)⇒ 下一心跳按注记跳过 ⇒ 蒸馏第
+  29 族(选族启发式)或按 goal_check 裁决)
 
 ```
 
@@ -80,11 +79,11 @@ goal_queue:
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
 养成交付节奏;新方向(文献扫描/用户指定)追加到队尾并标 track。
 队列空 ⇒ 按 goal_check 路由(蒸馏/证据轮/清欠,以路由器裁决为准)。
-**在途 PR 注记(防重迭代)**:M1-CAP-AXIS(PR #1,dir/m1-cap-axis)与
-OMEGA-EXTRAP(PR #2,dir/omega-extrap)均已完成探针+当轮判读 PASS,PR
-提交待合并——合并前 wave/loop 的 goal_check 对队首报 NOT-Achieved 属
-预期,**按本注记跳过重迭代(严禁重跑探针),跳过后若队列次位亦在途
-则继续跳过、转入蒸馏/消化;合并后锚随 PRD 进线,goal_check 自动弹出**。
+**在途 PR 注记(防重迭代)**:M1-CAP-AXIS(PR #1)、OMEGA-EXTRAP(PR #2)、
+NBODY-POOL-AUDIT(PR #3)均已完成探针+当轮判读 PASS,PR 提交待合并——
+合并前 wave/loop 的 goal_check 对队首报 NOT-Achieved 属预期,**按本注记
+跳过重迭代(严禁重跑探针),跳过后若队列次位亦在途则继续跳过、转入
+蒸馏/消化;合并后锚随 PRD 进线,goal_check 自动弹出**。
 **条件性重入口(唯一源=scan §12.3 四路分流表;此处只存状态,不复制逻辑)**:
 E2 已失效(轮 90:R1 判负 ⇒ 推断侧方向关闭);R1b/R1c 已字面触发=
 **队列候选**,待队列空时按 §12.3 裁决是否入队;R1d 先决=SB-NAMING
