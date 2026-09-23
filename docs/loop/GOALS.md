@@ -44,12 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 10:20 (轮 114 蒸馏轮:第 27 族分布外泛化/外推族入库
-  scan §27——Wang et al. NeurIPS 2020 WS 参数域分布移位[强坐标]/Caro et
-  al. Nat. Commun. 2023 OOD 泛化保证/Stinis et al. JCP 2019 外推约束,
-  题录全核验;[行动] OMEGA-EXTRAP 入队(ω 带外探针,liquid/static 双臂,
-  选族启发式=从自家钩子找文献族);S1 重置;147 测试+audit 绿;下一心跳
-  =队首 M1-CAP-AXIS 未合并则跳过 ⇒ 迭代 OMEGA-EXTRAP)
+updated: 2026-09-23 10:35 (轮 116 消化轮:判读完消化义务履行——N1 资产
+  索引回填两探针 [B] 级数字(M1-CAP-AXIS 容量轴=E3 的 M1 侧对照;OMEGA-
+  EXTRAP 带外退化曲线=scope 量化),均带在途 PR 溯源标注(PR#1/#2 待
+  合并,轮 111 数字搬运条款:任务/口径/状态限定词随行);在途 PR 注记
+  扩为双 PR;分流/条件重入口清零;147 测试+audit 绿;下一心跳=队首双
+  PR 待合并则跳过 ⇒ 蒸馏第 28 族(选族启发式:从自家钩子找文献族))
 
 ```
 
@@ -72,11 +72,11 @@ goal_queue:
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
 养成交付节奏;新方向(文献扫描/用户指定)追加到队尾并标 track。
 队列空 ⇒ 按 goal_check 路由(蒸馏/证据轮/清欠,以路由器裁决为准)。
-**在途 PR 注记(防重迭代)**:M1-CAP-AXIS 已完成轮 113 探针+判读 PASS,
-fork PR #1(dir/m1-cap-axis→wave/loop)提交待合并——合并前 wave/loop 的
-goal_check 对它报 NOT-Achieved 属预期,**按本注记跳过重迭代(严禁重跑
-探针),跳过后按队列次序迭代后续目标;合并后锚随 PRD 进线,goal_check
-自动弹出**。
+**在途 PR 注记(防重迭代)**:M1-CAP-AXIS(PR #1,dir/m1-cap-axis)与
+OMEGA-EXTRAP(PR #2,dir/omega-extrap)均已完成探针+当轮判读 PASS,PR
+提交待合并——合并前 wave/loop 的 goal_check 对队首报 NOT-Achieved 属
+预期,**按本注记跳过重迭代(严禁重跑探针),跳过后若队列次位亦在途
+则继续跳过、转入蒸馏/消化;合并后锚随 PRD 进线,goal_check 自动弹出**。
 **条件性重入口(唯一源=scan §12.3 四路分流表;此处只存状态,不复制逻辑)**:
 E2 已失效(轮 90:R1 判负 ⇒ 推断侧方向关闭);R1b/R1c 已字面触发=
 **队列候选**,待队列空时按 §12.3 裁决是否入队;R1d 先决=SB-NAMING
