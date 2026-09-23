@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 五条 pr-pending(PR#1-#5)待合并全跳过 ⇒ 仪表路由(消化轮 N1 回填为预置项:SIGN-FLIP-PROBE 异常定位+轮126桥接惯例n=2)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → MAP-VS-FLOW 为队首 actionable(其余五条 pr-pending 跳过)⇒ 迭代 MAP-VS-FLOW(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,11 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 09:30 (**轮 127:消化轮,N1 符号反转定位回填完成**——
-  资产索引 M1-CAP-AXIS 行+初稿 Limitations 4b 新增(种子级符号不稳定性:
-  ~1/3 反转、多数盆地稳定等价解签名+少数瞬态,PR#5 溯源);条件重入口
-  终态确认;五条 pr-pending 待合并。下一心跳=goal_check 裁决(队列空,
-  EXP=0.2 蒸馏解冻,蒸馏须带 [行动] 否则 S1 累计))
+updated: 2026-09-24 10:10 (**轮 128:蒸馏第 31 族离散化轴(map vs flow)
+  入库,MAP-VS-FLOW 入队**——scan §31 三 [坐标](Reich 1999 BEA/David
+  2023 修正哈密顿量守恒★/Coelho 求解器依赖+SRNN 跨步长对照);自家
+  钩子=轮 104 测真积分器而训练头 dt 迁移空白,N1"学到 H"声明的范围
+  检验;S1 重置([行动]);蒸馏第 24 次达标。下一心跳=goal_check 路由
+  迭代 MAP-VS-FLOW(预注册先行→冒烟→probe_run→判读))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -84,6 +85,11 @@ goal_queue:
   done_condition: PRD §19有"SIGN-FLIP-PROBE 判读"锚且benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "SIGN-FLIP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json
   status: pr-pending(PR#5, 判读TRANSIENT+异质纹理如实: 盆地稳定占多数, 合并后check过自动弹出)
+- id: MAP-VS-FLOW
+  track: engineering
+  goal: 学习对象dt迁移探针——M1头在dt=0.1训练后于dt∈{0.05,0.1,0.2}评估1-step局部误差与k100 MSE(scan§31: 学到H向量场则跨dt一致O(dt²), 学到dt映射则O(1)崩塌; N1"学到H(q,p)"声明的范围限定检验, verdict=FLOW_LIKE/MAP_LIKE机械二值, 判负=跨dt崩塌⇒N1措辞降级为映射对象)
+  done_condition: PRD §19有"MAP-VS-FLOW 判读"锚且benchmarks/physics_out_v02/map_vs_flow/map_vs_flow.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "MAP-VS-FLOW 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/map_vs_flow/map_vs_flow.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

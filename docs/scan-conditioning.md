@@ -1693,6 +1693,69 @@ grep 确认;题录当场核验,1 处弱坐标带 ? 登记 SCAN-AUDIT。
 放弃);弱坐标:arXiv 2026-01 "Training instability follows
 low-dimensional dynamics" 作者未核,带 ? 登记 SCAN-AUDIT。
 
+## 31. 经验蒸馏 26(轮 128,2026-09-24,QUEUE-EMPTY 轮):离散化轴——学习流映射 vs 学习向量场族(BEA/修正方程)
+
+> 新 query 族(与前 30 族零重叠:§10.2 是守恒的硬/软路线、§18 是评估
+> 协议、§21 是守恒量发现,均不含"有限 dt 下网络到底学到了什么对象"
+> 的离散化迁移轴)。自家钩子:verlet_order_probe(轮 104)测的是**真
+> 积分器**的收敛阶,已训练头在非训练 dt 上的行为从未测过;N1 全文
+> 以"学到 H(q,p)"为对象语言,该声明的 dt 迁移面是空白。标记:
+> [坐标]×3 + [行动]×1。三槽:① BEA/修正方程谱系 ② 求解器依赖机制
+> ③ 对照式(跨步长迁移的架构对照)。题录当场核验(AMM-015)。
+
+### 31.1 BEA/修正方程:辛方法长期守恒的经典机制 [坐标]
+
+- 【出处】Reich, S. "Backward error analysis for numerical integrators",
+  SIAM J. Numer. Anal., 1999,~391 引;体系:Hairer, Lubich & Wanner,
+  _Geometric Numerical Integration_ Ch. X;近期:McLachlan et al.
+  (2022/2023,共轭辛方法的修正哈密顿量系统确定)。
+- 【内容】辛积分器的数值解是附近"修正方程"的精确解——修正哈密顿量
+  H + dt^k H_k 的近守恒是辛方法长期稳定的机制。
+- 【对我们的映射】本仓 VV+学习 H 的 O(dt²) 能量误差与长期稳定,
+  其解析对象是修正哈密顿量而非 H 本身;N1 的 dt 尺度声明可以
+  BEA 语言精确化("辛滚出守恒的是修正 H,学习 H 在有限 dt 的意义
+  由 31.2/31.3 的迁移行为界定")。
+- 【适用条件】N1 methods/discussion 的 dt 尺度表述。
+- 【验证状态】题录当场核验(期刊+年份+引用约数);社区已验证。
+
+### 31.2 ★辛神经网络的修正哈密顿量守恒 [坐标]
+
+- 【出处】[M. David, T. Hudson, P. Wales, "Symplectic Learning for
+  Hamiltonian Neural Networks", 2023,~98 引](https://arxiv.org/abs/2404.08816)
+- 【内容】证明辛神经网络积分器长期守恒的标量量是**修正哈密顿量**
+  (接近但非等于学习 H),BEA 给出保证。
+- 【对我们的映射】本仓"能量守恒由构造保证"(P0-3)的精确化:守恒的
+  是学习 H 的修正版本;学习 H 与真 H 的差距(辨识误差)与修正项
+  (dt² 项)在 N1 中须分列——为 dt 迁移探针([行动])提供读数框架。
+  正式 venue 未核(检索面为 CNRS 个人页),带 ? 登记 SCAN-AUDIT。
+- 【适用条件】N1 守恒主张的精确化;dt 迁移探针读数框架。
+- 【验证状态】题录基本核验(作者/年份/arXiv 检索面一致,venue 存疑)。
+
+### 31.3 训练求解器决定学到的参数:跨步长迁移的架构对照 [坐标]
+
+- 【出处】Coelho et al. "Neural ODE Parameters are Dependent on the
+  Training Solver"(OpenReview,年份带 ? 登记 SCAN-AUDIT);对照面:
+  Chen, Zhang, Arjovsky & Bottou "Symplectic Recurrent Neural Networks"
+  (ICLR 2020,arXiv:1909.13334——明言目标含"训练未经历的时间步长/
+  积分器阶的泛化");Jin et al. SympNets(2020)与 PSNN(伪辛网络,
+  显式面向未见步长)。
+- 【内容】固定步长求解器训练的神经动力学模型学到的是**离散化特定的
+  流映射**;跨 dt/求解器迁移需要架构级措施(辛结构/伪辛)或显式的
+  多 dt 训练。
+- 【对我们的映射】本仓头在固定 dt=0.1 轨迹上训练——"学到 H"还是
+  "学到 dt=0.1 映射"未经检验;SRNN/PSNN 的跨步长泛化主张给出
+  对照架构面(本仓 VV+T/V 头介于两者:结构辛但 H 由数据定)。
+- 【适用条件】MAP-VS-FLOW 探针([行动])的预期行为框架与 N1
+  "学到 H"声明的范围限定。
+- 【验证状态】SRNN 题录当场核验;Coelho 年份带 ?;社区已验证。
+
+### 蒸馏结论 26
+
+3 [坐标](31.2 ★,1 处 venue 带 ?)+ 1 [行动](MAP-VS-FLOW 入队,
+engineering)。第 31 族;**S1 重置(有 [行动] 产出);蒸馏轮第 24 次
+达标**。选族启发式 n=3 维持(机制核对通过:§10/§18/§21 均无
+BEA/dt 迁移轴)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

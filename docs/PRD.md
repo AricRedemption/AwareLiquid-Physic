@@ -909,6 +909,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:消化轮不计 S1(末次重置=轮 125 [行动])。
 - **台账**:零算力轮(纯呈现层修订,不动研究判定行;轮 126 完整判读行在 PR#5 分支,合并后以 §19 为准——与 PR#1/#2/#3 同拓扑);门禁复跑确认(显式退出码);GOALS 戳推进;下一心跳=goal_check 裁决(队列空,EXP≥20% 蒸馏解冻,蒸馏须带 [行动] 否则 S1 累计)。
 
+**轮 128 记录(蒸馏补池:第 31 族离散化轴——学习流映射 vs 学习向量场 + MAP-VS-FLOW 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮;选族按轮 114 启发式+机制核对(第三步,轮 125):自家钩子=verlet_order_probe(轮 104)测的是**真积分器**收敛阶,而**已训练头在非训练 dt 上的行为从未测过**——N1 全文以"学到 H(q,p)"为对象语言,该声明的 dt 迁移面是空白;文献族=离散化轴/BEA 修正方程(机制核对:§10.2 守恒硬软路线、§18 评估协议、§21 守恒量发现均无此轴,零重叠成立)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:3 [坐标]+1 [行动] 入库 scan §31——① Reich "Backward error analysis for numerical integrators"(SIAM J. Numer. Anal. 1999,~391 引;体系 Hairer-Lubich-Wanner Ch.X):辛滚出长期守恒的解析对象是**修正哈密顿量** H+dt^k H_k 而非 H 本身——N1 的 dt 尺度声明可 BEA 语言精确化;②★David, Hudson & Wales "Symplectic Learning for Hamiltonian Neural Networks"(2023,~98 引,venue 带 ? 登记 SCAN-AUDIT):辛神经积分器长期守恒的标量量=**修正哈密顿量**(接近但非等于学习 H)——本仓"能量守恒由构造保证"的精确化:守恒的是学习 H 的修正版本,辨识误差与 dt² 修正项在 N1 须分列;③ 对照面 Coelho et al. "Neural ODE Parameters are Dependent on the Training Solver"(OpenReview,年份带 ?)+SRNN(ICLR 2020,arXiv:1909.13334,明言"训练未见时间步长的泛化")+SympNets/PSNN:固定步长训练学到的是**离散化特定的流映射**,跨 dt 迁移需架构措施或多 dt 训练——本仓头介于两者(结构辛但 H 由数据定)。
+- **MAP-VS-FLOW 入队([行动],engineering,T1 可行动)**:M1 头在 dt=0.1 训练后于 dt∈{0.05,0.1,0.2} 评估 1-step 局部误差与 k100 MSE——学到 H 向量场则跨 dt 一致(局部误差 O(dt²) 光滑),学到 dt=0.1 映射则异 dt 上 O(1) 崩塌;verdict=FLOW_LIKE/MAP_LIKE 机械二值;判负=跨 dt 崩塌 ⇒ N1"学到 H"措辞降级为"学习 dt=0.1 映射对象"(范围限定);双锚单行 check_cmd;判负标准下心跳执行前预注册。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 24 次达标。
+- **台账**:零算力轮;scan §31+蒸馏结论 26;2 处弱坐标(David venue/Coelho 年份)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列六条(五 pr-pending+MAP-VS-FLOW actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 MAP-VS-FLOW。
+
 
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
