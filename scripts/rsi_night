@@ -1,0 +1,136 @@
+#!/usr/bin/env python3
+"""rsi_night — RSI 逐夜账机械化草稿器(轮 119,AMM-026 附带交付)。
+
+目的:夜账(K/E/T/D/T+/A)此前靠手工散文,断喂 18 个心跳无人察觉
+(轮 119 验收发现)。本工具把可机械化的维度变成草稿:
+  - 轮段解析:PRD §19 中 [from,to] 的轮记录头(balance_gauge 同款分类)
+  - k_upper   :段内含"判读"锚的轮数(K 的机械上界;K 终判由确认人裁,
+                呈现层/参考级修复按夜 6 先例不计)
+  - exp_rounds:E 的分母(算力轮数)
+  - tools_new :TOOLS.md 中轮号落在段内的新工具行
+  - A         :段内 AMENDMENTS 新提案数(输出 id 列表;采纳比人工确认)
+  - 草稿行    :逐夜账本 markdown 行模板(T/Â/D 留空待确认)
+
+哲学(不变):RSI-Exam"刷高可见集≠改进"——T(隐藏迁移)只能一次性
+seed 终跑触发,本工具绝不推断 T;K 的"重大"判定不机械化。
+边界(如实):本工具只读当前分支的 PRD/TOOLS——dir/<slug> 在途分支的
+轮次合并落地前不可见,夜账以已合并不变量为基线,在途轮次由补账轮
+人工确认并入(轮 119 实测:113/115/118 在途时对 wave/loop 不可见)。
+用法:
+  ./scripts/rsi_night --from 110 --to 113 [--prd ... --tools ... --amm ...]
+输出:一行 JSON(机器)+ 草稿 markdown 行(stdout 尾)。
+"""
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+WIN_PAT = re.compile(r"^\*\*(?:轮\s*(\d+)|([A-Z][A-Za-z0-9-]*))[^*]*（[^）]*）\*\*")
+VERDICT_PAT = re.compile(r"判读[()（）]")
+TOOL_ROW_PAT = re.compile(r"^\| `([^`]+)`")
+ROUND_IN_PAT = re.compile(r"轮\s*(\d+)")
+
+
+def classify(header: str) -> str:
+    if "蒸馏补池" in header:
+        return "mining"
+    if "算力轮" in header or ("零算力" not in header
+                              and ("判读" in header or "达成" in header)):
+        return "evidence"
+    return "t0"
+
+
+def parse_rounds(prd_text: str, lo: int, hi: int):
+    """段内轮记录:[(id, class, body, has_verdict)]。body 取到下一轮头。"""
+    lines = prd_text.splitlines()
+    hits = []
+    for i, line in enumerate(lines):
+        if not WIN_PAT.match(line.strip()):
+            continue
+        m = WIN_PAT.match(line.strip())
+        rid = int(m.group(1)) if m.group(1) else None
+        if rid is None or not (lo <= rid <= hi):
+            continue
+        body = []
+        for nxt in lines[i + 1:]:
+            if WIN_PAT.match(nxt.strip()):
+                break
+            body.append(nxt)
+        hits.append({"round": rid, "class": classify(line.strip()),
+                     "header": line.strip()[:60],
+                     "has_verdict": bool(VERDICT_PAT.search("\n".join(body)))})
+    return hits
+
+
+def tools_in_range(tools_text: str, lo: int, hi: int):
+    out = []
+    for line in tools_text.splitlines():
+        m = TOOL_ROW_PAT.match(line.strip())
+        if not m:
+            continue
+        nums = [int(x) for x in ROUND_IN_PAT.findall(line)]
+        if nums and lo <= min(nums) <= hi:
+            out.append(m.group(1))
+    return out
+
+
+STATE_ROUND_PAT = re.compile(r"状态:\*\*[^*]*\*\*([^\n]*)")
+
+def proposals_in_range(amm_text: str, lo: int, hi: int):
+    """A 维度只按提案状态行的登记轮归属(轮 119 起家规:A 不由工具推断,
+    正文引用旧轮号≠立案轮)。无登记轮的提案进 unattributed 供人工归账。"""
+    out, unattr = [], []
+    for m in re.finditer(r"### (AMM-\d+):[^\n]*\n((?:(?!### ).*\n)*)", amm_text):
+        sm = STATE_ROUND_PAT.search(m.group(2))
+        rounds = ROUND_IN_PAT.findall(sm.group(1)) if sm else []
+        if rounds and any(lo <= int(x) <= hi for x in rounds):
+            out.append(m.group(1))
+        elif not rounds:
+            unattr.append(m.group(1))
+    return out, unattr
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--from", dest="lo", type=int, required=True)
+    ap.add_argument("--to", dest="hi", type=int, required=True)
+    ap.add_argument("--prd", default="docs/PRD.md")
+    ap.add_argument("--tools", default="docs/loop/TOOLS.md")
+    ap.add_argument("--amm", default="docs/loop/AMENDMENTS.md")
+    args = ap.parse_args()
+
+    prd = Path(args.prd).read_text(encoding="utf-8")
+    tools = Path(args.tools).read_text(encoding="utf-8")
+    amm = Path(args.amm).read_text(encoding="utf-8")
+
+    rounds = parse_rounds(prd, args.lo, args.hi)
+    exp_rounds = [r for r in rounds if r["class"] == "evidence"]
+    k_upper = sum(1 for r in rounds if r["has_verdict"])
+    tools_new = tools_in_range(tools, args.lo, args.hi)
+    props, unattr = proposals_in_range(amm, args.lo, args.hi)
+
+    out = {
+        "range": [args.lo, args.hi],
+        "rounds": [r["round"] for r in rounds],
+        "classes": {r["round"]: r["class"] for r in rounds},
+        "k_upper": k_upper,
+        "k_candidate_rounds": [r["round"] for r in rounds if r["has_verdict"]],
+        "exp_rounds": [r["round"] for r in exp_rounds],
+        "e": (len([r for r in rounds if r["has_verdict"] and r["class"] == "evidence"])
+              / len(exp_rounds)) if exp_rounds else None,
+        "tools_new": tools_new,
+        "proposals": props,
+        "proposals_unattributed": unattr,
+    }
+    print(json.dumps(out, ensure_ascii=False))
+    print("\n# 逐夜账本草稿(T/Â/D 留空,由确认人终判后写入 RSI-INDEX)")
+    print(f"| ? | 日期 | K≤{k_upper}(候选轮 {out['k_candidate_rounds']}) "
+          f"| E={out['e'] and round(out['e'], 2)} | 未触发/? | ? "
+          f"| +{len(tools_new)}{tools_new} | {len(props)}/?{props} | 草稿:rsi_night "
+          f"{args.lo}-{args.hi} |")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
