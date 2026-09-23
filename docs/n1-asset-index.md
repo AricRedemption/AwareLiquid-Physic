@@ -39,7 +39,10 @@ UFNO-FiLM(§1,Abdellatif 2025)/HyperFNO(§2,ML4PS 2022)/FNO 全场
 
 E1 推断缺口叙事链(坐标按证据顺序):D6 信息预算(t³ 无平台,层 1 非瓶颈)
 → E3 容量否定(+46% 参数零效应)→ E4a 梯度饥饿(3.97e-3,§6.1 Gradient
-Starvation 命名)→ 谱偏置候选(§17,SB-NAMING 文档四问对账)→
+Starvation 命名)→ 谱偏置候选(§17,SB-NAMING 四问对账;**轮 122 预言
+检验 NEGATIVE 降级弱假设留档**:e1_final 同协议逐模式提取扫描全模式
+无可解码信号 e≈1,corr 噪声级,判负分支机械执行;PR#4 待合并,1-seed
+T1 筛查口径)→
 amortization gap 命名(§12.1 Cremer ICML 2018)。
 **M2 附加(轮 95 机制发现)**:聚合层均值场恒等式——c(x) 信息在
 mean-pool 处精确湮灭(8.6e-11),attn 修复判负(轮 96)⇒ P3 终收口

@@ -230,8 +230,13 @@ window carries a t³-growing information budget with no plateau — the
 window is not the bottleneck [B, D6]; (ii) capacity is not the bottleneck:
 +46% parameters produce zero effect [B, E3]; (iii) the bottleneck is
 optimization: gradient starvation at 3.97e-3 [B, E4a; Gradient Starvation
-naming], with spectral bias (four-question naming audit, scope-narrowed)
-and the amortization gap [Cremer et al., ICML 2018] as the named frame.
+naming], with the amortization gap [Cremer et al., ICML 2018] as the named
+frame. A spectral-bias candidate naming passed the four-question audit
+with a pre-registered falsifiable prophecy; the prophecy test (per-mode
+extraction scan, 1-seed T1 screening, PRD §19 round 122; PR#4) found no
+decodable per-mode signal — flat — so it is carried only as a downgraded
+weak hypothesis. We keep the full naming→prophecy→test→downgrade chain
+visible as the falsification discipline this paper claims.
 
 **Field reconstruction (M2) — a closed result.** On periodic grids with a
 shared linear operator, mean-pooling commutes with the operator, and the
@@ -313,4 +318,6 @@ pointers resolve into docs/scan-conditioning.md, docs/PRD.md §19, and the
 protocol documents listed per row. Updated round 110: escape-hatch
 nonseparable validation added to Limitations 5 (T1 probe, PRD §19).
 Updated round 120: T-even escape-hatch validation added to Limitations 4
-(T1 probe + single-frequency control, PRD §19).*
+(T1 probe + single-frequency control, PRD §19). Updated round 123:
+spectral-bias naming downgraded to weak hypothesis in Mechanism Analysis
+(prophecy test NEGATIVE, PR#4, PRD §19 round 122).*

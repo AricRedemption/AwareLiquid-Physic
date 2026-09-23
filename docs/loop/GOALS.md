@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 四条 pr-pending(PR#1/#2/#3/#4)待合并全跳过 ⇒ 仪表路由(消化轮 N1 SB-NAMING 降级回填为预置项;蒸馏按 EXP 裁决)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 四条 pr-pending(PR#1/#2/#3/#4)待合并全跳过 ⇒ 仪表路由(EXP=0.2 蒸馏解冻:第 29 族收方向/台账消化按裁决)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,13 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 06:40 (**轮 122:R1D-MODE-SCAN 判读 NEGATIVE,轮 78
-  判负分支机械执行**——e1_final 逐项同协议 T1 筛查(探针 mse 与 e1_final
-  seed0 逐位一致),逐 sin 模式提取误差 e≈1 全模式无可解码信号(corr 噪声
-  级,与 e1_final 0.014/D-3 0.058/P3 链一致),ρ=−1.000≤0 ⇒ 谱偏置命名
-  降级弱假设留档+R1d 撤回+§12.3 第四路删除;副指标 OOD 交换伪影如实作废;
-  PR#4(dir/r1d-mode-scan)开立待合并;§12.3 三路全部终态,条件重入口
-  清零。下一心跳=goal_check 裁决(消化轮 N1 回填为预置项))
+updated: 2026-09-24 07:00 (**轮 123:消化轮,N1 SB-NAMING 降级回填完成**——
+  初稿 §6 机制链谱偏置候选移出 named frame,如实降级表述保留命名→预言
+  →检验→降级全链(可证伪主义展品);资产索引 §4 同步注记(PR#4 溯源);
+  条件重入口三路终态清零确认;四条 pr-pending 待合并。下一心跳=goal_check
+  裁决(队列空,EXP=0.2 蒸馏解冻,按路由或收方向))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
