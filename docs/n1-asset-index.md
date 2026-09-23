@@ -62,10 +62,10 @@ k_train=8 实测零压力——GRAD-PATH 轮 93 实测背书 2.94→47MB 线性�
 | 基线行 | 数字锚 | 协议/三声明 |
 |---|---|---|
 | TSFM(Chronos) | k100 1.229±0.11(q-only) | D-2 判读+tsfm-baseline-protocol.md |
-| TSFM(TimesFM) | k100 0.167±0.09 | D-2 轮 92 追记 |
-| 经典 LSQ-ω̂/STLSQ | k100 2.7e-6(上界参照) | classic-baseline-protocol.md(轮 99) |
-| 结构臂 prefix/all2all | 5.006/11.58(n32) | d1b 同池 |
-| oracle 上界 | 0.0148 | 轮 51 勿重跑条款 |
+| TSFM(TimesFM) | k100 0.167±0.09(q-only) | D-2 轮 92 追记 |
+| 经典 LSQ-ω̂/STLSQ | k100 2.7e-6(q-only,确定性估计,768 轨池) | classic-baseline-protocol.md(轮 99) |
+| 结构臂 prefix/all2all | 5.006±0.76 / 11.58±4.37(n32,q+p 口径) | d1b 同池 |
+| oracle 上界(**M2 场任务**,与 M1 行不可同表) | 0.0148 vs static 0.0204(−27%) | 轮 51 勿重跑条款;**轮 111 复核注:任务限定词补登**——初稿曾误标为 spring benchmark oracle,已修正 |
 
 评估口径:eval_ks 阶梯(§18.2 复合误差背书)/VPT 补充口径(§18.1+
 eval-norms-vpt.md,轮 80 窄窗降格注记)/暴露偏差辩护(§8.5 D5 判读)/

@@ -32,26 +32,33 @@ confirm the theoretical second order, with the shadow-Hamiltonian drift
 parameter hω ≈ 0.18 far inside the backward-error-analysis bound
 [Hairer–Lubich–Wanner 2006].
 
-On a noise-free spring benchmark the exact-oracle context upper bound is
-0.0148 rollout MSE at k=100 [B]; a closed-form liquid base with the
-Hamiltonian head reaches the structural-arm operating point (5.006 vs 11.58
-for the all2all counterpart at n32) [B], while zero-shot foundation models
-sit at 1.229±0.11 (Chronos) and 0.167±0.09 (TimesFM) [B, cross-category
-reference under a three-declaration fairness protocol] and classical
-system identification (LSQ-ω̂ / STLSQ) reaches 2.7e-6 — a near-oracle
-*upper reference* that bounds what any learned approach can meaningfully
-claim in this regime [B]. We further close the field-reconstruction (M2)
-headroom with a mechanism result: on periodic grids the mean-pooled
+On a noise-free spring benchmark (q+p rollout MSE at k=100 for the
+structural arms; q-only for the reference rows), a closed-form liquid base
+with the Hamiltonian head reaches the structural-arm operating point
+(5.006±0.76 vs 11.58±4.37 for the all2all counterpart at n32) [B], while
+zero-shot foundation models sit at 1.229±0.11 (Chronos) and 0.167±0.09
+(TimesFM) [B, cross-category reference under a three-declaration fairness
+protocol] and classical system identification (LSQ-ω̂ / STLSQ) reaches
+2.7e-6 — a near-oracle *upper reference* that bounds what any learned
+approach can meaningfully claim in this regime [B]. On the field-
+reconstruction task (M2) we further close the headroom: the exact-oracle
+context bound there is 0.0148 rollout MSE vs 0.0204 for the static arm —
+a 27% headroom that end-to-end inference does not reach [B] — and the
+mechanism is an exchange identity: on periodic grids the mean-pooled
 aggregation layer *exactly annihilates* the medium field c(x) (total
-retention 8.6e-11), by an exchange identity rather than an empirical
-observation [B]; four repair prescriptions were tested and all judged
-negative. We position the contribution on the structure-property axis with
+retention 8.6e-11), rather than an empirical observation [B]; four repair
+prescriptions were tested and all judged negative. We position the
+contribution on the structure-property axis with
 explicit hard-constraint boundary declarations, and we catalogue failure
 modes with pre-registered escape hatches (dissipation slot, T-even
 relaxation, nonseparable head).
 
-[v0-TODO: abstract 数字口径复核——TSFM/结构臂是否同一 eval_ks 阶梯同表
-可比;若否,按三声明协议拆表。]
+[Resolved round 111 (digestion audit, PRD §19 "BASELINE-SCOPE 判读"):
+same-table presentation holds for the five M1 spring rows on the k=100
+ladder, with the metric split made explicit per row (q-only vs q+p) and
+uncertainty added; the oracle row was mis-attributed to the spring
+benchmark — it is the M2 field-task oracle (round 51 do-not-rerun clause)
+and now lives in the M2 mechanism claim only.]
 
 ## 1 Introduction
 
@@ -88,8 +95,9 @@ liquid continuous-time base infer the instance-specific context from data.
    (judged negative), closing the M2 headroom [B].
 4. **Honest baselining.** Cross-category references (TSFM zero-shot) under
    a three-declaration fairness protocol; classical identification as a
-   near-oracle *upper reference*; oracle-context bound 0.0148 as the
-   interface ceiling [B].
+   near-oracle *upper reference*; oracle-context bound 0.0148 on the M2
+   field task as the interface ceiling [B] (task attribution audited
+   round 111).
 
 ## 2 Related Work
 
@@ -183,14 +191,21 @@ discipline: seed 999 retired after it caught a visible-set reversal
 seed, descending from 998 — **no [C]-tier terminal claims are made in this
 draft**.
 
-| Row | Result (k=100 rollout MSE unless noted) | Tier | Protocol / pointer |
-|---|---|---|---|
-| Oracle context (upper bound) | 0.0148 | [B] | do-not-rerun clause, round 51 |
-| Classical LSQ-ω̂ / STLSQ (upper reference) | 2.7e-6 (ω̂ err 0.069%) | [B] | classic-baseline-protocol.md |
-| TSFM Chronos (zero-shot, q-only) | 1.229 ± 0.11 | [B] | tsfm-baseline-protocol.md, three declarations |
-| TSFM TimesFM (zero-shot) | 0.167 ± 0.09 | [B] | D-2 addendum, round 92 |
-| Structural arm prefix (n32) | 5.006 | [B] | d1b same-pool |
-| Structural arm all2all (n32) | 11.58 | [B] | d1b same-pool |
+| Row | Result (k=100 rollout MSE) | Metric | Uncertainty | Tier | Protocol / pointer |
+|---|---|---|---|---|---|
+| Classical LSQ-ω̂ / STLSQ (upper reference) | 2.7e-6 (ω̂ err 0.069%) | q-only | deterministic estimator, 768-traj pool (no seed axis) | [B] | classic-baseline-protocol.md |
+| TSFM Chronos (zero-shot, q-only) | 1.229 | q-only | ±0.11 (3 data-pool seeds) | [B] | tsfm-baseline-protocol.md, three declarations |
+| TSFM TimesFM (zero-shot) | 0.167 | q-only | ±0.09 (3 data-pool seeds) | [B] | D-2 addendum, round 92 |
+| Structural arm prefix (n32) | 5.006 | q+p | ±0.76 (3 training seeds, traj stderr) | [B] | d1b same-pool |
+| Structural arm all2all (n32) | 11.58 | q+p | ±4.37 (3 training seeds, traj stderr) | [B] | d1b same-pool |
+
+Same-table scope (round 111 audit): all five rows are the M1 spring
+family, noise-free, evaluated at k=100. The metric column is load-bearing:
+q+p adds the momentum term, so structural-arm magnitudes carry ≈2x the
+q-only scale by construction — cross-metric comparisons are within-row
+only. The M2 field-task oracle bound (0.0148, do-not-rerun clause round 51)
+is *not* same-table compatible (different task/dynamics) and is cited only
+in the M2 mechanism claim.
 
 **Reading.** Classical identification at 2.7e-6 is a *reference ceiling*,
 not a competitor: in a noise-free linear regime the parametric method
@@ -198,8 +213,9 @@ should win, and it bounds what any learned claim can mean here [three
 declarations]. TSFM zero-shot numbers are cross-category references under
 pretraining-breadth vs small-sample-structure disparity. The structural
 arm comparison (prefix vs all2all) is the in-family ablation axis.
-[v0-TODO: 结构臂与 TSFM/oracle 是否同一评估协议同表呈现,复核后定稿;
- uncertainty 列(d1b stderr)待补。]
+[Resolved round 111: 结构臂与 TSFM/oracle 同表复核完成——M1 五行同表成立
+(口径列+uncertainty 列已补);oracle 行经查属 M2 场任务,移出本表归 M2
+机制句;判读锚 PRD §19 "BASELINE-SCOPE 判读"。]
 
 **UQ.** Ensemble spread exists but is not calibration: coverage@95 measured
 1.6% / 0 / 0 across seeds (D-1 judged negative — overconfidence direction);
