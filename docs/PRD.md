@@ -916,6 +916,18 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 24 次达标。
 - **台账**:零算力轮;scan §31+蒸馏结论 26;2 处弱坐标(David venue/Coelho 年份)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列六条(五 pr-pending+MAP-VS-FLOW actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 MAP-VS-FLOW。
 
+**轮 129 记录(MAP-VS-FLOW:学习对象 dt 迁移探针;T1 算力轮)**:
+- **路由**:goal_check NOT-AchieVED(MAP-VS-FLOW actionable 队首)⇒ 心跳单元=预注册判负 → 冒烟校准 → probe_run T1 → 当轮判读 → dir/map-vs-flow PR(AMM-024 T1 探针环)。
+- **MAP-VS-FLOW 预注册(先于执行钉死)**:
+  - **动机**:N1 全文以"学到哈密顿量 H(q,p)"为对象语言,但训练只在固定 dt=0.1 轨迹对上进行——多个不同 H 可共享同一 dt=0.1 VV 映射(H 在映射外欠定),学到的究竟是**向量场对象 H**(跨 dt 一致)还是 **dt=0.1 流映射**(离散化特定)从未检验;scan §31.3(Coelho 求解器依赖/SRNN 跨步长主张)给出两面文献,§31.1/31.2(BEA/修正哈密顿量)给出读数框架。检验结果直接决定 N1"学到 H"措辞是否需要范围限定。
+  - **协议**:单频控制族(gen_spring ω=1.0,轮 120 控制臂先例:裸自主头须进拟合区;n_train 256/n_eval 64/gen_steps 200/seed 0);**主臂**=裸 HamiltonianHead(dim1,hidden64,depth2,ctx0)在 dt=0.1 轨迹对上 1-step 监督训练(escape-door 训练式,轮 110/120)10000 步 lr 3e-3 batch 64;**参照臂**=同架构在 dt=0.05 轨迹对上同预算训练(0.05 评估的可达地板);评估(真值=解析 gen_spring 在各 dt 生成,**固定物理视距 T=10**(轮 104 口径:k=200/100/50 对 dt=0.05/0.1/0.2)):主指标=**跨 dt k 滚出 MSE 比** ratio=MSE(T=10,dt=0.05)/MSE(T=10,dt=0.1)(主臂);副指标=1-step 局部 MSE 对 dt 的 log-log 斜率(流对象预期 ~2:VV 局部误差 O(dt²);映射对象预期 ~0 或非单调)。
+  - **时长实测校准(AMM-008)**:轮 120 同架构 10000 步 ~1min/臂 ⇒ 双臂 ~2-3min+三 dt 评估 <1min ⇒ **预计 ≤5min,T1**(probe_run T1 5)。
+  - **判负标准(机械二值+中间档)**:**FLOW_LIKE**=ratio ≤2 且 1-step 斜率 ∈[1.2,2.8] ⇒ "学到 H"的 dt 迁移面在筛查级获支持(N1 措辞维持,可加"在扫描 dt 倍频内"限定);**MAP_LIKE**=ratio ≥10 ⇒ 跨 dt 崩塌,N1"学到 H(q,p)"措辞降级为"学习 dt=0.1 映射对象"(范围限定入 N1/资产索引);**MIXED**=2<ratio<10 或斜率矛盾 ⇒ 如实记录,维持现措辞附筛查级注记。判负(=MAP_LIKE)不是循环失败:N1 措辞的范围限定是有效的诚实产出。结论分级:1-seed T1 筛查,多 seed 终局=停车场。
+  - **命令/产物**:`./scripts/probe_run T1 5 -- .venv/bin/python benchmarks/map_vs_flow.py`;产物 benchmarks/physics_out_v02/map_vs_flow/map_vs_flow.json(results 键包裹,meta exec_tier 透传);判读锚="MAP-VS-FLOW 判读"。
+  - **结论分级**:T1 筛查只解锁 N1 措辞路由,终局声明须多 seed(停车场)或隐藏卷。
+- **判读(MAP-VS-FLOW 判读)**:**FLOW_LIKE——"学到 H"的 dt 迁移面在筛查级获支持,N1 措辞维持(加"在扫描 dt 倍频内"筛查限定)**。主结果(单频 ω=1.0 控制族,seed 0,10000 步,实跑 ~1.5min ≤est5):跨 dt 固定视距 T=10 滚出 MSE 主臂 **3.028e-3(dt=0.05)/3.384e-3(dt=0.1)/4.499e-3(dt=0.2)**,ratio=MSE(0.05)/MSE(0.1)=**0.895 ≤2**(减半 dt 反而略优=向量场对象签名,判负② 远离映射门 10);**1-step 局部误差 log-log 斜率 +1.995**(判负① 带内,教科书 VV O(dt²) 局部误差)——两轴互证:训练头学到的是跨 dt 一致的向量场对象,不是 dt=0.1 特定映射(与 §31.3 Coelho"求解器依赖"的映射型失败模式形成对照,归因可能在本仓 1-step 监督形式直接约束 ∇H 场而非端到端映射)。判负(=MAP_LIKE)未触发,N1"学到 H(q,p)"措辞维持。**附带观察(不作门,如实)**:dt=0.05 原生参照臂(同预算同架构)滚出 4.7-4.9e-2,反而比主臂迁移值差 ~12×——半 dt 的 1-step 对携带时间信息减半,同预算下条件性更差;预注册称其为"可达地板"不成立,读数框架修正为"训练 dt 选择本身是条件性变量"。结论分级:1-seed T1 筛查;多 seed 终局=停车场。
+- **台账**:160 测试(157+3)+audit 全绿显式退出码;产物 benchmarks/physics_out_v02/map_vs_flow/(gitignored,数字已抄本判读行);TOOLS +map_vs_flow;N1 措辞范围限定词(扫描 dt 倍频内)资产索引回填下一消化轮;队列弹出后五条 pr-pending,下一心跳=消化轮。
+
 
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
