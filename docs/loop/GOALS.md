@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → M1-CAP-AXIS 迭代(T1 探针:预注册→probe_run→当轮判读→PR)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 若 M1-CAP-AXIS 未合并(见在途 PR 注记)跳过重迭代⇒蒸馏第 27 族(只收 T1 可行动);已合并则路由队列 / 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,11 +44,15 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 09:35 (轮 112 蒸馏轮:第 26 族缩放律/样本效率族入库
-  scan §26——Ngo&Ravanbakhsh ICLR 2026 对称性改变缩放律形状[强坐标]/
-  Velasquez PNAS Nexus 2025 神经符号对立面/Li et al. 综述,题录全核验;
-  [行动] M1-CAP-AXIS 入队(E3 容量否定的 M1 侧对照,T1 可行动,双锚
-  单行契约);S1 重置;147 测试+audit 绿;下一心跳=迭代 M1-CAP-AXIS)
+updated: 2026-09-23 09:55 (**上下文过长快照,会话按三因条款结束重开粘贴
+  续跑**;本会话四心跳:轮 110 证据轮 ESC-DOOR-VAB PASS 逃生门#3 [C]→[B]
+  磁族 A/B 比值 60669×/轮 111 消化轮 BASELINE-SCOPE 判负修复=摘要 oracle
+  0.0148 系 M2 场任务误标 spring,基线表重建口径列+uncertainty 列/轮 112
+  蒸馏第 26 族缩放律入库 scan §26(Ngo&Ravanbakhsh ICLR 2026 对称性×缩放
+  强坐标)+M1-CAP-AXIS 入队/轮 113 dir/m1-cap-axis 探针 PASS(r 2.40→2.31
+  →1.53 险过门限,弱结构效应判定;桥接逐位复现;符号反转 1/3 容量恒定)
+  =fork PR #1 待合并。147→149 测试+audit 全绿;仪表 EXP=0.2 报警空;
+  S1 重置(轮 112/113 均[行动]产出)。重开后续跑:按 next_trigger_hint)
 
 ```
 
@@ -66,6 +70,10 @@ goal_queue:
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
 养成交付节奏;新方向(文献扫描/用户指定)追加到队尾并标 track。
 队列空 ⇒ 按 goal_check 路由(蒸馏/证据轮/清欠,以路由器裁决为准)。
+**在途 PR 注记(防重迭代)**:M1-CAP-AXIS 已完成轮 113 探针+判读 PASS,
+fork PR #1(dir/m1-cap-axis→wave/loop)提交待合并——合并前 wave/loop 的
+goal_check 对它报 NOT-Achieved 属预期,**按本注记跳过重迭代(严禁重跑
+探针),合并后锚随 PRD 进线,goal_check 自动弹出**。
 **条件性重入口(唯一源=scan §12.3 四路分流表;此处只存状态,不复制逻辑)**:
 E2 已失效(轮 90:R1 判负 ⇒ 推断侧方向关闭);R1b/R1c 已字面触发=
 **队列候选**,待队列空时按 §12.3 裁决是否入队;R1d 先决=SB-NAMING
