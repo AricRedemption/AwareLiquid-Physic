@@ -851,6 +851,17 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 21 次达标。
 - **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列三条(两条在途 PR+NBODY-POOL-AUDIT 待迭代);PLAYBOOK 轮 114 启发式升级验证状态(n=2 已验证);下一心跳=迭代 NBODY-POOL-AUDIT。
 
+**轮 118 记录（NBODY-POOL-AUDIT 迭代:T1 NBody 聚合语义审计,dir/nbody-pool-audit 分支;T1 秒级探针轮）**:
+- **路由**:goal_check 队首 M1-CAP-AXIS NOT-AchieVED(PR#1/#2 未合并)⇒ 按在途 PR 注记跳过 ⇒ 迭代 NBODY-POOL-AUDIT;AMM-024 流程=dir/<slug> 分支,PR 即终点。
+- **代码审计(T0,预注册第一半)**:model.py:237-243 `LiquidNBodyModel.infer_context` = 共享线性 node_enc((B,T,N,2D)→(B,T,N,d)) 后 `x.mean(dim=2)` 对节点均值池化 ⇒ 均值与共享线性交换 ⇒ **ctx 输入=逐时间步的未加权 mean-位置/mean-速度(质心型 4×D 维 summary)的时间序列**,液体核只见到该 summary;隐参数=每轨迹独立的质量场 m_i~U[0.5,1.5](datasets.gen_nbody)。闭式预期:动量守恒+与质量无关的盒反射 ⇒ 质心轨迹对质量分布近乎不敏感,质量信息只能经"非加权均值 vs 质量加权质心之差"的二阶效应进入——**通道被结构性挤压(N→4×D 维),但无 M2 型 telescoping,非精确零**。
+- **实证探针协议(免训练,DPI 判决性)**:数据级 Fisher 移植(field_identifiability_probe --meanpool 同型):对若干基础轨迹,用零参数物理引擎(physics_ops,compute-don't-memorize)对质量扰动差分 ⇒ 全观测 Jacobian 与池化 summary Jacobian ⇒ Fisher_full 与 Fisher_pooled(质量参数逐维);**主量=保留率 retention = trace(J_pᵀJ_p)/trace(J_fᵀJ_f)**。数据加工不等式 ⇒ 任何训练后解码器从 ctx 提取的质量信息 ≤ Fisher_pooled ⇒ 本探针为通道容量上界,判决性不依赖训练。
+- **判负标准(先于执行钉死)**:①管线:模拟器守恒自检失败(能量漂移越界)或 Jacobian 非有限 ⇒ 排查;②重大异常:retention < 1e-3(M2 型湮灭在 NBody 复现,与 §28.3 文献预期相反)⇒ 如实入档+机制升级调查;③summary 通道反而高于全观测(retention > 1)⇒ 实现 bug。通过=retention ∈ (1e-3, 1] 且逐维 Fisher 有限 ⇒ 量化"挤压但非湮灭"曲线入档(预期:retention 有界但 >1e-3,挤压系数随 N 增大)。
+- **时长实测校准(AMM-008)**:(N+1) 次模拟/基础轨迹×8 基础轨迹×~160 步×N=4 粒子对势,纯 CPU 秒级 ⇒ **预计 ≤2min,T1**。
+- **命令/产物**:`./scripts/probe_run T1 2 -- .venv/bin/python benchmarks/nbody_pool_audit.py`;产物 benchmarks/physics_out_v02/nbody_pool_audit/(results 键包裹,exec_tier 透传);判读锚="NBODY-POOL-AUDIT 判读"。
+- **结论分级**:T1 筛查(seed 0),只解锁机制链边界闭合表述;终局声明须多 seed(停车场)。
+- **判读(NBODY-POOL-AUDIT 判读)**:**PASS,三项判负全未触发(实跑秒级)**。主结果:**retention = 1.083e-2(≈1%)**,逐维 [5.08e-3, 1.75e-2, 6.92e-3, 3.53e-3]。①**非湮灭**:retention ≫ M2 网格恒等式的 8.6e-11(telescoping 缺失,scan §28.3 文献预期兑现,判负②未触发);②**但挤压严重**:ctx 通道(质心型 summary)只保留全观测质量信息的 ~1%,与闭式分析一致——动量守恒+质量无关盒反射使质心轨迹近质量无关,质量信息仅经"非加权均值 vs 质量加权质心之差"的二阶效应进入。**机制定性=「挤压非湮灭」**:聚合语义决定隐参数可辨识性,mean-pool 这一病态聚合器在 M2(网格 telescoping)表现为精确湮灭、在 NBody(无网格)表现为 ~1% 挤压——同因不同程度,M1/M2/NBody 三线机制证据闭合。处方坐标(不立项,T1 只解锁路由):求和池化(叠加原理规范,§28.3)或质量加权特征。caveat:eps=0.01 中心差分 float32 舍入相对误差 ~5e-6,远低于 retention 量级;8 基础轨迹 seed 0 单 seed 筛查口径,多 seed=停车场。
+- **台账**:150 测试(147+3)+audit 52 项全绿显式退出码;产物 benchmarks/physics_out_v02/nbody_pool_audit/(gitignored,数字已抄本判读行);TOOLS +nbody_pool_audit;PLAYBOOK +1 治理坑(快照删锁解除 stop-gate 拦截+上下文过长保守执行,用户质询驱动)+AMENDMENTS-025 提案(PROPOSED);PR 提交即本轮终点(AMM-024);队列 NBODY-POOL-AUDIT 待合并后由 goal_check 弹出。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。
