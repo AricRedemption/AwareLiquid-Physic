@@ -44,12 +44,15 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 10:50 (轮 117 蒸馏轮:第 28 族图网络学习模拟器/GNN
-  动力学族入库 scan §28——GNS ICML 2020/MeshGraphNets ICLR 2021/聚合
-  语义(sum 叠加 vs mean 归一,轮 95 边界文献面)/★HGN arXiv:1909.12790
-  =本仓 NBody 头最近邻先例,题录全核验;[行动] NBODY-POOL-AUDIT 入队
-  (代码锚=model.py:215 mean pooling 实锤);S1 重置;选族启发式 n=2
-  已验证;147 测试+audit 绿;下一心跳=迭代 NBODY-POOL-AUDIT)
+updated: 2026-09-23 11:05 (**上下文过长快照,会话按三因条款结束重开粘贴
+  续跑**;续跑点:下一心跳=goal_check → 队首双 PR(PR#1/#2)待合并则
+  跳过 ⇒ 迭代 NBODY-POOL-AUDIT——dir/nbody-pool-audit 分支,预注册
+  判负标准先行(聚合语义代码审计+ctx Fisher 式探针,文献预期无 M2 型
+  湮灭 scan §28.3),probe_run T1,当轮判读,PR 即终点。本会话续跑段
+  五心跳:轮 114 蒸馏 §27 OOD 族+OMEGA-EXTRAP 入队/轮 115 OMEGA-EXTRAP
+  PASS("结构保持、推断退化"分离,PR#2)/轮 116 消化回填资产索引/
+  轮 117 蒸馏 §28 GNN 族+NBODY-POOL-AUDIT 入队。147 测试+audit 绿;
+  仪表 EXP=0.2 报警空;S1 重置。重启后直接跑 goal_check 按此续)
 
 ```
 
