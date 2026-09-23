@@ -843,6 +843,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 20 次达标。
 - **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列 M1-CAP-AXIS(PR#1 待合并,跳过)+OMEGA-EXTRAP 待迭代;PLAYBOOK +1 选族启发式;下一心跳=迭代 OMEGA-EXTRAP。
 
+**轮 117 记录（蒸馏补池:第 28 族图网络学习模拟器/GNN 动力学族 + NBODY-POOL-AUDIT 入队;T0 零算力检索轮）**:
+- **路由**:goal_check 队首 M1-CAP-AXIS NOT-Achieved(PR#1 未合并)⇒ 按在途 PR 注记跳过 ⇒ 蒸馏第 28 族。选族按轮 114 启发式(自家钩子→文献族):house 钩子=NBody 基准(P2-1)+轮 95 恒等式声明边界("NBody 粒子池化未审计");文献族=**图网络学习模拟器/GNN 动力学**(26+ 族零重叠;N1 定位表缺 GNN 一线)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:4 [坐标] + 1 [行动] 入库 scan §28——① Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec & Battaglia "Learning to simulate complex physics with graph networks"(ICML 2020,~2,243 引):GNS 奠基,边消息求和=力叠加原理规范实现;② Pfaff, Fortunato, Sanchez-Gonzalez & Battaglia "Learning mesh-based simulation with graph networks"(ICLR 2021 outstanding,arXiv:2010.03409):网格域扩展;③ ★聚合语义坐标(Wang 2024 Springer 综述 sum 单射/mean 丢总量 + GNS 求和惯例):轮 95 均值场恒等式适用边界的**文献面**——NBody 动力学侧对势求和是物理必然,ctx 推断侧池化语义待审计;④ ★Sanchez-Gonzalez, Bapst, Cranmer & Battaglia "Hamiltonian Graph Networks with ODE Integrators"(arXiv:1909.12790,NeurIPS 2019 ML4 PS workshop,~236 引):**本仓 NBody 头的最近邻先例**(图网络×哈密顿×积分器三合一),差异轴=ctx 推断通道+头形式,N1 定位表必引。
+- **代码锚核实(选向证据)**:model.py:215 LiquidNBodyModel docstring 证实 ctx 推断路径确用 **mean pooling**(分辨率不变性)——审计方向有实锤代码钩子。
+- **NBODY-POOL-AUDIT 入队([行动],T1 可行动)**:闭合轮 95 声明边界——①代码审计聚合算子语义;②ctx 信息 Fisher 式探针(field_identifiability_probe --meanpool 模式移植),判读=信息保留率;文献预期(§28.3)无 M2 型湮灭,实测相反即重大异常如实入档;双锚单行 check_cmd;判负标准下心跳执行前预注册。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 21 次达标。
+- **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列三条(两条在途 PR+NBODY-POOL-AUDIT 待迭代);PLAYBOOK 轮 114 启发式升级验证状态(n=2 已验证);下一心跳=迭代 NBODY-POOL-AUDIT。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。

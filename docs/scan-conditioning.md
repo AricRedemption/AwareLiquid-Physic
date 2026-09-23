@@ -1458,6 +1458,88 @@ Neural Surrogates"(arXiv,2025-11,多保真数据轴,作者待核)。
 入 PLAYBOOK):先枚举自家未蒸馏的数据/协议钩子(ω 带/池尺寸/eval_ks),
 再找覆盖该钩子的文献族——从钩子找文献比从文献找方向更易 T1 化。
 
+## 28. 经验蒸馏 23(轮 117,2026-09-23,QUEUE-EMPTY 轮):图网络学习模拟器/GNN 动力学族
+
+> 第 28 个 query 族,与前 27 族零重叠(GNN 模拟器谱系未蒸馏;N1 定位表
+> 缺 GNN 一线)。选族启发式(轮 114)二次起效:house 钩子=NBody 基准
+> (P2-1)+轮 95 恒等式声明的"NBody 粒子池化未审计"边界。检索:3 槽
+> 一次命中。标记:[坐标] ×4 + [行动] ×1(→ NBODY-POOL-AUDIT 入队)。
+
+### 28.1 GNS:图网络模拟器奠基 [坐标]
+
+- 【出处】Sanchez-Gonzalez, Godwin, Pfaff, Ying, Leskovec & Battaglia,
+  "Learning to simulate complex physics with graph networks",
+  **ICML 2020**(~2,243 引)。
+- 【内容】GNS:消息传递图网络预测粒子加速度,自回归滚出;流体/刚体/
+  可变形体多域学习模拟。**聚合=对边消息求和**(力叠加原理的标准
+  实现)。
+- 【对我们的映射】N1 Related Work 缺失的竞争线补位:GNN 模拟器=
+  "关系结构注入、守恒不注入"的代表——与本仓"守恒层硬注入"构成
+  注入谱系两端的现成对照(轮 86 分层注入哲学的谱系坐标)。
+- 【适用条件】N1 Related Work。
+- 【验证状态】社区已验证(ICML,高引);定位立即可用。
+
+### 28.2 MeshGraphNets:网格域扩展 [坐标]
+
+- 【出处】Pfaff, Fortunato, Sanchez-Gonzalez & Battaglia, "Learning
+  mesh-based simulation with graph networks", **ICLR 2021**(outstanding
+  paper,arXiv:2010.03409,~2,084 引)。
+- 【内容】GNS 到网格域的扩展(气动/布料/结构力学),自适应网格。
+- 【对我们的映射】GNN 谱系广度的第二条锚(与 §28.1 同引 N1 Related
+  Work 段);不展开。
+- 【适用条件】N1 Related Work。
+- 【验证状态】社区已验证;定位立即可用。
+
+### 28.3 聚合语义:sum 叠加 vs mean 归一 [坐标] ★(轮 95 边界的文献面)
+
+- 【出处】Wang, "Graph pooling in graph neural networks: methods and
+  their developments", Springer 综合(**2024**,~43 引;sum 在 multiset
+  上单射最强/mean-max 严格更弱);物理 GNN 惯例=GNS 系**边消息求和**
+  (力/通量叠加原理,mean 会归一掉总相互作用强度)。
+- 【内容】聚合算子表达力谱系:sum 单射(保计数/总量)>mean(尺度
+  不变但丢总量)>max;物理域求和=叠加原理的规范实现。
+- 【对我们的映射】轮 95 均值场恒等式的适用边界文献面:M1/M2 均值池
+  的信息湮灭在 NBody 侧**不应**出现——NBody 动力学侧对势求和是物理
+  必然(叠加原理),ctx 推断侧池化语义待审计(§28.5);文献预期=
+  NBody 池化无 M2 型恒等式湮灭。
+- 【适用条件】NBODY-POOL-AUDIT 判读框架;N1 机制链边界注。
+- 【验证状态】社区已验证(综述+GNS 惯例);对仓对接待探针。
+
+### 28.4 HGN:图网络×哈密顿的最近邻 [坐标] ★
+
+- 【出处】Sanchez-Gonzalez, Bapst, Cranmer & Battaglia, "Hamiltonian
+  Graph Networks with ODE Integrators", arXiv:1909.12790, **NeurIPS 2019
+  ML4 Physical Sciences workshop**(~236 引)。
+- 【内容】图网络学习哈密顿量+可微 ODE 积分器:关系结构+守恒结构+
+  数值积分三合一;长滚出优于标准 GNS。
+- 【对我们的映射】**本仓 NBody 头(LiquidNBodyModel=ctx 推断+对势+
+  Verlet)的最近邻先例**:同一"结构三合一"哲学,差异轴=ctx 通道
+  (我们经 liquid 核推断,其无推断层)+头形式(径向对势 vs 自由
+  H 网络)。N1 定位表必引:既证明"守恒注入进图网络"路线成立,
+  又凸显推断条件化空位仍属本仓。
+- 【适用条件】N1 Related Work/定位表。
+- 【验证状态】社区已验证(workshop,~236 引);定位立即可用。
+
+### 28.5 NBody 聚合语义审计 [行动→NBODY-POOL-AUDIT]
+
+- 【内容】闭合轮 95 恒等式的声明边界("NBody 粒子池化无网格
+  telescoping,未审计如实注记"):①代码审计 model.py 粒子池化的
+  聚合算子语义(mean/sum/对势直和);②ctx 信息 Fisher 式探针
+  (field_identifiability_probe --meanpool 模式移植),判读=NBody
+  ctx 通道信息保留率——文献预期(§28.3)无 M2 型湮灭,若实测相反
+  即重大异常如实入档。T1 预算(秒级闭式+代码审计);判负标准执行前
+  预注册 PRD §19。
+- 【对我们的映射】轮 95 恒等式适用边界的实证闭合;NBody 线首次
+  获得与 M1/M2 同规格的机制证据。
+- 【适用条件】N1 机制链;判读入 PRD §19。
+- 【验证状态】对本仓待执行(下心跳,预注册先行)。
+
+### 蒸馏结论 23
+
+四 [坐标] + 一 [行动](NBODY-POOL-AUDIT 入队)。第 28 族;S1 计数
+重置(本轮有 [行动] 产出)。蒸馏轮第 21 次达标。选族启发式(轮 114)
+二次起效并升级验证状态(n=2)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

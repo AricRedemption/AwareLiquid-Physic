@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 队首 M1-CAP-AXIS 未合并则跳过(在途 PR 注记)⇒ 迭代 OMEGA-EXTRAP(dir/<slug>:预注册→probe_run→当轮判读→PR)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 队首双 PR(PR#1/#2)待合并则跳过 ⇒ 迭代 NBODY-POOL-AUDIT(dir/<slug>:预注册→probe_run→当轮判读→PR)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,12 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-23 10:35 (轮 116 消化轮:判读完消化义务履行——N1 资产
-  索引回填两探针 [B] 级数字(M1-CAP-AXIS 容量轴=E3 的 M1 侧对照;OMEGA-
-  EXTRAP 带外退化曲线=scope 量化),均带在途 PR 溯源标注(PR#1/#2 待
-  合并,轮 111 数字搬运条款:任务/口径/状态限定词随行);在途 PR 注记
-  扩为双 PR;分流/条件重入口清零;147 测试+audit 绿;下一心跳=队首双
-  PR 待合并则跳过 ⇒ 蒸馏第 28 族(选族启发式:从自家钩子找文献族))
+updated: 2026-09-23 10:50 (轮 117 蒸馏轮:第 28 族图网络学习模拟器/GNN
+  动力学族入库 scan §28——GNS ICML 2020/MeshGraphNets ICLR 2021/聚合
+  语义(sum 叠加 vs mean 归一,轮 95 边界文献面)/★HGN arXiv:1909.12790
+  =本仓 NBody 头最近邻先例,题录全核验;[行动] NBODY-POOL-AUDIT 入队
+  (代码锚=model.py:215 mean pooling 实锤);S1 重置;选族启发式 n=2
+  已验证;147 测试+audit 绿;下一心跳=迭代 NBODY-POOL-AUDIT)
 
 ```
 
@@ -67,6 +67,11 @@ goal_queue:
   goal: ω带外外推探针——M1于ω∈[0.7,1.8]训练(2000步,seed0), 带内anchor+带外[0.3,0.6]/[1.9,2.2]评估k100 MSE与ctx线性解码, liquid/static双臂(结构约束是否缓解带外退化)
   done_condition: PRD §19有"OMEGA-EXTRAP 判读"锚且benchmarks/physics_out_v02/omega_extrap/omega_extrap.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "OMEGA-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/omega_extrap/omega_extrap.json
+- id: NBODY-POOL-AUDIT
+  track: engineering
+  goal: NBody聚合语义审计——闭合轮95恒等式声明边界(代码审计model.py粒子池化聚合语义+ctx信息Fisher式探针移植, 判读=信息保留率, 文献预期无M2型湮灭scan§28.3)
+  done_condition: PRD §19有"NBODY-POOL-AUDIT 判读"锚且benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "NBODY-POOL-AUDIT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
