@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 七条 pr-pending(PR#1-#7)待合并全跳过 ⇒ 仪表路由(消化轮预置项=N1 回填 ICL-M3 三臂排序+内插修正方向登记)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → ICL-M3-INTERP 为队首 actionable(其余七条 pr-pending 跳过)⇒ 迭代 ICL-M3-INTERP(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,12 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 13:00 (**轮 132:ICL-M3 判读=判负①② 未触发,
-  三臂排序 B<C<A 交付**——少样本增益方向成立(微调 1.195e-2 vs 从头
-  1.336e-2,~12%);GrBAL/ReBAL 读数=梯度适配比隐式前缀好 4.9×;
-  外插混杂如实注记(c=1.5 在语料外),内插修正方向下一消化轮登记;
-  M3 P1-2 首次真实数字检验获筛查级支持;PR#7 开立待合并。下一心跳=
-  goal_check 裁决(消化轮预置项=N1 回填+内插方向登记))
+updated: 2026-09-24 13:40 (**轮 133:消化轮,ICL-M3 回填+内插对照
+  入队**——资产索引新增 4c 条(少样本三臂 B<C<A,PR#7 溯源);
+  ICL-M3-INTERP 入队(c_target=1.1 内插,剥离外插混杂);PLAYBOOK +1
+  坑(适配对照的内插/外插性质应预注册);七条 pr-pending。下一心跳=
+  goal_check 路由迭代 ICL-M3-INTERP(预注册先行→冒烟→probe_run→判读))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -97,6 +96,11 @@ goal_queue:
   done_condition: PRD §19有"ICL-M3 判读"锚且benchmarks/physics_out_v02/icl_m3/icl_m3.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "ICL-M3 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/icl_m3/icl_m3.json
   status: pr-pending(PR#7, 判读=判负①②未触发三臂排序B<C<A交付, 合并后check过自动弹出)
+- id: ICL-M3-INTERP
+  track: engineering
+  goal: 少样本适配内插对照——ICL-M3三臂原样但c_target=1.1(语料{0.8,1.0,1.2}内=内插任务, 剥离轮132判读的外插混杂: 隐式ICL与梯度适配差距中适配能力与OOD外插各占多少, 内插版A臂应显著改善若仍落后则适配能力为真因)
+  done_condition: PRD §19有"ICL-M3-INTERP 判读"锚且benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "ICL-M3-INTERP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
