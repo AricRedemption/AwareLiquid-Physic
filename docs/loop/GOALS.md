@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → SIGN-FLIP-PROBE 为队首 actionable(其余四条 pr-pending 跳过)⇒ 迭代 SIGN-FLIP-PROBE(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 五条 pr-pending(PR#1-#5)待合并全跳过 ⇒ 仪表路由(消化轮 N1 回填为预置项:SIGN-FLIP-PROBE 异常定位+轮126桥接惯例n=2)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,11 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 08:00 (**轮 125:蒸馏第 30 族训练随机性/损失景观族,
-SIGN-FLIP-PROBE 入队**——选族启发式 n=3 含机制核对拦截(尖锐前沿族
-撞 §17.1 当场弃);轮 113 符号反转异常获机制框架(Lubana ICML 2023
-sign-symmetry 盆地);S1 重置([行动]);蒸馏第 23 次达标。下一心跳=
-goal_check 路由迭代 SIGN-FLIP-PROBE(预注册先行→冒烟→probe_run→判读))
+updated: 2026-09-24 09:00 (**轮 126:SIGN-FLIP-PROBE 判读 TRANSIENT
+  (机械)/盆地稳定占多数(实质)**——复现锚逐位一致(cap-axis d48),
+  翻转 3/8≈记录 1/3,seed1/3 盆地稳定+seed7 瞬态,c3 未触发=等价解
+  签名(损失比全≤0.23);轮 113 开放异常定位完成;PR#5 开立待合并;
+  N1 回填=下一消化轮预置项。下一心跳=goal_check 裁决)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -83,6 +83,7 @@ goal_queue:
   goal: 半群符号反转异常定位——轮113记录开放问题(符号反转1/3全容量点恒定)的机制探针: 跨seed扫描追踪符号统计与稳定性(3-seed T1诊断级, 多seed终局维持停车场), 与sign-symmetry盆地机制对账(scan§30.3: tanh奇激活符号对称盆地=机制性不同解)
   done_condition: PRD §19有"SIGN-FLIP-PROBE 判读"锚且benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "SIGN-FLIP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json
+  status: pr-pending(PR#5, 判读TRANSIENT+异质纹理如实: 盆地稳定占多数, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
