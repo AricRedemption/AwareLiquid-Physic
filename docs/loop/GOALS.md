@@ -44,11 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 09:00 (**轮 126:SIGN-FLIP-PROBE 判读 TRANSIENT
-  (机械)/盆地稳定占多数(实质)**——复现锚逐位一致(cap-axis d48),
-  翻转 3/8≈记录 1/3,seed1/3 盆地稳定+seed7 瞬态,c3 未触发=等价解
-  签名(损失比全≤0.23);轮 113 开放异常定位完成;PR#5 开立待合并;
-  N1 回填=下一消化轮预置项。下一心跳=goal_check 裁决)
+updated: 2026-09-24 09:30 (**轮 127:消化轮,N1 符号反转定位回填完成**——
+  资产索引 M1-CAP-AXIS 行+初稿 Limitations 4b 新增(种子级符号不稳定性:
+  ~1/3 反转、多数盆地稳定等价解签名+少数瞬态,PR#5 溯源);条件重入口
+  终态确认;五条 pr-pending 待合并。下一心跳=goal_check 裁决(队列空,
+  EXP=0.2 蒸馏解冻,蒸馏须带 [行动] 否则 S1 累计))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 

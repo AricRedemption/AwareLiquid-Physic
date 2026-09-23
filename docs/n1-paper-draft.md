@@ -271,6 +271,13 @@ interface-reachable upper bound, not a reachable gain.
    regime and shows the even constraint costs nothing in-distribution
    (B/A forward 0.078, i.e. a 12.8x gain). Multi-seed finals remain
    parked.
+4b. **Seed-level sign instability of the prefix advantage.** The
+   prefix-over-all2all advantage reverses for ~1/3 of seeds; located by a
+   diagnostic probe [B, 1-seed x 8, PRD §19 round 126; PR#5]: flips are
+   heterogeneous — majority basin-stable at 2x budget with comparable
+   training losses (equivalent-solution signature; sign-symmetry basins,
+   Lubana et al. ICML 2023), minority transient. Reported as a property of
+   the training axis, not averaged away.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -320,4 +327,6 @@ nonseparable validation added to Limitations 5 (T1 probe, PRD §19).
 Updated round 120: T-even escape-hatch validation added to Limitations 4
 (T1 probe + single-frequency control, PRD §19). Updated round 123:
 spectral-bias naming downgraded to weak hypothesis in Mechanism Analysis
-(prophecy test NEGATIVE, PR#4, PRD §19 round 122).*
+(prophecy test NEGATIVE, PR#4, PRD §19 round 122). Updated round 127:
+seed-level sign instability added to Limitations 4b (diagnostic probe,
+PR#5, PRD §19 round 126).*
