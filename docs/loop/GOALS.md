@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 三条 pr-pending(PR#1/#2/#3)待合并全跳过 ⇒ 仪表路由(EXP=0.2 已清线:蒸馏/消化按裁决)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 三条 pr-pending 跳过 ⇒ 迭代 R1D-MODE-SCAN(队首 actionable:预注册判负先行→冒烟校准>30min 则按 AMM-024 转停车回退→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,13 +44,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 05:50 (**轮 120:证据轮 ESC-DOOR-TEVEN PASS,逃生门#2
-  [C]→[B]**——goal_check MINING-FROZEN(EXP=0.1)⇒ 证据轮,选向复用两道
-  对账惯例(首次复用即验证 n=2);T 偶参数化 A/B:回程闭合比 9.7e8×(B 臂
-  机器地板与拟合质量无关)+单频控制臂前向无代价反获 12.8× 增益,五项判负
-  全未触发;如实注记带池×自主头族偏置+控制臂补强;新坑入 PLAYBOOK(异频
-  族池×自主头=偏置地板,轴-偏置正交性先对表);仪表 EXP=0.2 报警清空。
-  下一心跳=goal_check 裁决(三 PR 全跳过 ⇒ 仪表路由))
+updated: 2026-09-24 06:05 (**轮 121:消化轮,条件重入口裁决 R1d 入队**——
+  GOALS 状态块与 §19 裁决行对账抓出 2 处幽灵候选(R1b 轮 95 已裁不触发
+  维持登记,轮 120 门#2 [B] 属架构证据非修复触发;R1c 轮 96 已闭环);
+  R1d 先决轮 96 后字面到位+SB-NAMING 对账成立 ⇒ §12.3 第四路触发,
+  R1D-MODE-SCAN 入队(frontier,T1 筛查级,注册 3-seed 终局维持停车场,
+  冒烟>30min 回退路径预注册);消化轮不计 S1;零算力。下一心跳=goal_check
+  路由迭代 R1D-MODE-SCAN(预注册先行→冒烟校准→probe_run→当轮判读))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -74,6 +74,11 @@ goal_queue:
   done_condition: PRD §19有"NBODY-POOL-AUDIT 判读"锚且benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "NBODY-POOL-AUDIT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json
   status: pr-pending(PR#3)
+- id: R1D-MODE-SCAN
+  track: frontier
+  goal: R1d逐ctx模式提取质量扫描——SB-NAMING可证伪预言检验(scan§17.3+轮78预言: 提取质量随模式序数单调变差=谱偏置命名, 平坦=判负⇒命名降级+第四路删除; 复用--oracle_ctx三臂框架逐模式分解, T1筛查级1-seed, 注册的3-seed终局协议维持停车场)
+  done_condition: PRD §19有"R1D-MODE-SCAN 判读"锚且benchmarks/physics_out_v02/r1d_mode_scan/r1d_mode_scan.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "R1D-MODE-SCAN 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/r1d_mode_scan/r1d_mode_scan.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
@@ -84,10 +89,14 @@ goal_queue:
 测试在位)——本注记仅作人类可读备份:PR#1=M1-CAP-AXIS、PR#2=OMEGA-
 EXTRAP、PR#3=NBODY-POOL-AUDIT,均判读 PASS 待合并,合并后自动弹出。
 **条件性重入口(唯一源=scan §12.3 四路分流表;此处只存状态,不复制逻辑)**:
-E2 已失效(轮 90:R1 判负 ⇒ 推断侧方向关闭);R1b/R1c 已字面触发=
-**队列候选**,待队列空时按 §12.3 裁决是否入队;R1d 先决=SB-NAMING
-对账成立。AMM-021 等效清点:B1 路由行为不变(本块在 yaml 外,路由器
-不解析)/B2 候选裁决时机保留/B3 E2 失效判定保留/B4 R1d 先决保留。
+E2 已失效(轮 90:R1 判负 ⇒ 推断侧方向关闭);R1b 分支前提不满足 ⇒
+轮 95 裁决不触发,维持条件性登记(轮 120 门#2 [B] 实证属架构层证据,
+非修复路线触发);R1c 已闭环(R1C-AGG 轮 96 判负,入 P3 四路全负链);
+R1d 先决到位(R1b/R1c 均未兑现缺口收敛+SB-NAMING 对账成立)⇒ 轮 121
+裁决 **R1D-MODE-SCAN 入队**(T1 筛查级;注册的 3-seed 终局协议维持
+停车场;冒烟 >30min 则按 AMM-024 转停车并回退队列条目)。AMM-021
+等效清点:B1 路由行为不变/B2 候选裁决时机保留(轮 121 即裁决时刻)/
+B3 E2 失效判定保留/B4 R1d 先决保留。
 
 ## 推进规则
 
