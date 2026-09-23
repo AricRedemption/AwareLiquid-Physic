@@ -933,6 +933,18 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 25 次达标。
 - **台账**:零算力轮;scan §32+蒸馏结论 27;1 处弱坐标(AI-Hamilton)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列七条(六 pr-pending+ICL-M3 actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 ICL-M3。
 
+**轮 132 记录(ICL-M3:少样本适配三臂对照;T1 算力轮)**:
+- **路由**:goal_check NOT-Achieved(ICL-M3 actionable 队首)⇒ 心跳单元=预注册判负 → 冒烟校准 → probe_run T1 → 当轮判读 → dir/icl-m3 PR(AMM-024 T1 探针环)。
+- **ICL-M3 预注册(先于执行钉死)**:
+  - **动机**:scan §32.3 的 GrBAL/ReBAL 对照语言落到本仓:prefix 摊销(隐式适配)与 M3 finetune(梯度适配)从未同任务同池对照;M3 线(PRD P1-2"少样本 ≤20 轨迹达标")只有 5 步冒烟产物(轮 84 代际条款:语法证据,非数字)——本探针交付首个真实 M3 数字并补齐第三臂(前缀零样本)。
+  - **协议**:M3 脚本参数逐项镜像(gen_steps 100/t_obs 24/k_train 8/eval_k 60/dt 0.05/N 32/n_shot 20/n_few_eval 64/c_target 1.5 未见/d_model 48/ctx 8/modes 12/width 32/reflect_pad 8/lr 3e-3/batch 32/seed 0;pretrain mix {0.8,1.0,1.2} 各 96 轨);**三臂**:**A 前缀摊销(隐式 ICL)**=liquid 于 mix 上 train_pretrain 300 步后**不微调**直接在 c=1.5 未见速度上前缀推理(零样本,前缀即 prompt=scan §32.2 命名的实例化);**B 梯度微调(GrBAL 型)**=同 pretrain+finetune 200 步(n_shot 20);**C 从头对照**=fromscratch 400 步(n_shot 20);评估=c=1.5 held-out 64 轨 k60 rollout(q+p 点均,evaluate 同式)。
+  - **时长实测校准(AMM-008)**:M3 冒烟 5 步秒级;真实协议 ~1200 步 liquid 算子训练 ⇒ **预计 ≤8min,T1**(probe_run T1 10;冒烟先行校准,>30min 按 AMM-024 转停车回退)。
+  - **判负标准(预注册)**:**① 增益方向负**=B ≥ C(微调臂不优于同数据从头)⇒ M3 P1-2 少样本增益方向判负,如实入档(P1-2 目标首次真实数字检验);**② 排序不可判**=|A−B| 与 |B−C| 均小于各自 stderr ⇒ 记录"三臂不可分",降级为方向性描述;通过=①② 均未触发 ⇒ 交付三臂排序(B<C=增益方向成立;A 相对位置=隐式 vs 梯度适配读数,GrBAL/ReBAL 语言如实报告:隐式更优=前缀适配足够,梯度更优=微调有增量)。附带轴:各臂 train_loss(适配质量语境,不作门)。
+  - **命令/产物**:`./scripts/probe_run T1 10 -- .venv/bin/python benchmarks/icl_m3.py`;产物 benchmarks/physics_out_v02/icl_m3/icl_m3.json(results 键包裹,meta exec_tier 透传);判读锚="ICL-M3 判读"。
+  - **结论分级**:T1 筛查只解锁 M3/迁移线表述与 N1 路由,终局声明须多 seed(停车场)或隐藏卷。
+- **判读(ICL-M3 判读)**:**判负①② 均未触发——三臂排序可判交付:B(1.195e-2)< C(1.336e-2)< A(5.819e-2)**。主结果(M3 真实协议 300/200/400 步,seed 0,实跑 ~2min ≤est10):**少样本增益方向成立**(B < C:pretrain+finetune 20-shot 1.195e-2 vs 从头 1.336e-2,~12% 增益,stderr 8.3e-4/8.3e-4 可判)——M3 PRD P1-2 目标首次真实数字检验获筛查级支持(此前唯一产物是 5 步冒烟,轮 84 代际条款);**GrBAL/ReBAL 对照读数**:梯度微调(B)比纯隐式前缀零样本(A)好 **4.9×**(5.819e-2 vs 1.195e-2,stderr 可判)——显式梯度适配在本任务携带实质增量,隐式 ICL 单独不足(§32.2 命名的适配语义面在本仓实例中弱于梯度侧)。**如实注记(口径混杂因素)**:c_target=1.5 在 pretrain 语料 {0.8,1.0,1.2} 之外=**外插而非内插**任务——A 臂的落后部分归因于 OOD 速度外插(与 OMEGA-EXTRAP 的带外 ctx 退化一致,scan §27),非纯适配能力差;内插版(c_target=1.1)是后续判读修正方向(下一消化轮登记)。附带轴:B finetune 损失 4.15e-4 < pretrain 7.69e-4(适配在降损)。结论分级:1-seed T1 筛查;多 seed 终局=停车场。
+- **台账**:163 测试(160+3)+audit 全绿显式退出码;产物 benchmarks/physics_out_v02/icl_m3/(gitignored,数字已抄本判读行);TOOLS +icl_m3;N1 迁移线表述回填下一消化轮;队列弹出后六条 pr-pending,下一心跳=消化轮。
+
 
 
 
