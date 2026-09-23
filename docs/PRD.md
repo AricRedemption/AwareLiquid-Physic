@@ -887,6 +887,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:消化轮不计 S1。
 - **台账**:零算力轮(纯呈现层修订,不动研究判定行);门禁复跑确认(显式退出码);GOALS 戳推进;下一心跳=goal_check 裁决(队列空,EXP≥20% 蒸馏解冻,按路由或收方向)。
 
+**轮 124 记录(蒸馏补池:第 29 族模拟基推断/摊销参数后验族;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮(EXP=0.2 解冻);选族按轮 114 启发式:自家未蒸馏钩子=ctx 推断的摊销参数后验身份+D-1 校准判负(coverage 1.6%,过自信)→ 文献族 **SBI/NPE(模拟基推断)**;grep 全库 SBI/simulation-based/neural posterior 零重叠确认(§12.1 amortization gap=VAE 优化缺口、§20=UQ 量化方法论,均非该范式)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:5 [坐标] 入库 scan §29——①★Cranmer, Brehmer & Louppe "The frontier of simulation-based inference"(PNAS 117(48), 2020,~2,100+ 引):SBI 奠基综述,本仓 ctx 推断=摊销参数后验的社区正名与术语锚(N1 定位用);②★Talts, Betancourt, Simpson, Vehtari & Gelman "Validating Bayesian Inference Algorithms with Simulation-Based Calibration"(arXiv:1804.06788, 2018):SBC 原始诊断——**D-1 判负获得社区标准诊断命名**(coverage 实测即 SBC 类检验失败案例,UQ 上限 L2 判定有标准引用支撑);③★Hermans, Begy, Delaunoy, Rozet, Louppe & Weniger "A Trust Crisis In Simulation-Based Inference?"(arXiv:2110.06581, 2021/TMLR 2022,~137 引):摊销 SBI 普遍过度自信的系统实证——D-1 失败模式=已知通病的本仓实例,N1 UQ 段定位升级;④Falkiewicz et al. "Calibrating Neural SBI with Differentiable Expected Coverage"(NeurIPS 2023,~20 引):coverage 可微正则=L2→L3 升级处方,**停车场参照坐标**(不触发);⑤对照槽:Zammit-Mangion et al. "Neural Methods for Amortized Inference"(Annu. Rev. Stat. Appl., 2025,统计学视角)+AALR-MCMC 弱坐标(venue/年份带 ? 登记 SCAN-AUDIT)。
+- **S1 计数**:本轮无 [行动] 产出(SBI 族为定位/诊断命名坐标,不收 T1 行动——D-1 线已闭,SBC 探针有幽灵方向之嫌,轮 121 教训条款不动闭线)⇒ 累计 1/2,**下个蒸馏轮必须产出 [行动],否则评估收口**;蒸馏轮第 22 次达标(≥1 条入库)。
+- **台账**:零算力轮;PLAYBOOK 对照槽惯例 n 升级(n=10,轮 124 三槽一次命中);scan §29+蒸馏结论 24;157 测试+audit 全绿显式退出码(零代码轮);队列四条 pr-pending 不变;下一心跳=goal_check 裁决。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。

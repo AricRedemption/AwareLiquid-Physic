@@ -44,11 +44,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 07:00 (**轮 123:消化轮,N1 SB-NAMING 降级回填完成**——
-  初稿 §6 机制链谱偏置候选移出 named frame,如实降级表述保留命名→预言
-  →检验→降级全链(可证伪主义展品);资产索引 §4 同步注记(PR#4 溯源);
-  条件重入口三路终态清零确认;四条 pr-pending 待合并。下一心跳=goal_check
-  裁决(队列空,EXP=0.2 蒸馏解冻,按路由或收方向))
+updated: 2026-09-24 07:30 (**轮 124:蒸馏第 29 族 SBI/NPE 入库**——
+  scan §29 五 [坐标](Cranmer PNAS 2020 综述/Talts 2018 SBC/Hermans
+  Trust Crisis=摊销后验过度自信通病/D-1 判负获社区标准诊断命名/
+  Falkiewicz NeurIPS 2023 coverage 正则=停车场参照);S1 不重置累计
+  1/2(无 [行动],D-1 闭线不动),下个蒸馏轮必须产出 [行动] 否则评估
+  收口;对照槽惯例 n=10。下一心跳=goal_check 裁决(队列空,蒸馏须带
+  [行动]))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 

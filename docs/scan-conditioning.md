@@ -1540,6 +1540,96 @@ Neural Surrogates"(arXiv,2025-11,多保真数据轴,作者待核)。
 重置(本轮有 [行动] 产出)。蒸馏轮第 21 次达标。选族启发式(轮 114)
 二次起效并升级验证状态(n=2)。
 
+## 29. 经验蒸馏 24(轮 124,2026-09-24,QUEUE-EMPTY 轮):模拟基推断/摊销参数后验族(SBI/NPE)
+
+> 新 query 族(与前 28 族零重叠:grep 全库 SBI/simulation-based/neural
+> posterior 无既有坐标——§12.1 amortization gap 是 VAE 优化缺口命名,
+> §20 是 UQ 量化方法论,均非"模拟+神经估计做后验"范式本身)。标记:
+> [坐标](全部;无 [行动]——见蒸馏结论 24 的 S1 注记)。
+> 三槽:① 领域综述 ② 机制直击(SBC/coverage 诊断)③ 对照式
+> (摊销 vs MCMC)。题录当场核验(AMM-015)。
+
+### 29.1 SBI 奠基综述 [坐标]
+
+- 【出处】[Cranmer, Brehmer & Louppe, "The frontier of simulation-based inference", PNAS 117(48):30055-30062, 2020,~2,100+ 引](https://www.pnas.org)
+- 【内容】似然不可得(only simulators)场景下,以神经估计器(NPE/NRE/
+  ALE 谱系)对模拟器参数做后验推断的奠基综述;顺序/摊销两策略分野。
+- 【对我们的映射】本仓 ctx 推断=**摊销参数后验**(M1 ω、M2 c(x) 系数
+  的 amortized posterior),SBI 是该范式的社区正名与标准工具体系
+  (sbi 包);N1 定位可用 SBI 术语锚定 ctx 推断通道(推断=amortized
+  system ID),并与 §12.1 amortization gap(优化的缺口)衔接为
+  "范式名+缺口名"两层表述。
+- 【适用条件】一切 ctx 推断的 N1 定位表述与相关工作章。
+- 【验证状态】题录当场核验(卷期页码为检索面记录,引用数标注约数);
+  社区已验证;对本仓为定位引用(非新实验方向)。
+
+### 29.2 SBC:摊销校准的标准诊断 [坐标]
+
+- 【出处】[Talts, Betancourt, Simpson, Vehtari & Gelman, "Validating
+  Bayesian Inference Algorithms with Simulation-Based Calibration",
+  arXiv:1804.06788, 2018](https://arxiv.org/abs/1804.06788)
+- 【内容】SBC 原始诊断:后验样本对先验预测抽样的秩应均匀,偏离即校准
+  失败;expected coverage 为同族检验(可信区间覆盖率=名义水平)。
+- 【对我们的映射】**D-1 判负获得社区标准命名**:coverage 1.6%/0/0
+  ≪名义 95%(过度自信)实测即 SBC/coverage 类检验的失败案例;N1 的
+  "UQ 表述上限 L2"判定由此可引标准诊断文献支撑(不是私有判据)。
+- 【适用条件】一切校准声明、D-1 判读引用、UQ 章表述。
+- 【验证状态】题录当场核验;社区已验证;对本仓为诊断命名引用。
+
+### 29.3 ★信任危机:摊销后验的过度自信通病 [坐标]
+
+- 【出处】[Hermans, Begy, Delaunoy, Rozet, Louppe & Weniger, "A Trust
+  Crisis In Simulation-Based Inference? Your Bayesian Algorithms Should
+  Be Explored More Than Exploited", arXiv:2110.06581, 2021(TMLR 2022),
+  ~137 引](https://arxiv.org/abs/2110.06581)
+- 【内容】系统实证:当前摊销 SBI 算法普遍产出**过度自信**、计算上
+  不忠实/欠精炼(c-2,invalid)的后验近似,提出 expected coverage
+  诊断与更充分的训练方案。
+- 【对我们的映射】D-1 的失败模式(过度自信方向)是该文献记录的
+  **摊销后验已知通病**在本仓的具体实例——N1 UQ 段(L2 上限)的
+  定位从"我们的模型过度自信"升级为"摊销后验的已知失效模式,本仓
+  有独立诊断数字与上限纪律";同作者 Averting-A-Crisis(TMLR 2021,
+  验证式早停)为处方参照。
+- 【适用条件】N1 UQ/L2 段、一切摊销推断声明与边界声明。
+- 【验证状态】题录当场核验(arXiv ID+作者+TMLR 2022);社区已验证。
+
+### 29.4 可微 expected coverage 正则:校准感知训练处方 [坐标]
+
+- 【出处】[Falkiewicz, Cerqueira, Lefebvre, Koenig, Delaunoy & Louppe,
+  "Calibrating Neural Simulation-Based Inference with Differentiable
+  Expected Coverage", NeurIPS 2023,~20 引](https://proceedings.neurips.cc)
+- 【内容】把 expected coverage 诊断可微化,作为正则进 NPE/NRE 训练
+  (校准感知训练)。
+- 【对我们的映射】L2→L3(校准区间)升级路径的社区处方=coverage
+  正则化训练;登记为**停车场参照坐标**(L3 与云档均在停车场,不触发;
+  处方谱系入 §17.3 同位)。
+- 【适用条件】停车场重启(T2/T3/Kaggle)时的 UQ 升级处方路由。
+- 【验证状态】题录当场核验(NeurIPS 2023);社区已验证;停放不触发。
+
+### 29.5 对照槽:统计学社区综述与摊销可靠性边界 [坐标]
+
+- 【出处】Zammit-Mangion, Sainsbury-Dale & Huser, "Neural Methods for
+  Amortized Inference", Annual Review of Statistics and Its Application,
+  2025(arXiv 2024-10,~154 引;统计学视角综述,neural Bayes estimation
+  与 NPE 二分)。
+- 【内容/映射】统计学社区对摊销推断的规范综述:"训练前置换推理速度,
+  精度依赖训练覆盖度,诊断(SBC/coverage)必需"——与本仓 ctx=摊销
+  估计+D-1 上限纪律互证;对照面:Hermans et al. AALR-MCMC(摊销似然比
+  +MCMC 采样,~328 引)代表"摊销换可靠性"混合路线——摊销不是唯一
+  精度档,弱坐标:**AALR-MCMC 的 venue/年份检索面记 PMLR 2019 与
+  AISTATS 2020 存疑,登记 SCAN-AUDIT 复核**。
+- 【适用条件】N1 相关工作章(摊销推断定位与可靠性边界)。
+- 【验证状态】综述题录基本核验(年份一致,arXiv ID 不写未核值);
+  AALR venue 带 ? 登记 SCAN-AUDIT。
+
+### 蒸馏结论 24
+
+5 [坐标](29.3 ★)+ 0 [行动]。第 29 族;**S1 计数不重置(无
+[行动] 产出,累计 1/2——下个蒸馏轮必须产出 [行动] 类条目,否则评估
+收口)**。蒸馏轮第 22 次达标(≥1 条入库)。选族按轮 114 启发式
+(自家钩子=ctx 推断摊销后验+D-1 过自信判负 → SBI/NPE 族),零重叠
+grep 确认;题录当场核验,1 处弱坐标带 ? 登记 SCAN-AUDIT。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
