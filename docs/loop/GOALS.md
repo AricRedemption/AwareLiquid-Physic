@@ -44,12 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 11:00 (**轮 129:MAP-VS-FLOW 判读 FLOW_LIKE**——
-  单频控制族 dt=0.1 训练头跨 dt 固定视距迁移:ratio 0.895≤2+1-step
-  斜率 +1.995=O(dt²) 两轴互证,学到的是向量场对象非 dt 映射;判负
-  未触发,N1"学到 H"措辞维持(扫描 dt 倍频内筛查限定);附带:原生
-  dt=0.05 参照臂反而差 12×(预注册地板读数修正,如实);PR#6 开立
-  待合并。下一心跳=goal_check 裁决(消化轮 N1 回填为预置项))
+updated: 2026-09-24 11:40 (**轮 130:消化轮,N1 dt 迁移限定词回填+
+  格式化器坑入库**——资产索引新增 4b 条(学习对象 dt 迁移 FLOW_LIKE,
+  PR#6 溯源,限定词"扫描 dt 倍频内");初稿溯源注记补轮 130 行;
+  PLAYBOOK +1 坑(环境格式化器空白重排,git diff -w 守门);六条
+  pr-pending 待合并。下一心跳=goal_check 裁决(队列空,蒸馏须带
+  [行动] 否则 S1 累计))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 

@@ -916,6 +916,17 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 24 次达标。
 - **台账**:零算力轮;scan §31+蒸馏结论 26;2 处弱坐标(David venue/Coelho 年份)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列六条(五 pr-pending+MAP-VS-FLOW actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 MAP-VS-FLOW。
 
+**轮 130 记录(消化轮:N1 MAP-VS-FLOW 限定词回填+格式化器坑入库;T0 零算力)**:
+- **路由**:goal_check QUEUE-EMPTY(六条 pr-pending 状态驱动跳过,含 PR#6),但轮 129 为判读轮 ⇒ 纪律条款消化轮优先,禁新蒸馏;预置项=N1 回填 MAP-VS-FLOW FLOW_LIKE 限定词(GOALS next_trigger_hint)。
+- **消化三件套**:
+  - **回填**:①n1-asset-index.md 新增 4b 条——学习对象 dt 迁移([B],1-seed T1 筛查,PR#6 待合并):ratio 0.895+斜率 +1.995 两轴互证 FLOW_LIKE,N1"学到 H(q,p)"措辞维持带限定词"在扫描 dt 倍频内",附带原生参照臂观察如实(轮 111 数字搬运条款);②n1-paper-draft.md 溯源注记补轮 130 行。
+  - **分流**:队列六条 pr-pending(PR#1-#6)机械跳过;balance_gauge EXP=0.2 报警空。
+  - **条件重入口**:§12.3 三路终态+停车场五项维持,清零确认。
+- **PLAYBOOK**:+1 坑(环境格式化器对状态文件的空白重排,轮 126/129 两现——编辑前查非本人空白改动,提交前 git diff -w 校验纯内容性;goal_check 解析器对缩进不敏感,纯 diff 污染非功能风险)。
+- **S1 计数**:消化轮不计 S1(末次重置=轮 128 [行动])。
+- **台账**:零算力轮(纯呈现层修订;轮 129 完整判读行在 PR#6 分支,合并后以 §19 为准);门禁复跑确认(显式退出码);GOALS 戳推进;下一心跳=goal_check 裁决(队列空,EXP=0.2 蒸馏解冻,蒸馏须带 [行动])。
+
+
 
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
