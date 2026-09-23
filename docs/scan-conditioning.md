@@ -1389,6 +1389,75 @@ N1 现无此评审压力实据;若评审轮真出现该需求,按 §19.4 TSFM �
 带 ? 登记 SCAN-AUDIT 复核):"Towards Multi-Fidelity Scaling Laws of
 Neural Surrogates"(arXiv,2025-11,多保真数据轴,作者待核)。
 
+## 27. 经验蒸馏 22(轮 114,2026-09-23,QUEUE-EMPTY 轮):分布外泛化/外推族
+
+> 第 27 个 query 族,与前 26 族零重叠(§9 可辨识性=观测窗 Fisher 信息,
+> §18=时程评估协议,§26=容量/数据轴——**参数域外推轴**(训练带外泛化)
+> 未蒸馏过;house 数据钩子=ω∈[0.7,1.8] 训练带,带外探针天然 T1)。
+> 检索:3 槽一次命中。标记:[坐标] ×3 + [行动] ×1(→ OMEGA-EXTRAP 入队)。
+
+### 27.1 参数域分布移位的系统实验 [坐标] ★
+
+- 【出处】Wang, Maddix Robinson, Faloutsos, Wang & Yu, "Learning
+  dynamical systems requires rethinking generalization", **NeurIPS 2020
+  Workshop**(Interpretable Inductive Biases and Physically Structured
+  Representations)。
+- 【内容】系统实验:深度模型在动力系统的**数据域与参数域分布移位**下
+  泛化失败(非平稳/混沌加剧);主张动力系统的泛化概念需重思。
+- 【对我们的映射】① N1 scope declaration 的文献背书:带内插值声明
+  不是本仓特有短板而是领域公认失效轴;② 为 OMEGA-EXTRAP 提供预期
+  框架(参数域移位=该文记载的失效模式,预注册预期=带外退化,非预言)。
+- 【适用条件】N1 Limitations/scope;OMEGA-EXTRAP 判读框架。
+- 【验证状态】社区已验证(workshop 级,Amazon Science 收录);对仓对接
+  待探针。
+
+### 27.2 OOD 泛化保证(理论锚)[坐标]
+
+- 【出处】Caro, Huang, Cerezo, Sharma, Sornborger, Cincio & Coles,
+  "Out-of-distribution generalization for learning quantum dynamics",
+  **Nature Communications 14:3751, 2023**(~161 引)。
+- 【内容】对学习未知酉(量子动力学)证明 **OOD 泛化保证**:训练/测试
+  分布足够接近时可泛化,并给出分布接近度-误差的定量界。
+- 【对我们的映射】"带外多远算远"的定量范式:OOD 泛化不是 0/1 命题而
+  是分布接近度的函数——OMEGA-EXTRAP 的双带设计(近带 [0.3,0.6]/
+  [1.9,2.2] 对称夹击训练带)即该范式的廉价实例化;N1 讨论段引用
+  "泛化保证存在性依赖分布接近度"的严格文献。
+- 【适用条件】N1 Discussion;外推探针设计原则。
+- 【验证状态】社区已验证(Nat. Commun.);对仓=设计范式参照。
+
+### 27.3 外推约束处方谱系 [坐标]
+
+- 【出处】Stinis, Hagge, Tartakovsky & Yeung, "Enforcing constraints for
+  interpolation and extrapolation in Generative Adversarial Networks",
+  **J. Comput. Phys. 397:108844, 2019**(~44 引)。
+- 【内容】以物理约束强制 GAN 的插值-外推一致性,动力系统仿真器外推
+  失效的处方谱系代表。
+- 【对我们的映射】若 OMEGA-EXTRAP 判出带外失效,处方坐标已有:
+  本仓的对应物=哈密顿头结构约束天然限制外推形态(守恒结构带外仍在,
+  退化的是 ctx 推断)——结构约束线的外推辩护/处方起点。
+- 【适用条件】N1 Discussion;若判负后的处方路由。
+- 【验证状态】社区已验证(JCP);对本仓适用性待探针。
+
+### 27.4 ω 带外外推探针 [行动→OMEGA-EXTRAP]
+
+- 【内容】M1 在 ω∈[0.7,1.8] 训练(等预算 2000 步,seed 0),在带内
+  anchor 带+带外近带 [0.3,0.6] 与 [1.9,2.2] 分别评估 k100 rollout MSE
+  与 ctx 线性解码(context_probe 复用);双臂 liquid/static 对照
+  (结构约束是否缓解带外退化)。判读=带外退化曲线+ctx 解码带外走向;
+  判负标准执行前预注册 PRD §19;T1 预算(训练一次+多带评估,冒烟后
+  登记,预计 ≤10min)。
+- 【对我们的映射】N1 scope declaration 从"声明插值域"升级为"量化的
+  带外退化曲线"[B] 级;§27.2 分布接近度范式的实例化。
+- 【适用条件】N1 Limitations/Methods;判读入 PRD §19。
+- 【验证状态】对本仓待执行(下心跳,预注册先行)。
+
+### 蒸馏结论 22
+
+三 [坐标] + 一 [行动](OMEGA-EXTRAP 入队)。第 27 族;S1 计数重置
+(本轮有 [行动] 产出)。蒸馏轮第 20 次达标。选族启发式(本轮起效,
+入 PLAYBOOK):先枚举自家未蒸馏的数据/协议钩子(ω 带/池尺寸/eval_ks),
+再找覆盖该钩子的文献族——从钩子找文献比从文献找方向更易 T1 化。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

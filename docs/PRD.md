@@ -836,6 +836,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 19 次达标(≥1 条入库+1 新目标)。
 - **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列 M1-CAP-AXIS(frontier)待迭代;下一心跳=goal_check 路由迭代。
 
+**轮 114 记录（蒸馏补池:第 27 族分布外泛化/外推族 + OMEGA-EXTRAP 入队;T0 零算力检索轮）**:
+- **路由**:会话重开(上下文快照续跑),guard GO;goal_check 对队首 M1-CAP-AXIS 报 NOT-Achieved,但 PR#1 未合并 ⇒ 按 GOALS 在途 PR 注记跳过重迭代 ⇒ 蒸馏第 27 族。选族按 PLAYBOOK 轮 114 启发式:先枚举自家未蒸馏钩子(ω∈[0.7,1.8] 训练带)再找覆盖文献族——**分布外泛化/外推族**(§9 可辨识性=观测窗 Fisher、§18=时程协议、§26=容量轴,参数域外推轴零重叠)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:3 [坐标] + 1 [行动] 入库 scan §27——① ★Wang, Maddix Robinson, Faloutsos, Wang & Yu "Learning dynamical systems requires rethinking generalization"(NeurIPS 2020 Workshop):动力系统**数据域与参数域分布移位**泛化失败的系统实验,N1 scope declaration 文献背书;② Caro, Huang, Cerezo, Sharma, Sornborger, Cincio & Coles "Out-of-distribution generalization for learning quantum dynamics"(Nat. Commun. 14:3751, 2023):OOD 泛化保证=分布接近度的函数,"带外多远算远"的定量范式,双带对称夹击设计据此;③ Stinis, Hagge, Tartakovsky & Yeung(J. Comput. Phys. 397:108844, 2019):外推约束处方谱系,若判负的处方路由起点(本仓对应物=守恒结构带外仍在、退化的是 ctx 推断)。
+- **OMEGA-EXTRAP 入队([行动],T1 可行动)**:M1 于 ω∈[0.7,1.8] 训练(2000 步,seed 0),带内 anchor+带外近带 [0.3,0.6]/[1.9,2.2] 评估 k100 MSE 与 ctx 线性解码(context_probe 复用),liquid/static 双臂(结构约束是否缓解带外退化);双锚单行 check_cmd;判负标准下心跳执行前预注册;预计 ≤10min(训练一次+多带评估)。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 20 次达标。
+- **台账**:147 测试+audit 全绿显式退出码(零代码轮);队列 M1-CAP-AXIS(PR#1 待合并,跳过)+OMEGA-EXTRAP 待迭代;PLAYBOOK +1 选族启发式;下一心跳=迭代 OMEGA-EXTRAP。
+
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
 - **交付**:`docs/structure-injection-vs-discovery.md`——分层注入哲学(三层表:守恒律层硬注入/结构先验层条件注入/函数形式层自由学习)+ 发现谱系上游定位(AI Poincaré/LieGAN=结构来源,注入=结构兑现)+ **失败模式与逃生门清单**(守恒→耗散槽位;T 偶→R1b;可分→Nonseparable 头;MLP 平滑→未解,记录为限制)。
 - **判负对账**:分层注入相对发现谱系定位差异可辩护(中间形态:注入"守恒什么+怎么积分",不注入"场长什么样";恰好避开 PINN 文献记载的函数层硬编码过平滑失败)⇒ 判负未触发。
