@@ -44,14 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 04:20 (**整体验收轮(轮 119)+状态机正式化**:用户
-  验收基准="只贴一个 Goal prompt,结合本机 RSI 体系迭代"——逐条对表结果:
-  ①启动/路由/双门/原子提交/快照续跑全链实证过(轮 110-118);②状态机缺口
-  已补=队列 status 字段+goal_check 状态驱动跳过(pr-pending 永不迭代)+gauge
-  WIP 修正,恢复机械化了(AMM-026 PROPOSED);③RSI 断喂已修=夜 7/8/9 补账
-  (0.35/0.33/0.27)——**S3 字面武装(连续 3 夜<0.5),待用户裁定口径修订或
-  停车场重启**;④WIP 假报警已消。当前路由=MINING-FROZEN(EXP=0.1)⇒下一
-  心跳=证据轮(T1 探针);150 测试+audit 绿;提交=f45d1b8 后续)
+updated: 2026-09-24 05:00 (**轮 119:GOAL-PROMPT v6.0+RSI v2 生效(用户授权
+  Agent 自裁治理)**——RSI v2 era 锚定:复合指数 era 内比较(Era B K̂=K/2),
+  S3-v2=连续 2 完整会话段 K=0 且 T+=0 真停滞才 IDLE(Era B 绝对值 0.3-0.5
+  属设计常态),T 不变;夜 7/8/9 重算 0.48/0.50/0.50 无停滞;rsi_night 机械化
+  夜账草稿器落地;v6.0 承重句门禁 27/27 过;队列三条 pr-pending 状态驱动
+  跳过。下一心跳=goal_check 裁决(EXP=0.1 ⇒ 证据轮 T1 探针))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
