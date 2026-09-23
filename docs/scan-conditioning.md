@@ -1756,6 +1756,63 @@ engineering)。第 31 族;**S1 重置(有 [行动] 产出);蒸馏轮第 24 次
 达标**。选族启发式 n=3 维持(机制核对通过:§10/§18/§21 均无
 BEA/dt 迁移轴)。
 
+## 32. 经验蒸馏 27(轮 131,2026-09-24,QUEUE-EMPTY 轮):少样本适配/跨任务迁移族(in-context 与梯度适配)
+
+> 新 query 族(与前 31 族零重叠:§19 TSFM 是零样本预测器审计、§29 SBI
+> 是参数后验推断、§30 是优化景观,均非"少样本适配新动力系统"的机制
+> 轴;§14 FiLM 是条件化机制本体)。自家钩子:M3 pretrain_finetune 协议
+> 在库(PRD P1-2,Poseidon 同型问题)+ctx 推断的隐式 in-context 本质
+> 未被命名。标记:[坐标]×3 + [行动]×1。三槽:① PDE 基础模型少样本
+> 微调 ② in-context 算子学习 ③ 对照式(meta vs in-context)。
+> 题录当场核验(AMM-015)。
+
+### 32.1 Poseidon:PDE 基础模型的少样本微调范式 [坐标]
+
+- 【出处】[Herde, Raonić et al. (ETH Zurich), "Poseidon: Efficient
+  Foundation Models for PDEs", NeurIPS 2024, arXiv:2405.19101](
+  https://arxiv.org/abs/2405.19101)
+- 【内容】多尺度算子 transformer,6 族 PDE ~400K 轨迹预训练;
+  layerwise 高效微调在 ~15 个下游任务(含 OOD)少样本超越基线。
+- 【对我们的映射】本仓 M3 协议(pretrain mix {0.8,1.0,1.2}→finetune
+  c=1.5 少样本)是 Poseidon 范式的单机微缩;N1 related-work 可引
+  该范式为 M3 的社区坐标。
+- 【适用条件】M3/迁移线的一切表述与 related-work。
+- 【验证状态】题录当场核验(NeurIPS 2024+arXiv ID);社区已验证。
+
+### 32.2 ★ICON 与哈密顿系统的 in-context 学习 [坐标]
+
+- 【出处】[L. Yang et al., "In-context operator learning with data
+  prompts for differential equations", 2023, arXiv:2304.07993,~160 引](
+  https://arxiv.org/abs/2304.07993);参照:AI-Hamilton(OpenReview,
+  哈密顿系统 ICL,作者/年份未核带 ? 登记 SCAN-AUDIT)
+- 【内容】ICON 以数据提示在推理时学习新算子(隐式少样本);AI-Hamilton
+  将 ICL 直接用于哈密顿系统建模。
+- 【对我们的映射】**本仓 ctx 推断=隐式 in-context 适配的实例**:
+  前缀轨迹即 prompt,ctx 即对未见 ω/c(x) 的推理时适配——此前该机制
+  只有摊销推断命名(§29),ICL 命名补足适配语义面;AI-Hamilton 是
+  哈密顿域的直接先例(N1 定位表新增一线)。
+- 【适用条件】N1 机制命名与定位表;ctx 推断语义的一切表述。
+- 【验证状态】ICON 题录当场核验;AI-Hamilton 弱坐标带 ?。
+
+### 32.3 对照:梯度适配 vs 循环隐式适配 [坐标]
+
+- 【出处】Nagabandi et al. "Learning to Adapt in Dynamic, Real-World
+  Environments through Meta-Reinforcement Learning"(ICLR 2018,~950 引;
+  GrBAL 梯度式 vs ReBAL 循环式直接对照)
+- 【内容】在真实动力系统上直接对比 MAML 式梯度快适配与循环式隐式
+  (in-context)适配:循环更廉价在线,梯度式更显式可控。
+- 【对我们的映射】本仓两线的规范对照语言:prefix 摊销/ctx 推断=
+  ReBAL 型隐式适配,M3 finetune=GrBAL 型梯度适配——M3 与 prefix
+  的关系由此获得社区对照先例(§32.1 的 Poseidon 微调亦属梯度侧)。
+- 【适用条件】M3/迁移/prefix 线的关系表述。
+- 【验证状态】题录当场核验(ICLR 2018+引用约数);社区已验证。
+
+### 蒸馏结论 27
+
+3 [坐标](32.2 ★,AI-Hamilton 弱坐标带 ?)+ 1 [行动](ICL-M3 入队,
+engineering)。第 32 族;**S1 重置(有 [行动] 产出);蒸馏轮第 25 次
+达标**。选族启发式 n=3 维持(机制核对:M3 在库工具即钩子)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

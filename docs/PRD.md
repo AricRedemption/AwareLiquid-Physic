@@ -926,6 +926,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:消化轮不计 S1(末次重置=轮 128 [行动])。
 - **台账**:零算力轮(纯呈现层修订;轮 129 完整判读行在 PR#6 分支,合并后以 §19 为准);门禁复跑确认(显式退出码);GOALS 戳推进;下一心跳=goal_check 裁决(队列空,EXP=0.2 蒸馏解冻,蒸馏须带 [行动])。
 
+**轮 131 记录(蒸馏补池:第 32 族少样本适配/跨任务迁移族 + ICL-M3 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮;TSFM 候选族 grep 发现 §19(轮 81)已覆盖当场弃(机制核对惯例);换钩子=M3 pretrain_finetune 协议在库(PRD P1-2,Poseidon 同型问题)+ctx 推断的隐式 in-context 本质未命名 ⇒ 文献族**少样本适配/跨任务迁移族**(与 §19 零样本预测器审计、§29 参数后验、§14 条件化机制本体分界,家族头显式声明)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:3 [坐标]+1 [行动] 入库 scan §32——① Herde, Raonić et al. (ETH) "Poseidon: Efficient Foundation Models for PDEs"(NeurIPS 2024,arXiv:2405.19101):6 族 PDE ~400K 轨迹预训练+layerwise 少样本微调=本仓 M3 协议的社区范式坐标;②★L. Yang et al. "In-context operator learning with data prompts"(2023,arXiv:2304.07993,~160 引;参照 AI-Hamilton OpenReview 弱坐标带 ?)**本仓 ctx 推断=隐式 in-context 适配的实例——前缀轨迹即 prompt,ctx 即对未见 ω/c(x) 的推理时适配**,§29 摊销命名之外补足适配语义面,AI-Hamilton=哈密顿域直接先例(N1 定位表新增一线);③ Nagabandi et al.(ICLR 2018,~950 引)GrBAL 梯度式 vs ReBAL 循环隐式直接对照=M3 finetune 与 prefix 两线的社区对照语言。
+- **ICL-M3 入队([行动],engineering,T1 可行动)**:M3 wave 族同任务(c=1.5 未见)三臂对照——前缀摊销(liquid 标准)vs 梯度微调(pretrain+finetune,M3 臂)vs 从头 n-shot(M3 对照);判读=三臂 k100 MSE 排序与少样本增益方向(GrBAL/ReBAL 对照语言,N1 迁移线定位);双锚单行 check_cmd;判负标准下心跳执行前预注册。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 25 次达标。
+- **台账**:零算力轮;scan §32+蒸馏结论 27;1 处弱坐标(AI-Hamilton)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列七条(六 pr-pending+ICL-M3 actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 ICL-M3。
+
+
 
 
 **轮 86 判读（SD-POS 判读:结构注入 vs 结构发现定位;零算力）**:
