@@ -44,16 +44,19 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 182:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 181 判读"更细阶梯确认"
-  为诚实边界注记非指令性后续(按轮 162/175 一致性),池空;消化三
-  件套:①回填=资产索引 5 区 Methods 新增第 12 条正则化强度(WD_
-  RESOLVED 最优 wd=1e-4 内点+默认 wd=0 差 17.6%+实现事故哨兵与
-  注入式修复);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/
-  消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计数:轮
-  180([行动])/181(T1 判读)行动产出连续,本消化轮无蒸馏,无 S1
-  累计。队列二十四条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-
-  EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 184:蒸馏第 45 族深度-容量轴族入库
+  (scan§45)+DEPTH-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
+  WD 族无指令性后续)⇒蒸馏轮;选族钩子=depth=2 全仓固定从未消融
+  (§39.1 μP 宽度标度的另一半);机制核对全库 grep 零命中(depth
+  scaling/哈密顿深度);3 槽一次命中+3 题录当场核验(AMM-015):
+  ①Safran & Shamir ICML(~240 引)深度效率理论 ②Mattheakis
+  Phys. Rev. E 2022(~215 引)HNN 深度消融直接先例 ③Galimberti
+  PMLR 2021 哈密顿 DNN 深度稳定性(边界讨论);[行动] DEPTH-LADDER
+  入队(engineering,T1:三臂 depth{1,2,4} 2000 步,spread 判据同
+  WD 模式,判负=发散;est 8min);S1 重置([行动])蒸馏第 38 次
+  达标;157 测试+audit 全绿显式退出码(零代码轮);队列二十五条
+  (二十四 pr-pending+DEPTH-LADDER actionable)。下一心跳=goal_check
+  路由迭代 DEPTH-LADDER)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -203,6 +206,11 @@ goal_queue:
   done_condition: PRD §19有"WD-LADDER 判读"锚且benchmarks/physics_out_v02/wd_ladder/wd_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "WD-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/wd_ladder/wd_ladder.json
   status: pr-pending(PR#24, 判读WD_RESOLVED=强度可分辨最优wd=1e-4内点默认wd=0差17.6%, 合并后check过自动弹出)
+- id: DEPTH-LADDER
+  track: engineering
+  goal: 深度阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: depth∈{1,2,4}(hidden固定参数量随深度近线性增), 判读=三臂rollout MSE(k100同held-out)spread(max/min): <1.05⇒DEPTH_UNRESOLVABLE深度不可分辨(depth=2默认充分)/≥1.05⇒报告最优depth与方向(深度有益/有害/内点), 判负=任一臂发散非有限或spread数值异常; 族边界=深度轴DEPTH族第1轮与§39.1宽度标度/§42池宽度分立
+  done_condition: PRD §19有"DEPTH-LADDER 判读"锚且benchmarks/physics_out_v02/depth_ladder/depth_ladder.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "DEPTH-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/depth_ladder/depth_ladder.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
