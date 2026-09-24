@@ -44,20 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 197:NSCALES-LADDER 判读 NSCALES_RESOLVED,
-  dir/nscales-ladder PR#29 即终点**——goal_check NOT-Achieved⇒T1 探
-  针环心跳;预注册先于执行钉死(四臂 n_scales{1,2,4,8},构造参数天
-  然可注入=轮 181 哨兵条款适用,spread 判据,族边界=核架构超参轴
-  第 1 轮);实跑 ~2min≤est8:n_scales 1=3.1318/2=2.4418(最优)/
-  4=3.5582/8=3.8102,spread=1.56 ⇒ **NSCALES_RESOLVED 内点最优**;
-  **参数量混杂排除=+8% 参数非效应载体纯架构结构效应(与轮 187
-  对照)**;默认 n_scales=4 非最优=2 通道内点最优 8 通道过参数化
-  有害;文献对表=§47.1 层级 timescale 方向一致+§47.3 Quax 固定侧
-  数据点;N1 路由=架构辩护注记 n_scales 是敏感超参+派发协议字段;
-  交叉验证锚=n_scales4 臂与轮 175 B 臂逐位一致;导入遗漏当轮冒烟
-  抓出修复;160 测试(157+3)+audit 全绿;队列二十九条全 pr-pending。
-  下一心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引
-  nscales 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 198:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 197 判读无指令性后续
+  (派发协议字段为注记非迭代候选),池空;消化三件套:①回填=资产
+  索引 5 区 Methods 新增第 15 条 n_scales 尺度数(内点最优 2 默认
+  4 差 45.8%+参数量混杂排除纯架构结构效应+交叉验证锚);②分流=
+  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条
+  件重入口=§12.3 三路终态维持。S1 计数:轮 196([行动])/197(T1
+  判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。队列二十九条全
+  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方
+  向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
