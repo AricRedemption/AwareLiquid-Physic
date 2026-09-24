@@ -44,14 +44,18 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 186:自生成后续迭代入队 DEPTH-WIDTH**——
-  goal_check QUEUE-EMPTY⇒先盘后续池:**非空**=轮 185 判读行明示
-  "深度×宽度交叉=DEPTH 族后续池候选 1/2"(轮 162 注记的参数量混杂:
-  深度收益部分可能是参数量效应,与宽度轴交叉后可分离)⇒入队迭代
-  等同行动产出重置 S1;DEPTH-WIDTH=depth{2,4}×d_model{48,96} 四单
-  元 2000 步,判读=两轴主效应+交互项;非同参重跑,DEPTH 族段内第
-  2 轮达 ≤2 上限之后换方向或入停车场;est 10min;25=25+ID 数数锚
-  核对。下一心跳=goal_check 路由迭代 DEPTH-WIDTH)
+updated: 2026-09-24 (**轮 187:DEPTH-WIDTH 判读 MATRIX_RESOLVED,dir/
+  depth-width PR#26 即终点**——goal_check NOT-Achieved⇒T1 探针环心
+  跳;预注册先于执行钉死(四单元 depth{2,4}×d_model{48,96},对数域
+  主效应+交互判据,单元失效优先,族护栏 2/2 原文入预注册);实跑
+  ~3min≤est10:深度主效应 ln=0.385+宽度主效应 ln=0.530 均超阈+
+  **交互 ln=0.011≪0.20 ⇒ MATRIX_RESOLVED 两轴独立可加**;近似同参
+  对照=depth4/dm48→2.44 vs depth2/dm96→2.11 参数多反而略差=深度
+  效率迹象(轮 185 参数量混杂部分解除);与轮 162 对表口径不可直比
+  如实注记;v1 泛化矩阵模式(单臂模式逐位不变回归通过);160 测试
+  (157+3)+audit 全绿;DEPTH 族 2/2 用尽;队列二十六条全 pr-pending。
+  下一心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引
+  depth-width 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -212,6 +216,7 @@ goal_queue:
   goal: 深度×宽度交叉矩阵探针——轮185判读行明示后续: depth∈{2,4}×d_model∈{48,96}四单元2000步prefix(hidden固定), 判读=两轴效应分离(主效应depth/width+交互项: 交互超比例⇒深度收益依赖宽度或反之)与轮162 M1-CAP-AXIS宽度轴数字对表, 判负=任一单元发散非有限或交互不可分辨如实登记; DEPTH族段内第2轮达≤2上限之后换方向或入停车场
   done_condition: PRD §19有"DEPTH-WIDTH 判读"锚且benchmarks/physics_out_v02/depth_width/depth_width.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "DEPTH-WIDTH 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/depth_width/depth_width.json
+  status: pr-pending(PR#26, 判读MATRIX_RESOLVED=深度宽度主效应独立可加交互ln0.011, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
