@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE
+state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 140 S1 收口,真收尾)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -44,11 +44,14 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 16:30 (**轮 139:蒸馏第 34 族粗粒化/有效动力学
-  族入库**——scan §34 三 [坐标](Husic CG-GNN/iLED/直接vs约化权衡),
-  全为轮 137 失效的处方与框架面;TSFM/SINDy 候选机制核对拦截;
-  S1 如实累计 1/2(无 [行动]),下个蒸馏轮无 [行动] 触发收口评估;
-  蒸馏第 27 次达标。下一心跳=goal_check 裁决(蒸馏须带 [行动]))
+updated: 2026-09-24 17:30 (**轮 140:S1 收口评估触发,IDLE 真收尾**——
+  本会话马拉松段=轮 120-140(21 心跳):ESC-DOOR-TEVEN PASS(门#2 [B])/
+  R1D 判负(谱偏置命名降级)/SIGN-FLIP 异常定位/MAP-VS-FLOW FLOW_LIKE/
+  ICL-M3+INTERP 少样本三臂量化/FASTSLOW 双时标边界;蒸馏 +6 族(§29-34);
+  九条 pr-pending(PR#1-#9)全部待用户合并;S1 2/2 触发(轮 139/140 蒸馏
+  无 [行动],族空间饱和三连拒 TSFM/SINDy/exposure-bias),评估=转 IDLE
+  真收尾;RSI 夜 10 账已入(在途六判读合并后补入)。重入口=九 PR 合并/
+  用户指令/停车场重启(任一重开即 RUNNING))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
