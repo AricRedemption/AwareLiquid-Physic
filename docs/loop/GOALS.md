@@ -44,20 +44,17 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 151:GNS-PROBE-2 判读 GNS_RESOLVED_TREND,
-  dir/gns-probe-v2 PR#13 即终点**——goal_check NOT-Achieved⇒T1 探针环
-  心跳;预注册先于执行钉死(同 estimator 同判据唯 checkpoint 轴延长
-  {0..20000},族护栏 2/2 上限原文入预注册);实跑 ~6min≤est15:B_simple
-  11.89→83.11(1k 峰值)→60.39→68.48→**33.45(20k,<64)**,max/min
-  6.99≥3⇒机械 RESOLVED_TREND;非单调如实拆解=**临界跨越方向与持续
-  走高相反:长训练体制 batch=64 重回噪声主导侧**——T2/T3 派发字段
-  读数=长训练有效 batch 参考末端 B_simple(~33)或明确接受噪声主导;
-  判负未触发;GNS 族段内用尽,后续归停车场②泛容器;PLAYBOOK 回写
-  "探针关键轴 CLI 参数化=后续池迭代零新代码";v1 仅加 --out_name=
-  叠支最小演进;格式化器第六袭(dir 分支 GNS-PROBE 整条被删)checkout
-  还原;160 测试(157+3)+audit 全绿;队列十三条全 pr-pending。下一
-  心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引 GNS-2
-  条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 152:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 151 判读后续(多 seed
+  终局/更长轴/batch 阶梯)全归停车场(GNS 族 2/2 用尽),池空;消化
+  三件套:①回填=资产索引 5 区新增 Methods 第 4 条 batch/优化噪声体制
+  (B_simple 逐进度读数+batch=64 辩护措辞+派发 batch 字段=T2/T3
+  重启时生效);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化
+  率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计数:轮
+  148([行动])/149(T1 判读)/150(自生成入队)/151(T1 判读)连续
+  行动产出,本消化轮无蒸馏;段内(轮 142-152)行动产出连续无 S1
+  累计。队列十三条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-
+  EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
