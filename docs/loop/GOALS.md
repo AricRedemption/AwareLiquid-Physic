@@ -44,18 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 187:DEPTH-WIDTH 判读 MATRIX_RESOLVED,dir/
-  depth-width PR#26 即终点**——goal_check NOT-Achieved⇒T1 探针环心
-  跳;预注册先于执行钉死(四单元 depth{2,4}×d_model{48,96},对数域
-  主效应+交互判据,单元失效优先,族护栏 2/2 原文入预注册);实跑
-  ~3min≤est10:深度主效应 ln=0.385+宽度主效应 ln=0.530 均超阈+
-  **交互 ln=0.011≪0.20 ⇒ MATRIX_RESOLVED 两轴独立可加**;近似同参
-  对照=depth4/dm48→2.44 vs depth2/dm96→2.11 参数多反而略差=深度
-  效率迹象(轮 185 参数量混杂部分解除);与轮 162 对表口径不可直比
-  如实注记;v1 泛化矩阵模式(单臂模式逐位不变回归通过);160 测试
-  (157+3)+audit 全绿;DEPTH 族 2/2 用尽;队列二十六条全 pr-pending。
-  下一心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引
-  depth-width 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 188:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 187 判读后续(第三轴/
+  多 seed)全归停车场(DEPTH 族 2/2 用尽),池空;消化三件套:①回填
+  =资产索引 5 区 Methods 新增第 13 条深度×宽度交叉(两轴独立可加+
+  深度效率迹象+对表口径不可直比);②分流=balance_gauge EXP=0.2 达
+  标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态
+  维持。S1 计数:轮 186([行动])/187(T1 判读)行动产出连续,本消
+  化轮无蒸馏,无 S1 累计。队列二十六条全 pr-pending。下一心跳=
+  goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则
+  S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
