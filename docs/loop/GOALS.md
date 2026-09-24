@@ -44,20 +44,21 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 148:蒸馏第 36 族梯度噪声/临界 batch size
-  族入库(scan§36)+GNS-PROBE 入队**——goal_check QUEUE-EMPTY(后续池
-  空)⇒蒸馏轮;选族钩子=全仓 batch=64 从未消融+轮 126 符号反转种子
-  敏感性的"噪声侧"假说;机制核对全库 grep 零命中,与 §30(解的景观)
-  分界=优化噪声本身的可测统计;3 槽一次命中+3 题录当场核验(AMM-015):
-  ①★McCandlish et al. 2018(arXiv:1812.06162)gradient noise scale
-  闭式可测统计=T1 化钩子直接命中 ②Keskar ICLR 2017 大 batch→尖锐
-  极小值→泛化差(§30 机制链优化噪声环)③Smith ICLR 2018 batch/LR
-  等价(T2/T3 派发协议字段);[行动] GNS-PROBE 入队(engineering,
-  T1 闭式梯度统计:M1 弹簧 3 checkpoint×N=32 子批梯度 B_simple 谱,
-  判读=batch=64 位置+跨进度趋势,判负=失效/不可分辨如实登记;
-  est 8min);S1 重置([行动])蒸馏第 29 次达标;157 测试+audit
-  全绿显式退出码(零代码轮);队列十二条(十一 pr-pending+GNS-PROBE
-  actionable)。下一心跳=goal_check 路由迭代 GNS-PROBE)
+updated: 2026-09-24 (**轮 149:GNS-PROBE 判读 GNS_RESOLVED_TREND,dir/
+  gns-probe PR#12 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(M1 弹簧同池 hidden64 prefix 循环 batch=64,
+  3 个训练进度 checkpoint×N=32 子批梯度,一阶估计 B_simple,机械
+  三值判据);实跑 ~3min≤est8(轮 146 同循环实测标度=跨循环教训的
+  正确应用):B_simple 0 步=11.89→1000 步=83.11→4000 步=60.39
+  (max/min=6.99≥3⇒growing,与 McCandlish 预言方向一致);量级定位
+  如实拆解=早期噪声主导区/训练后 **batch=64 恰在线性加速临界附近**;
+  对轮 126 噪声侧读数=早期 B_noise≪64⇒种子噪声实现可导向不同解
+  盆地,与符号反转观察一致(一致性支持非因果,1-seed 筛查);判负
+  未触发;**格式化器第五袭(同轮 146 变体:缩进重排+GNS-PROBE 整条
+  被删)checkout HEAD 还原,12=12+12 ID 核对**;160 测试(157+3)
+  +audit 全绿;队列十二条全 pr-pending。下一心跳=goal_check 裁决——
+  判读轮后消化轮优先(回填资产索引 GNS 条目/分流/条件重入口,禁新
+  蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -134,6 +135,7 @@ goal_queue:
   goal: 梯度噪声尺度闭式估计探针——M1弹簧同池hidden64三个训练进度checkpoint(0/1000/4000步短训)各采N=32个batch-64随机子批梯度, B_simple谱+跨进度趋势(对照McCandlish"B_noise随训练增长"预言, scan§36), 判读=batch=64相对B_noise位置(噪声主导区/线性加速区)+为轮126种子敏感性提供优化噪声读数; 判负=B_simple全失效或无可分辨结构⇒本仓体制GNS不可分辨(batch阶梯对照转停车场登记)
   done_condition: PRD §19有"GNS-PROBE 判读"锚且benchmarks/physics_out_v02/gns_probe/gns_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "GNS-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/gns_probe/gns_probe.json
+  status: pr-pending(PR#12, 判读GNS_RESOLVED_TREND=梯度噪声尺度增长~7×判负未触发, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
