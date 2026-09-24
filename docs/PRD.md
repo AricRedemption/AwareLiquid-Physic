@@ -953,6 +953,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:消化轮不计 S1(末次重置=轮 131 [行动])。
 - **台账**:零算力轮(纯呈现层修订;轮 134 完整判读行在 PR#8 分支,合并后以 §19 为准);门禁复跑确认(显式退出码);GOALS 戳推进;下一心跳=goal_check 裁决(队列空,蒸馏须带 [行动] 否则 S1 累计)。
 
+**轮 136 记录(蒸馏补池:第 33 族快慢/多尺度动力系统族 + FASTSLOW-PROBE 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮;选族按轮 114 启发式+机制核对:自家钩子=全部在库家族为**单时标**(弹簧 ω、波场 c、NBody 短程)——快慢分离从未进入任何实验,N1 时标适用范围空白;文献族=快慢/多尺度动力系统(机制核对:§18 混沌=评估协议轴、§31=离散化迁移轴,均非多时标机制轴,零重叠成立)。
+- **蒸馏(3 槽一次命中,题录当场核验 AMM-015)**:3 [坐标]+1 [行动] 入库 scan §33——① Serino(DA Serino)"Fast-Slow Neural Networks for Learning Singularly Perturbed Dynamical Systems"(arXiv 2024,Johns Hopkins,~10 引):FSNN 显式快慢分解=架构对照面;② Fronk & Petzold "Training stiff neural ODEs with implicit schemes"(2024,~21 引)+Liu et al. "Hierarchical Deep Learning of Multiscale DEs"(2022,~136 引):刚性使显式求解器失效,隐式/层级=两条处方⇒**时标上限是架构×dt 联合性质**,N1 适用声明须含"dt 解析最快时标"条款;③★Li et al. "Frequency-Separable Hamiltonian Neural Network"(arXiv 2026,细节带 ? 登记 SCAN-AUDIT):HNN 变体多时标失效的命名先例+弹性摆母题(快弹簧 ω_s+慢摆动 ω_p 能量交换)——**本仓 dim=2 可分头可直接表示弹性摆 H,载体家族无需新架构**。
+- **FASTSLOW-PROBE 入队([行动],frontier,T1 可行动)**:probe-local 弹性摆族(dim=2 可分 H:快弹簧模态+慢摆动模态,VV 真值),头在解析 dt 训练后测快模态捕捉与长视距 T≫1/ω_p 慢交换保持;判读=双时标同时捕捉与否+失效模式分类(刚性签名=§33.2);N1 时标条款路由;双锚单行 check_cmd;判负标准下心跳执行前预注册。
+- **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 26 次达标。
+- **台账**:零算力轮;scan §33+蒸馏结论 28;1 处弱坐标(Frequency-Separable HNN 细节)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列九条(八 pr-pending+FASTSLOW-PROBE actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 FASTSLOW-PROBE。
+
+
 
 
 

@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 八条 pr-pending(PR#1-#8)待合并全跳过 ⇒ 仪表路由(消化轮预置项=轮132/134合并表述 N1 回填:隐式ICL内插可用外插是短板)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → FASTSLOW-PROBE 为队首 actionable(其余八条 pr-pending 跳过)⇒ 迭代 FASTSLOW-PROBE(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,11 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 14:40 (**轮 135:消化轮,内插修正合并表述回填
-  完成**——资产索引 4c 条更新为轮 132/134 合并表述:隐式 ICL 内插区
-  接近梯度微调,真实短板在外插区;外插混杂坑验证状态实证升级;八条
-  pr-pending 待合并。下一心跳=goal_check 裁决(队列空,蒸馏须带
-  [行动] 否则 S1 累计))
+updated: 2026-09-24 15:20 (**轮 136:蒸馏第 33 族快慢/多尺度动力系统
+  族入库,FASTSLOW-PROBE 入队**——scan §33 三 [坐标](FSNN 奇异扰动/
+  Fronk 刚性隐式+Liu 层级多尺度/Frequency-Separable HNN ★细节带?);
+  自家钩子=全部家族单时标,N1 时标适用范围空白;载体=弹性摆(dim=2
+  可分头可直接表示);S1 重置([行动]);蒸馏第 26 次达标。下一心跳=
+  goal_check 路由迭代 FASTSLOW-PROBE(预注册先行→冒烟→probe_run→判读))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -100,8 +101,12 @@ goal_queue:
   track: engineering
   goal: 少样本适配内插对照——ICL-M3三臂原样但c_target=1.1(语料{0.8,1.0,1.2}内=内插任务, 剥离轮132判读的外插混杂: 隐式ICL与梯度适配差距中适配能力与OOD外插各占多少, 内插版A臂应显著改善若仍落后则适配能力为真因)
   done_condition: PRD §19有"ICL-M3-INTERP 判读"锚且benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json产物存在, 判负标准执行前预注册
-  check_cmd: grep -q "ICL-M3-INTERP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json
   status: pr-pending(PR#8, 判读=判负①外插为主因触发, 合并后check过自动弹出)
+- id: FASTSLOW-PROBE
+  track: frontier
+  goal: 弹性摆快慢双时标探针——probe-local弹性摆族(dim=2可分H: 快弹簧模态ω_s+慢摆动模态ω_p, VV真值), 头在解析dt训练后测快模态捕捉与长视距T≫1/ω_p慢交换保持(scan§33: 时标上限=架构×dt联合性质, 失效模式=刚性签名; 判读=双时标同时捕捉与否+失效模式分类, N1时标条款路由)
+  done_condition: PRD §19有"FASTSLOW-PROBE 判读"锚且benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "FASTSLOW-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
