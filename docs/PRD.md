@@ -1019,6 +1019,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①Fridovich-Keil et al. "Spectral Bias in Practice: the Role of Function Frequency in Generalization"(NeurIPS 2022,~70 引)=频率作为泛化操作变量;②Kiessling et al. "A Computable Definition of the Spectral Bias"(AAAI 2022,~18 引)=谱偏置估计的网格分辨率耦合(判读陷阱:粗网格下"学不到"与"测不到"混淆);③Bartolucci et al. "Are Neural Operators Really Neural Operators? Frame Theory and Aliasing"(2023,~31 引)+Gao et al. "Discretization-invariance?"(~40 引)=aliasing 与离散化失配(§31 边界细化)。
 - **SPECTRAL-DT 入队([行动],engineering,T1)**:单频弹簧池(gen_spring ω_lo=ω_hi,轮 120 单频控制臂同法)ω∈{1,2,4}×训练 dt∈{0.05,0.1,0.2} 九单元短训(prefix hidden64 2000 步),固定物理视距 T=10(k=200/100/50 归一)rollout MSE;判读=交叉交互(高频 ω=4 粗/细 dt 误差增幅超低频同比值 ≥20% ⇒ 交互可分辨);ω·dt∈[0.05,0.8] 逐单元 Nyquist 状态注记(§39.2 陷阱);判负(下心跳预注册落盘后执行)=交互差 <20% ⇒ 不可分辨如实登记,或矩阵单元失效;族边界=交叉轴 SPECTRAL-DT 族第 1 轮;双锚单行 check_cmd;est 12min(9×2000 步 prefix≈4.5min 同循环标度)。
 - **台账**:零算力轮;scan §39+蒸馏结论 34;S1 重置([行动]),蒸馏第 32 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十七条(十六 pr-pending+SPECTRAL-DT actionable);双锚单行 check_cmd 经数数锚 17=17+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 SPECTRAL-DT。
+**轮 164 记录(蒸馏补池:第 40 族课程/多分辨率训练族 + DT-CURRICULUM 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——轮 162 判读无明示后续)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:钩子=轮 162 反向纹理双实证(ω=1 粗 dt 反而最好=粗分辨率对低频结构有利;训练 dt 条件性变量)的调度化假说;机制核对 grep(curriculum/multi-resolution/progressive)全库零命中(命中=§8.4 采样课程的教学语提及+D1f 轮 13 训练循环课程,与本族分辨率排序轴三分,族头声明)。
+- **3 槽一次命中+题录当场核验(AMM-015)**:①Wang et al. "A Survey on Curriculum Learning"(IEEE TPAMI 2022,~1495 引;奠基 Bengio et al. ICML 2009)=课程两组件(打分器+排序器)与理论;②★Wu, Dyer & Neyshabur "When Do Curricula Work?"(ICLR 2021,arXiv:2012.03107,~200 引)=课程仅受限预算/噪声数据有益+anti-curriculum 改善泛化校准+随机序强基线(判读三分支先验);③Wang et al. "Using Multi-Resolution Data to Accelerate Neural Network Training"(LBNL 2022,~9 引,引用较少如实注记)=粗→细两阶段加速实例。
+- **DT-CURRICULUM 入队([行动],engineering,T1)**:单频池 ω=2(轮 162 中频单元)2000 步受限预算两臂——A=恒定 dt=0.05 vs B=dt 课程(dt=0.1×1000 步→dt=0.05×1000 步,权重连续);判读=A/B rollout MSE(k=200,T=10)三分支:差<5% ⇒ 课程不可分辨(与 Wu"随机序强基线"相容如实记录)/B 好 ≥5% ⇒ 受限预算下课程有益(文献方向一致)/B 差 ≥5% ⇒ 课程有害如实登记;判负(下心跳预注册落盘后执行)=两臂差<5% ⇒"本体制 dt 课程不可分辨"或臂发散;族边界=分辨率排序轴 DT-CURRICULUM 族第 1 轮(与 §8.4/D1f/§39 三分);双锚单行 check_cmd;est 8min(2×2000 步 prefix 同循环标度)。
+- **台账**:零算力轮;scan §40+蒸馏结论 35;S1 重置([行动]),蒸馏第 33 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十八条(十七 pr-pending+DT-CURRICULUM actionable);双锚单行 check_cmd 经数数锚 18=18+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 DT-CURRICULUM。
 
 
 

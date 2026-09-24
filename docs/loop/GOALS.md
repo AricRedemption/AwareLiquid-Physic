@@ -44,15 +44,21 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 163:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 162 判读无明示后续
-  (SPECTRAL-DT 族 1/2 保留),池空;消化三件套:①回填=资产索引 5 区
-  Methods 新增第 7 条训练网格解析度(九单元矩阵+交互实锤+同网格
-  纪律实证+安全域 ω·dt≲0.4);②分流=balance_gauge EXP=0.2 达标/
-  WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
-  S1 计数:轮 161([行动])/162(T1 判读)行动产出连续,本消化轮无
-  蒸馏,无 S1 累计。队列十七条全 pr-pending。下一心跳=goal_check
-  裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 164:蒸馏第 40 族课程/多分辨率训练族入库
+  (scan§40)+DT-CURRICULUM 入队**——goal_check QUEUE-EMPTY(后续池空,
+  SPECTRAL-DT 族无明示后续)⇒蒸馏轮;选族钩子=轮 162 反向纹理双实证
+  (粗 dt 对低频有利/dt 条件性变量)的调度化假说;机制核对全库 grep
+  零命中(命中=§8.4 采样课程语提及+D1f 训练循环课程,族头三分声明:
+  本族=分辨率难易排序轴);3 槽一次命中+3 题录当场核验(AMM-015):
+  ①Wang TPAMI 2022 综述(~1495 引)+Bengio ICML 2009 奠基 ②★Wu
+  ICLR 2021(arXiv:2012.03107 ~200 引)课程仅受限预算/噪声数据有益+
+  anti-curriculum 改善泛化+随机序强基线=判读三分支的先验 ③Wang
+  (Berkeley Lab 2022)多分辨率两阶段加速;[行动] DT-CURRICULUM 入队
+  (engineering,T1:单频池 ω=2,2000 步预算 A=恒定 dt=0.05 vs B=
+  0.1×1000→0.05×1000 权重连续,三分支判读,判负=差<5% 不可分辨;
+  est 8min);S1 重置([行动])蒸馏第 33 次达标;157 测试+audit 全绿
+  显式退出码(零代码轮);队列十八条(十七 pr-pending+DT-CURRICULUM
+  actionable)。下一心跳=goal_check 路由迭代 DT-CURRICULUM)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -160,6 +166,11 @@ goal_queue:
   done_condition: PRD §19有"SPECTRAL-DT 判读"锚且benchmarks/physics_out_v02/spectral_dt/spectral_dt.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "SPECTRAL-DT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/spectral_dt/spectral_dt.json
   status: pr-pending(PR#17, 判读INTERACTION_RESOLVED=高频粗dt超比例恶化+2410%训练网格解析度条款入N1, 合并后check过自动弹出)
+- id: DT-CURRICULUM
+  track: engineering
+  goal: dt分辨率课程对照探针——单频弹簧池ω=2(轮162中频单元)2000步预算两臂: A=恒定dt=0.05 vs B=dt课程(0.1×1000步→0.05×1000步权重连续), 判读=A/B rollout MSE(k=200 T=10同口径)三分支: 差<5%⇒课程不可分辨(与Wu 2021随机序强基线相容如实记录)/B好≥5%⇒受限预算下课程有益(文献方向一致)/B差≥5%⇒课程有害如实登记(scan§40), 判负=两臂差<5%⇒本体制dt课程不可分辨或臂发散; 族边界=分辨率排序轴DT-CURRICULUM族第1轮与§8.4采样课程/D1f训练循环课程/§39静态矩阵三分
+  done_condition: PRD §19有"DT-CURRICULUM 判读"锚且benchmarks/physics_out_v02/dt_curriculum/dt_curriculum.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "DT-CURRICULUM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/dt_curriculum/dt_curriculum.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
