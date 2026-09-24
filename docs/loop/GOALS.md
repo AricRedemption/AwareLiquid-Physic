@@ -44,17 +44,21 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 195:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 194 判读后续(多 seed/
-  k=3 精化/其他池)全归停车场(KSPAN 族 2/2 用尽),池空;消化三件
-  套:①回填=资产索引第 14 条追加 KSPAN-LADDER-2 首端补探结果(真
-  最优 k_train=4 内点确认,1/2 均差 1.9×);②分流=balance_gauge
-  EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3
-  三路终态维持。S1 计数:轮 193([行动])/194(T1 判读)行动产出连
-  续,本消化轮无蒸馏,无 S1 累计。**推送欠账清零**(wave/loop 至
-  3eae14b+dir/kspan-ladder-v2 已推)。队列二十八条全 pr-pending。
-  下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行
-  动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 196:蒸馏第 47 族 n_scales 多时间常数
+  尺度族入库(scan§47)+NSCALES-LADDER 入队**——goal_check QUEUE-
+  EMPTY(后续池空,KSPAN 族 2/2 用尽)⇒蒸馏轮;选族钩子=LTC 核
+  n_scales=4 全仓固定从未消融(核架构超参轴);机制核对 grep 零
+  命中(命中=M2 OperatorPotentialHead 语境提及非族;CfC=基座出处
+  已引不重复收;与 SSM 替代线分立);3 槽一次命中+3 题录当场核验
+  (AMM-015):①★Hihi & Bengio NIPS 1995(~606 引)层级 RNN 多
+  timescale 奠基+Chung HM-RNN(~750 引)可学习尺度 ②CfC/Yu CTR-
+  LSTM/Heinrich timescale 参数化谱系 ③Quax 2020(~35 引)固定 vs
+  可学习对照;[行动] NSCALES-LADDER 入队(engineering,T1:四臂
+  n_scales{1,2,4,8} 2000 步,spread 判据<1.05 不可分辨/≥1.05 报告
+  最优 n_scales,判负=发散;est 8min);S1 重置([行动])蒸馏第
+  40 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列二十九
+  条(二十八 pr-pending+NSCALES-LADDER actionable)。下一心跳=
+  goal_check 路由迭代 NSCALES-LADDER)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -228,6 +232,11 @@ goal_queue:
   done_condition: PRD §19有"KSPAN-LADDER-2 判读"锚且benchmarks/physics_out_v02/kspan_ladder_v2/kspan_ladder_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "KSPAN-LADDER-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/kspan_ladder_v2/kspan_ladder_v2.json
   status: pr-pending(PR#28, 判读KSPAN_RESOLVED=首端补探真最优k_train=4内点确认, 合并后check过自动弹出)
+- id: NSCALES-LADDER
+  track: engineering
+  goal: n_scales尺度数阶梯对照探针——异频池(E1口径)prefix hidden64 2000步四臂: n_scales∈{1,2,4,8}(LTC核架构超参构造参数天然可注入=轮181哨兵条款适用), 评估同口径k100 held-out rollout MSE, 判读=四臂spread(max/min): <1.05⇒NSCALES_UNRESOLVABLE尺度数不可分辨(n_scales=4默认充分如实登记)/≥1.05⇒报告最优n_scales与方向, 判负=任一臂发散非有限或spread数值异常; 族边界=核架构超参轴NSCALES族第1轮与§45头深度/§39.1宽度标度分立; 与SSM替代线停车场②分立
+  done_condition: PRD §19有"NSCALES-LADDER 判读"锚且benchmarks/physics_out_v02/nscales_ladder/nscales_ladder.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "NSCALES-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/nscales_ladder/nscales_ladder.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

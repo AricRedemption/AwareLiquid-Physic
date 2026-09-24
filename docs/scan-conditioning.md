@@ -2921,6 +2921,89 @@ n=12(钩子=Adam 全仓固定从未对照)。
 (Bengio 2015 scheduled sampling 撞 §8.4 已在库不重复收,族头声明)。
 选族启发式 n=15(钩子=k_train=8 全仓固定从未消融)。
 
+## 47. 经验蒸馏 42(轮 196,2026-09-24,QUEUE-EMPTY 轮):n_scales 多时间常数尺度族(LTC 核架构超参)
+
+> 新 query 族(与前 46 族零重叠:§36 梯度噪声/§40 课程/§43 优化器=
+> 训练面,§45 深度=头 MLP——本族=**LTC 核本身的 n_scales 架构超参**
+> (多时间常数尺度数),与 SSM 替代线(停车场②)分立——n_scales 是
+> 本仓 CfC 核内部参数非替代架构)。钩子:n_scales=4 全仓固定从未
+> 消融。标记:[坐标] ×3(1 ★)+ [行动] ×1。三槽:① 奠基(层级
+> timescale)② 多尺度可学习 ③ 固定 vs 可学习对照。题录当场核验
+> (AMM-015;CfC=本仓基座出处架构文档已引,不重复收,族头注记)。
+
+### 47.1 奠基:层级 RNN 的多时间尺度 [坐标]
+
+- 【出处】Hihi & Bengio, "Hierarchical Recurrent Neural Networks for
+  Long-Term Dependencies", NIPS 1995,~606 引;Chung et al.,
+  "Hierarchical Multiscale Recurrent Neural Networks", arXiv/OpenReview
+  2016-17,~750 引
+- 【内容】长期依赖由长时间尺度变量表示——层级 RNN 各层不同
+  timescale(高频细粒度在低层,低频长程在高层);Chung 等让尺度
+  可学习,更少参数改善语言建模。
+- 【对我们的映射】本仓 CfC 核 n_scales=4 即"多时间常数"架构参数:
+  尺度数的消融=该奠基方向的直接实例;NSCALES-LADDER 检验尺度数
+  对 rollout 的敏感度。
+- 【适用条件】NSCALES-LADDER 判读参照;N1 架构段。
+- 【验证状态】题录当场核验(NIPS 1995+作者+引用约数;arXiv/
+  OpenReview+作者);社区已验证。
+
+### 47.2 连续时间 RNN 的 timescale 参数化谱系 [坐标]
+
+- 【出处】Hasani et al., Closed-form Continuous-time Neural Networks
+  (CfC,~294 引)=**本仓基座出处(架构文档已引,非本族新增)**;
+  Yu et al., Continuous Timescale LSTM(2017,~43 引);Heinrich
+  et al.(2020)gated/adaptive timescales 对照
+- 【内容】连续时间 RNN 的 timescale 参数化谱系:CTR-LSTM 每层多
+  timescale 常数;CfC 每神经元学习自己的 τ(液态时间常数);
+  gated/adaptive 参数化对照。
+- 【对我们的映射】本仓 n_scales=4 的出处语义:4 个离散 timescale
+  通道;消融回答"4 是否充分/是否过多"——与 §39 频率轴(ω 外部
+  频率)分立:这里是内部记忆时间常数。
+- 【适用条件】NSCALES-LADDER 判读解释;N1 架构辩护。
+- 【验证状态】题录当场核验(PMC 2017+引用约数;CfC=基座出处);
+  社区已验证。
+
+### 47.3 固定 vs 可学习 timescale 的对照 [坐标]
+
+- 【出处】Quax et al., "Adaptive time scales in recurrent neural
+  networks", 2020,~35 引(PMC/NIH)
+- 【内容】可学习内禀时间参数的 RNN 能否恢复环境过程的 timescale
+  谱——固定 vs 自适应(可学习)对照:可学习 timescale 匹配输入
+  时间结构,提升记忆保持。
+- 【对我们的映射】n_scales 阶梯的判读框架:若尺度数敏感(可分辨)
+  ⇒ n_scales 是应调优的架构超参;若不敏感 ⇒ 默认 4 充分(如实
+  登记)。
+- 【适用条件】NSCALES-LADDER 判读的诚实边界。
+- 【验证状态】题录当场核验(PMC/NIH 2020+作者+引用约数);社区
+  已验证。
+
+### 47.4 [行动] NSCALES-LADDER:n_scales 尺度数阶梯对照(入队)
+
+- 【出处】§47.1-47.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 四臂:n_scales∈{1,2,4,8}(构造
+  参数天然可注入=轮 181 哨兵条款适用);判读=四臂 rollout MSE
+  (k100 同 held-out)spread(max/min):<1.05 ⇒ NSCALES_
+  UNRESOLVABLE(尺度数不可分辨,n_scales=4 默认充分如实登记);
+  ≥1.05 ⇒ 报告最优 n_scales 与方向。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  NSCALES_UNRESOLVABLE(该尺度数不可用登记);spread 数值异常 ⇒
+  判负。
+- 【族边界】核架构超参轴(NSCALES 族第 1 轮);与 §45(头深度)/
+  §39.1(宽度标度)分立;与 SSM 替代线(停车场②)分立。
+- 【适用条件】T1 可行动:4×2000 步 prefix≈2min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 42
+
+3 [坐标](1 ★)+ 1 [行动](NSCALES-LADDER 入队,engineering)。
+第 47 族;**S1 重置([行动] 产出)**。蒸馏轮第 40 次达标(≥1 条入库
++新目标)。机制核对:n_scales/multi-timescale RNN 全库 grep 零命中
+(命中=M2 OperatorPotentialHead 语境提及非族);CfC=基座出处已引
+不重复收;与 SSM 替代线分立。选族启发式 n=16(钩子=n_scales=4
+全仓固定从未消融)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
