@@ -44,20 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 181:WD-LADDER 判读 WD_RESOLVED,dir/
-  wd-ladder PR#24 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
-  预注册先于执行钉死(三臂 wd{0,1e-4,1e-2},spread 判据,族边界=正
-  则化强度轴第 1 轮);实跑 ~2min≤est8:wd0=3.5582/1e-4=3.0246(最
-  优)/1e-2=3.0738,spread=1.18 ⇒ **WD_RESOLVED:默认 wd=0 非最优
-  (差 17.6%),适度正则 rollout 增益(1-seed),方向=内点最优**;
-  **执行事故与哨兵(重要)=首跑三臂逐位一致暴露 train_prefix 内部
-  optimizer 硬编码 wd=0(三臂实为一臂),若判不可分辨即假判读入库;
-  修复=注入式训练循环(轮 149 条款实现层延伸),wd=0 臂与轮 178
-  逐位一致双向交叉验证;PLAYBOOK 回写重大坑:配置消融阶梯必须注入
-  式实现+逐位一致是哨兵不是结论**;N1 路由=wd~1e-4 增益注记+AdamW
-  解耦实现=派发协议字段停车场候选 1/2;160 测试(157+3)+audit 全
-  绿;队列二十四条全 pr-pending。下一心跳=goal_check 裁决——判读
-  轮后消化轮优先(回填资产索引 wd 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 182:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 181 判读"更细阶梯确认"
+  为诚实边界注记非指令性后续(按轮 162/175 一致性),池空;消化三
+  件套:①回填=资产索引 5 区 Methods 新增第 12 条正则化强度(WD_
+  RESOLVED 最优 wd=1e-4 内点+默认 wd=0 差 17.6%+实现事故哨兵与
+  注入式修复);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/
+  消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计数:轮
+  180([行动])/181(T1 判读)行动产出连续,本消化轮无蒸馏,无 S1
+  累计。队列二十四条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-
+  EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
