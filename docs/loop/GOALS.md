@@ -44,19 +44,18 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 215:蒸馏 §42.2 行动面准入+AMP-EXTRAP
-  入队**——goal_check QUEUE-EMPTY(后续池空,warmup 行动面一次性准
-  入)⇒蒸馏轮;本轮不收新族——给 §42.2(Li 插值/外推批判框架)补
-  行动面:分布覆盖维度从 ω 宽度(轮 175)延伸到初始条件幅度(M1
-  gen 初始条件 q0,p0~N(0,1),幅度缩放=初条件能量缩放);[行动]
-  AMP-EXTRAP 入队(engineering,T1:训练 scale=1 标准池,评估三池
-  scale{1,2,4} 各 held-out k100,**相对口径必需**(绝对 MSE 随能量
-  平方增)rel_comp=rel_mse(4)/rel_mse(1) 三分支判读[<3 ROBUST/
-  ≥3 DEGRADES],判负=发散;幅度参数化本地实现+scale=1 逐位一致
-  校验=轮 181 哨兵条款适用;est 8min);S1 重置([行动])蒸馏第 45
-  次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十四条
-  (三十三 pr-pending+AMP-EXTRAP actionable)。下一心跳=goal_check
-  路由迭代 AMP-EXTRAP)
+updated: 2026-09-24 (**轮 216:AMP-EXTRAP 判读 AMPEX_DEGRADES,dir/
+  amp-extrap PR#34 即终点**——goal_check NOT-Achieved⇒T1 探针环心
+  跳;预注册先于执行钉死(训练 scale=1 标准池,评估幅度缩放池
+  scale{1,2,4},相对口径必需,rel_comp 判据,发散优先,族边界=初条
+  件幅度轴第 1 轮);实跑 ~2min≤est8:rel_mse 1.80→4.86→7.32,
+  rel_comp=4.08≥3 ⇒ **AMPEX_DEGRADES 幅度外推退化**;深层读数=谐
+  振子线性系统幅度缩放是精确解缩放,模型未继承线性不变性=学到的
+  映射有非线性偏差(可检测机制线索);绝对口径注记=相对口径必要
+  性实证(轮 172 条款跨族应用);N1 路由=初条件幅度分布是泛化边界
+  维度,与 §42.2 插值批判互证;160 测试(157+3)+audit 全绿;队列
+  三十四条全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化
+  轮优先(回填资产索引 amp 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -265,6 +264,7 @@ goal_queue:
   goal: 初始幅度外推对照探针——§42.2 Li插值/外推框架行动面: 训练于scale=1标准池(ω∈[0.7,1.8] E1口径prefix hidden64 ctx=8 2000步)评估三池scale∈{1,2,4}(q0/p0乘scale=初条件能量缩放), 相对口径必需(rel_mse=rollout MSE/信号能量)判读=rel_comp=rel_mse(4)/rel_mse(1): <3⇒AMPEX_ROBUST幅度外推鲁棒/≥3⇒AMPEX_DEGRADES插值域边界实证, 判负=发散非有限; 幅度参数化本地实现与原版scale=1逐位一致校验=轮181哨兵条款适用; 族边界=初条件幅度轴AMPLITUDE族第1轮与§42 ω宽度分立=覆盖另一维度
   done_condition: PRD §19有"AMP-EXTRAP 判读"锚且benchmarks/physics_out_v02/amp_extrap/amp_extrap.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "AMP-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_extrap/amp_extrap.json
+  status: pr-pending(PR#34, 判读AMPEX_DEGRADES=幅度外推退化rel_comp=4.08线性不变性未被继承, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
