@@ -44,16 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 173:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 172 判读后续(更长窗/
-  多 seed/非守恒体系)全归停车场(LEN 族 2/2 用尽),池空;消化三件
-  套:①回填=资产索引 5 区 Methods 新增第 9 条长度外推(窗外 8-10×
-  平缓延续+无边界效应+能量漂移解耦注记);②分流=balance_gauge
-  EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3
-  三路终态维持。S1 计数:轮 169([行动])/170(T1 判读)/171(自生成
-  入队)/172(T1 判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。
-  队列二十一条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY
-  ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 174:蒸馏第 42 族任务多样性/池分布宽度族
+  入库(scan§42)+POOL-WIDTH 入队**——goal_check QUEUE-EMPTY(后续池
+  空,LEN 族 2/2 用尽)⇒蒸馏轮;选族钩子=异频池 ω∈[0.7,1.8] 宽度
+  从未消融(轮 120 单频控制臂与宽池数字从未同口径对照);机制核对
+  全库 grep 零命中(命中=§20.2 成员多样性语境,族头声明分立);
+  3 槽一次命中+3 题录当场核验(AMM-015):①Kumar AAAI 2023(~21 引)
+  任务多样性不必然提升性能=反直觉方向校准 ②★Li Nature 2025
+  (~116 引)多数 OOD 测试实为插值=分布覆盖维度显式化 ③Zhang ICML
+  2023(~33 引)分布过宽损害精度=代价面;[行动] POOL-WIDTH 入队
+  (engineering,T1:2000 步 prefix 窄池[0.95,1.05] vs 宽池
+  [0.7,1.8] 各评估同分布 k100,B/A 比三分支判读,判负=口径失效;
+  est 8min);S1 重置([行动])蒸馏第 35 次达标;157 测试+audit
+  全绿显式退出码(零代码轮);队列二十二条(二十一 pr-pending+
+  POOL-WIDTH actionable)。下一心跳=goal_check 路由迭代 POOL-WIDTH)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -185,6 +189,11 @@ goal_queue:
   done_condition: PRD §19有"LEN-EXTRAP-2 判读"锚且benchmarks/physics_out_v02/len_extrap_v2/len_extrap_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LEN-EXTRAP-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/len_extrap_v2/len_extrap_v2.json
   status: pr-pending(PR#21, 判读LEN_ROBUST维持=相对化与绝对一致守恒体系无增量区分度稳健域延伸至窗外8-10×, 合并后check过自动弹出)
+- id: POOL-WIDTH
+  track: engineering
+  goal: 池分布宽度对照探针——M1弹簧2000步prefix两臂: A=窄池ω∈[0.95,1.05](近单频) vs B=宽池ω∈[0.7,1.8](E1默认), 各评估同分布held-out(k100 T=10), 判读=B/A rollout MSE比三分支: ∈[0.95,1.05]⇒宽度不可分辨(Kumar反直觉相容)/ >1.05⇒宽度有代价(§42.3宽池精度下降) / <0.95⇒宽度有收益(传统多样性增益), 判负=口径失效非有限发散; ω·dt网格两臂同; 族边界=训练分布宽度轴POOL-WIDTH族第1轮与§20.2成员多样性/§29后验/§39网格交互分立
+  done_condition: PRD §19有"POOL-WIDTH 判读"锚且benchmarks/physics_out_v02/pool_width/pool_width.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "POOL-WIDTH 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/pool_width/pool_width.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
