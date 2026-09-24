@@ -1001,6 +1001,17 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **GNS-PROBE 入队([行动],engineering,T1 闭式梯度统计)**:M1 弹簧同池 hidden64 三个训练进度 checkpoint(0/1000/4000 步短训)各采 N=32 个 batch-64 随机子批梯度,闭式估计 B_simple 谱+跨进度趋势(对照 §36.1"随训练增长"预言);判读=batch=64 相对 B_noise 位置+为轮 126 种子敏感性提供优化噪声读数;判负(下心跳预注册落盘后执行)=B_simple 全失效或无可分辨结构⇒"本仓体制 GNS 不可分辨"如实登记,batch 阶梯对照转停车场;双锚单行 check_cmd;est 8min(3 checkpoint×32 梯度采样+两段短训)。
 - **台账**:零算力轮;scan §36+蒸馏结论 31;S1 重置([行动]),蒸馏第 29 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十二条(十一 pr-pending+GNS-PROBE actionable);双锚单行 check_cmd 经数数锚 12=12+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 GNS-PROBE。
 
+**轮 149 记录(GNS-PROBE:梯度噪声尺度闭式估计探针;T1 算力轮;dir/gns-probe)**:
+- **路由**:goal_check NOT-Achieved(GNS-PROBE actionable 队首,轮 148 入队)⇒ 心跳单元=预注册判负 → 冒烟校准 → probe_run T1 → 当轮判读 → dir/gns-probe PR(AMM-024 T1 探针环)。
+- **GNS-PROBE 预注册(先于执行钉死)**:
+  - **问题**:本仓训练体制(M1 弹簧 E1 口径,prefix 循环,batch=64,Adam lr=3e-3)的梯度噪声尺度 B_simple 处于何处(噪声主导区/线性加速区),以及是否随训练进度增长(对照 scan §36.1 McCandlish"随训练增长"预言)——为轮 126 符号反转种子敏感性提供优化噪声侧读数。
+  - **协议**:M1 弹簧 ω∈[0.7,1.8] 同池(n_train 256,dt=0.1,t_obs=24,k_train=8),hidden64,ctx=8 推断头,seed 0;checkpoint={0 步(随机初始化),1000 步,4000 步}(prefix 标准循环训练);每 checkpoint 采 N=32 个 batch-64 随机子批梯度(与训练同款 loss 口径:随机窗口 rollout_mse_loss),展平后闭式估计 **B_simple = tr(G)/|ḡ|²,其中 tr(G)≈b/(N−1)·Σ_i|g_i−ĝ|²**(一阶估计,McCandlish §2 口径,b=64);1-seed 筛查口径(估计噪声大,多 seed 终局=停车场)。
+  - **机械判据(执行前钉死)**:① **GNS_UNRESOLVABLE(判负分支)**=任一 checkpoint 出现 |ĝ|²<1e-16(零均值梯度,比值发散无意义)或 B_simple 非有限 ⇒ "本仓体制 GNS 不可分辨"如实登记,batch 阶梯短训对照转停车场登记;② 否则量级读数有效,分:**GNS_RESOLVED_TREND**(跨 checkpoint max/min ≥3× ⇒ 趋势可判,报告增/减走向)与 **GNS_FLAT**(max/min <3× ⇒ 趋势不可判如实记录,但量级定位读数保留——batch=64 相对 B_simple 的位置照报);量级定位规则=B_simple ≥64 ⇒ batch=64 在线性加速区(信号主导),<64 ⇒ 噪声主导区。
+  - **族边界**:优化噪声轴(GNS 族第 1 轮);载体与 grokking 族(轮 146)/fastslow 族(137/143)分属不同问题轴。
+  - **命令/产物**:`./scripts/probe_run T1 8 -- .venv/bin/python -u benchmarks/gns_probe.py`;产物 benchmarks/physics_out_v02/gns_probe/gns_probe.json(results 键包裹,meta exec_tier 透传);判读锚="GNS-PROBE 判读";时长依据=轮 146 实测每 1000 步 prefix ≈15s(同循环类型冒烟数据),5000 步总训练+96 次梯度采样 ≈3min,est 8min 宁松。
+- **判读(GNS-PROBE 判读)**:**机械判读 GNS_RESOLVED_TREND(趋势增长)——判负分支未触发,B_simple 跨 checkpoint 6.99× ≥3× 门,方向与 McCandlish"随训练增长"预言一致**。主结果(M1 弹簧 ω∈[0.7,1.8] 同池,hidden64,prefix 循环,batch=64,N=32 子批梯度,seed 0,1-seed 筛查,实跑 ~3min ≤est8):checkpoint 读数——0 步:B_simple **11.89**(|ĝ|² 1.33e-1);1000 步:**83.11**(1.24e-1);4000 步:**60.39**(1.65e-1)。**量级定位(预注册规则)**:按 min<64 标签为噪声主导区,但如实拆解——随机初始化点 B=11.9≪64=噪声主导区(子批采样主导更新方向);训练 1-4k 步后 B≈60-83,**batch=64 恰在线性加速临界附近**。**对轮 126 的噪声侧读数(一致性支持非因果证明)**:早期训练在 B_noise≪64 区运行 ⇒ 梯度噪声未被 batch 平均掉 ⇒ 不同 seed 的噪声实现可以导向不同解盆地——与轮 126 符号反转/1/3 种子反转的观察一致;1-seed 筛查口径,因果链未检验。**T2/T3 派发协议字段**:batch=64 在 4k 步体制近临界,更长训练进度的 B_simple 演化未测(>4k 步轴如实注记未覆盖)。诚实边界:N=32 一阶估计方差大;Adam 非纯 SGD(等价性有修正面,scan §36.3);B_simple 是 B_noise 的一阶近似;单 seed。失效判据(|ĝ|²<1e-16/非有限)三 checkpoint 均未触发(|ĝ|² 0.12-0.17 量级健康)。
+- **台账**:gns_probe.py(train_prefix 同款循环训练+梯度采样与训练 loss 逐字同构(随机窗口同构造)+预注册一阶估计器与三值判据纯函数)+ tests/test_gns_probe.py(合成梯度恢复正确量级+判据 3 分支钉死+CLI 冒烟);TOOLS +gns_probe;PLAYBOOK 回写 loss 口径同构做法;产物 benchmarks/physics_out_v02/gns_probe/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
+
 
 
 
