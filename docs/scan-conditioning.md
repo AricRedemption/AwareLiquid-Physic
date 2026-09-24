@@ -2449,6 +2449,91 @@ Bartolucci 全库 grep 零命中;Rahaman 撞 §17.1 已注记不重复收。
 grep 零命中(命中为 §8.4 采样课程语提及与 D1f 训练循环课程,族头
 三分声明)。选族启发式 n=9(钩子=轮 162 反向纹理的调度化假说)。
 
+## 41. 经验蒸馏 36(轮 169,2026-09-24,QUEUE-EMPTY 轮):长度外推族(训练窗之外的 rollout 泛化)
+
+> 新 query 族(与前 40 族零重叠:§18.1 VPT=评估口径,§31 dt 迁移=
+> 网格轴,§40 dt 课程=排序轴——本族=**物理时长轴**:训练轨迹物理
+> 时长(16s)之外的 rollout 泛化,训练窗边界效应/长度外推)。
+> 钩子:全仓 gen_steps=160 固定(物理时长 16s)——T>16s 的 rollout
+> 从未被训练也从未被评估,训练窗边界之外的本仓行为完全未知。
+> 标记:[坐标] ×3(1 ★)+ [行动] ×1。三槽:① 训练积分误差机制
+> ② 长视距误差累积 ③ TSFM=插值器理论面。题录当场核验(AMM-015,
+> 3 条 venue/作者/arXiv ID 确认)。
+
+### 41.1 机制面:训练时的数值积分误差(IMDE)★ [坐标]
+
+- 【出处】Zhu, Jin & Tang, "On Numerical Integration in Neural Ordinary
+  Equations Based on Inverse Modified Differential Equations", ICML
+  2022(PMLR),~57 引
+- 【内容】IMDE(逆修正微分方程)框架澄清数值积分误差如何进入
+  Neural ODE 训练——学习到的动力学是"真动力+积分器修正项"的
+  组合,训练窗内的修正在窗外不再适用。
+- 【对我们的映射】本仓 VV 积分器+学习头:训练窗(16s)内学到的
+  映射含 dt 特定修正(§31 FLOW_LIKE 已证向量场主导),窗外的
+  外推行为=IMDE 语境的未测区;LEN-EXTRAP 的拐点检测直接对应
+  "修正项失效边界"。
+- 【适用条件】LEN-EXTRAP 判读设计;§31 边界的窗外延伸。
+- 【验证状态】题录当场核验(ICML 2022+PMLR+作者);社区已验证。
+
+### 41.2 长视距误差累积与统计量保持 [坐标]
+
+- 【出处】Li et al., "A Weak Penalty Neural ODE for Learning Chaotic
+  Dynamics from Noisy Time Series", arXiv:2511.06609(2025-11;
+  WP-NODE)
+- 【内容】neural ODE 长视距误差累积文献面:短窗训练的模型长
+  rollout 时误差累积且丢失不变统计量(PDF 等);WP-NODE 用弱惩罚
+  在训练中注入统计量保持。
+- 【对我们的映射】本仓 rollout 评估(k100)全在训练窗内;窗外的
+  误差累积速率未知——LEN-EXTRAP 的 per-step 误差剖面即该文献
+  问题的本仓数据点;统计量保持(能量漂移)为附带诊断。
+- 【适用条件】LEN-EXTRAP 判读参照;N1 长视距局限讨论。
+- 【验证状态】题录当场核验(arXiv:2511.06609+年份+WP-NODE 术语);
+  社区验证程度未知(新文,如实注记)。
+
+### 41.3 对照槽:TSFM=插值器理论面 [坐标]
+
+- 【出处】Karaouli et al., "How Foundational are Foundation Models
+  for Time Series Forecasting?", arXiv 2025-10(Univ. Rennes/CNRS/
+  Inria;NeurIPS TSFM workshop,~9 引)
+- 【内容】时间序列基础模型的零样本能力与其预训练域强绑定——
+  更像"已见分布上的插值器"而非真外推器。
+- 【对我们的映射】与本仓 §19 TSFM 基线协议呼应的理论面:同网格
+  内插(§17.2 纪律)之所以是纪律,因模型本质是插值器——LEN-EXTRAP
+  把"插值域边界"从频率轴(§39)延伸到时长轴。基线协议不动
+  (§19 在库不重复收)。
+- 【适用条件】N1 评测纪律段的理论引注;§19 协议的边界讨论。
+- 【验证状态】题录当场核验(arXiv 2025-10+作者+机构);社区验证
+  早期(workshop,~9 引,如实注记)。
+
+### 41.4 [行动] LEN-EXTRAP:训练窗外 rollout 外推探针(入队)
+
+- 【出处】§41.1-41.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】prefix hidden64 2000 步训练(gen 160 步轨迹=16s 物理窗,
+  全仓默认);评估新池 gen 601 步(60s)held-out 128 轨,双轴:
+  内插段 per-step 误差(T∈[5,10]s,窗内)vs 外推段(T∈[20,30]s,
+  窗外 4-14×)——comp=外推段/内插段 per-step MSE 比;三分支:
+  comp<3 ⇒ LEN_ROBUST(平缓外推);≥3 且 16s 边界后首窗口跳变
+  ≥3× ⇒ LEN_WINDOW_EDGE(窗口边界效应,§41.1 修正项失效);
+  ≥3 但无边界跳变 ⇒ LEN_GRADUAL(渐进累积,§41.2)。附能量漂移
+  诊断(统计量保持,§41.2)。
+- 【判负(预注册,执行前钉死进 PRD §19)】=评估轨迹生成/滚动
+  非有限或发散(>1e6)⇒ 判负登记(外推崩溃本身是信息,按
+  WINDOW_EDGE 分支记录阈值情形);comp 计算数值异常 ⇒ 判负。
+- 【族边界】物理时长轴(LEN-EXTRAP 族第 1 轮);与 §18.1(VPT
+  口径)/§31(dt 网格)/§40(排序)分立。
+- 【适用条件】T1 可行动:2000 步训练+601 步生成+3 视距评估 ≈
+  2min,est 8min;1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 36
+
+3 [坐标](1 ★)+ 1 [行动](LEN-EXTRAP 入队,engineering)。
+第 41 族;**S1 重置([行动] 产出)**。蒸馏轮第 34 次达标(≥1 条入库
++新目标)。机制核对:length extrapolation/length generalization/
+long-horizon rollout 全库 grep 零命中;与 §18.1/§31/§40 分立。
+选族启发式 n=10(钩子=gen_steps=160 全仓固定的未测窗外)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

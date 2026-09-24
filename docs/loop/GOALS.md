@@ -44,16 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 168:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 167 判读后续(延伸)全归
-  停车场(课程族 2/2 用尽),池空;消化三件套:①回填=资产索引 5 区
-  Methods 新增第 8 条 dt 课程体制(正课程有益 33.8%+逆课程对照分离
-  机制=顺序为因覆盖假说被否+逆课程纯损害 14×+全预算未测边界);②
-  分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;
-  ③条件重入口=§12.3 三路终态维持。S1 计数:轮 164([行动])/165(T1
-  判读)/166(自生成入队)/167(T1 判读)行动产出连续,本消化轮无蒸
-  馏,无 S1 累计。队列十九条全 pr-pending。下一心跳=goal_check 裁决
-  (QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 169:蒸馏第 41 族长度外推族入库(scan§41)
+  +LEN-EXTRAP 入队**——goal_check QUEUE-EMPTY(后续池空,课程族 2/2
+  用尽)⇒蒸馏轮;选族钩子=gen_steps=160 全仓固定(16s 物理窗)的
+  未测窗外——T>16s rollout 从未训练也从未评估;机制核对全库 grep
+  零命中;3 槽命中+3 题录当场核验(AMM-015):①★Zhu/Jin/Tang ICML
+  2022 IMDE(~57 引)训练积分误差=修正项失效边界语境 ②Li et al.
+  arXiv:2511.06609 WP-NODE 长视距误差累积+统计量保持(新文验证程度
+  如实注记)③Karaouli arXiv 2025-10 TSFM=插值器理论面(§19 呼应不
+  重复收基线);[行动] LEN-EXTRAP 入队(engineering,T1:2000 步训练
+  +新池 601 步评估双轴内插/外推 per-step 误差比 comp 三分支
+  [ROBUST/WINDOW_EDGE/GRADUAL]+能量漂移诊断,判负=发散/数值异常;
+  est 8min);S1 重置([行动])蒸馏第 34 次达标;157 测试+audit 全绿
+  显式退出码(零代码轮);队列二十条(十九 pr-pending+LEN-EXTRAP
+  actionable)。下一心跳=goal_check 路由迭代 LEN-EXTRAP)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -173,6 +177,11 @@ goal_queue:
   done_condition: PRD §19有"DT-CURRICULUM-2 判读"锚且benchmarks/physics_out_v02/dt_curriculum_v2/dt_curriculum_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "DT-CURRICULUM-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/dt_curriculum_v2/dt_curriculum_v2.json
   status: pr-pending(PR#19, 判读ORDER_MATTERS=顺序为因正课程0.4225vs逆课程5.9056覆盖假说被否, 合并后check过自动弹出)
+- id: LEN-EXTRAP
+  track: engineering
+  goal: 训练窗外rollout外推探针——异频池(E1口径)prefix hidden64 2000步训练(160步轨迹=16s物理窗全仓默认), 评估新池gen601步(60s)held-out双轴: 内插段per-step误差(T∈5-10s窗内)vs外推段(T∈20-30s窗外4-14×), comp=外推/内插per-step MSE比三分支: comp<3⇒LEN_ROBUST平缓外推/≥3且16s边界后首窗跳变≥3×⇒LEN_WINDOW_EDGE窗口边界效应(IMDE修正项失效, scan§41)/≥3无边界跳变⇒LEN_GRADUAL渐进累积; 附能量漂移诊断; 判负=评估生成/滚动非有限发散>1e6或comp数值异常; 族边界=物理时长轴LEN-EXTRAP族第1轮与§18.1口径/§31网格/§40排序分立
+  done_condition: PRD §19有"LEN-EXTRAP 判读"锚且benchmarks/physics_out_v02/len_extrap/len_extrap.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "LEN-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/len_extrap/len_extrap.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
