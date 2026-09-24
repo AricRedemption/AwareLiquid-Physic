@@ -44,19 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 209:WSA-PROBE 判读 SWA_HARMFUL,dir/
-  wsa-probe PR#32 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
-  预注册先于执行钉死(注入式训练尾段 10 检查点均匀平均 vs 最后
-  checkpoint,三分支判据,族边界=权重平均轴第 1 轮与 §30 分立);
-  实跑 ~2min≤est8:LAST 2.8693 vs AVG 3.1182 ⇒ diff=-8.0% ⇒ **SWA_
-  HARMFUL 尾段平均有害 8.0%,与 SWA 文献 vision 结论相反**;**偏差
-  如实注记=LAST 臂与历史 3.5582 不一致=注入式循环 RNG 流差异,跨
-  轮绝对数字不可比但 A/B 同轨迹对照内部有效;机制解读=尾段跨盆地
-  边界(轮 126 先例)平均跨盆地=损害/轨迹方差已低,分离需多 seed
-  (停车场 1/2)**;PLAYBOOK 回写 RNG 流差异边界坑;160 测试(157+3)
-  +audit 全绿;队列三十二条全 pr-pending。下一心跳=goal_check 裁决
-  ——判读轮后消化轮优先(回填资产索引 wsa 条目/分流/条件重入口,
-  禁新蒸馏))
+updated: 2026-09-24 (**轮 210:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 209 判读后续(盆地分离
+  多 seed)归停车场(WSA 族 1/2 保留),池空;消化三件套:①回填=资
+  产索引 5 区 Methods 新增第 17 条尾段权重平均(SWA_HARMFUL 如实登
+  记+RNG 流差异跨轮不可比注记+跨盆地损害解读);②分流=balance_
+  gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=
+  §12.3 三路终态维持。S1 计数:轮 208([行动])/209(T1 判读)行动
+  产出连续,本消化轮无蒸馏,无 S1 累计。队列三十二条全 pr-pending。
+  下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行
+  动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
