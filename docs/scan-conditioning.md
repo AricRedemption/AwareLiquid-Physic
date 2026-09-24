@@ -3111,6 +3111,85 @@ n=12(钩子=Adam 全仓固定从未对照)。
 机制核对:batch×lr 交互在本仓未测(§43.3 坐标在库,行动面缺失)。
 选族启发式 n=18(钩子=已收坐标的行动面缺口)。
 
+## 50. 经验蒸馏 45(轮 208,2026-09-24,QUEUE-EMPTY 轮):权重平均族(SWA/model soups/EMA)
+
+> 新 query 族(与前 49 族零重叠:§30 模式连接=**解的景观几何**,
+> 本族=**权重平均作为训练后处理/训练中技术的实证与机制**(SWA/
+> model soups/EMA)——§30 是几何描述,本族是可操作技术及其收益)。
+> 钩子:train.py 无任何权重平均;轮 191 k_train 判读显示 rollout 对
+> 训练轨迹敏感——尾段平均可能降低轨迹级方差。标记:[坐标] ×3
+> (1 ★)+ [行动] ×1。三槽:① SWA 奠基 ② model soups ③ EMA 系统
+> 研究。题录当场核验(AMM-015,3 条 arXiv ID/venue/作者确认)。
+
+### 50.1 SWA 奠基:权重平均→更宽最优→更好泛化 ★ [坐标]
+
+- 【出处】Izmailov et al., "Averaging Weights Leads to Wider Optima and
+  Better Generalization", 2018, arXiv:1803.05407,~2683 引(PyTorch
+  swa_utils 事实标准)
+- 【内容】SGD 轨迹尾段的等权平均(SWA)落在更宽更平的最优域中心
+  ——泛化更好;与 Fast Geometric Ensembling 相通。
+- 【对我们的映射】本仓 rollout 对训练轨迹敏感(轮 191 KSPAN 判读
+  k_train=4 最优=轨迹方差可见)——尾段权重平均可能以零推理成本
+  降低方差;与本仓 §30 模式连接几何衔接(平均有效的前提=解在同一
+  盆地)。
+- 【适用条件】WSA-PROBE 判读参照;训练后处理。
+- 【验证状态】题录当场核验(arXiv:1803.05407+作者+引用约数);
+  社区已验证(PyTorch 标准)。
+
+### 50.2 model soups:共享初始化的微调解在同一盆地 [坐标]
+
+- 【出处】Wortsman et al., "Model soups: averaging weights of multiple
+  fine-tuned models improves accuracy without increasing inference
+  time", ICML 2022, arXiv:2203.05482,~2160 引
+- 【内容】共享预训练初始化、不同超参微调的模型权重可直接平均
+  (同盆地)且常提升精度;独立初始化的朴素平均失败。
+- 【对我们的映射】§30 种子间解的盆地结构(轮 126 符号盆地)与
+  soup 前提对表:同 seed 不同超参的解平均=安全;跨 seed 平均=需
+  盆地一致性——为多 seed 终局协议(停车场)提供平均选项。
+- 【适用条件】多 seed 终局的平均策略(停车场)。
+- 【验证状态】题录当场核验(arXiv:2203.05482+ICML 2022+作者);
+  社区已验证。
+
+### 50.3 EMA 系统研究:平均=隐式正则 [坐标]
+
+- 【出处】Morales-Brotons et al., "Exponential Moving Average of
+  Weights in Deep Learning", 2024,~240 引
+- 【内容】EMA 解与最后迭代解是**不同的解点**(EMA=隐式平均/正则化
+  模型);EMA 天然降低梯度噪声,所需 lr 衰减更少;泛化与校准常
+  优于最终权重。
+- 【对我们的映射】与本仓 §43.1(自适应泛化代价)/§48(LR 调度)
+  衔接:EMA 是"不调 lr 衰减而获得部分衰减收益"的正交选项;
+  WSA-PROBE 的平均臂即其均匀版。
+- 【适用条件】训练后处理选项;派发协议字段。
+- 【验证状态】题录当场核验(arXiv 2024+作者+引用约数);社区已
+  验证。
+
+### 50.4 [行动] WSA-PROBE:尾段权重平均对照(入队)
+
+- 【出处】§50.1-50.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 训练(注入式循环,轮 181 条款),
+  尾段(最后 10 个检查点,每 100 步)均匀权重平均;对照两臂:
+  A=最后 checkpoint;B=尾段 10 checkpoint 均匀平均(SWA 式);
+  判读=A/B rollout MSE(k100 同 held-out)三分支:差<5% ⇒ 平均
+  不可分辨(轨迹方差已低);B 好 ≥5% ⇒ SWA_BENEFICIAL(平均收益
+  实证);B 差 ≥5% ⇒ SWA_HARMFUL 如实登记。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  WSA_UNRESOLVABLE 登记。
+- 【族边界】权重平均轴(WSA 族第 1 轮);与 §30(景观几何描述)
+  分立=可操作技术。
+- 【适用条件】T1 可行动:2000 步训练+10 快照评估 ≈2min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 45
+
+3 [坐标](1 ★)+ 1 [行动](WSA-PROBE 入队,engineering)。
+第 50 族;**S1 重置([行动] 产出)**。蒸馏轮第 43 次达标(≥1 条入库
++新目标)。机制核对:SWA/model soup/EMA/权重平均 全库 grep 零命中
+(命中=systematic review/CTI 弱匹配非族)。选族启发式 n=19(钩子=
+权重平均从未试+§30 盆地几何的收益面)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

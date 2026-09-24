@@ -44,15 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 206:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 205 判读无指令性后续
-  (延伸归停车场②泛容器),池空;消化三件套:①回填=资产索引 5 区
-  Methods 新增第 17 条 batch×lr 交互(SCALING_BROKEN 两规则均打破
-  +真交互注记+联合调优必要性);②分流=balance_gauge EXP=0.2 达标/
-  WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
-  S1 计数:轮 204([行动])/205(T1 判读)行动产出连续,本消化轮无
-  蒸馏,无 S1 累计。队列三十一条全 pr-pending。下一心跳=goal_check
-  裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 208:蒸馏第 50 族权重平均族入库(scan§50)
+  +WSA-PROBE 入队**——goal_check QUEUE-EMPTY(后续池空,LRBATCH 检验
+  轮次记录)⇒蒸馏轮;选族钩子=权重平均从未试+§30 盆地几何的收益
+  面;机制核对全库 grep 零命中(SWA/model soup/EMA;命中=弱匹配非
+  族);3 槽一次命中+3 题录当场核验(AMM-015):①★Izmailov SWA
+  (arXiv:1803.05407 ~2683 引)尾段等权平均→更宽最优 ②Wortsman
+  ICML 2022 model soups(arXiv:2203.05482 ~2160 引)共享初始化微调
+  模型可直接平均(多 seed 终局平均策略=停车场)③Morales-Brotons
+  2024(~240 引)EMA=隐式正则与最后迭代是不同解点;[行动]
+  WSA-PROBE 入队(engineering,T1:2000 步注入式训练+尾段 10 检查
+  点均匀平均 vs 最后 checkpoint 三分支判读,判负=发散;est 8min);
+  S1 重置([行动])蒸馏第 43 次达标;157 测试+audit 全绿显式退出码
+  (零代码轮);队列三十二条(三十一 pr-pending+WSA-PROBE actionable)。
+  下一心跳=goal_check 路由迭代 WSA-PROBE)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -244,6 +249,11 @@ goal_queue:
   done_condition: PRD §19有"LRBATCH-GRID 判读"锚且benchmarks/physics_out_v02/lrbatch_grid/lrbatch_grid.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LRBATCH-GRID 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/lrbatch_grid/lrbatch_grid.json
   status: pr-pending(PR#31, 判读SCALING_BROKEN=两条缩放规则均打破batch×lr需联合调优, 合并后check过自动弹出)
+- id: WSA-PROBE
+  track: engineering
+  goal: 尾段权重平均对照探针——异频池(E1口径)prefix hidden64 2000步(注入式循环=轮181条款): A=最后checkpoint vs B=尾段10检查点均匀平均(SWA式), 评估同口径k100 held-out rollout MSE, 判读=A/B三分支: 差<5%⇒平均不可分辨(轨迹方差已低如实登记)/B好≥5%⇒SWA_BENEFICIAL平均收益实证/B差≥5%⇒SWA_HARMFUL如实登记, 判负=任一臂发散非有限; 族边界=权重平均轴WSA族第1轮与§30景观几何描述分立=可操作技术
+  done_condition: PRD §19有"WSA-PROBE 判读"锚且benchmarks/physics_out_v02/wsa_probe/wsa_probe.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "WSA-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/wsa_probe/wsa_probe.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

@@ -1078,6 +1078,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **选族**:本轮不收新族——给 §43.3(§43 已收坐标)补行动面:Smith 等价(batch↑≡lr↓)与线性/平方根缩放规则在本仓的受控检验。钩子=全仓 batch=64/lr=3e-3 联合从未消融;族=LRBATCH 交互检验(§43 行动面,非新族;蒸馏交付=行动准入)。
 - **LRBATCH-GRID 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四单元 (batch,lr) 网格——{(16,3e-3),(64,3e-3),(16,1.2e-2),(64,1.2e-2)};判读=两等价对 rollout MSE 差:线性等价对(16,3e-3)vs(64,1.2e-2)(lr∝batch)与平方根等价对(16,3e-3)vs(64,6e-3)(lr∝√batch)各 <5% ⇒ 该规则成立(等价性支持)/≥5% ⇒ 规则打破(如实报告哪条更准);判负(下心跳预注册落盘后执行)=任一单元发散/非有限 ⇒ LRBATCH_UNRESOLVABLE(该组合不可用登记);族边界=batch×lr 交互轴(§43 行动面);双锚单行 check_cmd;est 10min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §49+蒸馏结论 44;S1 重置([行动]),蒸馏第 42 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十一条(三十 pr-pending+LRBATCH-GRID actionable);双锚单行 check_cmd 经数数锚 31=31+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 LRBATCH-GRID。
+**轮 208 记录(蒸馏补池:第 50 族权重平均族 + WSA-PROBE 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——LRBATCH 检验轮次记录)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:钩子=权重平均从未试+§30 盆地几何的收益面(平均有效的理论基础已在库);机制核对 grep(SWA/model soup/EMA/权重平均)零命中。
+- **3 槽一次命中+题录当场核验(AMM-015)**:①★Izmailov et al. "Averaging Weights Leads to Wider Optima and Better Generalization"(arXiv:1803.05407,2018,~2683 引;PyTorch swa_utils 事实标准)=SWA 尾段等权平均→更宽最优更好泛化;②Wortsman et al. "Model soups"(ICML 2022,arXiv:2203.05482,~2160 引)=共享初始化微调模型可直接平均(跨初始化朴素平均失败——与 §30 盆地对表);③Morales-Brotons et al. "Exponential Moving Average of Weights in Deep Learning"(arXiv 2024,~240 引)=EMA 解与最后迭代是不同解点(隐式正则;lr 衰减需求更低)。
+- **WSA-PROBE 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步(注入式循环=轮 181 条款),尾段最后 10 检查点(每 100 步)均匀平均 vs 最后 checkpoint;评估=同 held-out 128 轨 k100 rollout MSE;判读=A/B 三分支:差<5% ⇒ 平均不可分辨(轨迹方差已低如实登记)/B 好 ≥5% ⇒ SWA_BENEFICIAL(平均收益实证)/B 差 ≥5% ⇒ SWA_HARMFUL 如实登记;判负(下心跳预注册落盘后执行)=任一臂发散/非有限;族边界=权重平均轴 WSA 族第 1 轮(与 §30 景观描述分立=可操作技术);双锚单行 check_cmd;est 8min(2000 步训练+10 快照评估)。
+- **台账**:零算力轮;scan §50+蒸馏结论 45;S1 重置([行动]),蒸馏第 43 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十二条(三十一 pr-pending+WSA-PROBE actionable);双锚单行 check_cmd 经数数锚 32=32+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 WSA-PROBE。
 **轮 193 记录(自生成后续迭代:KSPAN-LADDER-2 入队;T0 零算力)**:
 - **路由**:goal_check QUEUE-EMPTY ⇒ 先盘后续池(AMM-027 语义):**非空**——轮 191 判读行明示"内点最优在阶梯首端附近,k<4 未探(下一候选)"⇒ 入队迭代,等同行动产出重置 S1。
 - **KSPAN-LADDER-2 入队([行动],engineering,T1)**:k_train∈{1,2} 补首端与 k=4 对比(内点最优定位);判读=三臂 {k_train 1,2,4} spread(max/min):<1.05 ⇒ 首端平台(k_train 小域不可分辨如实登记)/≥1.05 ⇒ 报告真最优与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限或 spread 数值异常;族护栏=KSPAN 族段内第 2 轮(191/193)达 ≤2 上限,之后换方向或入停车场;双锚单行 check_cmd;est 8min。
