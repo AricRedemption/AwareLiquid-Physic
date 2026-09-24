@@ -44,20 +44,18 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 174:蒸馏第 42 族任务多样性/池分布宽度族
-  入库(scan§42)+POOL-WIDTH 入队**——goal_check QUEUE-EMPTY(后续池
-  空,LEN 族 2/2 用尽)⇒蒸馏轮;选族钩子=异频池 ω∈[0.7,1.8] 宽度
-  从未消融(轮 120 单频控制臂与宽池数字从未同口径对照);机制核对
-  全库 grep 零命中(命中=§20.2 成员多样性语境,族头声明分立);
-  3 槽一次命中+3 题录当场核验(AMM-015):①Kumar AAAI 2023(~21 引)
-  任务多样性不必然提升性能=反直觉方向校准 ②★Li Nature 2025
-  (~116 引)多数 OOD 测试实为插值=分布覆盖维度显式化 ③Zhang ICML
-  2023(~33 引)分布过宽损害精度=代价面;[行动] POOL-WIDTH 入队
-  (engineering,T1:2000 步 prefix 窄池[0.95,1.05] vs 宽池
-  [0.7,1.8] 各评估同分布 k100,B/A 比三分支判读,判负=口径失效;
-  est 8min);S1 重置([行动])蒸馏第 35 次达标;157 测试+audit
-  全绿显式退出码(零代码轮);队列二十二条(二十一 pr-pending+
-  POOL-WIDTH actionable)。下一心跳=goal_check 路由迭代 POOL-WIDTH)
+updated: 2026-09-24 (**轮 175:POOL-WIDTH 判读 WIDTH_COST,dir/
+  pool-width PR#22 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(两臂各评估同分布 held-out,三分支判据,族边
+  界=训练分布宽度轴第 1 轮);实跑 ~1min≤est8:A 窄池 0.0949 vs B
+  宽池 3.5582 ⇒ **ratio=37.5⇒WIDTH_COST**;口径拆解防误读=任务难度
+  +ctx 推断代价合计非纯训练多样性损害(Kumar 混合);**跨池数字不可
+  比=池宽度加入基线表强制列(轮 111 条款又一实证)**;与轮 120 单频
+  控制臂方向一致互补;N1 路由=评测口径声明补池宽度列;格式化器第
+  十四袭(POOL-WIDTH 整条被删)checkout 还原 22=22+ID 核对;160 测试
+  (157+3)+audit 全绿;队列二十二条全 pr-pending。下一心跳=goal_
+  check 裁决——判读轮后消化轮优先(回填资产索引 pool-width 条目/
+  分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -194,6 +192,7 @@ goal_queue:
   goal: 池分布宽度对照探针——M1弹簧2000步prefix两臂: A=窄池ω∈[0.95,1.05](近单频) vs B=宽池ω∈[0.7,1.8](E1默认), 各评估同分布held-out(k100 T=10), 判读=B/A rollout MSE比三分支: ∈[0.95,1.05]⇒宽度不可分辨(Kumar反直觉相容)/ >1.05⇒宽度有代价(§42.3宽池精度下降) / <0.95⇒宽度有收益(传统多样性增益), 判负=口径失效非有限发散; ω·dt网格两臂同; 族边界=训练分布宽度轴POOL-WIDTH族第1轮与§20.2成员多样性/§29后验/§39网格交互分立
   done_condition: PRD §19有"POOL-WIDTH 判读"锚且benchmarks/physics_out_v02/pool_width/pool_width.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "POOL-WIDTH 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/pool_width/pool_width.json
+  status: pr-pending(PR#22, 判读WIDTH_COST=池宽度巨大同分布精度代价ratio=37.5口径拆解跨池数字不可比, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
