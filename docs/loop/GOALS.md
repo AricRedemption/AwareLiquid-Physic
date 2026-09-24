@@ -44,12 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 14:00 (**轮 134:ICL-M3-INTERP 判读=判负① 外插
-  为主因触发**——内插三臂 B 9.658e-3<C 1.026e-2<A 1.207e-2 同量级,
-  A/B 比值 4.9×→1.25× 且 A 绝对改善 4.8× ⇒ 轮 132 隐式 ICL 落后主要
-  归因 OOD 速度外插;B/C 增益方向内插复现 ~6%;机制结论=隐式 ICL
-  内插区接近梯度微调,真实短板在外插区;PR#8 开立待合并。下一心跳=
-  goal_check 裁决(消化轮预置项=轮 132/134 合并表述 N1 回填))
+updated: 2026-09-24 14:40 (**轮 135:消化轮,内插修正合并表述回填
+  完成**——资产索引 4c 条更新为轮 132/134 合并表述:隐式 ICL 内插区
+  接近梯度微调,真实短板在外插区;外插混杂坑验证状态实证升级;八条
+  pr-pending 待合并。下一心跳=goal_check 裁决(队列空,蒸馏须带
+  [行动] 否则 S1 累计))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
