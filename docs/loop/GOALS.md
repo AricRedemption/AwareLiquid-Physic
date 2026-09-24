@@ -44,21 +44,19 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 158:蒸馏第 38 族数据重复/记忆族入库
-  (scan§38)+REP-PROBE 入队**——goal_check QUEUE-EMPTY(后续池空,
-  sharpness 族 2/2 用尽)⇒蒸馏轮;选族钩子=semigroup 默认随机重采样
-  窗口体制(短训 ~8 epoch 等效重复率)的"重复率→记忆 vs 泛化"未检
-  视面;机制核对全库 grep 零命中,与 §8.4/§35/§30 分界族头声明;
-  3 槽一次命中+3 题录当场核验(AMM-015):①★Muennighoff NeurIPS
-  2023(~644 引)data-constrained scaling/value decay(≤4 epochs
-  无损,16 起衰减)②Fu arXiv:2305.13230 token-crisis 重复 vs 新鲜
-  ③Chatterjee PMLR 记忆-泛化光滑权衡(判读诚实边界);[行动]
-  REP-PROBE 入队(engineering,T1:M1 弹簧 semigroup 4000 步预算 A=
-  默认随机重复 vs B=窗口去重,A/B rollout MSE 三分支判读,判负=差
-  <5% 不可分辨如实登记;est 20min);S1 重置([行动])蒸馏第 31 次
-  达标;157 测试+audit 全绿显式退出码(零代码轮);队列十六条(十五
-  pr-pending+REP-PROBE actionable)。下一心跳=goal_check 路由迭代
-  REP-PROBE)
+updated: 2026-09-24 (**轮 159:REP-PROBE 判读 REP_UNRESOLVABLE,dir/
+  rep-probe PR#16 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(M1 弹簧 semigroup 4000 步两臂:A=有放回随机
+  重采样 train_semigroup 逐字复用 vs B=无放回 epoch 遍历 32768 唯一
+  对,机械三分支判据);实跑 ~11min≤est20:A rollout 1.6649 vs B
+  1.6377,diff=+1.64%≪5%⇒机械判负=窗口重复率(等效 ~8 epoch)rollout
+  口径不可分辨;次级读数=train_loss 差 2.5× 未传递到泛化(与轮 146
+  训练-泛化解耦一致,rollout 指标对训练侧扰动不敏感又一实例);
+  §38.3 观测口径限制注记激活;N1 路由=不引入重复-泛化声明;PLAYBOOK
+  回写 rollout_mse_loss 双重转置约定坑(冒烟当场抓出);160 测试
+  (157+3)+audit 全绿;队列十六条全 pr-pending。下一心跳=goal_check
+  裁决——判读轮后消化轮优先(回填资产索引 rep 条目/分流/条件重入口,
+  禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -159,6 +157,7 @@ goal_queue:
   goal: 窗口重复率对照探针——M1弹簧semigroup体制固定4000步预算两臂: A=默认随机窗口重复(train_semigroup原样) vs B=窗口去重(预生成互不重叠(t_i,t_j)对遍历一次), 判读=A/B rollout MSE(k100同held-out): 差<5%⇒重复无害区记录/A差≥5%⇒重复有害/A好≥5%⇒重复有益(scan§38 value decay框架), 判负=两臂差<5%⇒本体制重复率不可分辨如实登记(38.3观测口径限制注记); 族边界=数据重复轴REP族第1轮与§8.4/§35/§30分立
   done_condition: PRD §19有"REP-PROBE 判读"锚且benchmarks/physics_out_v02/rep_probe/rep_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "REP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/rep_probe/rep_probe.json
+  status: pr-pending(PR#16, 判读REP_UNRESOLVABLE=窗口重复率rollout口径不可分辨判负分支执行, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
