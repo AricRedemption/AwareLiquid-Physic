@@ -44,21 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 196:蒸馏第 47 族 n_scales 多时间常数
-  尺度族入库(scan§47)+NSCALES-LADDER 入队**——goal_check QUEUE-
-  EMPTY(后续池空,KSPAN 族 2/2 用尽)⇒蒸馏轮;选族钩子=LTC 核
-  n_scales=4 全仓固定从未消融(核架构超参轴);机制核对 grep 零
-  命中(命中=M2 OperatorPotentialHead 语境提及非族;CfC=基座出处
-  已引不重复收;与 SSM 替代线分立);3 槽一次命中+3 题录当场核验
-  (AMM-015):①★Hihi & Bengio NIPS 1995(~606 引)层级 RNN 多
-  timescale 奠基+Chung HM-RNN(~750 引)可学习尺度 ②CfC/Yu CTR-
-  LSTM/Heinrich timescale 参数化谱系 ③Quax 2020(~35 引)固定 vs
-  可学习对照;[行动] NSCALES-LADDER 入队(engineering,T1:四臂
-  n_scales{1,2,4,8} 2000 步,spread 判据<1.05 不可分辨/≥1.05 报告
-  最优 n_scales,判负=发散;est 8min);S1 重置([行动])蒸馏第
-  40 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列二十九
-  条(二十八 pr-pending+NSCALES-LADDER actionable)。下一心跳=
-  goal_check 路由迭代 NSCALES-LADDER)
+updated: 2026-09-24 (**轮 197:NSCALES-LADDER 判读 NSCALES_RESOLVED,
+  dir/nscales-ladder PR#29 即终点**——goal_check NOT-Achieved⇒T1 探
+  针环心跳;预注册先于执行钉死(四臂 n_scales{1,2,4,8},构造参数天
+  然可注入=轮 181 哨兵条款适用,spread 判据,族边界=核架构超参轴
+  第 1 轮);实跑 ~2min≤est8:n_scales 1=3.1318/2=2.4418(最优)/
+  4=3.5582/8=3.8102,spread=1.56 ⇒ **NSCALES_RESOLVED 内点最优**;
+  **参数量混杂排除=+8% 参数非效应载体纯架构结构效应(与轮 187
+  对照)**;默认 n_scales=4 非最优=2 通道内点最优 8 通道过参数化
+  有害;文献对表=§47.1 层级 timescale 方向一致+§47.3 Quax 固定侧
+  数据点;N1 路由=架构辩护注记 n_scales 是敏感超参+派发协议字段;
+  交叉验证锚=n_scales4 臂与轮 175 B 臂逐位一致;导入遗漏当轮冒烟
+  抓出修复;160 测试(157+3)+audit 全绿;队列二十九条全 pr-pending。
+  下一心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引
+  nscales 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -237,6 +236,7 @@ goal_queue:
   goal: n_scales尺度数阶梯对照探针——异频池(E1口径)prefix hidden64 2000步四臂: n_scales∈{1,2,4,8}(LTC核架构超参构造参数天然可注入=轮181哨兵条款适用), 评估同口径k100 held-out rollout MSE, 判读=四臂spread(max/min): <1.05⇒NSCALES_UNRESOLVABLE尺度数不可分辨(n_scales=4默认充分如实登记)/≥1.05⇒报告最优n_scales与方向, 判负=任一臂发散非有限或spread数值异常; 族边界=核架构超参轴NSCALES族第1轮与§45头深度/§39.1宽度标度分立; 与SSM替代线停车场②分立
   done_condition: PRD §19有"NSCALES-LADDER 判读"锚且benchmarks/physics_out_v02/nscales_ladder/nscales_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "NSCALES-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/nscales_ladder/nscales_ladder.json
+  status: pr-pending(PR#29, 判读NSCALES_RESOLVED=内点最优n_scales=2默认4差45.8%参数量混杂排除, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
