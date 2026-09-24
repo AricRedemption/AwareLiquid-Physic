@@ -1025,6 +1025,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①Wang et al. "A Survey on Curriculum Learning"(IEEE TPAMI 2022,~1495 引;奠基 Bengio et al. ICML 2009)=课程两组件(打分器+排序器)与理论;②★Wu, Dyer & Neyshabur "When Do Curricula Work?"(ICLR 2021,arXiv:2012.03107,~200 引)=课程仅受限预算/噪声数据有益+anti-curriculum 改善泛化校准+随机序强基线(判读三分支先验);③Wang et al. "Using Multi-Resolution Data to Accelerate Neural Network Training"(LBNL 2022,~9 引,引用较少如实注记)=粗→细两阶段加速实例。
 - **DT-CURRICULUM 入队([行动],engineering,T1)**:单频池 ω=2(轮 162 中频单元)2000 步受限预算两臂——A=恒定 dt=0.05 vs B=dt 课程(dt=0.1×1000 步→dt=0.05×1000 步,权重连续);判读=A/B rollout MSE(k=200,T=10)三分支:差<5% ⇒ 课程不可分辨(与 Wu"随机序强基线"相容如实记录)/B 好 ≥5% ⇒ 受限预算下课程有益(文献方向一致)/B 差 ≥5% ⇒ 课程有害如实登记;判负(下心跳预注册落盘后执行)=两臂差<5% ⇒"本体制 dt 课程不可分辨"或臂发散;族边界=分辨率排序轴 DT-CURRICULUM 族第 1 轮(与 §8.4/D1f/§39 三分);双锚单行 check_cmd;est 8min(2×2000 步 prefix 同循环标度)。
 - **台账**:零算力轮;scan §40+蒸馏结论 35;S1 重置([行动]),蒸馏第 33 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十八条(十七 pr-pending+DT-CURRICULUM actionable);双锚单行 check_cmd 经数数锚 18=18+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 DT-CURRICULUM。
+**轮 165 记录(DT-CURRICULUM:dt 分辨率课程对照探针;T1 算力轮;dir/dt-curriculum)**:
+- **路由**:goal_check NOT-Achieved(DT-CURRICULUM actionable 队首,轮 164 入队)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/dt-curriculum PR(AMM-024 T1 探针环)。
+- **DT-CURRICULUM 预注册(先于执行钉死)**:
+  - **问题**:受限预算(2000 步)下,dt 分辨率课程(先粗 0.1 后细 0.05,权重连续)对 rollout 泛化是否有别于恒定细 dt(0.05)?——Wu 2021(scan §40.2)预言课程恰在受限预算域有益。
+  - **协议**:单频池 ω=2(gen_spring ω_lo=ω_hi,dt 按 臂 定义生成——注意两臂训练 dt 不同但**评估同为 dt=0.05/k=200/T=10** 同口径),hidden64 ctx=8 seed 0;**A=恒定 dt=0.05×2000 步;B=课程 dt=0.1×1000 步→dt=0.05×1000 步(同一模型权重连续,Adam 状态不继承=新 optimizer,如实注记)**;prefix 循环逐字复用;评估=held-out 128 轨 k=200 rollout MSE;1-seed 筛查(多 seed 终局=停车场)。
+  - **机械判据(执行前钉死)**:diff=(A-B)/max(A,B);① **CURRICULUM_UNRESOLVABLE(判负)**=|diff|<5% ⇒ "本体制 dt 课程不可分辨"(与 Wu"随机序强基线"相容如实记录);② **CURRICULUM_BENEFICIAL**=diff≥+5%(A 更差=课程有益,受限预算假说方向一致);③ **CURRICULUM_HARMFUL**=diff≤−5%(A 更好=课程有害如实登记);④ 任一臂 rollout 非有限/发散(>1e6)⇒ 判负改登记(发散优先)。
+  - **族边界**:分辨率排序轴 DT-CURRICULUM 族第 1 轮(与 §8.4 采样课程/D1f 训练循环课程/§39 静态矩阵三分)。
+  - **命令/产物**:`./scripts/probe_run T1 8 -- .venv/bin/python -u benchmarks/dt_curriculum_probe.py`;产物 benchmarks/physics_out_v02/dt_curriculum/dt_curriculum.json(results 键包裹,meta exec_tier 透传);判读锚="DT-CURRICULUM 判读";时长依据=同循环标度(2×2000 步 prefix ≈1min+生成+评估),est 8min 宁松。
+- **判读(DT-CURRICULUM 判读)**:**机械判读 CURRICULUM_BENEFICIAL——受限预算下 dt 课程有益 33.8%,与 Wu 2021(scan §40.2)"课程恰在受限预算域有益"预言方向一致,判负未触发**。主结果(单频池 ω=2 hidden64 prefix,seed 0,1-seed 筛查,实跑 ~2min ≤est8):A 恒定 dt=0.05×2000 步 rollout MSE **0.4225**;B 课程 dt=0.1×1000→dt=0.05×1000(权重连续,Adam 状态不继承已注记)rollout MSE **0.2796**;diff=+33.8% ≥5% 门。**组合收益纹理**:课程臂 0.2796 优于轮 162 矩阵的两个纯臂(dt=0.05×2000=0.423 与 dt=0.1×2000=0.458,前者即本探针 A 臂同配置同 seed 逐位复现)——课程不是折中而是超加益。**机制归因如实注记(两假说未分离)**:益处可能来自"难易排序"(课程语义)也可能来自"粗 dt 前半的 2× 物理覆盖"(轮 162 反向纹理同源)——本探针证明工程事实(dt 课程在受限预算有益),机制分离=后续池候选(课程族 1/2)。诚实边界:1-seed;单一 ω=2;Adam 状态不继承;2000 步受限预算(全预算下按 Wu 预言可能无益,未测=停车场候选)。
+- **台账**:dt_curriculum_probe.py(A 臂/prefix 逐字复用+B 臂两阶段权重搬运(coarse model→fine model load_state_dict,dt 重挂载)+预注册三分支判据纯函数)+ tests/test_dt_curriculum_probe.py(判据 3 分支+门常量+CLI 冒烟);TOOLS +dt_curriculum_probe;产物 benchmarks/physics_out_v02/dt_curriculum/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
 
 
 
