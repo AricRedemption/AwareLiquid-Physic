@@ -44,20 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 167:DT-CURRICULUM-2 判读 ORDER_MATTERS,
-  dir/dt-curriculum-v2 PR#19 即终点**——goal_check NOT-Achieved⇒T1
-  探针环心跳;预注册先于执行钉死(逆课程对照同池同预算,覆盖总量相同
-  差异纯归排序,四分支判据,族护栏 2/2 原文入预注册);实跑 ~2min≤
-  est8:A 正课程 0.4225(与轮 165 B 臂逐位一致=复现锚)vs B 逆课程
-  5.9056 ⇒ A 好 92.8% ⇒ **ORDER_MATTERS=排序为因:粗阶段低频结构
-  作为细阶段初始化,课程语义成立;覆盖假说被否,轮 165 机制归因闭合**;
-  次级读数=逆课程 5.9 远差恒定 0.42(14×)=先精后粗大幅损害(灾难性
-  干扰类纹理),与 Wu anti-curriculum 读法对表;实现注记=v1 判据字符
-  串+判读层映射机械数字无歧义;格式化器第十一袭(dir 分支两条被删)
-  checkout 还原 18=18+wave/loop 19=19 双侧核对;课程族 2/2 用尽;
-  160 测试(157+3)+audit 全绿;队列十九条全 pr-pending。下一心跳=
-  goal_check 裁决——判读轮后消化轮优先(回填资产索引 curriculum-2
-  条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 168:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 167 判读后续(延伸)全归
+  停车场(课程族 2/2 用尽),池空;消化三件套:①回填=资产索引 5 区
+  Methods 新增第 8 条 dt 课程体制(正课程有益 33.8%+逆课程对照分离
+  机制=顺序为因覆盖假说被否+逆课程纯损害 14×+全预算未测边界);②
+  分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;
+  ③条件重入口=§12.3 三路终态维持。S1 计数:轮 164([行动])/165(T1
+  判读)/166(自生成入队)/167(T1 判读)行动产出连续,本消化轮无蒸
+  馏,无 S1 累计。队列十九条全 pr-pending。下一心跳=goal_check 裁决
+  (QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
