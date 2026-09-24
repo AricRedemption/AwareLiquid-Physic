@@ -44,21 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 180:蒸馏第 44 族正则化强度族入库
-  (scan§44)+WD-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
-  OPT 族无指令性后续)⇒蒸馏轮;选族钩子=轮 178 判读注记"本仓
-  Adam 无 weight-decay(默认 0)"——正则化强度从未消融;机制核对
-  grep 命中均为语境提及(§35.2 grokking 机制/§43.1 AdamW 注记),
-  正则化强度轴未收族头声明分界;3 槽一次命中+3 题录当场核验
-  (AMM-015):①★Loshchilov & Hutter ICLR 2019(~49000 引)AdamW
-  解耦 wd=事实标准 ②wd×lr×SGD 噪声隐式正则机制(arXiv 2024-11/
-  Bjorck Cornell 2021,新文如实注记)③Hernández-García(~45 引)
-  数据增强可替代显式正则=判读诚实边界;[行动] WD-LADDER 入队
-  (engineering,T1:三臂 wd{0,1e-4,1e-2} 2000 步,spread 判据
-  <1.05 不可分辨/≥1.05 报告最优 wd 与方向,判负=发散;est 8min);
-  S1 重置([行动])蒸馏第 37 次达标;157 测试+audit 全绿显式退出码
-  (零代码轮);队列二十四条(二十三 pr-pending+WD-LADDER actionable)。
-  下一心跳=goal_check 路由迭代 WD-LADDER)
+updated: 2026-09-24 (**轮 181:WD-LADDER 判读 WD_RESOLVED,dir/
+  wd-ladder PR#24 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(三臂 wd{0,1e-4,1e-2},spread 判据,族边界=正
+  则化强度轴第 1 轮);实跑 ~2min≤est8:wd0=3.5582/1e-4=3.0246(最
+  优)/1e-2=3.0738,spread=1.18 ⇒ **WD_RESOLVED:默认 wd=0 非最优
+  (差 17.6%),适度正则 rollout 增益(1-seed),方向=内点最优**;
+  **执行事故与哨兵(重要)=首跑三臂逐位一致暴露 train_prefix 内部
+  optimizer 硬编码 wd=0(三臂实为一臂),若判不可分辨即假判读入库;
+  修复=注入式训练循环(轮 149 条款实现层延伸),wd=0 臂与轮 178
+  逐位一致双向交叉验证;PLAYBOOK 回写重大坑:配置消融阶梯必须注入
+  式实现+逐位一致是哨兵不是结论**;N1 路由=wd~1e-4 增益注记+AdamW
+  解耦实现=派发协议字段停车场候选 1/2;160 测试(157+3)+audit 全
+  绿;队列二十四条全 pr-pending。下一心跳=goal_check 裁决——判读
+  轮后消化轮优先(回填资产索引 wd 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -207,6 +206,7 @@ goal_queue:
   goal: weight decay阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: Adam weight_decay∈{0默认,1e-4,1e-2}, 判读=三臂rollout MSE(k100同held-out)spread(max/min): <1.05⇒WD_UNRESOLVABLE强度不可分辨(§44.3增强已够相容)/≥1.05⇒报告最优wd与方向(单调有益/有害/中间最优点), 判负=任一臂发散非有限或spread数值异常; 族边界=正则化强度轴WD族第1轮与§35.2 grokking机制语境/§43.1 AdamW注记分立
   done_condition: PRD §19有"WD-LADDER 判读"锚且benchmarks/physics_out_v02/wd_ladder/wd_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "WD-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/wd_ladder/wd_ladder.json
+  status: pr-pending(PR#24, 判读WD_RESOLVED=强度可分辨最优wd=1e-4内点默认wd=0差17.6%, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
