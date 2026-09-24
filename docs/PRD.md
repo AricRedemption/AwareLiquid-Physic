@@ -1061,6 +1061,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录当场核验(AMM-015)**:①Q Li "Stability-Regularized Residual Neural ODEs"(MDPI 2026)=one-step loss 与长视距部署失配的张力诊断(验证早期如实注记);②★Brandstetter et al. "Message Passing Neural PDE Solvers"(ICLR 2023)=pushforward trick 原文(自反馈训练处方储备;DySLIM ICML 2024 形式分析为补充);③多步 rollout loss 谱系面(Emergent Mind 2026 条目+multiple shooting 谱系,综述面如实注记非原创研究)。
 - **KSPAN-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步三臂——k_train∈{4,8,16}(训练展开跨度);评估同口径 k100 held-out rollout MSE;判读=三臂 spread(max/min):<1.05 ⇒ KSPAN_UNRESOLVABLE(跨度不可分辨,k=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 k_train 与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该跨度不可用登记,spread 数值异常 ⇒ 判负;族边界=训练展开跨度轴 KSPAN 族第 1 轮(与 §8.4/§40 分立);双锚单行 check_cmd;est 8min(3×2000 步 prefix,k=16 臂成本约 2×)。
 - **台账**:零算力轮;scan §46+蒸馏结论 41;S1 重置([行动]),蒸馏第 39 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列二十七条(二十六 pr-pending+KSPAN-LADDER actionable);双锚单行 check_cmd 经数数锚 27=27+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 KSPAN-LADDER。
+**轮 194 记录(KSPAN-LADDER-2:k_train 首端补探迭代;T1 算力轮;dir/kspan-ladder-v2 叠支自 dir/kspan-ladder,PR#28 合并顺序在 PR#27 后)**:
+- **路由**:goal_check NOT-Achieved(KSPAN-LADDER-2 actionable 队首,轮 193 入队=AMM-027 后续池路由)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/kspan-ladder-v2 PR。
+- **KSPAN-LADDER-2 预注册(先于执行钉死)**:
+  - **问题**:轮 191 判读行明示——内点最优在阶梯首端附近(k<4 未探):k_train∈{1,2} 与 k=4 的相对位置,真最优在何处?
+  - **协议**:与轮 191 完全同款(estimator/池/seed 逐字复用),唯阶梯改 **{1,2,4}**(首端补探);v1 脚本 k_train 为 prefix 参数天然可注入+--out_name/--wds 参数化(--spans 传 {1,2,4});1-seed 筛查(多 seed 终局=停车场)。
+  - **机械判据(执行前钉死)**:①发散优先:任一臂 rollout 非有限或 >1e6 ⇒ KSPAN_UNRESOLVABLE(判负)=该跨度不可用如实登记;②spread=max/min:<1.05 ⇒ 首端平台(k_train 小域不可分辨如实登记);③≥1.05 ⇒ 报告真最优 k_train 与方向。
+  - **族边界与护栏**:KSPAN 族段内第 2 轮(191/194),**达 ≤2 上限——之后不得再迭代**,延伸(k<1 极限/多 seed)归停车场②泛容器。
+  - **命令/产物**:`./scripts/probe_run T1 8 -- .venv/bin/python -u benchmarks/kspan_ladder_probe.py --spans 1,2,4 --out_dir benchmarks/physics_out_v02/kspan_ladder_v2 --out_name kspan_ladder_v2.json`;时长依据=同循环标度(短跨度更快),est 8min 宁松。
+- **判读(KSPAN-LADDER-2 判读)**:**机械判读 KSPAN_RESOLVED——首端补探完成,真最优 k_train=4 确认(内点)**。主结果(异频池 hidden64 prefix 2000 步,seed 0,1-seed 筛查,实跑 ~2min ≤est8):k_train 1=**3.5851**/2=**3.5997**/4=**1.8775**(与轮 191 逐位一致=同配置复现锚 ✓);spread=1.92 ≥1.05 门 ⇒ 首端补探非平台——k_train 1/2 均显著差于 4(约 1.9×),**轮 191 的"内点最优在首端附近"精确化为"k_train=4 恰为内点最优"**。语义解读(如实):k_train=4 训练展开≈0.4s 物理窗;过短(1/2 步)动力学覆盖不足,过长(8/16)后段误差主导梯度——4 为本体制平衡点;轮 191+194 合并结论:**k_train 敏感,默认 8 非最优,k=4 为本体制(异频池 hidden64 prefix 2000 步)最优点**。族护栏:KSPAN 族段内 2/2 用尽(191/194),延伸(多 seed/k=3 精化/其他池)归停车场②泛容器。诚实边界:1-seed;2000 步;单一体制。
+- **台账**:v1 脚本加 --out_name(叠支最小演进)+kspan_ladder_v2.json 产物(gitignored,数字已抄本判读行);TOOLS kspan 行追加 v2 读数;**推送欠账=7c3f15d/4eadf1f/2276c79 及本轮,网络恢复即补**;队列弹出条件=PR#28 合并(PR#27 后)check 过自动弹出,下一心跳=goal_check 裁决。
 **轮 191 记录(KSPAN-LADDER:k_train 跨度阶梯对照探针;T1 算力轮;dir/kspan-ladder)**:
 - **路由**:goal_check NOT-Achieved(KSPAN-LADDER actionable 队首,轮 190 入队)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/kspan-ladder PR(AMM-024 T1 探针环)。
 - **KSPAN-LADDER 预注册(先于执行钉死)**:

@@ -100,6 +100,9 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out_dir",
                     default="benchmarks/physics_out_v02/kspan_ladder")
+    ap.add_argument("--out_name", default="kspan_ladder.json",
+                    help="round 194 (KSPAN-LADDER-2) writes its own "
+                         "filename on the stacked branch")
     args = ap.parse_args()
     spans = sorted(int(x) for x in args.spans.split(","))
 
@@ -146,7 +149,7 @@ def main():
           flush=True)
 
     os.makedirs(args.out_dir, exist_ok=True)
-    with open(os.path.join(args.out_dir, "kspan_ladder.json"), "w") as f:
+    with open(os.path.join(args.out_dir, args.out_name), "w") as f:
         json.dump({"args": vars(args),
                    "meta": run_metadata({
                        "benchmark": "kspan_ladder_probe",
