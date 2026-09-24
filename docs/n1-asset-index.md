@@ -175,6 +175,16 @@ static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍�
    RNG 流差异(LAST 2.869≠历史 3.558),跨轮绝对数字不可比但 A/B
    同轨迹对照内部有效;机制解读=尾段跨盆地边界(轮 126 先例)平
    均跨盆地=损害/轨迹方差已低,分离需多 seed(停车场 1/2)。
+18. **lr warmup(轮 212 WARMUP-PROBE,[B],1-seed T1 筛查;PR#33 待
+   合并)**:warmup(前 200 步线性 0→3e-3)vs 恒定 lr——warmup 臂
+   1.9843 对恒定 3.5582(有益 44.2%)⇒ **WARMUP_BENEFICIAL:§37.2
+   Kalra 方向,判负未触发**;**与轮 194 SHARP_BELOW 预测张力显性化
+   (轮 194 判不在 EOS,warmup 收益域应不触发——被推翻)**;机制候
+   选未分离:早期瞬态 sharpness/早期梯度噪声冲击(GNS B_simple 早
+   期小),分离需逐步 sharpness 追踪(停车场候选 1/2);A 臂与历史
+   三重逐位一致=复现锚;训练配置注记=warmup 200 步有益(1-seed),
+   派发协议字段=warmup 步数候选;WARMUP 行动面=§37 行动化一次性
+   准入。
 17. **batch×lr 交互(轮 205 LRBATCH-GRID,[B],1-seed T1 筛查;PR#31
    待合并)**:五单元 (batch,lr) 受控网格——线性等价对差 33.1%+
    平方根等价对差 20.6% 均 ≥5% ⇒ **SCALING_BROKEN:Smith 等价本仓

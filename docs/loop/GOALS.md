@@ -44,16 +44,17 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 211:蒸馏 warmup 行动面准入(scan§50.2b)
-  +WARMUP-PROBE 入队**——goal_check QUEUE-EMPTY(后续池空,WSA 族
-  1/2 保留)⇒蒸馏轮;本轮不收新族——给 §37.2(Kalra warmup 机制,
-  已在库)补行动面;[行动] WARMUP-PROBE 入队(engineering,T1:异
-  频池 2000 步两臂 A=恒定 lr=3e-3 vs B=warmup 前 200 步线性升至
-  3e-3,三分支判读[不可分辨与本仓不在 EOS 一致/B 好=warmup 有益
-  §37.2 方向/B 差=有害如实登记],判负=发散;est 8min);S1 重置
-  ([行动])蒸馏第 44 次达标;157 测试+audit 全绿显式退出码(零代
-  码轮);队列三十三条(三十二 pr-pending+WARMUP-PROBE actionable)。
-  下一心跳=goal_check 路由迭代 WARMUP-PROBE)
+updated: 2026-09-24 (**轮 213:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 212 判读后续(瞬态追踪/
+  机制分离)归停车场(warmup 行动面一次性准入),池空;消化三件套:
+  ①回填=资产索引 5 区 Methods 新增第 18 条 lr warmup(WARMUP_
+  BENEFICIAL 有益 44.2%+与轮 194 SHARP_BELOW 预测张力显性化+机制候
+  选未分离=停车场候选 1/2+派发协议字段=warmup 步数);②分流=
+  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条
+  件重入口=§12.3 三路终态维持。S1 计数:轮 211([行动])/212(T1
+  判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。队列三十三条全
+  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方
+  向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -256,6 +257,7 @@ goal_queue:
   goal: lr warmup对照探针——§37.2 Kalra warmup坐标行动面: 异频池(E1口径)prefix hidden64 2000步两臂: A=恒定lr=3e-3(默认) vs B=warmup(前200步lr从0线性升至3e-3其后恒定), 评估同口径k100 held-out rollout MSE, 判读=A/B三分支: 差<5%⇒warmup不可分辨(与轮194 SHARP_BELOW一致本仓不在EOS warmup收益域可能不触发如实登记)/B好≥5%⇒warmup有益(§37.2方向)/B差≥5%⇒warmup有害如实登记, 判负=任一臂发散非有限; 族边界=warmup行动面(§37行动化)与§48 LRDECAY衰减形状分立
   done_condition: PRD §19有"WARMUP-PROBE 判读"锚且benchmarks/physics_out_v02/warmup_probe/warmup_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "WARMUP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe/warmup_probe.json
+  status: pr-pending(PR#33, 判读WARMUP_BENEFICIAL=warmup有益44.2%与§37.2方向一致轮194预测张力显性化, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
