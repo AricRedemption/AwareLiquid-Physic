@@ -44,21 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 178:OPT-COMPARE 判读 OPT_SGD_BETTER,dir/
-  opt-compare 已推(6580473+5080a07),PR#23 待建**——goal_check NOT-
-  Achieved⇒T1 探针环心跳;预注册先于执行钉死(异频池 2000 步两臂
-  Adam 3e-3 vs SGD-m 0.9/0.1,四分支判据,受限对照局限预注册);实跑
-  ~1min≤est8:ADAM rollout 5.9286/train 2.89e-2 vs SGDM 5.4209/train
-  6.82e-2 ⇒ diff=+8.6%≥5% ⇒ **OPT_SGD_BETTER(§43.1 Wilson 方向)**;
-  训练-泛化解耦第三实例(Adam train 优势 2.4× 不传递,轮 146/159
-  同族 n=3);量级温和+受限对照结论限定本 lr 对;f-string 语法错当
-  轮冒烟抓出;160 测试(157+3)+audit 全绿;OPT 族 1/2;**格式化器
-  第十五袭两次(dir 分支 GOALS 反复被删,5080a07 误含删除,cherry-
-  pick 带入 wave/loop 后当轮发现并从 817f5f7 整体取回重编辑)**;
-  队列二十三条(二十二 pr-pending+OPT-COMPARE pr-pending PR#23 待
-  建)。下一心跳=goal_check 裁决——判读轮后消化轮优先(回填资产
-  索引 opt 条目/分流/条件重入口,禁新蒸馏;PR#23 与推送欠账随网络
-  恢复补))
+updated: 2026-09-24 (**轮 179:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 178 判读无指令性后续
+  (lr 调优对照为受限延伸未明示),池空;消化三件套:①回填=资产索
+  引 5 区 Methods 新增第 11 条优化器体制(SGD-m 泛化好 8.6%+训练-
+  泛化解耦第三实例 n=3+受限对照限定+便利选择措辞);②分流=
+  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条
+  件重入口=§12.3 三路终态维持。S1 计数:轮 177([行动])/178(T1
+  判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。队列二十三条全
+  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方
+  向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
