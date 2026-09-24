@@ -110,6 +110,13 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out_dir",
                     default="benchmarks/physics_out_v02/len_extrap")
+    ap.add_argument("--out_name", default="len_extrap.json",
+                    help="round 172 (LEN-EXTRAP-2) writes its own "
+                         "filename on the stacked branch")
+    ap.add_argument("--relative_profile", action="store_true",
+                    help="round 172: normalize the per-step MSE profile "
+                         "by the per-step true signal energy (relative "
+                         "calibre; strips signal-magnitude drift)")
     args = ap.parse_args()
 
     # training pool: house default 160-step trajectories (16 s window)
@@ -144,6 +151,11 @@ def main():
     q_true = qs_ev[:, :args.rollout_k + 1].permute(1, 0, 2)
     p_true = ps_ev[:, :args.rollout_k + 1].permute(1, 0, 2)
     profile = per_step_mse(qs_pred, ps_pred, q_true, p_true)  # (k+1,)
+    signal_energy = (q_true ** 2 + p_true ** 2).mean(dim=(1, 2))
+    calibre = "absolute"
+    if args.relative_profile:
+        profile = profile / signal_energy.clamp_min(1e-30)
+        calibre = "relative (per-step MSE / true signal energy)"
     qnorm = qs_pred.norm().item()
 
     # energy-drift diagnostic (§41.2 statistic preservation): predicted
@@ -160,21 +172,26 @@ def main():
 
     interp = seg(5, 10)
     extrap = seg(20, 30)
+    extrap_b = seg(80, 100)   # 8-10x beyond window (v2 long-pool axis)
     tail = seg(10, 16)
     edge = seg(16, 20)
     comp = extrap / max(interp, 1e-30)
     edge_jump = edge / max(tail, 1e-30)
     print(f"  per-step MSE: interp[5,10]s {interp:.4e} | "
           f"extrap[20,30]s {extrap:.4e} | comp {comp:.2f} | "
-          f"edge/tail jump {edge_jump:.2f} | E-drift {energy_drift:.2f}",
-          flush=True)
+          f"edge/tail jump {edge_jump:.2f} | E-drift {energy_drift:.2f} "
+          f"| extrapB/interp {extrap_b / max(interp, 1e-30):.2f} "
+          f"[{calibre}]", flush=True)
 
     verdict, detail = classify_len(comp, edge_jump)
     results = {
         "per_step_profile_head": profile[:21].tolist(),
         "segments": {"interp_5_10s": interp, "extrap_20_30s": extrap,
+                     "extrapB_80_100s": extrap_b,
                      "tail_10_16s": tail, "edge_16_20s": edge},
         "comp": comp, "edge_jump": edge_jump,
+        "comp_extended": extrap_b / max(interp, 1e-30),
+        "profile_calibre": calibre,
         "rollout_qnorm": qnorm,
         "energy_drift_max": energy_drift,
         "verdict": verdict,
