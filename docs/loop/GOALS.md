@@ -44,11 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 15:50 (**轮 138:消化轮,FASTSLOW 时标条款回填
-  完成**——资产索引新增 4b-2 条+初稿 Limitations 4a-2 条:双时标边界
-  量化(快模态 3.2% 部分捕捉/慢交换 122% 丢失,PR#9 溯源);九条
-  pr-pending 待合并。下一心跳=goal_check 裁决(队列空,蒸馏须带
-  [行动] 否则 S1 累计))
+updated: 2026-09-24 16:30 (**轮 139:蒸馏第 34 族粗粒化/有效动力学
+  族入库**——scan §34 三 [坐标](Husic CG-GNN/iLED/直接vs约化权衡),
+  全为轮 137 失效的处方与框架面;TSFM/SINDy 候选机制核对拦截;
+  S1 如实累计 1/2(无 [行动]),下个蒸馏轮无 [行动] 触发收口评估;
+  蒸馏第 27 次达标。下一心跳=goal_check 裁决(蒸馏须带 [行动]))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
