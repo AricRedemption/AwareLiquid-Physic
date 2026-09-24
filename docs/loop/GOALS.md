@@ -44,16 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 150:自生成后续迭代入队 GNS-PROBE-2(AMM-027
-  路由首次完整实例)**——goal_check QUEUE-EMPTY⇒先盘后续池:**非空**
-  =轮 149 判读行明示"更长训练进度(>4k 步)的 B_simple 演化未测"
-  (T1 装得下:纯梯度统计+短训推进,总训练 20k 步≈5min)⇒入队迭代
-  等同行动产出重置 S1;GNS-PROBE-2=同 estimator 同判据 checkpoint
-  轴延长 {0,1000,4000,10000,20000},判读=增长趋势持续性+batch=64
-  是否跨过线性加速临界(完善 T2/T3 派发字段);非同参重跑(新参数
-  轴),GNS 族段内第 2 轮达 ≤2 上限,之后必须换方向或入停车场;
-  est 15min;12=12+12 ID 数数锚核对。下一心跳=goal_check 路由迭代
-  GNS-PROBE-2)
+updated: 2026-09-24 (**轮 151:GNS-PROBE-2 判读 GNS_RESOLVED_TREND,
+  dir/gns-probe-v2 PR#13 即终点**——goal_check NOT-Achieved⇒T1 探针环
+  心跳;预注册先于执行钉死(同 estimator 同判据唯 checkpoint 轴延长
+  {0..20000},族护栏 2/2 上限原文入预注册);实跑 ~6min≤est15:B_simple
+  11.89→83.11(1k 峰值)→60.39→68.48→**33.45(20k,<64)**,max/min
+  6.99≥3⇒机械 RESOLVED_TREND;非单调如实拆解=**临界跨越方向与持续
+  走高相反:长训练体制 batch=64 重回噪声主导侧**——T2/T3 派发字段
+  读数=长训练有效 batch 参考末端 B_simple(~33)或明确接受噪声主导;
+  判负未触发;GNS 族段内用尽,后续归停车场②泛容器;PLAYBOOK 回写
+  "探针关键轴 CLI 参数化=后续池迭代零新代码";v1 仅加 --out_name=
+  叠支最小演进;格式化器第六袭(dir 分支 GNS-PROBE 整条被删)checkout
+  还原;160 测试(157+3)+audit 全绿;队列十三条全 pr-pending。下一
+  心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引 GNS-2
+  条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -136,6 +140,7 @@ goal_queue:
   goal: 梯度噪声尺度进度轴延长迭代——GNS-PROBE同款estimator同判据但checkpoint轴延长{0,1000,4000,10000,20000}步(轮149判读明示后续: >4k步轴未覆盖), 判读=增长趋势是否持续+batch=64是否跨过线性加速临界(完善T2/T3派发batch字段读数); 判负同轮149三值判据(失效/平坦如实登记); GNS族段内第2轮达≤2上限之后必须换方向或入停车场
   done_condition: PRD §19有"GNS-PROBE-2 判读"锚且benchmarks/physics_out_v02/gns_probe_v2/gns_probe_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "GNS-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/gns_probe_v2/gns_probe_v2.json
+  status: pr-pending(PR#13, 判读GNS_RESOLVED_TREND=1k峰值后回落batch=64长训练体制重回噪声主导侧, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
