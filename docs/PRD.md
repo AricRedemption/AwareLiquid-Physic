@@ -1079,6 +1079,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录核验(AMM-015)**:①物理启发残差谱诊断谱系(精确题录带 ? 登记 SCAN-AUDIT 复核——AMM-015 允许带 ? 但当轮登记);②谐振子误差分解经典面(相位误差=时域线性偏差/幅值误差=包络偏差,sin/cos 分离——教科书级方法面如实注记);③频域评估物理仿真实践(FNO 系谱域评估,精确题录带 ? 登记 SCAN-AUDIT 复核)。
 - **RESIDUAL-SPEC 入队([行动],engineering,T1 诊断轮)**:默认配置(prefix hidden64 ctx=8 2000 步)held-out 128 轨 k=200 rollout 残差 FFT 功率谱平均;判读=残差谱频率定位读数报告(基频峰=相位/幅值误差;倍频峰=非线性误差;宽谱=噪声)+高频能量占比(>2×ω 频段/总残差能量);**诊断轮无通过/失败门——谱读数报告即交付**;判负(下心跳预注册落盘后执行)=残差序列非有限或谱计算数值异常 ⇒ RESIDUAL_UNRESOLVABLE 判负;族边界=误差频谱结构轴 RESIDUAL-SPEC 族第 1 轮(与 §17 学习顺序/§31 网格/§39 交互串联但独立);双锚单行 check_cmd;est 8min(1×2000 步训练+FFT 秒级)。
 - **台账**:零算力轮;scan §51+蒸馏结论 47;S1 重置([行动]),蒸馏第 45 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十五条(三十四 pr-pending+RESIDUAL-SPEC actionable);双锚单行 check_cmd 经数数锚 35=35+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 RESIDUAL-SPEC。
+**轮 219 记录(RESIDUAL-SPEC:rollout 残差频谱诊断;T1 算力诊断轮;dir/residual-spec)**:
+- **路由**:goal_check NOT-Achieved(RESIDUAL-SPEC actionable 队首,轮 218 入队)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/residual-spec PR(AMM-024 T1 探针环)。
+- **RESIDUAL-SPEC 预注册(先于执行钉死)**:
+  - **问题**:rollout 残差的频率结构——误差集中在基频(相位/幅值误差)、倍频(非线性误差)还是宽谱(噪声)?谱定位直接指示误差机制(§51.1)。
+  - **协议**:默认配置(prefix hidden64 ctx=8 2000 步,E1 口径异频池),held-out 128 轨 k=200 rollout,逐轨迹残差(e_pred−e_true 的 q/p 分量)FFT 功率谱平均;报告:①主峰频率 vs 真值基频分布(ω∈[0.7,1.8] → f∈[0.11,0.29] Hz@dt=0.1);②高频能量占比(>2×ω_max=3.6 频段/总残差能量);③谱斜率分类(集中峰 vs 宽谱);1-seed 筛查(多 seed 终局=停车场)。
+  - **机械判据(执行前钉死)**:诊断轮——**无通过/失败门,谱读数报告即交付**(判负仅限计算失效):①残差序列非有限或 FFT 输出非有限 ⇒ RESIDUAL_UNRESOLVABLE 判负;②否则 RESIDUAL_PROFILED(谱读数入档:主峰位置/高频占比/谱斜率),机制解读为注释非判定。
+  - **族边界**:误差频谱结构轴 RESIDUAL-SPEC 族第 1 轮;与 §17 学习顺序/§31 网格/§39 交互串联但独立。
+  - **命令/产物**:`./scripts/probe_run T1 8 -- .venv/bin/python -u benchmarks/residual_spec_probe.py`;产物 benchmarks/physics_out_v02/residual_spec/residual_spec.json(results 键包裹,meta exec_tier 透传);判读锚="RESIDUAL-SPEC 判读";时长依据=同循环标度(1×2000 步 prefix ≈30s+FFT 秒级),est 8min 宁松。
+- **判读(RESIDUAL-SPEC 判读)**:**诊断轮读数交付 RESIDUAL_PROFILED——残差能量 93.2% 集中在高频段(>2×ω_max 域),主峰 0.199 cyc/step 远高于真值基频带(0.011-0.029):误差几乎是纯高频成分(§17 谱偏置的评估端镜像:高频欠拟合),且谱形 PEAKED=高频段有结构性主峰非纯白噪声**。主结果(异频池 hidden64 prefix 2000 步默认配置,held-out 128 轨 k=200 rollout 残差 FFT 功率谱平均,seed 0,1-seed 筛查,实跑 ~2min ≤est8):dominant peak=0.199 cyc/step/hf_ratio=**0.932**/shape=PEAKED/rollout qnorm 有效(判负未触发)。机制解读(注释非判定):高频残差主导=模型平滑假设欠拟合高频(§17 谱偏置评估端镜像)+与轮 216 幅度外推退化同向(模型非线性容量限制);评估启示=标量 MSE 被高频残差主导,低频(结构)误差被掩盖——评估口径可补谱域指标(§51.3,非当前行动)。执行修 3 处=train_prefix 导入遗漏/真值切片偏移(fut 窗口)/gen_steps 160<224 越界(轮 162 同款坑再证),全部当轮测试+正式跑拦截。族护栏:RESIDUAL-SPEC 族 1/2(诊断轮)。
+- **台账**:residual_spec_probe.py(残差 FFT 功率谱+主峰/高频占比/谱形读数+预注册判负纯函数)+ tests/test_residual_spec_probe.py(诊断轮语义+门常量+CLI 冒烟);TOOLS +residual_spec_probe;PLAYBOOK 回写 gen_steps 越界再证(轮 162 条款);产物 benchmarks/physics_out_v02/residual_spec/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
 **轮 215 记录(蒸馏 §42.2 行动面准入:AMP-EXTRAP 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——warmup 行动面一次性准入)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §42.2(Li Nature 2025 插值/外推批判框架,已在库)补行动面:分布覆盖维度从 ω 宽度(轮 175 POOL-WIDTH)延伸到初始条件幅度。M1 gen 初始条件 q0,p0~N(0,1)(解析闭式解),幅度缩放=初条件能量缩放(能量∝scale²)。
