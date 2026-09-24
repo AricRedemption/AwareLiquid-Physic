@@ -44,22 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 190:蒸馏第 46 族训练展开跨度族入库
-  (scan§46)+KSPAN-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
-  DEPTH 族 2/2 用尽)⇒蒸馏轮;选族钩子=k_train=8 全仓固定从未消融
-  (训练-部署失配旋钮);机制核对 grep 零命中(training span/rollout
-  span/k_train;Bengio 2015 scheduled sampling 撞 §8.4 已在库不重复
-  收,族头声明);3 槽命中+3 题录当场核验(AMM-015):①Q Li MDPI
-  2026 张力诊断(one-step loss vs 长视距部署)②★Brandstetter ICLR
-  2023 pushforward trick 原文(自反馈训练处方储备)③DySLIM ICML
-  2024 形式分析+多步 loss 谱系面;[行动] KSPAN-LADDER 入队
-  (engineering,T1:三臂 k_train{4,8,16} 2000 步 prefix,spread 判
-  据<1.05 不可分辨/≥1.05 报告最优 k_train,判负=发散;est 8min);
-  S1 重置([行动])蒸馏第 39 次达标;157 测试+audit 全绿显式退出码
-  (零代码轮);**格式化器第十七袭(KSPAN-LADDER 插入后被删且
-  DEPTH-WIDTH status 行文本被改写)当轮发现重插**;队列二十七条
-  (二十六 pr-pending+KSPAN-LADDER actionable)。下一心跳=goal_check
-  路由迭代 KSPAN-LADDER)
+updated: 2026-09-24 (**轮 191:KSPAN-LADDER 判读 KSPAN_RESOLVED,
+  dir/kspan-ladder PR#27 即终点**——goal_check NOT-Achieved⇒T1 探针
+  环心跳;预注册先于执行钉死(三臂 k_train{4,8,16},prefix 参数天然
+  可注入=轮 181 哨兵条款适用,spread 判据,族边界=训练展开跨度轴
+  第 1 轮);实跑 ~3min≤est8:k_train 4=1.8775(最优)/8=3.5582/16=
+  2.0975,spread=1.90 ⇒ **KSPAN_RESOLVED 首端最优,默认 k=8 差
+  47%**;非单调纹理如实注记(4→8 恶化 8→16 改善,单调标签为机械
+  首尾比较产物;诚实表述=内点最优在首端附近,k<4 未探=KSPAN 族
+  后续候选 1/2);与 §46.1 部署接近预言相反(机制候选=长跨度后段
+  误差主导单步梯度,多 seed=停车场);交叉验证锚=k8 臂与轮 175/
+  178 逐位一致;train_prefix 导入遗漏当轮冒烟抓出修复;160 测试
+  (157+3)+audit 全绿;队列二十七条全 pr-pending。下一心跳=goal_
+  check 裁决——判读轮后消化轮优先(回填资产索引 kspan 条目/分流/
+  条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -226,6 +224,7 @@ goal_queue:
   goal: k_train跨度阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: k_train∈{4,8,16}(训练展开跨度), 评估同口径k100 held-out rollout MSE, 判读=三臂spread(max/min): <1.05⇒KSPAN_UNRESOLVABLE跨度不可分辨(k=8默认充分如实登记)/≥1.05⇒报告最优k_train与方向, 判负=任一臂发散非有限或spread数值异常; 族边界=训练展开跨度轴KSPAN族第1轮与§8.4采样课程(Bengio已在库不重复收)/§40 dt排序分立
   done_condition: PRD §19有"KSPAN-LADDER 判读"锚且benchmarks/physics_out_v02/kspan_ladder/kspan_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "KSPAN-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/kspan_ladder/kspan_ladder.json
+  status: pr-pending(PR#27, 判读KSPAN_RESOLVED=跨度可分辨最优k_train=4比默认8好47%非单调如实注记, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
