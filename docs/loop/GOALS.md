@@ -44,23 +44,17 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 146:GROK-CURVE 判读 SMOOTH_ASYMPTOTE,dir/
-  grok-curve PR#11 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
-  预注册先于执行钉死(E1 口径步数轴版:M1 弹簧同池 hidden64 prefix
-  循环,阶梯 {2500..40000},机械双条件判据=相邻 ≥3× 跌落且跌落点
-  train_loss≤1e-4 饱和);执行注记=首跑跨循环类型标度外推低估 5×
-  +轮 90 无 -u 不可判活,9min 处手动中止无污染,补同循环冒烟(2000
-  步 38s)重定 est=25 重跑通过(实跑 ~21min)=PLAYBOOK 轮 92 条款
-  补充(冒烟必须同一训练循环类型);实测判负:全阶梯无 ≥3×(最大
-  1.42×)且 train_loss 40k 点 4.5e-3 未饱和=grokking 前提未出现⇒
-  判负分支执行,N1 不引入 grokking 表述,scan§35 三坐标保留为文献
-  背景;曲线非单调(40k 反弹 1.8×)如实注记属 1-seed 噪声面;跨体制
-  桥接=两训练体制不互相外推(轮 111 条款);PRD §19 轮 142-145 补记
-  随提交落地;**GOALS 恢复事件=编辑前发现 FASTSLOW-2 整条被环境层
-  删除+缩进重排(格式化器第四袭升级变体),checkout HEAD 还原,
-  11=11 数数锚验证**;160 测试(157+3)+audit 全绿;队列十一条全
-  pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先(回填
-  资产索引 GROK-CURVE 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 147:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 146 判读唯一后续(多
+  seed 终局)属停车场,池空;消化三件套:①回填=资产索引新增 4c-2
+  GROK-CURVE 判负条目(命名不适用+跨体制不外推限定)+PLAYBOOK 回写
+  格式化器第四袭升级变体(整条队列条目被删+缩进重排,数数锚升级为
+  "相等+逐条 ID 核对"两步,checkout HEAD 还原法);②分流=balance_
+  gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=
+  §12.3 三路终态维持。S1 计数:轮 145([行动])/146(T1 判读)均
+  行动产出,本消化轮无蒸馏;段内行动产出连续。队列十一条全
+  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,
+  须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
