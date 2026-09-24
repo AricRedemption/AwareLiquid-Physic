@@ -1061,6 +1061,10 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录当场核验(AMM-015)**:①Q Li "Stability-Regularized Residual Neural ODEs"(MDPI 2026)=one-step loss 与长视距部署失配的张力诊断(验证早期如实注记);②★Brandstetter et al. "Message Passing Neural PDE Solvers"(ICLR 2023)=pushforward trick 原文(自反馈训练处方储备;DySLIM ICML 2024 形式分析为补充);③多步 rollout loss 谱系面(Emergent Mind 2026 条目+multiple shooting 谱系,综述面如实注记非原创研究)。
 - **KSPAN-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步三臂——k_train∈{4,8,16}(训练展开跨度);评估同口径 k100 held-out rollout MSE;判读=三臂 spread(max/min):<1.05 ⇒ KSPAN_UNRESOLVABLE(跨度不可分辨,k=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 k_train 与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该跨度不可用登记,spread 数值异常 ⇒ 判负;族边界=训练展开跨度轴 KSPAN 族第 1 轮(与 §8.4/§40 分立);双锚单行 check_cmd;est 8min(3×2000 步 prefix,k=16 臂成本约 2×)。
 - **台账**:零算力轮;scan §46+蒸馏结论 41;S1 重置([行动]),蒸馏第 39 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列二十七条(二十六 pr-pending+KSPAN-LADDER actionable);双锚单行 check_cmd 经数数锚 27=27+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 KSPAN-LADDER。
+**轮 193 记录(自生成后续迭代:KSPAN-LADDER-2 入队;T0 零算力)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 先盘后续池(AMM-027 语义):**非空**——轮 191 判读行明示"内点最优在阶梯首端附近,k<4 未探(下一候选)"⇒ 入队迭代,等同行动产出重置 S1。
+- **KSPAN-LADDER-2 入队([行动],engineering,T1)**:k_train∈{1,2} 补首端与 k=4 对比(内点最优定位);判读=三臂 {k_train 1,2,4} spread(max/min):<1.05 ⇒ 首端平台(k_train 小域不可分辨如实登记)/≥1.05 ⇒ 报告真最优与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限或 spread 数值异常;族护栏=KSPAN 族段内第 2 轮(191/193)达 ≤2 上限,之后换方向或入停车场;双锚单行 check_cmd;est 8min。
+- **台账**:零算力轮;S1 重置([行动]);157 测试+audit 全绿显式退出码(零代码轮);队列二十八条(二十七 pr-pending+KSPAN-LADDER-2 actionable);双锚单行 check_cmd 经数数锚 28=28+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 KSPAN-LADDER-2;**推送欠账=轮 191 推进(7c3f15d)+本轮,网络恢复即补**。
 **轮 186 记录(自生成后续迭代:DEPTH-WIDTH 入队;T0 零算力)**:
 - **路由**:goal_check QUEUE-EMPTY ⇒ 先盘后续池(AMM-027 语义):**非空**——轮 185 判读行明示"深度×宽度交叉=DEPTH 族后续池候选 1/2"⇒ 入队迭代,等同行动产出重置 S1。
 - **DEPTH-WIDTH 入队([行动],engineering,T1)**:depth∈{2,4}×d_model∈{48,96} 四单元 2000 步 prefix(hidden 固定)——判读=两轴主效应(depth/width 各自对 rollout 的影响)+交互项(深度收益是否依赖宽度,或反之;交互超比例 ⇒ 两轴耦合非独立);与轮 162(M1-CAP-AXIS 宽度轴)数字对表(n32 口径不同,如实注记不可直比,趋势对表);判负(下心跳预注册落盘后执行)=任一单元发散/非有限 ⇒ 单元失效登记,交互不可分辨 ⇒ 如实登记;族护栏=DEPTH 族段内第 2 轮(185/186)达 ≤2 上限,之后换方向或入停车场;双锚单行 check_cmd;est 10min(4×2000 步 prefix)。

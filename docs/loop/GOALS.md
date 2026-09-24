@@ -44,17 +44,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 192:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 191 判读"k<4 未探"为
-  KSPAN 族后续候选 1/2 备选(非本轮指令性),池空判读;消化三件套:
-  ①回填=资产索引 5 区 Methods 新增第 14 条训练展开跨度(KSPAN_
-  RESOLVED 最优 k_train=4 首端+默认 8 差 47%+非单调如实注记+k8 臂
-  交叉验证锚);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消
-  化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计数:轮
-  190([行动])/191(T1 判读)行动产出连续,本消化轮无蒸馏,无 S1
-  累计。**推送欠账=轮 191 GOALS 推进(7c3f15d)与本轮,网络恢复即
-  补**。队列二十七条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-
-  EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 193:自生成后续迭代入队 KSPAN-LADDER-2**——
+  goal_check QUEUE-EMPTY⇒先盘后续池:**非空**=轮 191 判读行明示
+  "内点最优在阶梯首端附近,k<4 未探(下一候选)"⇒入队迭代等同行动
+  产出重置 S1;KSPAN-LADDER-2=k_train∈{1,2} 补首端与 k=4 对比(内
+  点最优定位);非同参重跑,KSPAN 族段内第 2 轮达 ≤2 上限之后换方
+  向或入停车场;est 8min;27=27+ID 数数锚核对。下一心跳=goal_check
+  路由迭代 KSPAN-LADDER-2)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -222,6 +218,11 @@ goal_queue:
   done_condition: PRD §19有"KSPAN-LADDER 判读"锚且benchmarks/physics_out_v02/kspan_ladder/kspan_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "KSPAN-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/kspan_ladder/kspan_ladder.json
   status: pr-pending(PR#27, 判读KSPAN_RESOLVED=跨度可分辨最优k_train=4比默认8好47%非单调如实注记, 合并后check过自动弹出)
+- id: KSPAN-LADDER-2
+  track: engineering
+  goal: k_train首端补探迭代——轮191判读行明示后续: k_train∈{1,2}补首端与k=4对比(内点最优定位), 判读=三臂{k_train 1,2,4}spread(max/min): <1.05⇒首端平台(k_train小域不可分辨如实登记)/≥1.05⇒报告真最优与方向; 判负=任一臂发散非有限或spread数值异常; KSPAN族段内第2轮达≤2上限之后换方向或入停车场
+  done_condition: PRD §19有"KSPAN-LADDER-2 判读"锚且benchmarks/physics_out_v02/kspan_ladder_v2/kspan_ladder_v2.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "KSPAN-LADDER-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/kspan_ladder_v2/kspan_ladder_v2.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
