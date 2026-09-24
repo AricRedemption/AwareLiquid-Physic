@@ -1001,6 +1001,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **GNS-PROBE 入队([行动],engineering,T1 闭式梯度统计)**:M1 弹簧同池 hidden64 三个训练进度 checkpoint(0/1000/4000 步短训)各采 N=32 个 batch-64 随机子批梯度,闭式估计 B_simple 谱+跨进度趋势(对照 §36.1"随训练增长"预言);判读=batch=64 相对 B_noise 位置+为轮 126 种子敏感性提供优化噪声读数;判负(下心跳预注册落盘后执行)=B_simple 全失效或无可分辨结构⇒"本仓体制 GNS 不可分辨"如实登记,batch 阶梯对照转停车场;双锚单行 check_cmd;est 8min(3 checkpoint×32 梯度采样+两段短训)。
 - **台账**:零算力轮;scan §36+蒸馏结论 31;S1 重置([行动]),蒸馏第 29 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十二条(十一 pr-pending+GNS-PROBE actionable);双锚单行 check_cmd 经数数锚 12=12+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 GNS-PROBE。
 
+**轮 153 记录(蒸馏补池:第 37 族曲率动力学/训练稳定性族 + SHARP-PROBE 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——GNS 族 2/2 用尽,轮 151 后续归停车场)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:钩子=轮 149 判读副产品(0→1k 步 B_simple 暴增 7×=早期优化体制剧变)的曲率侧解释缺口;机制核对 grep(muP/NTK/lazy training/initialization theory)全库零命中(命中均为本仓实验记录:E4a 梯度饥饿/零初始化等价锚,非文献族);与 §36 分界=采样噪声协方差 vs 景观曲率,与 §30 分界=解的差异 vs 曲率演化。
+- **3 槽一次命中+题录当场核验(AMM-015)**:①Yang, Hu et al. "Tensor Programs V: Tuning Large Neural Networks via Zero-Shot Hyperparameter Transfer"(arXiv:2203.03466,2022,~302 引)=μP 逐层初始化/LR 标度使特征学习跨宽度保持(容量轴方法论坐标,非当前行动);②★Cohen et al. "Gradient Descent on Neural Networks Typically Occurs at the Edge of Stability"(ICLR 2021,arXiv:2103.00065,~611 引)sharpness 升至并悬停 ~2/η+Kalra et al. "Why Warmup the Learning Rate?"(NeurIPS 2023,~121 引)warmup=等待 sharpness 自然下降的曲率动力学(机制直击,对接 GNS 钩子);③Karkada "The lazy (NTK) and rich (μP) regimes: A gentle tutorial"(arXiv 2024,UC Berkeley)richness 插值(N1 立场理论语言,教程性质如实注记)。
+- **SHARP-PROBE 入队([行动],engineering,T1)**:M1 弹簧同池(E1 口径,GNS-PROBE 同配置)checkpoint {0,200,500,1000,2000} 各估训练 loss 的 λ_max(HVP 幂迭代 20 步,双反向 autograd);判读=λ_max·η(lr=3e-3)相对 EOS 阈值 2 位置(SHARP_EOS∈[1.5,3]/BELOW<1.5/ABOVE>3)+λ_max 随训练走向(EOS 悬停 vs warmup 早期高后降两预言);判负(下心跳预注册落盘后执行)=幂迭代 20 步后相邻迭代相对变化 >10% 或非有限⇒本体制 sharpness 不可分辨;Adam 修正面(判据由 GD 推导)如实注记;族边界=曲率轴 sharpness 族第 1 轮(与 GNS 噪声轴分立);双锚单行 check_cmd;est 8min(2000 步短训+100 HVP)。
+- **台账**:零算力轮;scan §37+蒸馏结论 32;S1 重置([行动]),蒸馏第 30 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十四条(十三 pr-pending+SHARP-PROBE actionable);双锚单行 check_cmd 经数数锚 14=14+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 SHARP-PROBE。
+
 
 
 

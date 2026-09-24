@@ -2115,6 +2115,99 @@ McCandlish 全库 grep 零命中;与 §30(解的景观)分界=优化噪声本身
 的可测统计。选族启发式 n=5(钩子=全仓 batch 从未消融+轮 126 种子
 敏感性的噪声侧假说)。
 
+## 37. 经验蒸馏 32(轮 153,2026-09-24,QUEUE-EMPTY 轮):曲率动力学/训练稳定性族(sharpness、edge of stability 与 warmup)
+
+> 新 query 族(与前 36 族零重叠:§36 梯度噪声=**采样协方差**轴,
+> 本族=损失景观**曲率**(Hessian 最大特征值/sharpness)及其训练中
+> 演化——edge of stability、warmup 机制、lazy/rich 初始化体制)。
+> 钩子:轮 149 GNS 判读副产品——B_simple 在 0→1k 步暴增 7×(11.9→
+> 83.1)=训练早期优化体制剧变;其曲率侧解释(早期 sharpness 演化)
+> 未检。标记:[坐标] ×3(1 ★)+ [行动] ×1。三槽:① 初始化体制理论
+> ② 机制直击(warmup/EOS)③ 对照槽(lazy vs rich)。题录当场核验
+> (AMM-015,4 条 arXiv ID/venue/作者全部确认)。
+
+### 37.1 初始化体制理论:μP 与跨宽度超参迁移 [坐标]
+
+- 【出处】Yang, Hu et al., "Tensor Programs V: Tuning Large Neural
+  Networks via Zero-Shot Hyperparameter Transfer", 2022,
+  arXiv:2203.03466,~302 引(microsoft/mup 实现)
+- 【内容】μP(maximal update parametrization)=逐层初始化方差与
+  学习率标度规则,使激活与更新在宽度缩放下保持 O(1)——特征学习
+  跨宽度持续;标准参数化大宽度退化为核行为(NTK)。
+- 【对我们的映射】本仓全部探针 hidden∈[8,128]、默认初始化=标准
+  参数化;M1-CAP-AXIS(PR#1)的容量轴读数隐含"宽度×初始化"耦合
+  未分离——μP 是未来任何容量/宽度声明的方法论坐标(非当前行动,
+  方法论登记)。
+- 【适用条件】容量轴判读的限定词;宽度缩放声明的方法论引注。
+- 【验证状态】题录当场核验(arXiv:2203.03466+作者+引用约数);
+  社区已验证(官方实现+多框架复刻)。
+
+### 37.2 机制面:edge of stability 与 warmup 的 sharpness 机制 ★ [坐标]
+
+- 【出处】Cohen et al., "Gradient Descent on Neural Networks Typically
+  Occurs at the Edge of Stability", ICLR 2021, arXiv:2103.00065,
+  ~611 引;Kalra et al., "Why Warmup the Learning Rate? Underlying
+  Mechanisms and Effects", NeurIPS 2023(~121 引)
+- 【内容】**EOS**:全批 GD 训练中 sharpness(最大 Hessian 特征值)
+  升至并悬停于 ~2/η——训练长期运行在经典凸优化稳定域之外,非单调
+  训练损失振荡;**warmup 机制**:早期网络 sharpness 高,小学习率
+  等待其自然下降,防止早期 loss spike——warmup 不是迷信是曲率
+  动力学。
+- 【对我们的映射】轮 149 GNS 钩子(0→1k 步体制剧变)的曲率侧
+  检验入口:本仓 lr=3e-3 下若 λ_max·η≈2 ⇒ 本仓训练也运行在 EOS
+  (GROK-CURVE 观察的 rollout 非单调反弹可能即 EOS 振荡,轮 146
+  判读当时标为"1-seed 噪声面"——本探针提供第二解释通道);Adam
+  的 EOS 修正面如实注记(判据由 GD 推导)。
+- 【适用条件】SHARP-PROBE 判读设计(见 [行动]);N1 训练动力学
+  段。
+- 【验证状态】题录当场核验(ICLR 2021+arXiv:2103.00065+作者;
+  NeurIPS 2023+作者+引用约数);社区已验证(复现+后续理论
+  self-stabilization)。
+
+### 37.3 对照槽:lazy(NTK)与 rich(特征学习)体制 [坐标]
+
+- 【出处】Karkada, "The lazy (NTK) and rich (μP) regimes: A gentle
+  tutorial", arXiv 2024(UC Berkeley)
+- 【内容】"richness scale"统一插值:lazy/NTK=参数近初始化不动、
+  特征固定、优化凸;rich=表示主动演化。初始化标度决定落入哪侧。
+- 【对我们的映射】解释 §37.1 的方法论关切:本仓小宽度(hidden 8-128)
+  离 lazy 极限远,大概率处于 rich 侧——特征学习在发生,§30 符号
+  盆地/轮 126 种子敏感都是 rich 体制的表现;此坐标使 N1 的"我们
+  学到的是特征而非核回归"立场有理论语言。
+- 【适用条件】N1 立场段的理论语言;§30 机制讨论补充。
+- 【验证状态】题录当场核验(arXiv+作者+年份+机构);教程性质
+  (非原创研究,如实注记),社区已验证(教学广泛引用)。
+
+### 37.4 [行动] SHARP-PROBE:sharpness 轨迹探针(入队)
+
+- 【出处】§37.2 EOS/warmup 机制的直接检验;载体=house M1 弹簧
+  (E1 口径,与 GNS-PROBE 同池同训练配置)。
+- 【内容】checkpoint {0,200,500,1000,2000} 各估训练 loss 的
+  sharpness λ_max(Hessian-vector product 幂迭代 20 步,双反向
+  autograd);判读=λ_max·η(lr=3e-3)相对 EOS 阈值 2 的位置——
+  SHARP_EOS(∈[1.5,3])/SHARP_BELOW(<1.5 传统稳定区)/
+  SHARP_ABOVE(>3);趋势=λ_max 随训练走向(对照 EOS"升至并悬停"
+  与 warmup"早期高后降"两预言)。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一 checkpoint 幂迭代
+  20 步后相邻迭代相对变化 >10%(不收敛)或 λ_max 非有限 ⇒ 本体制
+  sharpness 不可分辨,如实登记;Adam 修正面(判据由 GD 推导)全程
+  如实注记。
+- **族边界**:曲率轴(sharpness 族第 1 轮)——与 GNS 族(采样噪声
+  协方差,149/151 两轮用尽)分属不同统计量;与 §30(解的景观)
+  分界=训练中曲率的演化轨迹。
+- 【适用条件】T1 可行动:2000 步短训+5 checkpoint×20 幂迭代步
+  ≈2-3min,est 8min 富余;1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 32
+
+3 [坐标](1 ★)+ 1 [行动](SHARP-PROBE 入队,engineering)。
+第 37 族;**S1 重置([行动] 产出)**。蒸馏轮第 30 次达标(≥1 条入库
++新目标)。机制核对:muP/NTK/lazy training/initialization theory 全库
+grep 零命中(命中均为本仓实验记录非文献族);与 §36 分界=采样噪声
+vs 景观曲率,与 §30 分界=解的差异 vs 曲率演化。选族启发式 n=6
+(钩子=轮 149 判读副产品体制剧变读数)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
