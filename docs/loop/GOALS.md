@@ -44,20 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 169:蒸馏第 41 族长度外推族入库(scan§41)
-  +LEN-EXTRAP 入队**——goal_check QUEUE-EMPTY(后续池空,课程族 2/2
-  用尽)⇒蒸馏轮;选族钩子=gen_steps=160 全仓固定(16s 物理窗)的
-  未测窗外——T>16s rollout 从未训练也从未评估;机制核对全库 grep
-  零命中;3 槽命中+3 题录当场核验(AMM-015):①★Zhu/Jin/Tang ICML
-  2022 IMDE(~57 引)训练积分误差=修正项失效边界语境 ②Li et al.
-  arXiv:2511.06609 WP-NODE 长视距误差累积+统计量保持(新文验证程度
-  如实注记)③Karaouli arXiv 2025-10 TSFM=插值器理论面(§19 呼应不
-  重复收基线);[行动] LEN-EXTRAP 入队(engineering,T1:2000 步训练
-  +新池 601 步评估双轴内插/外推 per-step 误差比 comp 三分支
-  [ROBUST/WINDOW_EDGE/GRADUAL]+能量漂移诊断,判负=发散/数值异常;
-  est 8min);S1 重置([行动])蒸馏第 34 次达标;157 测试+audit 全绿
-  显式退出码(零代码轮);队列二十条(十九 pr-pending+LEN-EXTRAP
-  actionable)。下一心跳=goal_check 路由迭代 LEN-EXTRAP)
+updated: 2026-09-24 (**轮 170:LEN-EXTRAP 判读 LEN_ROBUST,dir/
+  len-extrap PR#20 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(异频池 16s 窗训练+新池 601 步评估,per-step
+  剖面分段比值判据三分支+发散优先,族边界=物理时长轴第 1 轮);实跑
+  ~2min≤est8:内插段 5.74/外推段 5.05/comp=0.88<3 门,边界跳变
+  1.01⇒**LEN_ROBUST=误差剖面窗外 1.25-1.875× 平滑延续,无窗口边界
+  效应**(WINDOW_EDGE 与 GRADUAL 两假说均未触发);能量漂移诊断
+  E-drift 29.3@60s=位置精度与能量保持解耦;跨族对账=TSFM 插值器
+  理论面下时长轴平缓延续与 §31 FLOW_LIKE 一致;预注册附带诊断漏
+  实现当轮补齐重跑逐位一致(PLAYBOOK 回写预注册完整性);格式化器
+  第十二袭(LEN-EXTRAP 整条被删)checkout 还原 20=20+ID 核对;160
+  测试(157+3)+audit 全绿;队列二十条全 pr-pending。下一心跳=
+  goal_check 裁决——判读轮后消化轮优先(回填资产索引 len-extrap
+  条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -182,6 +182,7 @@ goal_queue:
   goal: 训练窗外rollout外推探针——异频池(E1口径)prefix hidden64 2000步训练(160步轨迹=16s物理窗全仓默认), 评估新池gen601步(60s)held-out双轴: 内插段per-step误差(T∈5-10s窗内)vs外推段(T∈20-30s窗外4-14×), comp=外推/内插per-step MSE比三分支: comp<3⇒LEN_ROBUST平缓外推/≥3且16s边界后首窗跳变≥3×⇒LEN_WINDOW_EDGE窗口边界效应(IMDE修正项失效, scan§41)/≥3无边界跳变⇒LEN_GRADUAL渐进累积; 附能量漂移诊断; 判负=评估生成/滚动非有限发散>1e6或comp数值异常; 族边界=物理时长轴LEN-EXTRAP族第1轮与§18.1口径/§31网格/§40排序分立
   done_condition: PRD §19有"LEN-EXTRAP 判读"锚且benchmarks/physics_out_v02/len_extrap/len_extrap.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LEN-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/len_extrap/len_extrap.json
+  status: pr-pending(PR#20, 判读LEN_ROBUST=训练窗外1.25-1.875×平缓延续无边界效应comp=0.88, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
