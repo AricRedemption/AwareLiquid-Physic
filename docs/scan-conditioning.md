@@ -3396,6 +3396,81 @@ n=12(钩子=Adam 全仓固定从未对照)。
 闭式 Fisher 分立,族头声明)。选族启发式 n=21(钩子=t_obs=24 全仓
 固定从未消融)。
 
+## 53. 经验蒸馏 49(轮 225,2026-09-24,QUEUE-EMPTY 轮):ctx 隐变量容量族(context_dim 消融)
+
+> 新 query 族(与前 52 族零重叠:§14 信息瓶颈未收族(在 PRD 但非
+> scan 族),D2/E4a=梯度流实验(非容量宽窄),§29 SBI=参数后验——
+> 本族=**ctx 隐变量维度容量轴**(context_dim 消融:过多维度是否
+> 有害)。钩子:context_dim=8 全仓固定从未消融。标记:[坐标] ×3
+> + [行动] ×1。三槽:① ICL 信息论容量 ② 元学习 ctx 谱系 ③ SBI
+> 摘要空间 sufficiency。题录当场核验(AMM-015,Zhou 强题录;弱题
+> 录带 ? 登记 SCAN-AUDIT 复核)。
+
+### 53.1 ICL 的信息论容量 [坐标]
+
+- 【出处】Zhou et al., "An Information-Theoretic Approach to
+  In-Context Learning", arXiv:2410.05493(2024)
+- 【内容】ICL 的信息论分析:有限样本精度作为上下文示例数的函数,
+  信息瓶颈视角下上下文容量与噪声/干扰的权衡——容量并非越大越好。
+- 【对我们的映射】ctx_dim=8 的消融直接检验"过多维度是否有害"
+  (§43.1 泛化代价类比):容量不足=信息丢失(ω 辨识不充分),
+  容量过剩=干扰/过参数化。
+- 【适用条件】CTX-DIM-LADDER 判读参照。
+- 【验证状态】题录当场核验(arXiv:2410.05493+作者);社区已验证。
+
+### 53.2 元学习 ctx 谱系 [坐标]
+
+- 【出处】CAVIA 语境(context adaptation 谱系;"Identifiable
+  Latent Dynamics via Meta-Learning of Context" OpenReview,弱题录
+  带 ? 登记 SCAN-AUDIT 复核)
+- 【内容】元学习的 ctx 维度消融谱系:低维 ctx 强制任务结构进入
+  少数自由度(正则化效应);过高维 ctx 容纳虚假自由度。
+- 【对我们的映射】本仓 ctx 推断头(d_model→ctx_dim)的维度选择
+  有元学习谱系支撑;ω 是 1 维真值隐变量,ctx_dim=8 已远超真值
+  自由度——低维臂(ctx_dim 1/2)可能有正则化收益。
+- 【适用条件】CTX-DIM-LADDER 判读的解释框架(ω=1 维真值)。
+- 【验证状态】弱题录带 ? 登记 SCAN-AUDIT 复核;社区已验证(CAVIA
+  谱系)。
+
+### 53.3 SBI 摘要空间 sufficiency [坐标]
+
+- 【出处】BayesFlow/sbi 谱系(embedding net 压缩观测为摘要空间,
+  摘要维度决定 sufficiency——过小信息丢失后验有偏,足够大可学
+  近似充分统计;sbi docs 谱系,弱题录带 ? 登记 SCAN-AUDIT 复核)
+- 【内容】amortized SBI 的 embedding 网络摘要空间维度与后验
+  sufficiency 的权衡。
+- 【对我们的映射】ctx_dim 与 SBI 摘要空间同构(观测→隐变量摘要);
+  本仓 ω=1 维真值 ⇒ 理论充分维度=1,ctx_dim=8 的冗余是否有害
+  (过参数化)或无害(线性冗余)即实验问题。
+- 【适用条件】CTX-DIM-LADDER 判读的 SBI 对照面。
+- 【验证状态】弱题录带 ? 登记 SCAN-AUDIT 复核;谱系已验证。
+
+### 53.4 [行动] CTX-DIM-LADDER:ctx 容量阶梯对照(入队)
+
+- 【出处】§53.1-53.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 四臂:context_dim∈{1,2,4,8}
+  (构造参数天然可注入=轮 181 哨兵条款适用);判读=四臂 rollout
+  MSE(k100 同 held-out)spread(max/min):<1.05 ⇒ CTXDIM_
+  UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记);≥1.05
+  ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点)。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  CTXDIM_UNRESOLVABLE(该容量不可用登记);spread 数值异常 ⇒ 判负。
+- 【族边界】ctx 隐变量容量轴(CTX-DIM 族第 1 轮);与 D2/E4a
+  (梯度流问题)分立=容量宽窄;与 SSM 替代线分立。
+- 【适用条件】T1 可行动:4×2000 步 prefix≈2min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 49
+
+3 [坐标]+ 1 [行动](CTX-DIM-LADDER 入队,engineering)。
+第 53 族;**S1 重置([行动] 产出)**。蒸馏轮第 47 次达标(≥1 条入库
++新目标)。机制核对:context_dim/信息瓶颈/latent capacity 全库
+grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族启发
+式 n=22(钩子=ctx_dim=8 全仓固定从未消融;ω=1 维真值的容量
+冗余)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

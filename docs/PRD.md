@@ -1085,6 +1085,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录核验(AMM-015)**:①D6 对表(在库工具与判读行——行动面对接非新文献);②观测窗=推理成本维度(弱题录带 ? 登记 SCAN-AUDIT 复核);③前缀长度与上下文学习(弱题录带 ? 登记 SCAN-AUDIT 复核;与 §32 ICL 族相邻分立=物理观测窗长度)。
 - **TOSA-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——t_obs∈{8,16,24,48}(其余全同,评估同 held-out k100 从 t_obs 起);判读=四臂 spread(max/min):<1.05 ⇒ TOSA_UNRESOLVABLE(观测窗长度不可分辨,t_obs=24 默认充分如实登记)/≥1.05 ⇒ 报告最优 t_obs 与曲线形状(单调/非单调/平台)+D6 辨识下界对表;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该窗长不可用登记,spread 数值异常 ⇒ 判负;族边界=训练观测窗轴 TOSA 族第 1 轮;双锚单行 check_cmd;est 10min(4×2000 步 prefix,t_obs=48 窗更贵约 2×)。
 - **台账**:零算力轮;scan §52+蒸馏结论 48;S1 重置([行动]),蒸馏第 46 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十六条(三十五 pr-pending+TOSA-LADDER actionable);双锚单行 check_cmd 经数数锚 36=36+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 TOSA-LADDER。
+**轮 225 记录(蒸馏补池:第 53 族 ctx 隐变量容量族 + CTX-DIM-LADDER 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——TOSA-LADDER 判读读数交付)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:钩子=context_dim=8 全仓固定从未消融(ω=1 维真值的容量冗余问题);机制核对 grep(context_dim/信息瓶颈/latent capacity)零命中(D2/E4a=梯度流实验记录非文献族,族头声明分立)。
+- **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
+- **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
+- **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
 **轮 215 记录(蒸馏 §42.2 行动面准入:AMP-EXTRAP 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——warmup 行动面一次性准入)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §42.2(Li Nature 2025 插值/外推批判框架,已在库)补行动面:分布覆盖维度从 ω 宽度(轮 175 POOL-WIDTH)延伸到初始条件幅度。M1 gen 初始条件 q0,p0~N(0,1)(解析闭式解),幅度缩放=初条件能量缩放(能量∝scale²)。
