@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → ICL-M3-INTERP 为队首 actionable(其余七条 pr-pending 跳过)⇒ 迭代 ICL-M3-INTERP(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 八条 pr-pending(PR#1-#8)待合并全跳过 ⇒ 仪表路由(消化轮预置项=轮132/134合并表述 N1 回填:隐式ICL内插可用外插是短板)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,11 +44,12 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 13:40 (**轮 133:消化轮,ICL-M3 回填+内插对照
-  入队**——资产索引新增 4c 条(少样本三臂 B<C<A,PR#7 溯源);
-  ICL-M3-INTERP 入队(c_target=1.1 内插,剥离外插混杂);PLAYBOOK +1
-  坑(适配对照的内插/外插性质应预注册);七条 pr-pending。下一心跳=
-  goal_check 路由迭代 ICL-M3-INTERP(预注册先行→冒烟→probe_run→判读))
+updated: 2026-09-24 14:00 (**轮 134:ICL-M3-INTERP 判读=判负① 外插
+  为主因触发**——内插三臂 B 9.658e-3<C 1.026e-2<A 1.207e-2 同量级,
+  A/B 比值 4.9×→1.25× 且 A 绝对改善 4.8× ⇒ 轮 132 隐式 ICL 落后主要
+  归因 OOD 速度外插;B/C 增益方向内插复现 ~6%;机制结论=隐式 ICL
+  内插区接近梯度微调,真实短板在外插区;PR#8 开立待合并。下一心跳=
+  goal_check 裁决(消化轮预置项=轮 132/134 合并表述 N1 回填))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -101,6 +102,7 @@ goal_queue:
   goal: 少样本适配内插对照——ICL-M3三臂原样但c_target=1.1(语料{0.8,1.0,1.2}内=内插任务, 剥离轮132判读的外插混杂: 隐式ICL与梯度适配差距中适配能力与OOD外插各占多少, 内插版A臂应显著改善若仍落后则适配能力为真因)
   done_condition: PRD §19有"ICL-M3-INTERP 判读"锚且benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "ICL-M3-INTERP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json
+  status: pr-pending(PR#8, 判读=判负①外插为主因触发, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
