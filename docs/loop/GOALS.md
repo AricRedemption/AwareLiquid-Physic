@@ -44,19 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 218:蒸馏第 51 族残差频谱诊断族入库
-  (scan§51)+RESIDUAL-SPEC 入队**——goal_check QUEUE-EMPTY(后续池
-  空,LRBATCH 检验轮次记录)⇒蒸馏轮;选族钩子=rollout 误差只报标
-  量 MSE 的谱结构盲区(误差的频率成分从未分解——谱定位直接指示
-  误差机制:相位漂移=峰展宽/幅值偏差=峰高差/噪声=宽谱底);机制
-  核对全库 grep 零命中(FFT/残差谱/power spectrum);3 槽命中+题
-  录核验(谱系面弱题录带 ? 登记 SCAN-AUDIT 复核,AMM-015 允许);
-  [行动] RESIDUAL-SPEC 入队(engineering,T1:默认配置训练 1 次+
-  held-out k=200 残差 FFT 功率谱平均,**诊断轮无通过/失败门——谱
-  读数报告即交付**,判负=残差非有限/谱计算异常;est 8min);S1 重
-  置([行动])蒸馏第 45 次达标;157 测试+audit 全绿显式退出码(零
-  代码轮);队列三十五条(三十四 pr-pending+RESIDUAL-SPEC actionable)。
-  下一心跳=goal_check 路由迭代 RESIDUAL-SPEC)
+updated: 2026-09-24 (**轮 219:RESIDUAL-SPEC 判读 RESIDUAL_PROFILED,
+  dir/residual-spec PR#35 即终点**——goal_check NOT-Achieved⇒T1 诊
+  断轮心跳;预注册先于执行钉死(默认配置 held-out 128 轨 k=200 残
+  差 FFT 功率谱平均,诊断轮无通过/失败门——谱读数报告即交付,判
+  负=残差非有限/谱计算异常;族边界=误差频谱结构轴第 1 轮);实跑
+  ~2min≤est8:**残差能量 93.2% 在高频段(>2×ω_max 域),主峰 0.199
+  cyc/step 远高于真值基频带——误差几乎是纯高频成分(§17 谱偏置
+  评估端镜像:高频欠拟合),谱形 PEAKED 有结构性主峰非纯白噪声**;
+  执行修 3 处(导入遗漏/真值切片偏移/gen_steps 160<224 越界=轮 162
+  坑再证)全部当轮拦截;评估启示=标量 MSE 被高频残差主导低频结构
+  误差被掩盖——评估口径可补谱域指标(§51.3 非当前行动);160 测试
+  (157+3)+audit 全绿;队列三十五条全 pr-pending。下一心跳=goal_
+  check 裁决——判读轮后消化轮优先(回填资产索引 residual-spec 条
+  目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -271,6 +272,7 @@ goal_queue:
   goal: rollout残差频谱诊断——§51谱结构盲区行动面: 默认配置(prefix hidden64 ctx=8 2000步)held-out 128轨k=200 rollout残差FFT功率谱平均, 判读=残差谱频率定位读数报告(基频峰=相位/幅值误差;倍频峰=非线性误差;宽谱=噪声)+高频能量占比(>2×ω频段/总残差能量), 诊断轮无通过失败门(谱读数报告即交付), 判负=残差非有限或谱计算异常⇒RESIDUAL_UNRESOLVABLE; 族边界=误差频谱结构轴RESIDUAL-SPEC族第1轮与§17学习顺序/§31网格/§39交互串联但独立
   done_condition: PRD §19有"RESIDUAL-SPEC 判读"锚且benchmarks/physics_out_v02/residual_spec/residual_spec.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "RESIDUAL-SPEC 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec/residual_spec.json
+  status: pr-pending(PR#35, 判读RESIDUAL_PROFILED=残差能量93.2%在高频段高频欠拟合主导诊断读数交付, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
