@@ -1073,6 +1073,11 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录当场核验(AMM-015)**:①★Defazio, Cutkosky, Mehta, Mishchenko (Khaled) "Optimal Linear Decay Learning Rate Schedules and Further Refinements"(arXiv:2310.07831,2023/2024)=固定预算下线性衰减最优(10 问题最全面评估)+warmup/快衰减精炼;②Bordelon & Mori "Theory of Optimal Learning Rate Schedules and Scaling Laws"(arXiv:2602.04774,2026)=可解模型理论:near-optimal schedules 共同特征=warmup+渐进衰减,常用族非最优(新文验证程度如实注记);③d2l §12.11 教科书共识面(衰减减少过拟合;教科书非原创研究如实注记)。
 - **LRDECAY-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步三臂——lr_decay∈{1.0(恒定默认),0.999,0.99}(prefix 参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=三臂 spread(max/min):<1.05 ⇒ LRDECAY_UNRESOLVABLE(调度形状不可分辨,恒定默认充分如实登记)/≥1.05 ⇒ 报告最优 decay 与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该衰减率不可用登记,spread 数值异常 ⇒ 判负;族边界=lr 调度形状轴 LRDECAY 族第 1 轮(与 §43/§40/§36 分立);双锚单行 check_cmd;est 8min(3×2000 步 prefix)。
 - **台账**:零算力轮;scan §48+蒸馏结论 43;S1 重置([行动]),蒸馏第 41 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十条(二十九 pr-pending+LRDECAY-LADDER actionable);双锚单行 check_cmd 经数数锚 30=30+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 LRDECAY-LADDER。
+**轮 215 记录(蒸馏 §42.2 行动面准入:AMP-EXTRAP 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——warmup 行动面一次性准入)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:本轮不收新族——给 §42.2(Li Nature 2025 插值/外推批判框架,已在库)补行动面:分布覆盖维度从 ω 宽度(轮 175 POOL-WIDTH)延伸到初始条件幅度。M1 gen 初始条件 q0,p0~N(0,1)(解析闭式解),幅度缩放=初条件能量缩放(能量∝scale²)。
+- **AMP-EXTRAP 入队([行动],engineering,T1)**:训练于 scale=1 标准池(ω∈[0.7,1.8] E1 口径,prefix hidden64 ctx=8 2000 步);评估三池 scale∈{1(内插参照),2,4}(同 ω 分布同 seed,q0/p0 乘 scale)各 held-out 128 轨 k100 rollout MSE;**相对口径必需**(绝对 MSE 随能量平方增)——rel_mse=rollout MSE/mean(q_true²+p_true²) 逐池归一;判读=rel_comp=rel_mse(4)/rel_mse(1):<3 ⇒ AMPEX_ROBUST(幅度外推鲁棒)/≥3 ⇒ AMPEX_DEGRADES(外推退化,插值域边界实证);判负(下心跳预注册落盘后执行)=发散/非有限;幅度参数化本地实现与原版 scale=1 逐位一致校验=轮 181 哨兵条款适用;族边界=初条件幅度轴 AMPLITUDE 族第 1 轮(与 §42 ω 宽度分立=覆盖另一维度);双锚单行 check_cmd;est 8min(1×2000 步训练+3 池生成评估)。
+- **台账**:零算力轮;scan §50.2x+蒸馏结论补充;S1 重置([行动]),蒸馏第 45 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十四条(三十三 pr-pending+AMP-EXTRAP actionable);双锚单行 check_cmd 经数数锚 34=34+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 AMP-EXTRAP。
 **轮 211 记录(蒸馏 warmup 行动面准入:WARMUP-PROBE 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——WSA 族 1/2 保留)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §37.2(Kalra NeurIPS 2023 warmup 机制,已在库)补行动面:warmup=等待 sharpness 自然下降的曲率动力学,其行动检验(lr warmup vs 恒定)缺失。
