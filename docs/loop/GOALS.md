@@ -44,21 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 149:GNS-PROBE 判读 GNS_RESOLVED_TREND,dir/
-  gns-probe PR#12 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
-  预注册先于执行钉死(M1 弹簧同池 hidden64 prefix 循环 batch=64,
-  3 个训练进度 checkpoint×N=32 子批梯度,一阶估计 B_simple,机械
-  三值判据);实跑 ~3min≤est8(轮 146 同循环实测标度=跨循环教训的
-  正确应用):B_simple 0 步=11.89→1000 步=83.11→4000 步=60.39
-  (max/min=6.99≥3⇒growing,与 McCandlish 预言方向一致);量级定位
-  如实拆解=早期噪声主导区/训练后 **batch=64 恰在线性加速临界附近**;
-  对轮 126 噪声侧读数=早期 B_noise≪64⇒种子噪声实现可导向不同解
-  盆地,与符号反转观察一致(一致性支持非因果,1-seed 筛查);判负
-  未触发;**格式化器第五袭(同轮 146 变体:缩进重排+GNS-PROBE 整条
-  被删)checkout HEAD 还原,12=12+12 ID 核对**;160 测试(157+3)
-  +audit 全绿;队列十二条全 pr-pending。下一心跳=goal_check 裁决——
-  判读轮后消化轮优先(回填资产索引 GNS 条目/分流/条件重入口,禁新
-  蒸馏))
+updated: 2026-09-24 (**轮 150:自生成后续迭代入队 GNS-PROBE-2(AMM-027
+  路由首次完整实例)**——goal_check QUEUE-EMPTY⇒先盘后续池:**非空**
+  =轮 149 判读行明示"更长训练进度(>4k 步)的 B_simple 演化未测"
+  (T1 装得下:纯梯度统计+短训推进,总训练 20k 步≈5min)⇒入队迭代
+  等同行动产出重置 S1;GNS-PROBE-2=同 estimator 同判据 checkpoint
+  轴延长 {0,1000,4000,10000,20000},判读=增长趋势持续性+batch=64
+  是否跨过线性加速临界(完善 T2/T3 派发字段);非同参重跑(新参数
+  轴),GNS 族段内第 2 轮达 ≤2 上限,之后必须换方向或入停车场;
+  est 15min;12=12+12 ID 数数锚核对。下一心跳=goal_check 路由迭代
+  GNS-PROBE-2)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -136,6 +131,11 @@ goal_queue:
   done_condition: PRD §19有"GNS-PROBE 判读"锚且benchmarks/physics_out_v02/gns_probe/gns_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "GNS-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/gns_probe/gns_probe.json
   status: pr-pending(PR#12, 判读GNS_RESOLVED_TREND=梯度噪声尺度增长~7×判负未触发, 合并后check过自动弹出)
+- id: GNS-PROBE-2
+  track: engineering
+  goal: 梯度噪声尺度进度轴延长迭代——GNS-PROBE同款estimator同判据但checkpoint轴延长{0,1000,4000,10000,20000}步(轮149判读明示后续: >4k步轴未覆盖), 判读=增长趋势是否持续+batch=64是否跨过线性加速临界(完善T2/T3派发batch字段读数); 判负同轮149三值判据(失效/平坦如实登记); GNS族段内第2轮达≤2上限之后必须换方向或入停车场
+  done_condition: PRD §19有"GNS-PROBE-2 判读"锚且benchmarks/physics_out_v02/gns_probe_v2/gns_probe_v2.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "GNS-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/gns_probe_v2/gns_probe_v2.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
