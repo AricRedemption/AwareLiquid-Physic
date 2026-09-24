@@ -44,20 +44,15 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 162:SPECTRAL-DT 判读 INTERACTION_RESOLVED,
-  dir/spectral-dt PR#17 即终点**——goal_check NOT-Achieved⇒T1 探针环
-  心跳;预注册先于执行钉死(单频池 ω{1,2,4}×dt{0.05,0.1,0.2} 九单元,
-  固定物理视距 T=10 归一,交互判据 R4 超 R1≥20%,失效优先);实跑
-  ~5min≤est12:R4=24.1 vs R1=0.049 ⇒ **超出 2410%,交互可分辨**;
-  Nyquist 注记=恶化集中于唯一近 Nyquist 单元(ω·dt=0.8)=学不到非
-  测不到,其余 8 单元无恶化;反向纹理=ω=1 粗 dt 反而最好(物理覆盖
-  效应,轮 129 一致);**N1 路由=训练网格解析度条款**(ω·dt≳0.8 域
-  高频崩塌,§31 FLOW_LIKE 边界细化);PLAYBOOK 回写真值长度反推+
-  冒烟覆盖关键档位;执行修 2 处(比值参数化+gen_steps 301);格式化
-  器第九袭(SPECTRAL-DT 整条被删)checkout 还原 17=17+ID 核对;160
-  测试(157+3)+audit 全绿;队列十七条全 pr-pending。下一心跳=
-  goal_check 裁决——判读轮后消化轮优先(回填资产索引 spectral-dt
-  条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 163:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 162 判读无明示后续
+  (SPECTRAL-DT 族 1/2 保留),池空;消化三件套:①回填=资产索引 5 区
+  Methods 新增第 7 条训练网格解析度(九单元矩阵+交互实锤+同网格
+  纪律实证+安全域 ω·dt≲0.4);②分流=balance_gauge EXP=0.2 达标/
+  WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
+  S1 计数:轮 161([行动])/162(T1 判读)行动产出连续,本消化轮无
+  蒸馏,无 S1 累计。队列十七条全 pr-pending。下一心跳=goal_check
+  裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
