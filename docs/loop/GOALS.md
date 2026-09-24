@@ -44,19 +44,19 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 184:蒸馏第 45 族深度-容量轴族入库
-  (scan§45)+DEPTH-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
-  WD 族无指令性后续)⇒蒸馏轮;选族钩子=depth=2 全仓固定从未消融
-  (§39.1 μP 宽度标度的另一半);机制核对全库 grep 零命中(depth
-  scaling/哈密顿深度);3 槽一次命中+3 题录当场核验(AMM-015):
-  ①Safran & Shamir ICML(~240 引)深度效率理论 ②Mattheakis
-  Phys. Rev. E 2022(~215 引)HNN 深度消融直接先例 ③Galimberti
-  PMLR 2021 哈密顿 DNN 深度稳定性(边界讨论);[行动] DEPTH-LADDER
-  入队(engineering,T1:三臂 depth{1,2,4} 2000 步,spread 判据同
-  WD 模式,判负=发散;est 8min);S1 重置([行动])蒸馏第 38 次
-  达标;157 测试+audit 全绿显式退出码(零代码轮);队列二十五条
-  (二十四 pr-pending+DEPTH-LADDER actionable)。下一心跳=goal_check
-  路由迭代 DEPTH-LADDER)
+updated: 2026-09-24 (**轮 185:DEPTH-LADDER 判读 DEPTH_RESOLVED,dir/
+  depth-ladder PR#25 即终点**——goal_check NOT-Achieved⇒T1 探针环心
+  跳;预注册先于执行钉死(三臂 depth{1,2,4},spread 判据,注入式实
+  现=轮 181 哨兵条款适用良好,族边界=深度轴第 1 轮);实跑 ~2min≤
+  est8:depth 4.73→3.56→2.44,spread=1.94 ⇒ **DEPTH_RESOLVED:深度
+  单调有益末端最优(1-4 域内未饱和),depth=2 默认充分性不成立
+  (4 更优 31.5%,1-seed)**;文献对表=§45.1 深度效率+§45.2 Mattheakis
+  HNN 消融方向一致,§45.3 哈密顿稳定性预言未显现(浅 MLP 如实注
+  记);参数量混杂如实注记(深度×宽度交叉=DEPTH 族后续候选 1/2);
+  交叉验证锚=depth=2 臂与轮 175 B 臂逐位一致;两处小 bug 当轮修复;
+  160 测试(157+3)+audit 全绿;队列二十五条全 pr-pending。下一心跳=
+  goal_check 裁决——判读轮后消化轮优先(回填资产索引 depth 条目/
+  分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -211,6 +211,7 @@ goal_queue:
   goal: 深度阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: depth∈{1,2,4}(hidden固定参数量随深度近线性增), 判读=三臂rollout MSE(k100同held-out)spread(max/min): <1.05⇒DEPTH_UNRESOLVABLE深度不可分辨(depth=2默认充分)/≥1.05⇒报告最优depth与方向(深度有益/有害/内点), 判负=任一臂发散非有限或spread数值异常; 族边界=深度轴DEPTH族第1轮与§39.1宽度标度/§42池宽度分立
   done_condition: PRD §19有"DEPTH-LADDER 判读"锚且benchmarks/physics_out_v02/depth_ladder/depth_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "DEPTH-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/depth_ladder/depth_ladder.json
+  status: pr-pending(PR#25, 判读DEPTH_RESOLVED=深度单调有益末端最优depth=4默认非最优, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
