@@ -44,16 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 210:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 209 判读后续(盆地分离
-  多 seed)归停车场(WSA 族 1/2 保留),池空;消化三件套:①回填=资
-  产索引 5 区 Methods 新增第 17 条尾段权重平均(SWA_HARMFUL 如实登
-  记+RNG 流差异跨轮不可比注记+跨盆地损害解读);②分流=balance_
-  gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=
-  §12.3 三路终态维持。S1 计数:轮 208([行动])/209(T1 判读)行动
-  产出连续,本消化轮无蒸馏,无 S1 累计。队列三十二条全 pr-pending。
-  下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行
-  动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 211:蒸馏 warmup 行动面准入(scan§50.2b)
+  +WARMUP-PROBE 入队**——goal_check QUEUE-EMPTY(后续池空,WSA 族
+  1/2 保留)⇒蒸馏轮;本轮不收新族——给 §37.2(Kalra warmup 机制,
+  已在库)补行动面;[行动] WARMUP-PROBE 入队(engineering,T1:异
+  频池 2000 步两臂 A=恒定 lr=3e-3 vs B=warmup 前 200 步线性升至
+  3e-3,三分支判读[不可分辨与本仓不在 EOS 一致/B 好=warmup 有益
+  §37.2 方向/B 差=有害如实登记],判负=发散;est 8min);S1 重置
+  ([行动])蒸馏第 44 次达标;157 测试+audit 全绿显式退出码(零代
+  码轮);队列三十三条(三十二 pr-pending+WARMUP-PROBE actionable)。
+  下一心跳=goal_check 路由迭代 WARMUP-PROBE)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -251,6 +251,11 @@ goal_queue:
   done_condition: PRD §19有"WSA-PROBE 判读"锚且benchmarks/physics_out_v02/wsa_probe/wsa_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "WSA-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/wsa_probe/wsa_probe.json
   status: pr-pending(PR#32, 判读SWA_HARMFUL=尾段平均有害8.0%与SWA文献相反跨盆地平均解读, 合并后check过自动弹出)
+- id: WARMUP-PROBE
+  track: engineering
+  goal: lr warmup对照探针——§37.2 Kalra warmup坐标行动面: 异频池(E1口径)prefix hidden64 2000步两臂: A=恒定lr=3e-3(默认) vs B=warmup(前200步lr从0线性升至3e-3其后恒定), 评估同口径k100 held-out rollout MSE, 判读=A/B三分支: 差<5%⇒warmup不可分辨(与轮194 SHARP_BELOW一致本仓不在EOS warmup收益域可能不触发如实登记)/B好≥5%⇒warmup有益(§37.2方向)/B差≥5%⇒warmup有害如实登记, 判负=任一臂发散非有限; 族边界=warmup行动面(§37行动化)与§48 LRDECAY衰减形状分立
+  done_condition: PRD §19有"WARMUP-PROBE 判读"锚且benchmarks/physics_out_v02/warmup_probe/warmup_probe.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "WARMUP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe/warmup_probe.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

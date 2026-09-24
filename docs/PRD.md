@@ -1073,6 +1073,11 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录当场核验(AMM-015)**:①★Defazio, Cutkosky, Mehta, Mishchenko (Khaled) "Optimal Linear Decay Learning Rate Schedules and Further Refinements"(arXiv:2310.07831,2023/2024)=固定预算下线性衰减最优(10 问题最全面评估)+warmup/快衰减精炼;②Bordelon & Mori "Theory of Optimal Learning Rate Schedules and Scaling Laws"(arXiv:2602.04774,2026)=可解模型理论:near-optimal schedules 共同特征=warmup+渐进衰减,常用族非最优(新文验证程度如实注记);③d2l §12.11 教科书共识面(衰减减少过拟合;教科书非原创研究如实注记)。
 - **LRDECAY-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步三臂——lr_decay∈{1.0(恒定默认),0.999,0.99}(prefix 参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=三臂 spread(max/min):<1.05 ⇒ LRDECAY_UNRESOLVABLE(调度形状不可分辨,恒定默认充分如实登记)/≥1.05 ⇒ 报告最优 decay 与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该衰减率不可用登记,spread 数值异常 ⇒ 判负;族边界=lr 调度形状轴 LRDECAY 族第 1 轮(与 §43/§40/§36 分立);双锚单行 check_cmd;est 8min(3×2000 步 prefix)。
 - **台账**:零算力轮;scan §48+蒸馏结论 43;S1 重置([行动]),蒸馏第 41 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十条(二十九 pr-pending+LRDECAY-LADDER actionable);双锚单行 check_cmd 经数数锚 30=30+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 LRDECAY-LADDER。
+**轮 211 记录(蒸馏 warmup 行动面准入:WARMUP-PROBE 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——WSA 族 1/2 保留)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:本轮不收新族——给 §37.2(Kalra NeurIPS 2023 warmup 机制,已在库)补行动面:warmup=等待 sharpness 自然下降的曲率动力学,其行动检验(lr warmup vs 恒定)缺失。
+- **WARMUP-PROBE 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步两臂——A=恒定 lr=3e-3(默认)vs B=warmup(前 200 步 lr 从 0 线性升至 3e-3,其后恒定);评估=同 held-out 128 轨 k100 rollout MSE;判读=A/B 三分支:差<5% ⇒ WARMUP_UNRESOLVABLE(warmup 不可分辨,与轮 194 SHARP_BELOW 一致本仓不在 EOS、warmup 收益域可能不触发——如实登记)/B 好 ≥5% ⇒ WARMUP_BENEFICIAL(§37.2 方向)/B 差 ≥5% ⇒ WARMUP_HARMFUL 如实登记;判负(下心跳预注册落盘后执行)=任一臂发散/非有限;族边界=warmup 行动面(§37 行动化);双锚单行 check_cmd;est 8min(2×2000 步 prefix)。
+- **台账**:零算力轮;scan §50.2b+蒸馏结论补充;S1 重置([行动]),蒸馏第 44 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十三条(三十二 pr-pending+WARMUP-PROBE actionable);双锚单行 check_cmd 经数数锚 33=33+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 WARMUP-PROBE。
 **轮 204 记录(蒸馏行动面准入:batch×lr 等价规则受控检验 + LRBATCH-GRID 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——NSCALES 族无指令性后续)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §43.3(§43 已收坐标)补行动面:Smith 等价(batch↑≡lr↓)与线性/平方根缩放规则在本仓的受控检验。钩子=全仓 batch=64/lr=3e-3 联合从未消融;族=LRBATCH 交互检验(§43 行动面,非新族;蒸馏交付=行动准入)。
