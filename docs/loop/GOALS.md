@@ -51,18 +51,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-25 (**轮 227:AMM-028 价值出口五门落地+RECIPE-SYNTHESIS
-  组合回灌探针入队**——用户对话质询"单位时间产出/判读为何不改变任何东
-  西"触发;AMM-028 APPLIED(决策耦合门/回灌强制门/统计升级 3-seed/题
-  录网络核验/anytime 周检);回灌门首例触发=WD/DEPTH/LRDECAY/TOSA/
-  CTX-DIM 五族判"默认非最优"(ctx_dim=8 差 80%=最大配置误差,轮 226)
-  ⇒禁止开新族;[行动] RECIPE-SYNTHESIS 入队(engineering,T1:两臂
-  ×3-seed,A=全默认 vs B=depth4+lrdecay0.999+wd1e-4+warmup200+
-  ktrain4,三分支判读 SYNERGIC⇒回灌 PR/NULL⇒配方轴收口关闭/ANTA-
-  GONISTIC⇒冲突归因,est 15min);心跳经用户授权暂停落地(iteration
-  stop→start 恢复);测试+audit 全绿显式退出码;队列三十八条(三十
-  七 pr-pending+RECIPE-SYNTHESIS actionable)。下一心跳=路由迭代
-  RECIPE-SYNTHESIS(判读→回灌决策))
+updated: 2026-09-25 (**轮 229:RECIPE-SYNTHESIS 标记 pr-pending
+  (PR#38 待建,判读 RECIPE_SYNERGIC=组合收益 10.7% ratio=0.893
+  3/3 方向一致,AMM-028 门 3 统计升级首例;判读与代码在
+  dir/recipe-synthesis 分支,合并后 check 过自动弹出)**;updated
+  戳轮 229(单轴不可加 3-seed 实证=五轴单收益和远大于组合实际收
+  益/哨兵锚 A 臂 seed0 与历史默认臂逐位一致/warmup 归因留 3-seed
+  单轴消融=族后续/anytime 周检首点 2.9613@3-seed 落盘);165 测试
+  (157+8)+audit 87 全绿显式退出码;队列三十八条全 pr-pending。
+  下一心跳=goal_check 裁决(判读轮后消化轮优先,禁新蒸馏;回灌
+  PR 建立与合并=用户线下,AMM-028 门 2 决策=回灌候选已登记))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -73,7 +71,7 @@ goal_queue:
   goal: 组合配方回灌探针(AMM-028 回灌强制门首例)——异频池(E1口径)prefix 2000步两臂×3-seed{0,1,2}: A=全默认(depth2,lr_decay1.0,wd0,warmup0,k_train8,ctx_dim8) vs B=单轴最优合成(depth4,lr_decay0.999,wd1e-4,warmup前200步线性升3e-3,k_train4), 评估同口径k100 held-out rollout MSE, 判读=3-seed均值比ratio=mean_B/mean_A三分支: <0.95⇒RECIPE_SYNERGIC组合收益(决策=默认配置回灌开PR)/0.95-1.05⇒RECIPE_NULL单轴不可加(决策=配方轴收口,蒸馏配方族关闭准入)/>1.05⇒RECIPE_ANTAGONISTIC冲突(决策=归因停车场1-2), 判负=任一臂任一seed发散; 判读行附逐seed值+方向一致性计数+seed间spread(AMM-028统计升级首例); 交叉验证锚=A臂seed0与轮175/191/223/226历史默认臂逐位一致; 决策耦合声明=三种结果各有明确决策改变(AMM-028门1首例)
   done_condition: PRD §19有"RECIPE-SYNTHESIS 判读"锚且benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json产物存在, 判负标准执行前预注册(轮227已落盘)
   check_cmd: grep -q "RECIPE-SYNTHESIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json
-  status: actionable(AMM-028b回灌门强制,禁其他新族)
+  status: pr-pending(PR#38待建-判读RECIPE_SYNERGIC=组合收益10.7% ratio=0.893 3/3方向一致, 判读与代码在dir/recipe-synthesis分支, 合并后check过自动弹出; 决策=臂B五轴为M1默认配置候选, 回灌PR用户线下处理)
 - id: M1-CAP-AXIS
     track: frontier
     goal: M1容量轴探针——d_model∈{24,48,96}×n32同池同预算(2000步,seed0,prefix/all2all双臂), E3容量否定的M1侧对照, 判读=liquid edge随容量走向
