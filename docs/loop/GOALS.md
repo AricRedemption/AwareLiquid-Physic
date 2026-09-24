@@ -44,16 +44,22 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 188:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 187 判读后续(第三轴/
-  多 seed)全归停车场(DEPTH 族 2/2 用尽),池空;消化三件套:①回填
-  =资产索引 5 区 Methods 新增第 13 条深度×宽度交叉(两轴独立可加+
-  深度效率迹象+对表口径不可直比);②分流=balance_gauge EXP=0.2 达
-  标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态
-  维持。S1 计数:轮 186([行动])/187(T1 判读)行动产出连续,本消
-  化轮无蒸馏,无 S1 累计。队列二十六条全 pr-pending。下一心跳=
-  goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则
-  S1 累计 1/2))
+updated: 2026-09-24 (**轮 190:蒸馏第 46 族训练展开跨度族入库
+  (scan§46)+KSPAN-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
+  DEPTH 族 2/2 用尽)⇒蒸馏轮;选族钩子=k_train=8 全仓固定从未消融
+  (训练-部署失配旋钮);机制核对 grep 零命中(training span/rollout
+  span/k_train;Bengio 2015 scheduled sampling 撞 §8.4 已在库不重复
+  收,族头声明);3 槽命中+3 题录当场核验(AMM-015):①Q Li MDPI
+  2026 张力诊断(one-step loss vs 长视距部署)②★Brandstetter ICLR
+  2023 pushforward trick 原文(自反馈训练处方储备)③DySLIM ICML
+  2024 形式分析+多步 loss 谱系面;[行动] KSPAN-LADDER 入队
+  (engineering,T1:三臂 k_train{4,8,16} 2000 步 prefix,spread 判
+  据<1.05 不可分辨/≥1.05 报告最优 k_train,判负=发散;est 8min);
+  S1 重置([行动])蒸馏第 39 次达标;157 测试+audit 全绿显式退出码
+  (零代码轮);**格式化器第十七袭(KSPAN-LADDER 插入后被删且
+  DEPTH-WIDTH status 行文本被改写)当轮发现重插**;队列二十七条
+  (二十六 pr-pending+KSPAN-LADDER actionable)。下一心跳=goal_check
+  路由迭代 KSPAN-LADDER)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -215,6 +221,11 @@ goal_queue:
   done_condition: PRD §19有"DEPTH-WIDTH 判读"锚且benchmarks/physics_out_v02/depth_width/depth_width.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "DEPTH-WIDTH 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/depth_width/depth_width.json
   status: pr-pending(PR#26, 判读MATRIX_RESOLVED=深度宽度主效应独立可加交互ln0.011, 合并后check过自动弹出)
+- id: KSPAN-LADDER
+  track: engineering
+  goal: k_train跨度阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: k_train∈{4,8,16}(训练展开跨度), 评估同口径k100 held-out rollout MSE, 判读=三臂spread(max/min): <1.05⇒KSPAN_UNRESOLVABLE跨度不可分辨(k=8默认充分如实登记)/≥1.05⇒报告最优k_train与方向, 判负=任一臂发散非有限或spread数值异常; 族边界=训练展开跨度轴KSPAN族第1轮与§8.4采样课程(Bengio已在库不重复收)/§40 dt排序分立
+  done_condition: PRD §19有"KSPAN-LADDER 判读"锚且benchmarks/physics_out_v02/kspan_ladder/kspan_ladder.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "KSPAN-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/kspan_ladder/kspan_ladder.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

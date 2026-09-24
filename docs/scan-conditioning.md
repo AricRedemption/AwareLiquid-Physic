@@ -2839,6 +2839,88 @@ n=12(钩子=Adam 全仓固定从未对照)。
 +新目标)。机制核对:depth scaling/depth-width/哈密顿深度 全库 grep
 零命中。选族启发式 n=14(钩子=depth=2 全仓固定从未消融)。
 
+## 46. 经验蒸馏 41(轮 190,2026-09-24,QUEUE-EMPTY 轮):训练展开跨度族(k_train 与 rollout 训练)
+
+> 新 query 族(与前 45 族零重叠:§8.4 exposure bias 三代处方(
+> scheduled sampling/对抗对齐/模仿损失)已收——本族=**固定多步
+> 展开训练的跨度轴**(k_train 本身的消融)与 rollout 训练稳定性
+> 文献(pushforward trick/稳定正则),与 §8.4 的分界=本仓训练
+> 循环已固定多步展开,未收的是"跨度多长"这一轴。钩子:k_train=8
+> 全仓固定从未消融。标记:[坐标] ×3(1 ★)+ [行动] ×1。三槽:
+> ① 张力诊断 ② pushforward 原文 ③ 稳定正则。题录当场核验
+> (AMM-015;Bengio 2015 scheduled sampling 撞 §8.4 不重复收)。
+
+### 46.1 张力诊断:one-step loss 与长视距部署的失配 [坐标]
+
+- 【出处】Q Li, "Stability-Regularized Residual Neural ODEs: From
+  Rollout-Error Contraction Diagnostics to a Train-Time Regularizer",
+  MDPI 2026
+- 【内容】残差 NODE 用 one-step 预测 loss 训练但以自回归长视距
+  部署=训练-部署失配,可小一步误差长视距发散;提出 rollout 误差
+  收缩诊断+训练时稳定正则。
+- 【对我们的映射】k_train 跨度即"训练-部署失配"的旋钮:k_train
+  越大训练越接近部署(长视距),单步成本越高——KSPAN-LADDER 检验
+  该旋钮在本仓的敏感度。
+- 【适用条件】KSPAN-LADDER 判读参照;训练配置辩护。
+- 【验证状态】题录当场核验(MDPI 2026+作者);验证早期(新文,
+  如实注记)。
+
+### 46.2 pushforward 原文:自反馈训练的连续系统类比 ★ [坐标]
+
+- 【出处】Brandstetter et al., "Message Passing Neural PDE Solvers",
+  ICLR 2023(pushforward trick 原文;后续 DySLIM ICML 2024 给出
+  不变测度 loss 与 pushforward 的形式分析)
+- 【内容】训练时把模型自身(可能带噪)的输出反馈为下一步输入
+  (pushforward trick)——超越 teacher forcing 的确定性版本,
+  已成神经 PDE 求解器标准配置;DySLIM 形式化其与不变测度 loss
+  的关系。
+- 【对我们的映射】本仓 k_train 展开训练的真值均为真值轨迹(
+  teacher forcing 式多步),pushforward(自反馈)是未实装的
+  处方——k_train 消融若显示跨度敏感,pushforward 是下一步
+  处方方向(停车场候选)。
+- 【适用条件】KSPAN-LADDER 判读的处方储备;§8.4 谱系的连续版
+  补充。
+- 【验证状态】题录当场核验(ICLR 2023+作者+venue);社区已验证
+  (高引标准配置)。
+
+### 46.3 稳定正则与多步 loss 谱系 [坐标]
+
+- 【出处】多步 rollout loss 综述面(Emergent Mind 2026 条目;
+  multiple shooting for Neural ODEs 谱系)
+- 【内容】多步 rollout loss(对多步预测误差惩罚)作为训练目标
+  的谱系:multiple shooting、自适应跨度、稳定性正则——k_train
+  选择的文献选项集。
+- 【对我们的映射】为 k_train 消融结果的解释提供选项空间:k_train
+  增大若有益=更接近部署;无益=本仓 k=8 已在平台(与 §18.2 复合
+  误差背书对表)。
+- 【适用条件】KSPAN-LADDER 判读的选项框架。
+- 【验证状态】题录可定位(MDPI/Emergent Mind 综述面,精确到
+  谱系);验证状态如实注记(综述面非原创研究)。
+
+### 46.4 [行动] KSPAN-LADDER:k_train 跨度阶梯对照(入队)
+
+- 【出处】§46.1-46.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 三臂:k_train∈{4,8,16}(训练
+  展开跨度);评估同口径 k100 held-out rollout MSE;判读=三臂
+  spread(max/min):<1.05 ⇒ KSPAN_UNRESOLVABLE(跨度不可分辨,
+  k=8 默认充分如实登记);≥1.05 ⇒ 报告最优 k_train 与方向。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  KSPAN_UNRESOLVABLE(该跨度不可用登记);spread 数值异常 ⇒ 判负。
+- 【族边界】训练展开跨度轴(KSPAN 族第 1 轮);与 §8.4(采样课程
+  处方——Bengio 2015 已在库不重复收)/§40(dt 排序)分立。
+- 【适用条件】T1 可行动:3×2000 步 prefix≈1.5min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 41
+
+3 [坐标](1 ★)+ 1 [行动](KSPAN-LADDER 入队,engineering)。
+第 46 族;**S1 重置([行动] 产出)**。蒸馏轮第 39 次达标(≥1 条入库
++新目标)。机制核对:training span/rollout span/k_train grep 零命中
+(Bengio 2015 scheduled sampling 撞 §8.4 已在库不重复收,族头声明)。
+选族启发式 n=15(钩子=k_train=8 全仓固定从未消融)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
