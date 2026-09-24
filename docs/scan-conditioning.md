@@ -3004,6 +3004,80 @@ n=12(钩子=Adam 全仓固定从未对照)。
 不重复收;与 SSM 替代线分立。选族启发式 n=16(钩子=n_scales=4
 全仓固定从未消融)。
 
+## 48. 经验蒸馏 43(轮 200,2026-09-24,QUEUE-EMPTY 轮):LR 调度族(decay 形状与恒定 lr 的过拟合)
+
+> 新 query 族(与前 47 族零重叠:§43 优化器选择=优化器本身,§40
+> 课程=数据排序,§36 梯度噪声=采样协方差——本族=**lr 调度形状**
+> 轴(恒定 vs 衰减、线性/cosine/指数)。钩子:train.py docstring
+> 明言"Constant lr overfits long schedules"且 lr_decay=1.0(恒定)
+> 全仓固定从未消融——自带未检验声明。标记:[坐标] ×3(1 ★)+
+> [行动] ×1。三槽:① 线性衰减最优实证 ② 理论(near-optimal
+> schedules)③ 教科书共识面。题录当场核验(AMM-015,2 条精确
+> 作者+arXiv ID 确认,教科书面如实注记)。
+
+### 48.1 线性衰减最优实证(固定预算)★ [坐标]
+
+- 【出处】Defazio, Cutkosky, Mehta, Mishchenko (Khaled), "Optimal
+  Linear Decay Learning Rate Schedules and Further Refinements",
+  arXiv:2310.07831(2023/2024)
+- 【内容】固定训练预算下**线性衰减(到 0)schedule 最优**——10 个
+  多样问题的最全面评估;附带 warmup+快衰减的精炼变体。
+- 【对我们的映射】本仓 lr_decay=1.0(恒定)恰是该文献的"未衰减"
+  基线——LRDECAY-LADDER 的阶梯(1.0/0.999/0.99 指数)直接检验
+  恒定 vs 衰减在本仓的差距。
+- 【适用条件】LRDECAY-LADDER 判读参照;训练配置辩护。
+- 【验证状态】题录当场核验(arXiv:2310.07831+作者);社区已验证。
+
+### 48.2 理论面:near-optimal schedules 的共同特征 [坐标]
+
+- 【出处】Bordelon & Mori, "Theory of Optimal Learning Rate Schedules
+  and Scaling Laws", arXiv:2602.04774(2026)
+- 【内容】可解模型(power-law random features+SGD)理论:near-
+  optimal schedules 共同特征=**warmup 后渐进衰减**;常用 schedule
+  族(含 WSD)在该理论上非最优。
+- 【对我们的映射】与 §37.2 warmup 机制(EOS/曲率)衔接:调度形状
+  有理论最优结构;本仓恒定 lr 若劣于衰减,即该理论的本仓数据点。
+- 【适用条件】LRDECAY-LADDER 判读的理论框架。
+- 【验证状态】题录当场核验(arXiv:2602.04774+作者);社区验证
+  早期(新文,如实注记)。
+
+### 48.3 教科书共识面 [坐标]
+
+- 【出处】Dive into Deep Learning §12.11(Learning Rate Scheduling)
+- 【内容】教科书共识:衰减 lr 改善精度且"最令人困惑地"减少过拟合
+  ——衰减同时作用于优化与泛化;cosine 为经验鲁棒默认。
+- 【对我们的映射】轮 159 REP 判负(train_loss 差 2.5× 未传递泛化)
+  的调度维度:train.py 注释的"恒定 lr 过拟合长日程"声明即待检验
+  的本仓内部断言(架构文档内部断言进实验检验的实例)。
+- 【适用条件】LRDECAY-LADDER 判读的对照面。
+- 【验证状态】教科书面(可定位章节;非原创研究如实注记)。
+
+### 48.4 [行动] LRDECAY-LADDER:lr 衰减阶梯对照(入队)
+
+- 【出处】§48.1-48.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 三臂:lr_decay∈{1.0(恒定默认),
+  0.999,0.99}(prefix 的 lr_decay 参数天然可注入=轮 181 哨兵条款
+  适用);判读=三臂 rollout MSE(k100 同 held-out)spread(max/min):
+  <1.05 ⇒ LRDECAY_UNRESOLVABLE(调度形状不可分辨,恒定默认充分
+  如实登记);≥1.05 ⇒ 报告最优 decay 与方向。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  LRDECAY_UNRESOLVABLE(该衰减率不可用登记);spread 数值异常 ⇒
+  判负。
+- 【族边界】lr 调度形状轴(LRDECAY 族第 1 轮);与 §43(优化器
+  选择)/§40(数据排序)/§36(采样噪声)分立。
+- 【适用条件】T1 可行动:3×2000 步 prefix≈1.5min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 43
+
+3 [坐标](1 ★)+ 1 [行动](LRDECAY-LADDER 入队,engineering)。
+第 48 族;**S1 重置([行动] 产出)**。蒸馏轮第 41 次达标(≥1 条入库
++新目标)。机制核对:lr_decay/cosine schedule/lr schedule 全库 grep
+零命中(train.py docstring 的内部断言非文献族)。选族启发式 n=17
+(钩子=train.py 内部断言"恒定 lr 过拟合长日程"从未检验)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
