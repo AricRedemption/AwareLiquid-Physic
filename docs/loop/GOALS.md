@@ -44,22 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 161:蒸馏第 39 族谱偏置×离散化交叉族入库
-  (scan§39)+SPECTRAL-DT 入队**——goal_check QUEUE-EMPTY(后续池空,
-  REP 族判读无明示后续)⇒蒸馏轮;选族钩子=§17 频率学习顺序×§31 dt
-  迁移两大已判读面的交叉缺口(ω×dt 双因子从未交叉实验);机制核对:
-  Fridovich-Keil/Kiessling/Bartolucci 全库零命中,Rahaman 撞 §17.1
-  已注记不重复收;3 槽一次命中+3 题录当场核验(AMM-015):①Fridovich-
-  Keil NeurIPS 2022(~70 引)频率=泛化操作变量 ②Kiessling AAAI 2022
-  (~18 引)谱偏置可计算定义的网格耦合=判读陷阱(学不到 vs 测不到)
-  ③Bartolucci 2023(~31 引)aliasing+Gao 离散化失配=§31 边界细化;
-  [行动] SPECTRAL-DT 入队(engineering,T1:单频池 ω{1,2,4}×dt
-  {0.05,0.1,0.2} 九单元 2000 步 prefix,固定物理视距 T=10 归一,
-  判读=高频增幅超低频≥20%⇒交互可分辨,Nyquist 状态逐单元注记,
-  判负=<20% 不可分辨;est 12min);S1 重置([行动])蒸馏第 32 次
-  达标;157 测试+audit 全绿显式退出码(零代码轮);队列十七条(十六
-  pr-pending+SPECTRAL-DT actionable)。下一心跳=goal_check 路由迭代
-  SPECTRAL-DT)
+updated: 2026-09-24 (**轮 162:SPECTRAL-DT 判读 INTERACTION_RESOLVED,
+  dir/spectral-dt PR#17 即终点**——goal_check NOT-Achieved⇒T1 探针环
+  心跳;预注册先于执行钉死(单频池 ω{1,2,4}×dt{0.05,0.1,0.2} 九单元,
+  固定物理视距 T=10 归一,交互判据 R4 超 R1≥20%,失效优先);实跑
+  ~5min≤est12:R4=24.1 vs R1=0.049 ⇒ **超出 2410%,交互可分辨**;
+  Nyquist 注记=恶化集中于唯一近 Nyquist 单元(ω·dt=0.8)=学不到非
+  测不到,其余 8 单元无恶化;反向纹理=ω=1 粗 dt 反而最好(物理覆盖
+  效应,轮 129 一致);**N1 路由=训练网格解析度条款**(ω·dt≳0.8 域
+  高频崩塌,§31 FLOW_LIKE 边界细化);PLAYBOOK 回写真值长度反推+
+  冒烟覆盖关键档位;执行修 2 处(比值参数化+gen_steps 301);格式化
+  器第九袭(SPECTRAL-DT 整条被删)checkout 还原 17=17+ID 核对;160
+  测试(157+3)+audit 全绿;队列十七条全 pr-pending。下一心跳=
+  goal_check 裁决——判读轮后消化轮优先(回填资产索引 spectral-dt
+  条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -166,6 +164,7 @@ goal_queue:
   goal: 谱偏置×离散化交叉双因子矩阵探针——单频弹簧池ω∈{1,2,4}×训练dt∈{0.05,0.1,0.2}九单元短训(prefix hidden64 2000步)固定物理视距T=10(k=200/100/50归一)rollout MSE, 判读=交叉交互: 高频ω=4粗dtvs细dt误差增幅超低频同比值≥20%⇒交互可分辨(scan§39; ω·dt∈0.05-0.8逐单元Nyquist状态注记防aliasing/学不到混淆), 判负=交互差<20%⇒不可分辨如实登记或矩阵单元失效; 族边界=频率×网格交叉轴SPECTRAL-DT族第1轮(Rahaman已在§17.1不重复收)
   done_condition: PRD §19有"SPECTRAL-DT 判读"锚且benchmarks/physics_out_v02/spectral_dt/spectral_dt.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "SPECTRAL-DT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/spectral_dt/spectral_dt.json
+  status: pr-pending(PR#17, 判读INTERACTION_RESOLVED=高频粗dt超比例恶化+2410%训练网格解析度条款入N1, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
