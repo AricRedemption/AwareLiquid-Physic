@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → FASTSLOW-2 为队首 actionable(其余九条 pr-pending 跳过)⇒ 迭代 FASTSLOW-2(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → 十条全 pr-pending(PR#1-#10)机械跳过 ⇒ QUEUE-EMPTY 仪表路由(判读轮后消化轮优先:回填 N1 时标条款量化升级/分流/条件重入口,禁新蒸馏;后续池=慢轴到门预算归因属停车场 T2/T3 待用户重启,无 T1 可迭代点)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,13 +44,18 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 142:FASTSLOW-PROBE 条目 check_cmd 行补回**——
-  goal_check 报 [FASTSLOW-PROBE] check_cmd 空按未达成路由=轮 108 护栏
-  正确拒绝防假阳性(该条目 status=pr-pending PR#9 本应机械跳过);
-  与轮 138 ICL-M3-INTERP 同型,环境格式化器本会话段第四次袭。按轮 138
-  先例从轮 138 提交取回原文补回双锚单行行,弹出条件恢复(PR#9 合并+
-  产物落地后 check 过自动弹出)。下一心跳=goal_check 路由迭代
-  FASTSLOW-2)
+updated: 2026-09-24 (**轮 143:FASTSLOW-2 判读 BUDGET_DOMINANT,dir/
+  fastslow-v2 PR#10 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(两臂同族同池同门:MAIN=hidden128+40k 步 4×容量
+  ×4×预算,H64 对照=hidden64+40k 分离容量与步数;冒烟校准 2000 步 7s
+  ⇒est15 T1 直跑,标度直觉疑触 T2 差 20×=轮 92 条款反向实证入
+  PLAYBOOK);实跑 ~2min:MAIN 快轴 3.2%→0.26% 过门+慢轴 122%→22.4%
+  未过门⇒FAST_ONLY,H64 同判 FAST_ONLY⇒机械 BUDGET_DOMINANT=步数为因
+  容量次要,判负②(§33.2 结构地板)未触发;N1 时标条款路由=
+  SCOPE_LIMITED_KEPT+量化升级(优化限制型趋势非结构地板,慢轴到门
+  预算未检验=停车场 T2/T3 方向);163 测试(160+3)+audit 全绿;队列
+  十条全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先
+  (回填 N1 时标条款量化升级→分流→条件重入口),期间禁新蒸馏)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -115,6 +120,7 @@ goal_queue:
   goal: 双时标失败归因探针——FASTSLOW-PROBE(BOTH_FAILED)的容量/训练量归因: hidden128+40000步(4×容量与预算)下BOTH_FAILED是否逆转, 逆转=优化限制(加大即愈), 不变=数据/时标结构限制(§33.2刚性签名, N1时标条款措辞升级为结构性); 附加轴hidden64同预算对照(分离容量与步数贡献)
   done_condition: PRD §19有"FASTSLOW-2 判读"锚且benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "FASTSLOW-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json
+  status: pr-pending(PR#10, 判读BUDGET_DOMINANT=步数为因逆转优化限制非结构限制, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
