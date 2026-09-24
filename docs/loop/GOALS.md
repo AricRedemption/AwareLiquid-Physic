@@ -44,20 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 219:RESIDUAL-SPEC 判读 RESIDUAL_PROFILED,
-  dir/residual-spec PR#35 即终点**——goal_check NOT-Achieved⇒T1 诊
-  断轮心跳;预注册先于执行钉死(默认配置 held-out 128 轨 k=200 残
-  差 FFT 功率谱平均,诊断轮无通过/失败门——谱读数报告即交付,判
-  负=残差非有限/谱计算异常;族边界=误差频谱结构轴第 1 轮);实跑
-  ~2min≤est8:**残差能量 93.2% 在高频段(>2×ω_max 域),主峰 0.199
-  cyc/step 远高于真值基频带——误差几乎是纯高频成分(§17 谱偏置
-  评估端镜像:高频欠拟合),谱形 PEAKED 有结构性主峰非纯白噪声**;
-  执行修 3 处(导入遗漏/真值切片偏移/gen_steps 160<224 越界=轮 162
-  坑再证)全部当轮拦截;评估启示=标量 MSE 被高频残差主导低频结构
-  误差被掩盖——评估口径可补谱域指标(§51.3 非当前行动);160 测试
-  (157+3)+audit 全绿;队列三十五条全 pr-pending。下一心跳=goal_
-  check 裁决——判读轮后消化轮优先(回填资产索引 residual-spec 条
-  目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 220:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 219 判读(谱系面题录
+  带 ? 已登记 SCAN-AUDIT;谱指标扩展为非当前行动),池空;消化三
+  件套:①回填=资产索引 5 区 Methods 新增第 20 条残差频谱诊断
+  (RESIDUAL_PROFILED:93.2% 高频残差+标量 MSE 掩盖低频结构误差+
+  谱域指标扩展候选);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠
+  账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计
+  数:轮 218([行动])/219(诊断轮 T1)行动产出连续,本消化轮无蒸
+  馏,无 S1 累计。队列三十五条全 pr-pending。下一心跳=goal_check
+  裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
