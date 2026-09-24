@@ -44,13 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 193:自生成后续迭代入队 KSPAN-LADDER-2**——
-  goal_check QUEUE-EMPTY⇒先盘后续池:**非空**=轮 191 判读行明示
-  "内点最优在阶梯首端附近,k<4 未探(下一候选)"⇒入队迭代等同行动
-  产出重置 S1;KSPAN-LADDER-2=k_train∈{1,2} 补首端与 k=4 对比(内
-  点最优定位);非同参重跑,KSPAN 族段内第 2 轮达 ≤2 上限之后换方
-  向或入停车场;est 8min;27=27+ID 数数锚核对。下一心跳=goal_check
-  路由迭代 KSPAN-LADDER-2)
+updated: 2026-09-24 (**轮 194:KSPAN-LADDER-2 判读 KSPAN_RESOLVED,
+  dir/kspan-ladder-v2 PR#28 即终点**——goal_check NOT-Achieved⇒T1 探
+  针环心跳;预注册先于执行钉死(与轮 191 同款唯阶梯 {1,2,4} 首端补
+  探=轮 193 后续池判读明示,族护栏 2/2 原文入预注册);v1 加 --out_
+  name 叠支最小演进;实跑 ~2min≤est8:k_train 1=3.5851/2=3.5997/
+  4=1.8775(与轮 191 逐位一致复现锚),spread=1.92 ⇒ **首端补探非
+  平台=1/2 均显著差于 4,轮 191"内点最优在首端附近"精确化为
+  k_train=4 恰为内点最优**;语义=过短覆盖不足过长后段误差主导,
+  4 为平衡点;轮 191+194 合并结论=k_train 敏感默认 8 非最优;
+  族护栏 KSPAN 族 2/2 用尽;160 测试(157+3)+audit 全绿;**推送欠
+  账清零(wave/loop 至 2276c79 补推+dir/kspan-ladder-v2 已推)**;
+  队列二十八条全 pr-pending。下一心跳=goal_check 裁决——判读轮后
+  消化轮优先(回填资产索引 kspan-2 条目/分流/条件重入口,禁新蒸
+  馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -223,6 +230,7 @@ goal_queue:
   goal: k_train首端补探迭代——轮191判读行明示后续: k_train∈{1,2}补首端与k=4对比(内点最优定位), 判读=三臂{k_train 1,2,4}spread(max/min): <1.05⇒首端平台(k_train小域不可分辨如实登记)/≥1.05⇒报告真最优与方向; 判负=任一臂发散非有限或spread数值异常; KSPAN族段内第2轮达≤2上限之后换方向或入停车场
   done_condition: PRD §19有"KSPAN-LADDER-2 判读"锚且benchmarks/physics_out_v02/kspan_ladder_v2/kspan_ladder_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "KSPAN-LADDER-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/kspan_ladder_v2/kspan_ladder_v2.json
+  status: pr-pending(PR#28, 判读KSPAN_RESOLVED=首端补探真最优k_train=4内点确认, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
