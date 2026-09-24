@@ -44,20 +44,23 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 144:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 143 判读唯一后续(慢轴到
-  门预算)属 T2/T3 停车场不自主解停,池空;消化三件套:①回填=N1
-  Limitations 新增 4c 双时标条目(137+143 双轮结果+BUDGET_DOMINANT
-  量化升级),并修复轮 137 的"悬空预告"(日志行预写 round 138 added
-  而正文留空,轮 138 被转向后悬空 6 轮,本轮抓出补完+日志如实改写,
-  PLAYBOOK 回写悬空预告坑)+资产索引 4b-2 归因结果追加;②分流=
-  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③登记
-  与生效=停车场新增第 5 项(慢轴到门预算归因,T2 档起步)+AMM-027
-  按"用户粘贴即批准"注记改 APPLIED(本会话运行时指令即 v6.1 全文,
-  生效实证=轮 143→144 已按新语义执行);§12.3 三路终态维持。S1 计数:
-  轮 142(修复)/143(T1 判读)均为行动产出,本消化轮无蒸馏。队列
-  十条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮
-  收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 145:蒸馏第 35 族 grokking/延迟泛化族入库
+  (scan§35)+GROK-CURVE 入队**——goal_check QUEUE-EMPTY(后续池轮 144
+  已盘空)⇒蒸馏轮;选族钩子=轮 143 BUDGET_DOMINANT 现象形状(1-step
+  拟合饱和而 rollout 泛化随训练量改善 5.4×=双速度实例);机制核对
+  全库 grep 零命中,§17 谱偏置/§26 缩放律/§30 损失景观边界族头声明;
+  3 槽一次命中+4 条题录当场核验(AMM-015):①Bertolotti & Cazzola
+  ACM CSUR 2026 综述+Humayun ICML 2024(arXiv:2402.15555)=grokking
+  是普遍性质非玩具现象 ②★Nanda ICLR 2023 傅里叶算法+weight decay
+  驱动记忆→泛化转变(progress measures 处方)③★Davies/Langosco/
+  Krueger(arXiv:2303.06173)快记忆/慢泛化双速度统一=轮 143 钩子的
+  直接文献对;[行动] GROK-CURVE 入队(engineering, T1:M1 弹簧
+  hidden64 步数阶梯 5 点 k100 rollout 曲线,判读=平滑渐近 vs 突变
+  转折,判负=平滑⇒grokking 命名不适用本仓;grokking 族第 1 轮,
+  fastslow 段内预算不动;est 10min);S1 重置([行动])蒸馏第 28 次
+  达标;157 测试+audit 全绿显式退出码(零代码轮);队列十一条
+  (十 pr-pending+GROK-CURVE actionable)。下一心跳=goal_check 路由
+  迭代 GROK-CURVE)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -123,6 +126,11 @@ goal_queue:
   done_condition: PRD §19有"FASTSLOW-2 判读"锚且benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "FASTSLOW-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json
   status: pr-pending(PR#10, 判读BUDGET_DOMINANT=步数为因逆转优化限制非结构限制, 合并后check过自动弹出)
+- id: GROK-CURVE
+  track: engineering
+  goal: 训练量-泛化函数形状探针——M1弹簧held-out族hidden64步数阶梯{2500,5000,10000,20000,40000}逐点k100 rollout rel MSE曲线(log-log), 判读=平滑渐近(轮143 BUDGET_DOMINANT单模式拟合叙事)vs 突变转折(grokking型延迟泛化, §35 Davies双速度统一); 判负=曲线平滑无突变⇒grokking命名不适用本仓训练体制只留渐近记录(scan§35; 载体=泛化动力学轴grokking族第1轮, 非fastslow载体段内预算不动; 1-seed筛查多seed终局=停车场)
+  done_condition: PRD §19有"GROK-CURVE 判读"锚且benchmarks/physics_out_v02/grok_curve/grok_curve.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "GROK-CURVE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/grok_curve/grok_curve.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

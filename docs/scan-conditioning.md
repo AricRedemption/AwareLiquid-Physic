@@ -1930,6 +1930,103 @@ engineering)。第 33 族;**S1 重置(有 [行动] 产出);蒸馏轮第 26 次
 无 [行动] 将触发收口评估)**。蒸馏轮第 27 次达标(≥1 条入库)。
 选族启发式 n=3 维持(机制核对:TSFM §19/SINDy §23 两次拦截在案)。
 
+## 35. 经验蒸馏 30(轮 145,2026-09-24,QUEUE-EMPTY 轮):grokking/延迟泛化族(训练时间轴上的泛化涌现)
+
+> 新 query 族(与前 34 族零重叠:§17 谱偏置=跨频率的**学习顺序**轴,
+> §26 缩放律=模型/数据/算力的**规模幂律**轴,§30=种子间**解的景观**
+> 轴——本族是单模型**训练时间轴**上的记忆→泛化转变动力学,
+> grokking/delayed generalization/epoch-wise double descent)。
+> 钩子:轮 143 FASTSLOW-2 BUDGET_DOMINANT 的现象形状——1-step 拟合
+> 已饱和(train_loss 2.5e-6)而 rollout 泛化随训练量持续改善 5.4×
+> ("训练目标上已解决的快模式 vs 评估准则上仍在改善的慢模式"=
+> 双速度叙事的实例)。标记:[坐标] ×3(2 ★)+ [行动] ×1。
+> 三槽:① 综述面 ② 机制直击 ③ 对照式(与 double descent 的统一)。
+> 题录当场核验(AMM-015,4 条全部作者/年份/venue 确认)。
+
+### 35.1 综述面:grokking 是普遍性质而非玩具现象 [坐标]
+
+- 【出处】Bertolotti & Cazzola, "A Survey on Grokking", ACM Computing
+  Surveys, accepted 2026-04(米兰大学);Humayun, Balestriero &
+  Baraniuk, "Deep Networks Always Grok and Here is Why", ICML 2024,
+  arXiv:2402.15555,~82 引
+- 【内容】综述面:grokking=训练 loss 达近零后测试性能才延迟改善;
+  Humayun 等论证 grokking 不是模块算术玩具特例,而是深度网络训练
+  的普遍性质(非线性网络广泛呈现延迟泛化),并给出为何如此的解释。
+- 【对我们的映射】为"本仓 rollout 泛化随预算持续改善"提供现象学
+  定名:这不是本仓特有怪癖,是训练动力学的标准形状;N1 若讨论
+  训练量-泛化关系有标准文献坐标可引。
+- 【适用条件】训练量-泛化关系的表述与 Limitations 讨论;多 seed
+  终局参照。
+- 【验证状态】题录当场核验(ACM CSUR accepted 2026-04 作者确认;
+  ICML 2024 + arXiv:2402.15555 作者确认);社区已验证。
+
+### 35.2 机制面:傅里叶算法涌现与 weight decay 驱动的记忆→泛化转变 ★ [坐标]
+
+- 【出处】Nanda et al., "Progress Measures for Grokking via
+  Mechanistic Interpretability", ICLR 2023(~1188 引;前身=
+  LessWrong/Alignment Forum 2022 "A Mechanistic Interpretability
+  Analysis of Grokking");Gromov, "A simple and interpretable model
+  of grokking modular arithmetic"(OpenReview,可解析 ansatz)
+- 【内容】模块加法 transformer 逆向工程:网络学的是傅里叶表示上的
+  trig-identity 算法;grokking 转变=记忆组件被 weight decay 逐渐
+  削弱、泛化算法占比上升——**降低 weight decay 只延迟不阻止**
+  grokking;progress measures 使泛化进展可定量追踪(转变前就有
+  可测信号)。
+- 【对我们的映射】轮 143 的"优化限制"叙事获得机制面参照:泛化
+  解可以已存在于训练中、只是被记忆解压制——BUDGET_DOMINANT 可能
+  是"慢泛化模式与快记忆模式竞争训练量"的表现,而非单纯欠拟合;
+  若本仓探针需要区分两者,progress-measure 思路(找泛化的可测
+  前导量)是处方。
+- 【适用条件】GROK-CURVE 判读设计(见 [行动]);N1 训练动力学
+  段落。
+- 【验证状态】题录当场核验(ICLR 2023 + 引用约数 + 前身帖确认);
+  社区已验证(大量复现)。
+
+### 35.3 对照槽:grokking 与 double descent 的双速度统一 ★ [坐标]
+
+- 【出处】Davies, Langosco & Krueger, "Unifying Grokking and Double
+  Descent", arXiv:2303.06173(2023,~82 引;NeurIPS 2022 文献面)
+- 【内容】统一框架:两现象同源于**模式学习速度差**——快学习模式
+  倾向记忆、慢学习模式倾向泛化;训练体制最终 favors 慢泛化模式时,
+  表现为 grokking(时间轴)或 epoch-wise double descent(测试误差
+  隆起)。"Grokking, like epoch-wise double descent, occurs when slow
+  patterns generalize well and are ultimately favored by the training
+  regime, but are preceded by faster-learning patterns"。
+- 【对我们的映射】轮 143 钩子的**直接文献对**:"1-step 拟合饱和
+  (快模式已解决)而 rollout 泛化仍在改善(慢模式后来居上)"=该
+  统一框架的实例形状;BUDGET_DOMINANT 的"加大即愈"在此获得机制
+  语义——不是"同一解的渐近收敛"而可能是"泛化解需要更长训练才能
+  胜出"。判读可分:若步数阶梯呈现突变转折⇒两模式竞争叙事;若
+  平滑渐近⇒单模式渐近拟合叙事(见 [行动] 判负分支)。
+- 【适用条件】GROK-CURVE 判读的预注册分支;N1 训练量-泛化讨论。
+- 【验证状态】题录当场核验(arXiv:2303.06173 作者/年份/引用确认);
+  社区已验证(框架被广泛引用,亦有批评面见 LessWrong QAPR 5——
+  非定论,如实注记)。
+
+### 35.4 [行动] GROK-CURVE:训练量-泛化函数形状探针(入队)
+
+- 【出处】本节三坐标的合成行动面;载体=house M1 弹簧族。
+- 【内容】M1 弹簧 held-out 族(pool 同 E1 口径)上 hidden64 固定、
+  train_steps 阶梯 {2500,5000,10000,20000,40000},逐点 k100 rollout
+  rel MSE 曲线(log-log);判读=**平滑渐近**(轮 143 BUDGET_DOMINANT
+  趋势外推,单模式拟合叙事)vs **突变转折**(grokking 型延迟泛化,
+  §35.3 双模式竞争叙事)。判负=曲线平滑无突变 ⇒ grokking 命名不
+  适用本仓训练体制,只保留渐近改善记录(N1 不引入 grokking 表述)。
+- 【族边界与护栏】载体与判据均为泛化动力学轴(grokking 族第 1 轮),
+  非 fastslow 载体(段内 fastslow 迭代预算 1/2 保留不动);1-seed
+  筛查口径,多 seed 终局=停车场。
+- 【适用条件】T1 可行动:总步数和 77500 ≈ 2×40k H64 实测(~1min)
+  ≈ 3-4min+评估,est 10min 富余。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 30
+
+3 [坐标](2 ★)+ 1 [行动](GROK-CURVE 入队,engineering)。
+第 35 族;**S1 重置([行动] 产出)**。蒸馏轮第 28 次达标(≥1 条入库
++新目标)。机制核对:grokking/double descent/delayed generalization
+全库 grep 零命中,§17/§26/§30 边界族头声明。选族启发式 n=4(钩子=
+轮 143 判读现象形状,文献收割 T1 化)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
