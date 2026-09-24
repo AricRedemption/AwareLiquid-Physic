@@ -44,19 +44,19 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 222:蒸馏第 52 族观测窗长度族入库
-  (scan§52)+TOSA-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
-  RESIDUAL-SPEC 诊断轮读数交付)⇒蒸馏轮;选族钩子=t_obs=24 全仓固
-  定从未消融(训练观测窗轴,与 D6 闭式 Fisher 辨识下界对表分立);
-  机制核对 grep 零命中(t_obs 阶梯/观测窗消融;D6=在库工具对表);
-  3 槽命中+题录核验(弱题录带 ? 登记 SCAN-AUDIT 复核,AMM-015 允
-  许);[行动] TOSA-LADDER 入队(engineering,T1:四臂 t_obs{8,16,
-  24,48} 2000 步 prefix,spread 判据<1.05 不可分辨/≥1.05 报告最优
-  t_obs 与曲线形状(单调/非单调/平台)+D6 辨识下界对表,判负=发
-  散;est 10min,t_obs=48 窗约 2× 贵);S1 重置([行动])蒸馏第 46
-  次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十六条
-  (三十五 pr-pending+TOSA-LADDER actionable)。下一心跳=goal_check
-  路由迭代 TOSA-LADDER)
+updated: 2026-09-24 (**轮 223:TOSA-LADDER 判读 TOSA_RESOLVED,dir/
+  tosa-ladder PR#36 即终点**——goal_check NOT-Achieved⇒T1 探针环心
+  跳;预注册先于执行钉死(四臂 t_obs{8,16,24,48},prefix 参数天然
+  可注入=轮 181 哨兵条款适用,spread 判据,族边界=训练观测窗轴第
+  1 轮与 D6 对表分立);实跑 ~4min≤est10:t_obs 8=3.4044(最优)/
+  16=6.3871/24=3.5582/48=5.4359,spread=1.88 ⇒ **TOSA_RESOLVED 非
+  单调锯齿短窗有益(首端),默认 t_obs=24 差 4.5%**;**D6 对表=
+  t_obs=8 已过 Fisher 辨识下界,精度最优=短窗足够辨识且推理负担
+  最小**;诚实边界=1-seed/窗长效应与 ctx 推断质量解耦未测(TOSA
+  族后续候选 1/2);train_prefix 导入遗漏当轮冒烟修复;160 测试
+  (157+3)+audit 全绿;队列三十六条全 pr-pending。下一心跳=goal_
+  check 裁决——判读轮后消化轮优先(回填资产索引 tosa 条目/分流/
+  条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -277,6 +277,7 @@ goal_queue:
   goal: t_obs观测窗阶梯对照探针——D6辨识窗口对表的训练配置轴: 异频池(E1口径)prefix hidden64 2000步四臂: t_obs∈{8,16,24,48}(其余全同, 评估同held-out k100从t_obs起), 判读=四臂spread(max/min): <1.05⇒TOSA_UNRESOLVABLE观测窗长度不可分辨(t_obs=24默认充分如实登记)/≥1.05⇒报告最优t_obs与曲线形状(单调/非单调/平台)+D6辨识下界对表, 判负=任一臂发散非有限或spread数值异常; 族边界=训练观测窗轴TOSA族第1轮与D6闭式Fisher辨识下界对表分立
   done_condition: PRD §19有"TOSA-LADDER 判读"锚且benchmarks/physics_out_v02/tosa_ladder/tosa_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "TOSA-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/tosa_ladder/tosa_ladder.json
+  status: pr-pending(PR#36, 判读TOSA_RESOLVED=观测窗长度可分辨非单调锯齿最优t_obs=8短窗有益, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
