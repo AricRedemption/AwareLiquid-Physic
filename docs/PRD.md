@@ -1073,6 +1073,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录当场核验(AMM-015)**:①★Defazio, Cutkosky, Mehta, Mishchenko (Khaled) "Optimal Linear Decay Learning Rate Schedules and Further Refinements"(arXiv:2310.07831,2023/2024)=固定预算下线性衰减最优(10 问题最全面评估)+warmup/快衰减精炼;②Bordelon & Mori "Theory of Optimal Learning Rate Schedules and Scaling Laws"(arXiv:2602.04774,2026)=可解模型理论:near-optimal schedules 共同特征=warmup+渐进衰减,常用族非最优(新文验证程度如实注记);③d2l §12.11 教科书共识面(衰减减少过拟合;教科书非原创研究如实注记)。
 - **LRDECAY-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步三臂——lr_decay∈{1.0(恒定默认),0.999,0.99}(prefix 参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=三臂 spread(max/min):<1.05 ⇒ LRDECAY_UNRESOLVABLE(调度形状不可分辨,恒定默认充分如实登记)/≥1.05 ⇒ 报告最优 decay 与方向;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该衰减率不可用登记,spread 数值异常 ⇒ 判负;族边界=lr 调度形状轴 LRDECAY 族第 1 轮(与 §43/§40/§36 分立);双锚单行 check_cmd;est 8min(3×2000 步 prefix)。
 - **台账**:零算力轮;scan §48+蒸馏结论 43;S1 重置([行动]),蒸馏第 41 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十条(二十九 pr-pending+LRDECAY-LADDER actionable);双锚单行 check_cmd 经数数锚 30=30+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 LRDECAY-LADDER。
+**轮 218 记录(蒸馏补池:第 51 族残差频谱诊断族 + RESIDUAL-SPEC 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——LRBATCH 检验轮次记录)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:钩子=rollout 误差只报标量 MSE 的谱结构盲区——误差的频率成分从未分解,谱定位直接指示误差机制(相位漂移=谱峰展宽/幅值偏差=谱峰高度差/噪声=宽谱底);机制核对 grep(FFT/残差谱/power spectrum)全库零命中。
+- **3 槽命中+题录核验(AMM-015)**:①物理启发残差谱诊断谱系(精确题录带 ? 登记 SCAN-AUDIT 复核——AMM-015 允许带 ? 但当轮登记);②谐振子误差分解经典面(相位误差=时域线性偏差/幅值误差=包络偏差,sin/cos 分离——教科书级方法面如实注记);③频域评估物理仿真实践(FNO 系谱域评估,精确题录带 ? 登记 SCAN-AUDIT 复核)。
+- **RESIDUAL-SPEC 入队([行动],engineering,T1 诊断轮)**:默认配置(prefix hidden64 ctx=8 2000 步)held-out 128 轨 k=200 rollout 残差 FFT 功率谱平均;判读=残差谱频率定位读数报告(基频峰=相位/幅值误差;倍频峰=非线性误差;宽谱=噪声)+高频能量占比(>2×ω 频段/总残差能量);**诊断轮无通过/失败门——谱读数报告即交付**;判负(下心跳预注册落盘后执行)=残差序列非有限或谱计算数值异常 ⇒ RESIDUAL_UNRESOLVABLE 判负;族边界=误差频谱结构轴 RESIDUAL-SPEC 族第 1 轮(与 §17 学习顺序/§31 网格/§39 交互串联但独立);双锚单行 check_cmd;est 8min(1×2000 步训练+FFT 秒级)。
+- **台账**:零算力轮;scan §51+蒸馏结论 47;S1 重置([行动]),蒸馏第 45 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十五条(三十四 pr-pending+RESIDUAL-SPEC actionable);双锚单行 check_cmd 经数数锚 35=35+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 RESIDUAL-SPEC。
 **轮 215 记录(蒸馏 §42.2 行动面准入:AMP-EXTRAP 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——warmup 行动面一次性准入)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §42.2(Li Nature 2025 插值/外推批判框架,已在库)补行动面:分布覆盖维度从 ω 宽度(轮 175 POOL-WIDTH)延伸到初始条件幅度。M1 gen 初始条件 q0,p0~N(0,1)(解析闭式解),幅度缩放=初条件能量缩放(能量∝scale²)。

@@ -44,16 +44,19 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 217:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 216 判读后续(幅度阶梯
-  加密/多 seed)归停车场(AMPLITUDE 族 1/2 保留),池空;消化三件
-  套:①回填=资产索引 5 区 Methods 新增第 19 条初始幅度外推(AMPEX_
-  DEGRADES 幅度是插值域边界维度+谐振子线性不变性未被继承的深层读
-  数=可检测机制线索);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠
-  账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计
-  数:轮 215([行动])/216(T1 判读)行动产出连续,本消化轮无蒸馏,
-  无 S1 累计。队列三十四条全 pr-pending。下一心跳=goal_check 裁决
-  (QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 218:蒸馏第 51 族残差频谱诊断族入库
+  (scan§51)+RESIDUAL-SPEC 入队**——goal_check QUEUE-EMPTY(后续池
+  空,LRBATCH 检验轮次记录)⇒蒸馏轮;选族钩子=rollout 误差只报标
+  量 MSE 的谱结构盲区(误差的频率成分从未分解——谱定位直接指示
+  误差机制:相位漂移=峰展宽/幅值偏差=峰高差/噪声=宽谱底);机制
+  核对全库 grep 零命中(FFT/残差谱/power spectrum);3 槽命中+题
+  录核验(谱系面弱题录带 ? 登记 SCAN-AUDIT 复核,AMM-015 允许);
+  [行动] RESIDUAL-SPEC 入队(engineering,T1:默认配置训练 1 次+
+  held-out k=200 残差 FFT 功率谱平均,**诊断轮无通过/失败门——谱
+  读数报告即交付**,判负=残差非有限/谱计算异常;est 8min);S1 重
+  置([行动])蒸馏第 45 次达标;157 测试+audit 全绿显式退出码(零
+  代码轮);队列三十五条(三十四 pr-pending+RESIDUAL-SPEC actionable)。
+  下一心跳=goal_check 路由迭代 RESIDUAL-SPEC)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -263,6 +266,11 @@ goal_queue:
   done_condition: PRD §19有"AMP-EXTRAP 判读"锚且benchmarks/physics_out_v02/amp_extrap/amp_extrap.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "AMP-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_extrap/amp_extrap.json
   status: pr-pending(PR#34, 判读AMPEX_DEGRADES=幅度外推退化rel_comp=4.08线性不变性未被继承, 合并后check过自动弹出)
+- id: RESIDUAL-SPEC
+  track: engineering
+  goal: rollout残差频谱诊断——§51谱结构盲区行动面: 默认配置(prefix hidden64 ctx=8 2000步)held-out 128轨k=200 rollout残差FFT功率谱平均, 判读=残差谱频率定位读数报告(基频峰=相位/幅值误差;倍频峰=非线性误差;宽谱=噪声)+高频能量占比(>2×ω频段/总残差能量), 诊断轮无通过失败门(谱读数报告即交付), 判负=残差非有限或谱计算异常⇒RESIDUAL_UNRESOLVABLE; 族边界=误差频谱结构轴RESIDUAL-SPEC族第1轮与§17学习顺序/§31网格/§39交互串联但独立
+  done_condition: PRD §19有"RESIDUAL-SPEC 判读"锚且benchmarks/physics_out_v02/residual_spec/residual_spec.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "RESIDUAL-SPEC 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec/residual_spec.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
