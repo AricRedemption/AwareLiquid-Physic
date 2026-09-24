@@ -44,18 +44,15 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 205:LRBATCH-GRID 判读 SCALING_BROKEN,dir/
-  lrbatch-grid PR#31 即终点**——goal_check NOT-Achieved⇒T1 探针环心
-  跳;预注册先于执行钉死(五单元 (batch,lr) 网格,等价对判据,发散
-  优先);实跑 ~3min≤est10:线性等价对差 33.1%+平方根等价对差
-  20.6% 均≥5% ⇒ **SCALING_BROKEN:Smith 等价本仓打破,batch×lr 需
-  联合调优不可分离外推**;最好单元 (64,1.2e-2)=1.597 最差
-  (16,1.2e-2)=5.454=batch×lr 真交互(lr 效应依赖 batch);交叉验
-  证锚=(64,3e-3) 与轮 175/178/181 逐位一致;执行勘误如实=预注册
-  网格漏 (64,6e-3) 单元当轮测试抓出补入;N1 路由=训练配置辩护补
-  batch×lr 联合调优必要性;160 测试(157+3)+audit 全绿;队列三十一
-  条全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先
-  (回填资产索引 lrbatch 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 206:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 205 判读无指令性后续
+  (延伸归停车场②泛容器),池空;消化三件套:①回填=资产索引 5 区
+  Methods 新增第 17 条 batch×lr 交互(SCALING_BROKEN 两规则均打破
+  +真交互注记+联合调优必要性);②分流=balance_gauge EXP=0.2 达标/
+  WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
+  S1 计数:轮 204([行动])/205(T1 判读)行动产出连续,本消化轮无
+  蒸馏,无 S1 累计。队列三十一条全 pr-pending。下一心跳=goal_check
+  裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
