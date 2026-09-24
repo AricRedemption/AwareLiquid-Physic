@@ -990,6 +990,17 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出(FASTSLOW-2 入队)⇒ 重置。
 - **台账**:零算力轮;AMENDMENTS +AMM-027(PROPOSED);GOALS 队列十条(九 pr-pending+FASTSLOW-2 actionable);GOALS state=RUNNING(用户指令重入);157 测试+audit 全绿显式退出码(零代码轮);下一心跳=goal_check 路由迭代 FASTSLOW-2。
 
+**轮 147-148 记录(wave/loop 主链;轮 142-146 的 §19 记录在 dir 分支——轮 143 判读在 PR#10(dir/fastslow-v2)、轮 146 判读在 PR#11(dir/grok-curve),合并后按序接续;此处保持主链连续性)**:
+
+**轮 147 记录(消化轮;T0 零算力)**:QUEUE-EMPTY 后续池空(轮 146 判读唯一后续=多 seed 终局属停车场)+判读轮后消化轮优先禁新蒸馏。①回填=资产索引 4c-2 GROK-CURVE 判负条目+PLAYBOOK 格式化器第四袭升级变体(整条队列条目被删+缩进重排;数数锚升级"相等+逐条 ID 核对"两步;checkout HEAD 还原法);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1:轮 145/146 均行动产出,段内连续。157 测试+audit 全绿。commit f30ca28。
+
+**轮 148 记录(蒸馏补池:第 36 族梯度噪声/临界 batch size 族 + GNS-PROBE 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空)⇒ 蒸馏轮;S1 要求带 [行动](轮 145/146 已连续行动产出,本轮维持)。
+- **选族**:钩子=全仓 batch=64 从未消融+轮 126 符号反转种子敏感性的"优化噪声侧"假说(scan §30 族的机制深化口);机制核对 grep(gradient noise/critical batch/sharp minima/McCandlish)全库零命中,与 §30 分界=解的景观 vs 优化噪声本身的可测统计。
+- **3 槽一次命中+题录当场核验(AMM-015)**:①★McCandlish et al. (OpenAI) 2018 "An Empirical Model of Large-Batch Training"(arXiv:1812.06162,~474 引)=gradient noise scale 闭式可测统计(B_noise 预测最大有效 batch,无需长训练)=T1 化钩子直接命中;现代复现 Allen AI OLMo 2025。②Keskar et al. ICLR 2017 "On Large-Batch Training for Deep Learning"(arXiv:1609.04836,~5000 引)=大 batch→尖锐极小值→泛化差(梯度噪声=隐式正则化;§30 种子敏感性的机制链优化噪声环;尖锐/平坦判据后续有修正,如实注记非定论)。③Smith et al. ICLR 2018 "Don't Decay the Learning Rate, Increase the Batch Size"(~1600 引)=batch/LR 等价性(T2/T3 派发协议的 batch/LR 联合字段依据;transformer 时代有偏离报告,适用边界如实)。
+- **GNS-PROBE 入队([行动],engineering,T1 闭式梯度统计)**:M1 弹簧同池 hidden64 三个训练进度 checkpoint(0/1000/4000 步短训)各采 N=32 个 batch-64 随机子批梯度,闭式估计 B_simple 谱+跨进度趋势(对照 §36.1"随训练增长"预言);判读=batch=64 相对 B_noise 位置+为轮 126 种子敏感性提供优化噪声读数;判负(下心跳预注册落盘后执行)=B_simple 全失效或无可分辨结构⇒"本仓体制 GNS 不可分辨"如实登记,batch 阶梯对照转停车场;双锚单行 check_cmd;est 8min(3 checkpoint×32 梯度采样+两段短训)。
+- **台账**:零算力轮;scan §36+蒸馏结论 31;S1 重置([行动]),蒸馏第 29 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十二条(十一 pr-pending+GNS-PROBE actionable);双锚单行 check_cmd 经数数锚 12=12+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 GNS-PROBE。
+
 
 
 

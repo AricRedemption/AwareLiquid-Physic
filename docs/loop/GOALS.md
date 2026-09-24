@@ -44,17 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 147:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 146 判读唯一后续(多
-  seed 终局)属停车场,池空;消化三件套:①回填=资产索引新增 4c-2
-  GROK-CURVE 判负条目(命名不适用+跨体制不外推限定)+PLAYBOOK 回写
-  格式化器第四袭升级变体(整条队列条目被删+缩进重排,数数锚升级为
-  "相等+逐条 ID 核对"两步,checkout HEAD 还原法);②分流=balance_
-  gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=
-  §12.3 三路终态维持。S1 计数:轮 145([行动])/146(T1 判读)均
-  行动产出,本消化轮无蒸馏;段内行动产出连续。队列十一条全
-  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,
-  须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 148:蒸馏第 36 族梯度噪声/临界 batch size
+  族入库(scan§36)+GNS-PROBE 入队**——goal_check QUEUE-EMPTY(后续池
+  空)⇒蒸馏轮;选族钩子=全仓 batch=64 从未消融+轮 126 符号反转种子
+  敏感性的"噪声侧"假说;机制核对全库 grep 零命中,与 §30(解的景观)
+  分界=优化噪声本身的可测统计;3 槽一次命中+3 题录当场核验(AMM-015):
+  ①★McCandlish et al. 2018(arXiv:1812.06162)gradient noise scale
+  闭式可测统计=T1 化钩子直接命中 ②Keskar ICLR 2017 大 batch→尖锐
+  极小值→泛化差(§30 机制链优化噪声环)③Smith ICLR 2018 batch/LR
+  等价(T2/T3 派发协议字段);[行动] GNS-PROBE 入队(engineering,
+  T1 闭式梯度统计:M1 弹簧 3 checkpoint×N=32 子批梯度 B_simple 谱,
+  判读=batch=64 位置+跨进度趋势,判负=失效/不可分辨如实登记;
+  est 8min);S1 重置([行动])蒸馏第 29 次达标;157 测试+audit
+  全绿显式退出码(零代码轮);队列十二条(十一 pr-pending+GNS-PROBE
+  actionable)。下一心跳=goal_check 路由迭代 GNS-PROBE)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -126,6 +129,11 @@ goal_queue:
   done_condition: PRD §19有"GROK-CURVE 判读"锚且benchmarks/physics_out_v02/grok_curve/grok_curve.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "GROK-CURVE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/grok_curve/grok_curve.json
   status: pr-pending(PR#11, 判读SMOOTH_ASYMPTOTE=判负分支执行grokking命名不适用本仓, 合并后check过自动弹出)
+- id: GNS-PROBE
+  track: engineering
+  goal: 梯度噪声尺度闭式估计探针——M1弹簧同池hidden64三个训练进度checkpoint(0/1000/4000步短训)各采N=32个batch-64随机子批梯度, B_simple谱+跨进度趋势(对照McCandlish"B_noise随训练增长"预言, scan§36), 判读=batch=64相对B_noise位置(噪声主导区/线性加速区)+为轮126种子敏感性提供优化噪声读数; 判负=B_simple全失效或无可分辨结构⇒本仓体制GNS不可分辨(batch阶梯对照转停车场登记)
+  done_condition: PRD §19有"GNS-PROBE 判读"锚且benchmarks/physics_out_v02/gns_probe/gns_probe.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "GNS-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/gns_probe/gns_probe.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
