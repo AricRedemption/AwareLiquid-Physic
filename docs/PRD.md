@@ -1085,6 +1085,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽命中+题录核验(AMM-015)**:①D6 对表(在库工具与判读行——行动面对接非新文献);②观测窗=推理成本维度(弱题录带 ? 登记 SCAN-AUDIT 复核);③前缀长度与上下文学习(弱题录带 ? 登记 SCAN-AUDIT 复核;与 §32 ICL 族相邻分立=物理观测窗长度)。
 - **TOSA-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——t_obs∈{8,16,24,48}(其余全同,评估同 held-out k100 从 t_obs 起);判读=四臂 spread(max/min):<1.05 ⇒ TOSA_UNRESOLVABLE(观测窗长度不可分辨,t_obs=24 默认充分如实登记)/≥1.05 ⇒ 报告最优 t_obs 与曲线形状(单调/非单调/平台)+D6 辨识下界对表;判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该窗长不可用登记,spread 数值异常 ⇒ 判负;族边界=训练观测窗轴 TOSA 族第 1 轮;双锚单行 check_cmd;est 10min(4×2000 步 prefix,t_obs=48 窗更贵约 2×)。
 - **台账**:零算力轮;scan §52+蒸馏结论 48;S1 重置([行动]),蒸馏第 46 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十六条(三十五 pr-pending+TOSA-LADDER actionable);双锚单行 check_cmd 经数数锚 36=36+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 TOSA-LADDER。
+**轮 223 记录(TOSA-LADDER:t_obs 观测窗阶梯对照探针;T1 算力轮;dir/tosa-ladder)**:
+- **路由**:goal_check NOT-Achieved(TOSA-LADDER actionable 队首,轮 222 入队)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/tosa-ladder PR(AMM-024 T1 探针环)。
+- **TOSA-LADDER 预注册(先于执行钉死)**:
+  - **问题**:训练观测窗长度(t_obs)对 rollout 泛化的影响——t_obs=24 默认是否充分?与 D6 辨识下界对表。
+  - **协议**:异频池 ω∈[0.7,1.8](E1 口径,n_train 256,dt=0.1,k_train=8),prefix hidden64 ctx=8 2000 步 seed 0;四臂 **t_obs∈{8,16,24,48}**(其余全同,评估=各自同 held-out 128 轨从各自 t_obs 起 k100 rollout MSE);1-seed 筛查(多 seed 终局=停车场)。
+  - **机械判据(执行前钉死)**:①发散优先:任一臂 rollout 非有限或 >1e6 ⇒ **TOSA_UNRESOLVABLE(判负)=该窗长不可用如实登记**;②spread=max/min 四臂 rollout MSE:<1.05 ⇒ **TOSA_UNRESOLVABLE**(观测窗长度不可分辨,t_obs=24 默认充分如实登记);③≥1.05 ⇒ **TOSA_RESOLVED**(报告最优 t_obs 与曲线形状:单调/非单调/平台)。
+  - **族边界**:训练观测窗轴 TOSA 族第 1 轮;与 D6(闭式 Fisher 辨识下界)对表分立。
+  - **命令/产物**:`./scripts/probe_run T1 10 -- .venv/bin/python -u benchmarks/tosa_ladder_probe.py`;产物 benchmarks/physics_out_v02/tosa_ladder/tosa_ladder.json(results 键包裹,meta exec_tier 透传);判读锚="TOSA-LADDER 判读";时长依据=同循环标度(4×2000 步 prefix,t_obs=48 窗更贵约 2×),est 10min 宁松。
+- **判读(TOSA-LADDER 判读)**:**机械判读 TOSA_RESOLVED——观测窗长度可分辨且非单调,最优 t_obs=8(阶梯首端),默认 t_obs=24 差 4.5%**。主结果(异频池 hidden64 prefix 2000 步,seed 0,1-seed 筛查,实跑 ~4min ≤est10):t_obs 8=3.4044(**最优**)/16=6.3871/24=3.5582/48=5.4359;spread=1.88 ≥1.05 门 ⇒ 可分辨,方向=短窗有益(首端)但**非单调(16 处局部峰)**——曲线形状报告=非单调锯齿(非平滑趋势),与 §52.3"过短信息不足过长稀释"的非单调预判形状一致(但首端最优的方向与"过短信息不足"相反:短窗在本仓反而最好)。**D6 对表**:D6 Fisher 辨识下界=ω∈[0.7,1.8] 需约一个周期以上的窗(t_obs≥~8-16@dt0.1 量级)——t_obs=8 已过下界,精度最优=短窗足够辨识且推理负担最小;执行注记=train_prefix 导入遗漏当轮冒烟抓出修复(轮 191 同款,条款已覆盖)。诚实边界:1-seed;2000 步;窗长效应与 ctx 推断质量解耦未测(t_obs 影响路径=ctx 质量+窗内多样性,未分离=族后续候选 1/2)。
+- **台账**:tosa_ladder_probe.py(t_obs 为 prefix 参数天然可注入=轮 181 哨兵条款适用+预注册 spread 判据纯函数;执行注记=train_prefix 导入遗漏当轮冒烟抓出修复)+ tests/test_tosa_ladder_probe.py(判据 3 分支+门常量+CLI 冒烟);TOOLS +tosa_ladder_probe;产物 benchmarks/physics_out_v02/tosa_ladder/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
 **轮 215 记录(蒸馏 §42.2 行动面准入:AMP-EXTRAP 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——warmup 行动面一次性准入)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §42.2(Li Nature 2025 插值/外推批判框架,已在库)补行动面:分布覆盖维度从 ω 宽度(轮 175 POOL-WIDTH)延伸到初始条件幅度。M1 gen 初始条件 q0,p0~N(0,1)(解析闭式解),幅度缩放=初条件能量缩放(能量∝scale²)。
