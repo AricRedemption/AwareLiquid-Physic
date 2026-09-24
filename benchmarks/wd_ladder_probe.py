@@ -1,0 +1,189 @@
+"""
+benchmarks/wd_ladder_probe.py — WD-LADDER (round 181): weight-decay
+ladder contrast on the M1 spring family (E1 calibre).
+
+Preregistered in PRD §19 round 181 BEFORE execution. Scan §44: the house
+default is Adam(weight_decay=0); this probe sweeps wd in {0, 1e-4, 1e-2}
+(AdamW-semantics ablation via torch Adam's weight_decay argument) under
+the same 2000-step prefix budget, evaluating same-distribution held-out
+rollout MSE.
+
+Mechanical verdict (preregistered):
+  WD_UNRESOLVABLE (negative) — any arm diverged (non-finite or rollout
+      > 1e6: that strength unusable, recorded as such), or spread
+      (max/min across arms) < 1.05 (strength not resolvable; §44.3
+      "augmentation already suffices" compatible)
+  WD_RESOLVED — spread >= 1.05: report the best wd and direction
+      (monotonically beneficial / harmful / interior optimum).
+
+1-seed screening tier; multi-seed finals PARKED per AMM-024. Results
+JSON follows the audit schema (top-level "results" key); meta carries
+exec_tier passthrough from probe_run.
+"""
+
+import argparse
+import json
+import math
+import os
+import sys
+
+import torch
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                ".."))
+
+from awareliquid_physics.model import LiquidHamiltonianModel  # noqa: E402
+from awareliquid_physics.observability import run_metadata  # noqa: E402
+from benchmarks.liquid_physics_eval import (  # noqa: E402
+    evaluate, rollout_mse_loss)
+from benchmarks.sample_efficiency_eval import gen_spring  # noqa: E402
+
+def train_wd(model, qs, ps, t_obs, k_train, steps, lr, batch, seed,
+             weight_decay: float):
+    """Prefix loop verbatim (round-149 loss-calibre rule) with a
+    caller-provided Adam carrying the arm's weight_decay.
+
+    train_prefix CANNOT be reused here: it constructs its own Adam with
+    weight_decay=0 hardcoded — the first run's three arms were therefore
+    the SAME training (bit-identical rollout, spread exactly 1.000),
+    caught because a real ladder never lands bit-identical."""
+    g = torch.Generator().manual_seed(seed)
+    opt = torch.optim.Adam(model.parameters(), lr=lr,
+                           weight_decay=weight_decay)
+    N, S = qs.shape[0], qs.shape[1]
+    model.train()
+    loss = torch.tensor(float("nan"))
+    for _ in range(steps):
+        bi = torch.randint(0, N, (batch,), generator=g)
+        t0 = torch.randint(0, S - t_obs - k_train, (1,), generator=g).item()
+        q_obs = qs[bi, t0:t0 + t_obs]
+        p_obs = ps[bi, t0:t0 + t_obs]
+        fut = slice(t0 + t_obs - 1, t0 + t_obs + k_train)
+        q_true = qs[bi, fut]
+        p_true = ps[bi, fut]
+        qs_pred, ps_pred, _ = model(q_obs, p_obs, k_train)
+        loss = rollout_mse_loss(qs_pred, ps_pred, q_true, p_true)
+        opt.zero_grad(set_to_none=True)
+        loss.backward()
+        opt.step()
+    return loss.item()
+
+
+SPREAD_GATE = 1.05  # preregistered: max/min across arms for resolvable
+NORM_CAP = 1e6      # preregistered: divergence threshold
+
+LADDER = (0.0, 1e-4, 1e-2)  # preregistered weight-decay values
+
+
+def classify_wd(wds, mses, spread_gate: float = SPREAD_GATE,
+                cap: float = NORM_CAP):
+    """Preregistered round-181 verdict (pure, test-pinned)."""
+    for w, m in zip(wds, mses):
+        if not math.isfinite(m) or m > cap:
+            state = "non-finite" if not math.isfinite(m) else "diverged"
+            return "WD_UNRESOLVABLE", {
+                "reason": f"wd={w} arm {state} (mse={m:.3e}): strength "
+                          f"unusable, recorded as such"}
+    spread = max(mses) / max(min(mses), 1e-30)
+    if spread < spread_gate:
+        return "WD_UNRESOLVABLE", {
+            "spread": spread,
+            "criterion": f"spread {spread:.3f} < {spread_gate}: weight-"
+                         f"decay strength not resolvable (§44.3 "
+                         f"augmentation-compatible)"}
+    best_w = wds[mses.index(min(mses))]
+    if best_w == wds[0]:
+        direction = "wd harmful (wd=0 best; monotonic)"
+    elif best_w == wds[-1]:
+        direction = "wd beneficial up to ladder end (monotonic)"
+    else:
+        direction = "interior optimum"
+    return "WD_RESOLVED", {
+        "spread": spread, "best_wd": best_w, "direction": direction,
+        "criterion": f"spread {spread:.2f} >= {spread_gate}: strength "
+                     f"resolvable"}
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--n_train", type=int, default=256)
+    ap.add_argument("--n_eval", type=int, default=128)
+    ap.add_argument("--gen_steps", type=int, default=160)
+    ap.add_argument("--t_obs", type=int, default=24)
+    ap.add_argument("--k_train", type=int, default=8)
+    ap.add_argument("--eval_k", type=int, default=100)
+    ap.add_argument("--dt", type=float, default=0.1)
+    ap.add_argument("--omega_lo", type=float, default=0.7)
+    ap.add_argument("--omega_hi", type=float, default=1.8)
+    ap.add_argument("--d_model", type=int, default=48)
+    ap.add_argument("--context_dim", type=int, default=8)
+    ap.add_argument("--n_scales", type=int, default=4)
+    ap.add_argument("--hidden", type=int, default=64)
+    ap.add_argument("--lr", type=float, default=3e-3)
+    ap.add_argument("--batch", type=int, default=64)
+    ap.add_argument("--train_steps", type=int, default=2000)
+    ap.add_argument("--wds", default="0,1e-4,1e-2")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--out_dir",
+                    default="benchmarks/physics_out_v02/wd_ladder")
+    args = ap.parse_args()
+    wds = [float(x) for x in args.wds.split(",")]
+
+    g = torch.Generator().manual_seed(args.seed)
+    qs, ps, om = gen_spring(args.n_train + args.n_eval, args.gen_steps,
+                            args.dt, 1, args.omega_lo, args.omega_hi, g,
+                            device=args.device)
+    tr, ev = slice(0, args.n_train), slice(args.n_train, None)
+    print(f"WD-LADDER | M1 spring omega[{args.omega_lo},{args.omega_hi}] "
+          f"hidden={args.hidden} steps={args.train_steps} wd ladder="
+          f"{wds} (seed {args.seed}, 1-seed screening)", flush=True)
+
+    arms = {}
+    for wd in wds:
+        torch.manual_seed(args.seed)
+        model = LiquidHamiltonianModel(
+            1, d_model=args.d_model, context_dim=args.context_dim,
+            n_scales=args.n_scales, hidden_dim=args.hidden, depth=2,
+            dt=args.dt)
+        train_wd(model, qs[tr], ps[tr], args.t_obs, args.k_train,
+                 args.train_steps, args.lr, args.batch, args.seed,
+                 weight_decay=wd)
+        res = evaluate(model, qs[ev], ps[ev], om[ev], args.t_obs,
+                       args.eval_k, args.dt)
+        arms[f"wd{wd:g}"] = res
+        print(f"  [wd {wd:g}] rollout MSE {res['rollout_mse']:.4e}",
+              flush=True)
+
+    keys = [f"wd{w:g}" for w in wds]
+    mses = [arms[k]["rollout_mse"] for k in keys]
+    verdict, detail = classify_wd(wds, mses)
+    results = {
+        "arms": {k: {"rollout_mse": arms[k]["rollout_mse"],
+                     "rollout_mse_stderr": arms[k]["rollout_mse_stderr"]}
+                 for k in keys},
+        "verdict": verdict,
+        "verdict_detail": detail,
+        "criteria": {
+            "c_unresolvable": verdict == "WD_UNRESOLVABLE",
+            "c_resolved": verdict == "WD_RESOLVED"},
+        "gates": {"spread_gate": SPREAD_GATE, "norm_cap": NORM_CAP},
+    }
+    print(f"\nWD-LADDER verdict {verdict} | "
+          f"{detail.get('criterion', detail.get('reason', ''))}",
+          flush=True)
+
+    os.makedirs(args.out_dir, exist_ok=True)
+    with open(os.path.join(args.out_dir, "wd_ladder.json"), "w") as f:
+        json.dump({"args": vars(args),
+                   "meta": run_metadata({
+                       "benchmark": "wd_ladder_probe",
+                       "device": args.device,
+                       "exec_tier": os.environ.get("PROBE_TIER", "T1"),
+                       "probe_est_min": os.environ.get("PROBE_EST_MIN",
+                                                       "")}),
+                   "results": results}, f, indent=2)
+
+
+if __name__ == "__main__":
+    main()
