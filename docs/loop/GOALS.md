@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 140 S1 收口,真收尾)
+state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 141 用户质询重入,见 updated)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -34,7 +34,7 @@ blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 九条 pr-pending(PR#1-#9)待合并全跳过 ⇒ 仪表路由(消化轮预置项已清:时标条款已回填)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → FASTSLOW-2 为队首 actionable(其余九条 pr-pending 跳过)⇒ 迭代 FASTSLOW-2(预注册判负先行→冒烟校准→probe_run T1→当轮判读)/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,14 +44,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 17:30 (**轮 140:S1 收口评估触发,IDLE 真收尾**——
-  本会话马拉松段=轮 120-140(21 心跳):ESC-DOOR-TEVEN PASS(门#2 [B])/
-  R1D 判负(谱偏置命名降级)/SIGN-FLIP 异常定位/MAP-VS-FLOW FLOW_LIKE/
-  ICL-M3+INTERP 少样本三臂量化/FASTSLOW 双时标边界;蒸馏 +6 族(§29-34);
-  九条 pr-pending(PR#1-#9)全部待用户合并;S1 2/2 触发(轮 139/140 蒸馏
-  无 [行动],族空间饱和三连拒 TSFM/SINDy/exposure-bias),评估=转 IDLE
-  真收尾;RSI 夜 10 账已入(在途六判读合并后补入)。重入口=九 PR 合并/
-  用户指令/停车场重启(任一重开即 RUNNING))
+updated: 2026-09-24 18:00 (**轮 141:用户质询重入,停机归因诊断+
+  FASTSLOW-2 入队**——诊断=goal prompt 设计缺口为主(S1 只认文献收割
+  行动+QUEUE-EMPTY 路由单一,自生成后续无路可走;家族 21 心跳饱和加速
+  触发),工程无责(全部事故当轮拦截修复),执行为辅(轮 140 选族仅
+  1 grep);修复走 AMM-027(PROPOSED 待批);重入行动=FASTSLOW-2 入队
+  (双时标失败容量/训练量归因,轮 137 判读后续池首项);S1 重置。下一
+  心跳=goal_check 路由迭代 FASTSLOW-2)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -109,8 +108,12 @@ goal_queue:
   track: frontier
   goal: 弹性摆快慢双时标探针——probe-local弹性摆族(dim=2可分H: 快弹簧模态ω_s+慢摆动模态ω_p, VV真值), 头在解析dt训练后测快模态捕捉与长视距T≫1/ω_p慢交换保持(scan§33: 时标上限=架构×dt联合性质, 失效模式=刚性签名; 判读=双时标同时捕捉与否+失效模式分类, N1时标条款路由)
   done_condition: PRD §19有"FASTSLOW-PROBE 判读"锚且benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json产物存在, 判负标准执行前预注册
-  check_cmd: grep -q "FASTSLOW-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json
   status: pr-pending(PR#9, 判读BOTH_FAILED=双时标捕捉失败量化边界交付, 合并后check过自动弹出)
+- id: FASTSLOW-2
+  track: frontier
+  goal: 双时标失败归因探针——FASTSLOW-PROBE(BOTH_FAILED)的容量/训练量归因: hidden128+40000步(4×容量与预算)下BOTH_FAILED是否逆转, 逆转=优化限制(加大即愈), 不变=数据/时标结构限制(§33.2刚性签名, N1时标条款措辞升级为结构性); 附加轴hidden64同预算对照(分离容量与步数贡献)
+  done_condition: PRD §19有"FASTSLOW-2 判读"锚且benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "FASTSLOW-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
