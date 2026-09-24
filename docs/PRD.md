@@ -990,6 +990,24 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出(FASTSLOW-2 入队)⇒ 重置。
 - **台账**:零算力轮;AMENDMENTS +AMM-027(PROPOSED);GOALS 队列十条(九 pr-pending+FASTSLOW-2 actionable);GOALS state=RUNNING(用户指令重入);157 测试+audit 全绿显式退出码(零代码轮);下一心跳=goal_check 路由迭代 FASTSLOW-2。
 
+**轮 142-145 补记(轮 146 续完;轮 145 蒸馏轮漏写 PRD §19 记录,本轮如实补记四行,判读行以分支与 scan 为准)**:
+- **轮 142(GOALS 修复,T0)**:FASTSLOW-PROBE 条目 check_cmd 行被环境格式化器吞(第三现),goal_check 轮 108 护栏按未达成路由防假阳性;按轮 138 先例取回原文补回,弹出条件恢复;PLAYBOOK 回写吞行坑独立条目(10=10 数数锚)。157 测试全绿。commit 3a45114。
+- **轮 143(FASTSLOW-2 判读,T1 算力轮,dir/fastslow-v2 PR#10 即终点)**:预注册先于执行钉死(两臂:MAIN=hidden128+40k 步 4×容量×4×预算,H64 对照=hidden64+40k;机械归因表;冒烟校准 2000 步 7s⇒est15,标度直觉差 20×=轮 92 条款反向实证)。实跑 ~2min:**MAIN 快轴 3.2%→0.26% 过 1% 门+慢轴 122%→22.4% 未过门(5.4× 改善),H64 同判 FAST_ONLY ⇒ 机械 BUDGET_DOMINANT=训练步数为因容量次要,判负②(§33.2 结构地板)未触发**;N1 路由=SCOPE_LIMITED_KEPT+量化升级(优化限制型趋势非结构地板;慢轴到门预算未检验=停车场 T2/T3 方向);163 测试+audit 全绿。完整判读=PRD §19(dir/fastslow-v2 分支,PR#10 合并后为本文件主链)。
+- **轮 144(消化轮,T0)**:后续池空(唯一后续属停车场不自主解停)⇒消化三件套:N1 Limitations 新增 4c 双时标条目+轮 137 悬空预告修复(日志行预写 added 而正文留空,悬空 6 轮,PLAYBOOK 回写);balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0;AMM-024 停车场+第 5 项(慢轴到门预算归因);AMM-027 按"用户粘贴即批准"改 **APPLIED**(本会话运行时指令即 v6.1 全文)。157 测试全绿。commit c8ba932。
+- **轮 145(蒸馏第 35 族 grokking/延迟泛化族,T0 检索轮)**:QUEUE-EMPTY 后续池空⇒蒸馏;钩子=轮 143 BUDGET_DOMINANT 现象形状;机制核对全库零命中;3 槽一次命中+4 题录当场核验(Bertolotti & Cazzola ACM CSUR 2026/Humayun ICML 2024 arXiv:2402.15555/★Nanda ICLR 2023/★Davies arXiv:2303.06173 双速度统一);[行动] GROK-CURVE 入队(engineering,T1);S1 重置,蒸馏第 28 次达标;**执行偏差如实注记:本轮漏写 PRD §19 记录(轮 136/139 先例有写),轮 146 补记**;157 测试全绿。commit 7aab595;完整条目=scan §35。
+
+**轮 146 记录(GROK-CURVE:训练量-泛化函数形状探针;T1 算力轮)**:
+- **路由**:goal_check NOT-Achieved(GROK-CURVE actionable 队首,轮 145 入队)⇒ 心跳单元=预注册判负 → 冒烟校准 → probe_run T1 → 当轮判读 → dir/grok-curve PR(AMM-024 T1 探针环)。
+- **GROK-CURVE 预注册(先于执行钉死)**:
+  - **问题**:轮 143 BUDGET_DOMINANT 的函数形状——rollout 泛化随训练步数是**平滑渐近**(单模式拟合叙事,轮 143 趋势外推)还是**突变转折**(grokking 型延迟泛化,scan §35.3 Davies 双速度竞争叙事)?
+  - **协议**(E1 sample-efficiency 口径的步数轴版):M1 弹簧族 ω∈[0.7,1.8] 同池(n_train 256+held-out 128,dt=0.1,t_obs=24,gen_steps=160),标准 prefix 循环,hidden=64,context_dim=8(E1 推断头口径——轮 120 裸头偏置地板坑不适用),seed 0,1-seed 筛查(多 seed 终局=停车场);步数阶梯 {2500,5000,10000,20000,40000}(总步数和 77500,冒烟外推 ~4min,est 10min,T1 富余)。
+  - **机械判据(执行前钉死)**:**GROKKING_SIGNATURE**=存在相邻步对 rel MSE 跌幅 ≥3×(ratio_gate)**且**跌落点 train_loss ≤1e-4(sat_loss,拟合已饱和——大跌幅但拟合未饱和=普通收敛非 grokking);**SMOOTH_ASYMPTOTE(判负分支)**=无满足双条件的相邻对 ⇒ grokking 命名不适用本仓训练体制,N1 不引入该表述,只保留渐近改善记录。两阈值预注册在代码内(RATIO_GATE=3.0/SAT_LOSS=1e-4)。
+  - **族边界**:载体=M1 弹簧(泛化动力学轴,grokking 族第 1 轮);fastslow 族段内迭代预算(≤2)不动。
+  - **命令/产物**:`./scripts/probe_run T1 10 -- .venv/bin/python benchmarks/grok_curve.py`;产物 benchmarks/physics_out_v02/grok_curve/grok_curve.json(results 键包裹,meta exec_tier 透传);判读锚="GROK-CURVE 判读"。
+- **执行注记(冒烟先行条款的负面教材)**:首次执行 est=10min 系**跨训练循环类型的标度外推错误**(用轮 143 的 1-step 训练成本外推 prefix BPTT t_obs=24 展开训练,低估 ~5×),且未加 `python -u`(轮 90 坑,日志 0 字节不可判活);~9min 处手动中止,补 2000 步冒烟实测(38s wall,含生成)⇒ 每 1000 步 ≈15s ⇒ 全阶梯 77500 步 ≈20-22min,T1 上限内,按 est=25(宁松勿紧)+`python -u` 重跑一次通过(实跑 ~21min)。**教训:冒烟校准必须在同训练循环类型上实测,跨循环类型的 FLOPs/步数直觉不可用于 est 与档位**(PLAYBOOK 轮 92 条款追加,est 违约未遂=护栏拦住,手动中止无产物污染)。
+- **判读(GROK-CURVE 判读)**:**机械判读 SMOOTH_ASYMPTOTE——判负分支执行:grokking 命名不适用本仓训练体制(E1 口径 prefix 循环),N1 不引入该表述,只保留渐近改善记录**。主结果(M1 弹簧 ω∈[0.7,1.8] 同池 n256+held-out 128,hidden64,ctx=8 推断头,seed 0,1-seed 筛查,实跑 ~21min ≤est25):步数阶梯读数——2500:3.43/2.97e-2,5000:3.73/8.8e-3,10000:2.95/1.01e-2,20000:2.07/4.3e-3,40000:3.68/4.5e-3(rollout MSE/train_loss)。**无任何相邻步对满足 ≥3× 跌落**(最大相邻改善 1.42×),且 **train_loss 直至 40000 步仍 ~4.5e-3,未触及预注册饱和线 1e-4——grokking 的前提(拟合饱和后的泛化型改善)在本阶梯内未出现**,双条件判据两条皆不满足。附加观察(如实注记,不触判据):曲线**非单调**——5k 比 2.5k 差(1.09×)、40k 比 20k 差(1.8× 反弹),1-seed 口径下属 seed/训练随机性噪声面(§30 族先例:种子敏感度大),方向与 grokking(改善型跃变)相反;**多 seed 终局=停车场**。跨体制桥接(如实分开,防过度声明):轮 143 BUDGET_DOMINANT 的预算改善在弹性摆 1-step 训练体制上观察到,本轮平缓无跃变在 M1 弹簧 prefix BPTT 体制上观察到——**两族训练体制不同(训练循环/载体/池口径均不同),不构成矛盾,亦不互相外推**(轮 111 口径列条款);共同结论只有一句:在两种已测体制中,rollout 泛化对训练量的响应都无需引入 grokking/延迟泛化机制来解释。N1 路由:**不引入 grokking 表述**;scan §35 三坐标保留为文献坐标(通用训练动力学背景),GROK-CURVE 判负记录为该族在本仓的适用性检验结果。
+- **台账**:grok_curve.py(复用 E1 run_one/gen_spring 逐字复用,步数轴驱动+预注册双条件判据纯函数)+ tests/test_grok_curve.py(判据 3 分支钉死+CLI 冒烟);TOOLS +grok_curve;PLAYBOOK 轮 92 条款追加跨循环类型教训;产物 benchmarks/physics_out_v02/grok_curve/(gitignored,数字已抄本判读行);PRD §19 轮 142-145 补记随本提交落地;队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
+
 
 
 
