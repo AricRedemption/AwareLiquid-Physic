@@ -330,4 +330,6 @@ spectral-bias naming downgraded to weak hypothesis in Mechanism Analysis
 (prophecy test NEGATIVE, PR#4, PRD §19 round 122). Updated round 127:
 seed-level sign instability added to Limitations 4b (diagnostic probe,
 PR#5, PRD §19 round 126). Updated round 130: dt-transfer qualifier for
-the "learned H" claim (FLOW_LIKE, PR#6, PRD §19 round 129).*
+the "learned H" claim (FLOW_LIKE, PR#6, PRD §19 round 129). Updated
+round 138: two-timescale boundary added to Limitations (FASTSLOW-PROBE,
+PR#9, PRD §19 round 137).*

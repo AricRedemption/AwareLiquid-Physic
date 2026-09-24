@@ -44,12 +44,11 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 15:20 (**轮 136:蒸馏第 33 族快慢/多尺度动力系统
-  族入库,FASTSLOW-PROBE 入队**——scan §33 三 [坐标](FSNN 奇异扰动/
-  Fronk 刚性隐式+Liu 层级多尺度/Frequency-Separable HNN ★细节带?);
-  自家钩子=全部家族单时标,N1 时标适用范围空白;载体=弹性摆(dim=2
-  可分头可直接表示);S1 重置([行动]);蒸馏第 26 次达标。下一心跳=
-  goal_check 路由迭代 FASTSLOW-PROBE(预注册先行→冒烟→probe_run→判读))
+updated: 2026-09-24 15:50 (**轮 138:消化轮,FASTSLOW 时标条款回填
+  完成**——资产索引新增 4b-2 条+初稿 Limitations 4a-2 条:双时标边界
+  量化(快模态 3.2% 部分捕捉/慢交换 122% 丢失,PR#9 溯源);九条
+  pr-pending 待合并。下一心跳=goal_check 裁决(队列空,蒸馏须带
+  [行动] 否则 S1 累计))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 

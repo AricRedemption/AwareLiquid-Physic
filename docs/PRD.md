@@ -960,6 +960,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 26 次达标。
 - **台账**:零算力轮;scan §33+蒸馏结论 28;1 处弱坐标(Frequency-Separable HNN 细节)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列九条(八 pr-pending+FASTSLOW-PROBE actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 FASTSLOW-PROBE。
 
+**轮 138 记录(消化轮:FASTSLOW 时标条款回填;T0 零算力;轮 137 判读在 PR#9)**:
+- **路由**:goal_check QUEUE-EMPTY(九条 pr-pending 状态驱动跳过,含 PR#9),但轮 137 为判读轮 ⇒ 纪律条款消化轮优先,禁新蒸馏;预置项=FASTSLOW 时标条款 N1 回填。
+- **消化三件套**:
+  - **回填**:①n1-asset-index.md 新增 4b-2 条——双时标边界(弹性摆 10× 分离,快模态 3.2%/慢交换 122%,PR#9 溯源+1-seed T1 诊断口径限定词);②n1-paper-draft.md Limitations 新增 4a-2 条 "Two-timescale boundary"(时标条款限定单时标家族,双时标短视距部分可用、慢交换长视距不可用);③初稿溯源注记补轮 138 行。
+  - **分流**:队列九条 pr-pending(PR#1-#9)机械跳过;balance_gauge EXP=0.2 报警空。
+  - **条件重入口**:§12.3 三路终态+停车场五项维持,清零确认。
+- **S1 计数**:消化轮不计 S1(末次重置=轮 136 [行动])。
+- **台账**:零算力轮(纯呈现层修订;轮 137 完整判读行在 PR#9 分支,合并后以 §19 为准);门禁复跑确认(显式退出码);GOALS 戳推进;下一心跳=goal_check 裁决(队列空,蒸馏须带 [行动] 否则 S1 累计)。
+
+
 
 
 
