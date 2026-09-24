@@ -1008,6 +1008,18 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **SHARP-PROBE 入队([行动],engineering,T1)**:M1 弹簧同池(E1 口径,GNS-PROBE 同配置)checkpoint {0,200,500,1000,2000} 各估训练 loss 的 λ_max(HVP 幂迭代 20 步,双反向 autograd);判读=λ_max·η(lr=3e-3)相对 EOS 阈值 2 位置(SHARP_EOS∈[1.5,3]/BELOW<1.5/ABOVE>3)+λ_max 随训练走向(EOS 悬停 vs warmup 早期高后降两预言);判负(下心跳预注册落盘后执行)=幂迭代 20 步后相邻迭代相对变化 >10% 或非有限⇒本体制 sharpness 不可分辨;Adam 修正面(判据由 GD 推导)如实注记;族边界=曲率轴 sharpness 族第 1 轮(与 GNS 噪声轴分立);双锚单行 check_cmd;est 8min(2000 步短训+100 HVP)。
 - **台账**:零算力轮;scan §37+蒸馏结论 32;S1 重置([行动]),蒸馏第 30 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十四条(十三 pr-pending+SHARP-PROBE actionable);双锚单行 check_cmd 经数数锚 14=14+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 SHARP-PROBE。
 
+**轮 154 记录(SHARP-PROBE:sharpness 轨迹探针;T1 算力轮;dir/sharp-probe)**:
+- **路由**:goal_check NOT-Achieved(SHARP-PROBE actionable 队首,轮 153 入队)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/sharp-probe PR(AMM-024 T1 探针环)。
+- **SHARP-PROBE 预注册(先于执行钉死)**:
+  - **问题**:本仓训练体制(M1 弹簧 E1 口径,prefix 循环,lr=3e-3 Adam)的损失景观 sharpness(λ_max)处于何处——是否运行在 edge of stability(λ_max·η≈2)?λ_max 随训练的走向符合 EOS"升至悬停"还是 warmup 文献"早期高后降"?为轮 146 GROK-CURVE 观察的 rollout 非单调反弹提供第二解释通道(EOS 振荡)。
+  - **口径(声明,轮 149 loss 口径同构条款)**:λ_max=**固定大批全窗口 loss 的 Hessian 最大特征值**(train 池前 128 轨、固定窗口 t0=0、t_obs=24、k_train=8——EOS 文献为 full-batch loss 口径 ✓);幂迭代 20 步(双反向 autograd HVP),随机起始向量(seed 0),逐步归一。
+  - **协议**:checkpoint {0,200,500,1000,2000}(prefix 标准循环),hidden64,ctx=8,seed 0,1-seed 筛查(多 seed 终局=停车场);lr=3e-3(Adam)。
+  - **机械判据(执行前钉死)**:① **SHARP_UNRESOLVABLE(判负)**=任一 checkpoint 幂迭代最后 3 步 λ 估计相对变化 >10%(不收敛)或 λ_max 非有限 ⇒ 本体制 sharpness 不可分辨,如实登记;② **SHARP_EOS**=存在 checkpoint(或多数)λ_max·η∈[1.5,3](EOS 域,阈值 2±50%);③ **SHARP_BELOW**=全部 λ_max·η<1.5(传统稳定区);④ **SHARP_ABOVE**=全部 >3(深度不稳定)。趋势读数(不承门):λ_max 随 checkpoint 走向(升/降/平,对照 EOS 悬停 vs warmup 下降两预言)。**Adam 修正面**:EOS 判据由 full-batch GD 推导,Adam 自适应矩下 λ_max·η=2 的精确阈值不严格成立——读数按量级比较解读,如实注记。
+  - **族边界**:曲率轴 sharpness 族第 1 轮(与 GNS 采样噪声轴分立;与 §30 解的景观分立)。
+  - **命令/产物**:`./scripts/probe_run T1 8 -- .venv/bin/python -u benchmarks/sharp_probe.py`;产物 benchmarks/physics_out_v02/sharp_probe/sharp_probe.json(results 键包裹,meta exec_tier 透传);判读锚="SHARP-PROBE 判读";时长依据=同循环标度(轮 146:每 1000 步 ≈15s)+100 HVP ≈40s,est 8min 宁松。
+- **判读(SHARP-PROBE 判读)**:**机械判读 SHARP_BELOW(传统稳定区,判负未触发)——本仓训练不运行在 edge of stability,轮 146 非单调反弹的 EOS 振荡解释通道排除**。主结果(M1 弹簧同池 hidden64 prefix 循环 lr=3e-3 Adam,checkpoint {0,200,500,1000,2000},固定 128 轨全窗口 loss 的 Hessian,幂迭代 20 步,seed 0,1-seed 筛查,实跑 ~3min ≤est8):λ_max 序列 2.85→8.20→9.05→12.45→22.15;**λ_max·lr=0.009/0.025/0.027/0.037/0.066,全部 ≪EOS 阈值 2(差 ~30×)**,五 checkpoint 幂迭代全部收敛(rel ~1e-7,判负的 10% 门远未触)。趋势读数(不承门)=**rising**:λ_max 随训练上升 7.8×,方向与 EOS"上升"半段一致但 2000 步内未及悬停平台;与 warmup"早期高后降"预言相反——本体制初始化附近最平坦。跨族对账:结合轮 149 GNS(B_simple 1k 步峰值)——**梯度噪声峰值先到、曲率持续缓升,轮 126 种子敏感性主因更可能=采样噪声(梯度侧)而非曲率失稳**;训练体制定性="稳定但噪声可观"。Adam 修正面:判据由 GD 推导,λ_max·η 精确阈值不严格适用于 Adam,但 0.066 vs 2 的 30× 量级差距在修正面内稳健。诚实边界:1-seed;固定单窗口大批 loss 口径(非随机窗口期望 Hessian);2000 步后是否逼近 EOS 未测(后续池候选,sharpness 族 1/2)。
+- **台账**:sharp_probe.py(fixed_loss EOS 全批口径+HVP 幂迭代纯函数+预注册四值判据;allow_unused 零填充修复 tiny/稀疏图二阶反向=PLAYBOOK 回写)+ tests/test_sharp_probe.py(判据 4 分支钉死+阈值常量核对+CLI 冒烟);TOOLS +sharp_probe;产物 benchmarks/physics_out_v02/sharp_probe/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
+
 
 
 
