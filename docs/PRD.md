@@ -1013,6 +1013,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Muennighoff et al. "Scaling Data-Constrained Language Models"(NeurIPS 2023,~644 引;JMLR 2025 扩展)=value decay(≤4 epochs 重复≈独特数据,~16 起衰减,过多变差)+R*D* scaling;②Fu et al. "To Repeat or Not To Repeat: Insights from Scaling LLM under Token-Crisis"(arXiv:2305.13230,2023)=重复 ~4 epochs 等效 fresh,超过后多样性损失主导;③Chatterjee "Learning and Memorization"(PMLR/ICML,~92 引)=记忆-泛化光滑权衡理论(判读诚实边界:rollout 指标对记忆不敏感的可能如实注记)。
 - **REP-PROBE 入队([行动],engineering,T1)**:M1 弹簧 semigroup 体制固定 4000 步预算两臂——A=默认随机窗口重复(train_semigroup 原样)vs B=窗口去重(预生成互不重叠 (t_i,t_j) 对遍历一次);判读=A/B rollout MSE(k100 同 held-out)三分支:差<5%⇒重复无害区记录/A 差≥5%⇒重复有害/A 好≥5%⇒重复有益;判负(下心跳预注册落盘后执行)=两臂差<5%⇒"本体制重复率不可分辨"如实登记(38.3 观测口径限制注记);族边界=数据重复轴 REP 族第 1 轮;双锚单行 check_cmd;est 20min(2 臂×4000 步 semigroup≈10min,按轮 92 K=8 实测 13min/10k 步标度)。
 - **台账**:零算力轮;scan §38+蒸馏结论 33;S1 重置([行动]),蒸馏第 31 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十六条(十五 pr-pending+REP-PROBE actionable);双锚单行 check_cmd 经数数锚 16=16+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 REP-PROBE。
+**轮 161 记录(蒸馏补池:第 39 族谱偏置×离散化交叉族 + SPECTRAL-DT 入队;T0 零算力检索轮)**:
+- **路由**:goal_check QUEUE-EMPTY(后续池空——轮 159 判读无明示后续)⇒ 蒸馏轮;S1 要求带 [行动]。
+- **选族**:钩子=§17 谱偏置(频率学习顺序,R1d 判负已执行)×§31 离散化(FLOW_LIKE)两大已判读面的交叉缺口——"低频先学是否依赖训练网格解析度"从未设问;机制核对 grep(nyquist/spectral×discret 交叉)零命中(405 行 Nyquist 一致性为评测口径注记非族);Rahaman 撞 §17.1 已在库不重复收。
+- **3 槽一次命中+题录当场核验(AMM-015)**:①Fridovich-Keil et al. "Spectral Bias in Practice: the Role of Function Frequency in Generalization"(NeurIPS 2022,~70 引)=频率作为泛化操作变量;②Kiessling et al. "A Computable Definition of the Spectral Bias"(AAAI 2022,~18 引)=谱偏置估计的网格分辨率耦合(判读陷阱:粗网格下"学不到"与"测不到"混淆);③Bartolucci et al. "Are Neural Operators Really Neural Operators? Frame Theory and Aliasing"(2023,~31 引)+Gao et al. "Discretization-invariance?"(~40 引)=aliasing 与离散化失配(§31 边界细化)。
+- **SPECTRAL-DT 入队([行动],engineering,T1)**:单频弹簧池(gen_spring ω_lo=ω_hi,轮 120 单频控制臂同法)ω∈{1,2,4}×训练 dt∈{0.05,0.1,0.2} 九单元短训(prefix hidden64 2000 步),固定物理视距 T=10(k=200/100/50 归一)rollout MSE;判读=交叉交互(高频 ω=4 粗/细 dt 误差增幅超低频同比值 ≥20% ⇒ 交互可分辨);ω·dt∈[0.05,0.8] 逐单元 Nyquist 状态注记(§39.2 陷阱);判负(下心跳预注册落盘后执行)=交互差 <20% ⇒ 不可分辨如实登记,或矩阵单元失效;族边界=交叉轴 SPECTRAL-DT 族第 1 轮;双锚单行 check_cmd;est 12min(9×2000 步 prefix≈4.5min 同循环标度)。
+- **台账**:零算力轮;scan §39+蒸馏结论 34;S1 重置([行动]),蒸馏第 32 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十七条(十六 pr-pending+SPECTRAL-DT actionable);双锚单行 check_cmd 经数数锚 17=17+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 SPECTRAL-DT。
 
 
 

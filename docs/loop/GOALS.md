@@ -44,15 +44,22 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 160:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 159 判读无明示后续(次
-  级读数仅注记不深挖),池空;消化三件套:①回填=资产索引 5 区
-  Methods 新增第 6 条窗口采样体制(REP 判负记录+训练-泛化解耦又一
-  实例+value decay 不作声明);②分流=balance_gauge EXP=0.2 达标/
-  WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
-  S1 计数:轮 158([行动])/159(T1 判读)行动产出连续,本消化轮无
-  蒸馏,无 S1 累计。队列十六条全 pr-pending。下一心跳=goal_check
-  裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 161:蒸馏第 39 族谱偏置×离散化交叉族入库
+  (scan§39)+SPECTRAL-DT 入队**——goal_check QUEUE-EMPTY(后续池空,
+  REP 族判读无明示后续)⇒蒸馏轮;选族钩子=§17 频率学习顺序×§31 dt
+  迁移两大已判读面的交叉缺口(ω×dt 双因子从未交叉实验);机制核对:
+  Fridovich-Keil/Kiessling/Bartolucci 全库零命中,Rahaman 撞 §17.1
+  已注记不重复收;3 槽一次命中+3 题录当场核验(AMM-015):①Fridovich-
+  Keil NeurIPS 2022(~70 引)频率=泛化操作变量 ②Kiessling AAAI 2022
+  (~18 引)谱偏置可计算定义的网格耦合=判读陷阱(学不到 vs 测不到)
+  ③Bartolucci 2023(~31 引)aliasing+Gao 离散化失配=§31 边界细化;
+  [行动] SPECTRAL-DT 入队(engineering,T1:单频池 ω{1,2,4}×dt
+  {0.05,0.1,0.2} 九单元 2000 步 prefix,固定物理视距 T=10 归一,
+  判读=高频增幅超低频≥20%⇒交互可分辨,Nyquist 状态逐单元注记,
+  判负=<20% 不可分辨;est 12min);S1 重置([行动])蒸馏第 32 次
+  达标;157 测试+audit 全绿显式退出码(零代码轮);队列十七条(十六
+  pr-pending+SPECTRAL-DT actionable)。下一心跳=goal_check 路由迭代
+  SPECTRAL-DT)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -154,6 +161,11 @@ goal_queue:
   done_condition: PRD §19有"REP-PROBE 判读"锚且benchmarks/physics_out_v02/rep_probe/rep_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "REP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/rep_probe/rep_probe.json
   status: pr-pending(PR#16, 判读REP_UNRESOLVABLE=窗口重复率rollout口径不可分辨判负分支执行, 合并后check过自动弹出)
+- id: SPECTRAL-DT
+  track: engineering
+  goal: 谱偏置×离散化交叉双因子矩阵探针——单频弹簧池ω∈{1,2,4}×训练dt∈{0.05,0.1,0.2}九单元短训(prefix hidden64 2000步)固定物理视距T=10(k=200/100/50归一)rollout MSE, 判读=交叉交互: 高频ω=4粗dtvs细dt误差增幅超低频同比值≥20%⇒交互可分辨(scan§39; ω·dt∈0.05-0.8逐单元Nyquist状态注记防aliasing/学不到混淆), 判负=交互差<20%⇒不可分辨如实登记或矩阵单元失效; 族边界=频率×网格交叉轴SPECTRAL-DT族第1轮(Rahaman已在§17.1不重复收)
+  done_condition: PRD §19有"SPECTRAL-DT 判读"锚且benchmarks/physics_out_v02/spectral_dt/spectral_dt.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "SPECTRAL-DT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/spectral_dt/spectral_dt.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
