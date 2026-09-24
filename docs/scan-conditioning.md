@@ -2611,6 +2611,86 @@ long-horizon rollout 全库 grep 零命中;与 §18.1/§31/§40 分立。
 (命中=§20.2 成员多样性语境,族头声明分立)。选族启发式 n=11
 (钩子=池分布宽度从未消融)。
 
+## 43. 经验蒸馏 38(轮 177,2026-09-24,QUEUE-EMPTY 轮):优化器选择族(自适应 vs 动量 SGD 的泛化边界)
+
+> 新 query 族(与前 42 族零重叠:§36 梯度噪声=采样协方差轴(引用过
+> Adam 修正面措辞但非优化器对比族),§40 课程=排序轴——本族=
+> **优化器本身的选择轴**(自适应逐坐标 vs 动量 SGD 的泛化差异)。
+> 钩子:全仓 Adam(lr=3e-3)固定从未对照——优化器是另一未检视的
+> 全局超参。标记:[坐标] ×3(1 ★)+ [行动] ×1。三槽:① 经典批判
+> ② 现代修正(transformer 侧 Adam 优势)③ 受控基准。题录当场核验
+> (AMM-015,3 条 venue/作者/arXiv ID 确认)。
+
+### 43.1 经典批判:自适应方法泛化更差 ★ [坐标]
+
+- 【出处】Wilson et al., "The Marginal Value of Adaptive Gradient
+  Methods in Machine Learning", NeurIPS 2017, arXiv:1705.08292,
+  ~1714 引;后续修正:Loshchilov & Hutter AdamW 2019(Adam 泛化差
+  距部分源于 weight-decay 实现缺陷)
+- 【内容】自适应方法(Adam/AdaGrad/RMSProp)找到的解泛化更差
+  (常显著)——即使训练 loss 更好;自适应=隐式偏向不同函数
+  (simplicity bias 差异);建议不把自适应方法当默认。
+- 【对我们的映射】本仓默认 Adam:若 OPT-COMPARE 显示 SGD-momentum
+  泛化更好,训练配置辩护需加"Adam 便利性 vs SGD 泛化"的权衡
+  注记;若 Adam 更好/不可分辨,则本体制在该批判范围之外(如实)。
+- 【适用条件】OPT-COMPARE 判读的文献先验(方向:vision/MLP 侧
+  SGD 占优)。
+- 【验证状态】题录当场核验(arXiv:1705.08292+NeurIPS 2017+作者);
+  社区已验证(AdamW 部分修正亦如实注记)。
+
+### 43.2 现代修正:transformer 侧 Adam 优势非噪声归因 [坐标]
+
+- 【出处】Kunstner et al., "Noise Is Not the Main Factor Behind the
+  Gap Between SGD and Adam", 2023,~152 引
+- 【内容】SGD 噪声正则假说被驳:Adam 随 batch 增大优势更明显
+  (噪声应更小),gap 持续——SGD 在 transformer 损失几何
+  (病态/重尾)上失效,Adam 的逐坐标自适应处理更好。
+- 【对我们的映射】架构依赖性的两版文献:MLP/CNN 侧 SGD 常优
+  (§43.1),attention/病态几何侧 Adam 常优(本条)——本仓 M1
+  基座(LTC 核+MLP 头)落哪侧未测,OPT-COMPARE 即实测。
+- 【适用条件】OPT-COMPARE 判读的架构依赖解释面。
+- 【验证状态】题录当场核验(作者+年份+引用约数);社区已验证。
+
+### 43.3 受控基准:优化器基准研究 [坐标]
+
+- 【出处】Schmidt, Schneider & Hennig, "Descending through a Crowded
+  Valley — Benchmarking Deep Learning Optimizers", ICML 2021
+  (~1100 引)
+- 【内容】15 优化器×问题的大规模受控基准:无单胜者;Adam 系对
+  lr 选择鲁棒;调优预算是最重要变量。
+- 【对我们的映射】本仓 lr 未逐优化器调优=受限对照,判负分支
+  预注册 lr 失配情形(SGD 发散=lr 预算未调平,非优化器本质)。
+- 【适用条件】OPT-COMPARE 的判负分支设计;N1 训练配置辩护。
+- 【验证状态】题录当场核验(ICML 2021+作者+引用约数);社区已
+  验证。
+
+### 43.4 [行动] OPT-COMPARE:优化器对照探针(入队)
+
+- 【出处】§43.1-43.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 两臂:A=Adam lr=3e-3(默认);
+  B=SGD momentum=0.9 lr=0.1(常用值);判读=A/B rollout MSE
+  (k100 同 held-out)三分支:差<5% ⇒ 优化器不可分辨(§43.3
+  "无单胜者"相容);Adam 好 ≥5% ⇒ 自适应在本体制有增益(§43.2
+  方向);SGD 好 ≥5% ⇒ 自适应泛化代价(§43.1 方向)。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂 loss 非有限或
+  rollout 发散(>1e6)⇒ **OPT_UNRESOLVABLE(lr 预算未调平)如实
+  登记**——SGD lr=0.1 未逐点调优是受限对照的已知局限(§43.3);
+  差<5% ⇒ 不可分辨如实登记。
+- 【族边界】优化器选择轴(OPT 族第 1 轮);与 §36(梯度噪声)/
+  §43 内部各条分立。
+- 【适用条件】T1 可行动:2×2000 步 prefix≈1min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 38
+
+3 [坐标](1 ★)+ 1 [行动](OPT-COMPARE 入队,engineering)。
+第 43 族;**S1 重置([行动] 产出)**。蒸馏轮第 36 次达标(≥1 条入库
++新目标)。机制核对:optimizer/SGD/momentum/adaptive 全库 grep 零
+命中(命中=§36 的 Adam 修正面措辞,族头声明分立)。选族启发式
+n=12(钩子=Adam 全仓固定从未对照)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内

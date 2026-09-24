@@ -44,16 +44,22 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 176:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 175 判读无指令性后续
-  (口径拆解为注记),池空;消化三件套:①回填=资产索引 5 区 Methods
-  新增第 10 条池分布宽度(WIDTH_COST 判负记录+口径拆解=难度+推断
-  代价合计+跨池数字不可比池宽度列强制);②分流=balance_gauge
-  EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3
-  三路终态维持。S1 计数:轮 174([行动])/175(T1 判读)行动产出连
-  续,本消化轮无蒸馏,无 S1 累计。队列二十二条全 pr-pending。下一
-  心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动]
-  否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 177:蒸馏第 43 族优化器选择族入库
+  (scan§43)+OPT-COMPARE 入队**——goal_check QUEUE-EMPTY(后续池空,
+  POOL-WIDTH 族无指令性后续)⇒蒸馏轮;选族钩子=Adam 全仓固定从未
+  对照(另一未检视全局超参);机制核对全库 grep 零命中(命中=§36
+  Adam 修正面措辞,族头声明分立);3 槽一次命中+3 题录当场核验
+  (AMM-015):①★Wilson NeurIPS 2017(arXiv:1705.08292 ~1714 引)
+  自适应方法泛化更差经典批判(AdamW 修正亦注记)②Kunstner 2023
+  (~152 引)transformer 侧 Adam 优势非噪声归因=架构依赖两版
+  ③Schmidt ICML 2021 Descending through a Crowded Valley(~1100 引)
+  受控基准无单胜者=判负分支设计参照;[行动] OPT-COMPARE 入队
+  (engineering,T1:异频池 2000 步 prefix 两臂 Adam 3e-3 vs
+  SGD-momentum 0.9/0.1,三分支判读,判负=发散⇒lr 预算未调平如实
+  登记;est 8min);S1 重置([行动])蒸馏第 36 次达标;157 测试+
+  audit 全绿显式退出码(零代码轮);队列二十三条(二十二 pr-pending+
+  OPT-COMPARE actionable)。下一心跳=goal_check 路由迭代
+  OPT-COMPARE)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -191,6 +197,11 @@ goal_queue:
   done_condition: PRD §19有"POOL-WIDTH 判读"锚且benchmarks/physics_out_v02/pool_width/pool_width.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "POOL-WIDTH 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/pool_width/pool_width.json
   status: pr-pending(PR#22, 判读WIDTH_COST=池宽度巨大同分布精度代价ratio=37.5口径拆解跨池数字不可比, 合并后check过自动弹出)
+- id: OPT-COMPARE
+  track: engineering
+  goal: 优化器对照探针——异频池(E1口径)prefix hidden64 2000步两臂: A=Adam lr=3e-3(默认) vs B=SGD momentum=0.9 lr=0.1(常用值), 判读=A/B rollout MSE(k100同held-out)三分支: 差<5%⇒优化器不可分辨(§43.3无单胜者相容)/Adam好≥5%⇒自适应有增益(§43.2病态几何方向)/SGD好≥5%⇒自适应泛化代价(§43.1经典方向), 判负=任一臂loss非有限或rollout发散>1e6⇒OPT_UNRESOLVABLE(lr预算未调平受限对照局限如实登记); 族边界=优化器选择轴OPT族第1轮与§36梯度噪声分立
+  done_condition: PRD §19有"OPT-COMPARE 判读"锚且benchmarks/physics_out_v02/opt_compare/opt_compare.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "OPT-COMPARE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/opt_compare/opt_compare.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
