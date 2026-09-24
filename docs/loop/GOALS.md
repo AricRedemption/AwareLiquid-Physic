@@ -44,13 +44,13 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 18:00 (**轮 141:用户质询重入,停机归因诊断+
-  FASTSLOW-2 入队**——诊断=goal prompt 设计缺口为主(S1 只认文献收割
-  行动+QUEUE-EMPTY 路由单一,自生成后续无路可走;家族 21 心跳饱和加速
-  触发),工程无责(全部事故当轮拦截修复),执行为辅(轮 140 选族仅
-  1 grep);修复走 AMM-027(PROPOSED 待批);重入行动=FASTSLOW-2 入队
-  (双时标失败容量/训练量归因,轮 137 判读后续池首项);S1 重置。下一
-  心跳=goal_check 路由迭代 FASTSLOW-2)
+updated: 2026-09-24 (**轮 142:FASTSLOW-PROBE 条目 check_cmd 行补回**——
+  goal_check 报 [FASTSLOW-PROBE] check_cmd 空按未达成路由=轮 108 护栏
+  正确拒绝防假阳性(该条目 status=pr-pending PR#9 本应机械跳过);
+  与轮 138 ICL-M3-INTERP 同型,环境格式化器本会话段第四次袭。按轮 138
+  先例从轮 138 提交取回原文补回双锚单行行,弹出条件恢复(PR#9 合并+
+  产物落地后 check 过自动弹出)。下一心跳=goal_check 路由迭代
+  FASTSLOW-2)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -108,6 +108,7 @@ goal_queue:
   track: frontier
   goal: 弹性摆快慢双时标探针——probe-local弹性摆族(dim=2可分H: 快弹簧模态ω_s+慢摆动模态ω_p, VV真值), 头在解析dt训练后测快模态捕捉与长视距T≫1/ω_p慢交换保持(scan§33: 时标上限=架构×dt联合性质, 失效模式=刚性签名; 判读=双时标同时捕捉与否+失效模式分类, N1时标条款路由)
   done_condition: PRD §19有"FASTSLOW-PROBE 判读"锚且benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "FASTSLOW-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json
   status: pr-pending(PR#9, 判读BOTH_FAILED=双时标捕捉失败量化边界交付, 合并后check过自动弹出)
 - id: FASTSLOW-2
   track: frontier
