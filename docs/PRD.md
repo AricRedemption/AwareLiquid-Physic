@@ -1025,6 +1025,11 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①Wang et al. "A Survey on Curriculum Learning"(IEEE TPAMI 2022,~1495 引;奠基 Bengio et al. ICML 2009)=课程两组件(打分器+排序器)与理论;②★Wu, Dyer & Neyshabur "When Do Curricula Work?"(ICLR 2021,arXiv:2012.03107,~200 引)=课程仅受限预算/噪声数据有益+anti-curriculum 改善泛化校准+随机序强基线(判读三分支先验);③Wang et al. "Using Multi-Resolution Data to Accelerate Neural Network Training"(LBNL 2022,~9 引,引用较少如实注记)=粗→细两阶段加速实例。
 - **DT-CURRICULUM 入队([行动],engineering,T1)**:单频池 ω=2(轮 162 中频单元)2000 步受限预算两臂——A=恒定 dt=0.05 vs B=dt 课程(dt=0.1×1000 步→dt=0.05×1000 步,权重连续);判读=A/B rollout MSE(k=200,T=10)三分支:差<5% ⇒ 课程不可分辨(与 Wu"随机序强基线"相容如实记录)/B 好 ≥5% ⇒ 受限预算下课程有益(文献方向一致)/B 差 ≥5% ⇒ 课程有害如实登记;判负(下心跳预注册落盘后执行)=两臂差<5% ⇒"本体制 dt 课程不可分辨"或臂发散;族边界=分辨率排序轴 DT-CURRICULUM 族第 1 轮(与 §8.4/D1f/§39 三分);双锚单行 check_cmd;est 8min(2×2000 步 prefix 同循环标度)。
 - **台账**:零算力轮;scan §40+蒸馏结论 35;S1 重置([行动]),蒸馏第 33 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列十八条(十七 pr-pending+DT-CURRICULUM actionable);双锚单行 check_cmd 经数数锚 18=18+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 DT-CURRICULUM。
+**轮 166 记录(自生成后续迭代:DT-CURRICULUM-2 入队;T0 零算力)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 先盘后续池(AMM-027 语义):**非空**——轮 165 判读行明示"机制归因(排序 vs 物理覆盖)未分离=课程族后续池候选 1/2"⇒ 入队迭代,等同行动产出重置 S1。
+- **DT-CURRICULUM-2 入队([行动],engineering,T1)**:逆课程对照——同池同预算 2000 步,A=正课程(dt 0.1×1000→0.05×1000,轮 165 同配置)vs B=逆课程(0.05×1000→0.1×1000);判读=A/B rollout MSE(k=200,T=10)三分支:A 好 ≥5% ⇒ 顺序为因(粗阶段低频结构作为细阶段初始化=课程语义成立)/A≈B(<5%)⇒ 物理覆盖假说(轮 162 反向纹理同源)/B 好 ≥5% ⇒ 逆课程更优如实登记;判负(下心跳预注册落盘后执行)=任一臂发散或边界情形不可判;族护栏=课程族段内第 2 轮(165/166)达 ≤2 上限,之后换方向或入停车场;双锚单行 check_cmd;est 8min。
+- **既有数据先验(诚实注记)**:轮 165 已见课程臂 0.2796 优于 dt=0.1×2000 纯臂 0.458——纯"物理覆盖总量"假说与该数据张力已现,逆课程对照是顺序因果的直接检验。
+- **台账**:零算力轮;S1 重置([行动]);157 测试+audit 全绿显式退出码(零代码轮);队列十九条(十八 pr-pending+DT-CURRICULUM-2 actionable);双锚单行 check_cmd 经数数锚 19=19+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 DT-CURRICULUM-2。
 
 
 
