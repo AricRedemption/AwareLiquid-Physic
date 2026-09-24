@@ -1078,6 +1078,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **选族**:本轮不收新族——给 §42.2(Li Nature 2025 插值/外推批判框架,已在库)补行动面:分布覆盖维度从 ω 宽度(轮 175 POOL-WIDTH)延伸到初始条件幅度。M1 gen 初始条件 q0,p0~N(0,1)(解析闭式解),幅度缩放=初条件能量缩放(能量∝scale²)。
 - **AMP-EXTRAP 入队([行动],engineering,T1)**:训练于 scale=1 标准池(ω∈[0.7,1.8] E1 口径,prefix hidden64 ctx=8 2000 步);评估三池 scale∈{1(内插参照),2,4}(同 ω 分布同 seed,q0/p0 乘 scale)各 held-out 128 轨 k100 rollout MSE;**相对口径必需**(绝对 MSE 随能量平方增)——rel_mse=rollout MSE/mean(q_true²+p_true²) 逐池归一;判读=rel_comp=rel_mse(4)/rel_mse(1):<3 ⇒ AMPEX_ROBUST(幅度外推鲁棒)/≥3 ⇒ AMPEX_DEGRADES(外推退化,插值域边界实证);判负(下心跳预注册落盘后执行)=发散/非有限;幅度参数化本地实现与原版 scale=1 逐位一致校验=轮 181 哨兵条款适用;族边界=初条件幅度轴 AMPLITUDE 族第 1 轮(与 §42 ω 宽度分立=覆盖另一维度);双锚单行 check_cmd;est 8min(1×2000 步训练+3 池生成评估)。
 - **台账**:零算力轮;scan §50.2x+蒸馏结论补充;S1 重置([行动]),蒸馏第 45 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十四条(三十三 pr-pending+AMP-EXTRAP actionable);双锚单行 check_cmd 经数数锚 34=34+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 AMP-EXTRAP。
+**轮 216 记录(AMP-EXTRAP:初始幅度外推对照探针;T1 算力轮;dir/amp-extrap)**:
+- **路由**:goal_check NOT-Achieved(AMP-EXTRAP actionable 队首,轮 215 入队)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/amp-extrap PR(AMM-024 T1 探针环)。
+- **AMP-EXTRAP 预注册(先于执行钉死)**:
+  - **问题**:训练分布(初始幅度 q0,p0~N(0,1))之外的初条件幅度(energy∝scale²)外推——相对误差是否平缓(幅度外推鲁棒)还是退化(插值域边界)?
+  - **协议**:训练于 scale=1 标准池(ω∈[0.7,1.8] E1 口径,prefix hidden64 ctx=8 2000 步);评估三池 scale∈{1,2,4}(同 ω 分布同 seed,q0/p0 乘 scale)各 held-out 128 轨 k100 rollout MSE;**相对口径**:rel_mse=rollout MSE/mean(q_true²+p_true²) 逐池归一(绝对 MSE 随能量平方增,直接比无意义);1-seed 筛查(多 seed 终局=停车场)。
+  - **机械判据(执行前钉死)**:rel_comp=rel_mse(scale=4)/rel_mse(scale=1);①发散优先:任一池 rollout 非有限或 >1e6 ⇒ **AMPEX_UNRESOLVABLE(判负)登记**;②rel_comp<3 ⇒ **AMPEX_ROBUST**(幅度外推鲁棒);③rel_comp≥3 ⇒ **AMPEX_DEGRADES**(外推退化,插值域边界实证);④rel_comp 数值异常 ⇒ 判负。
+  - **族边界**:初条件幅度轴 AMPLITUDE 族第 1 轮;与 §42(ω 宽度)分立=覆盖另一维度。
+  - **命令/产物**:`./scripts/probe_run T1 8 -- .venv/bin/python -u benchmarks/amp_extrap_probe.py`;产物 benchmarks/physics_out_v02/amp_extrap/amp_extrap.json(results 键包裹,meta exec_tier 透传);判读锚="AMP-EXTRAP 判读";时长依据=同循环标度(1×2000 步 prefix ≈30s+3 池生成评估),est 8min 宁松。
+- **判读(AMP-EXTRAP 判读)**:**机械判读 AMPEX_DEGRADES——幅度外推退化(相对误差随初条件幅度单调上升),插值域边界实证**。主结果(训练 scale=1 标准池 ω∈[0.7,1.8] hidden64 prefix 2000 步,seed 0,1-seed 筛查,实跑 ~2min ≤est8):scale 1=rel 1.7951(参照)/scale 2=rel 4.8564(2.7×)/scale 4=rel **7.3211**(4.1×);rel_comp=4.08 ≥3 门 ⇒ 外推退化。**深层读数(如实,有价值)**:谐振子是线性系统——幅度缩放是精确解缩放(解线性依赖于初条件),模型理论上应完美继承该不变性;rel_mse 退化 4.1× 说明**学到的映射对线性缩放不变性有真实偏差**(模型假设/容量限制的非线性偏离信号)——这是比"泛化退化"更强的机制线索:可检测、可归因于模型对线性性的近似偏差。绝对口径注记:绝对 MSE 增 65× 但信号能量增 16×,相对口径必要性实证(轮 172 相对化条款的跨族应用)。N1 路由:评测口径声明"初条件幅度分布是泛化边界维度(1-seed)";与 §42.2 插值批判互证。族护栏:AMPLITUDE 族 1/2(延伸=幅度阶梯加密/多 seed=停车场)。
+- **台账**:amp_extrap_probe.py(幅度参数化生成器本地实现+scale=1 逐位一致校验(轮 181 哨兵条款;测试钉死)+预注册相对口径判据纯函数)+ tests/test_amp_extrap_probe.py(scale=1 哨兵钉死+判据 3 分支+CLI 冒烟);TOOLS +amp_extrap_probe;产物 benchmarks/physics_out_v02/amp_extrap/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
 **轮 211 记录(蒸馏 warmup 行动面准入:WARMUP-PROBE 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(后续池空——WSA 族 1/2 保留)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:本轮不收新族——给 §37.2(Kalra NeurIPS 2023 warmup 机制,已在库)补行动面:warmup=等待 sharpness 自然下降的曲率动力学,其行动检验(lr warmup vs 恒定)缺失。
