@@ -44,16 +44,17 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 202:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 201 判读无指令性后续
-  (衰减率精化为受限延伸未明示),池空;消化三件套:①回填=资产索
-  引 5 区 Methods 新增第 16 条 lr 调度形状(LRDECAY_RESOLVED 内点
-  最优 0.999+train.py 内部断言获实证+三重交叉验证锚);②分流=
-  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条
-  件重入口=§12.3 三路终态维持。S1 计数:轮 200([行动])/201(T1
-  判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。队列三十条全
-  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方
-  向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 204:蒸馏第 49 轮 batch×lr 等价规则受控
+  检验行动面准入(scan§49)+LRBATCH-GRID 入队**——goal_check QUEUE-
+  EMPTY(后续池空)⇒蒸馏轮;本轮不收新族——给 §43.3 Smith 等价坐
+  标补行动面(已收坐标的行动面缺口,蒸馏交付=行动准入);[行动]
+  LRBATCH-GRID 入队(engineering,T1:四单元 (batch,lr) 网格{(16,
+  3e-3),(64,3e-3),(16,1.2e-2),(64,1.2e-2)},判读=线性等价对与平方
+  根等价对各<5% 差即规则成立/≥5% 规则打破如实报告,判负=单元发散
+  登记;est 10min);S1 重置([行动])蒸馏第 42 次达标;157 测试+
+  audit 全绿显式退出码(零代码轮);队列三十条(二十九 pr-pending+
+  LRBATCH-GRID actionable)。下一心跳=goal_check 路由迭代
+  LRBATCH-GRID)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -239,6 +240,11 @@ goal_queue:
   done_condition: PRD §19有"LRDECAY-LADDER 判读"锚且benchmarks/physics_out_v02/lrdecay_ladder/lrdecay_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LRDECAY-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/lrdecay_ladder/lrdecay_ladder.json
   status: pr-pending(PR#30, 判读LRDECAY_RESOLVED=调度形状可分辨最优lr_decay=0.999内点恒定lr差17.9%, 合并后check过自动弹出)
+- id: LRBATCH-GRID
+  track: engineering
+  goal: batch×lr缩放规则检验——§43.3 Smith等价坐标行动面: 异频池2000步prefix四单元(batch,lr)网格{(16,3e-3),(64,3e-3),(16,1.2e-2),(64,1.2e-2)}, 判读=等价对rollout MSE差: 线性等价对(16,3e-3)vs(64,1.2e-2)与平方根等价对(16,3e-3)vs(64,6e-3)各<5%⇒该规则成立/≥5%⇒规则打破如实报告哪条更准, 判负=任一单元发散非有限⇒LRBATCH_UNRESOLVABLE该组合不可用登记; 族边界=batch×lr交互轴§43行动面与§42池宽度/§45深度分立
+  done_condition: PRD §19有"LRBATCH-GRID 判读"锚且benchmarks/physics_out_v02/lrbatch_grid/lrbatch_grid.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "LRBATCH-GRID 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/lrbatch_grid/lrbatch_grid.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
