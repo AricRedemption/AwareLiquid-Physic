@@ -44,18 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 216:AMP-EXTRAP 判读 AMPEX_DEGRADES,dir/
-  amp-extrap PR#34 即终点**——goal_check NOT-Achieved⇒T1 探针环心
-  跳;预注册先于执行钉死(训练 scale=1 标准池,评估幅度缩放池
-  scale{1,2,4},相对口径必需,rel_comp 判据,发散优先,族边界=初条
-  件幅度轴第 1 轮);实跑 ~2min≤est8:rel_mse 1.80→4.86→7.32,
-  rel_comp=4.08≥3 ⇒ **AMPEX_DEGRADES 幅度外推退化**;深层读数=谐
-  振子线性系统幅度缩放是精确解缩放,模型未继承线性不变性=学到的
-  映射有非线性偏差(可检测机制线索);绝对口径注记=相对口径必要
-  性实证(轮 172 条款跨族应用);N1 路由=初条件幅度分布是泛化边界
-  维度,与 §42.2 插值批判互证;160 测试(157+3)+audit 全绿;队列
-  三十四条全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化
-  轮优先(回填资产索引 amp 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 217:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 216 判读后续(幅度阶梯
+  加密/多 seed)归停车场(AMPLITUDE 族 1/2 保留),池空;消化三件
+  套:①回填=资产索引 5 区 Methods 新增第 19 条初始幅度外推(AMPEX_
+  DEGRADES 幅度是插值域边界维度+谐振子线性不变性未被继承的深层读
+  数=可检测机制线索);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠
+  账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计
+  数:轮 215([行动])/216(T1 判读)行动产出连续,本消化轮无蒸馏,
+  无 S1 累计。队列三十四条全 pr-pending。下一心跳=goal_check 裁决
+  (QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
