@@ -44,19 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 223:TOSA-LADDER 判读 TOSA_RESOLVED,dir/
-  tosa-ladder PR#36 即终点**——goal_check NOT-Achieved⇒T1 探针环心
-  跳;预注册先于执行钉死(四臂 t_obs{8,16,24,48},prefix 参数天然
-  可注入=轮 181 哨兵条款适用,spread 判据,族边界=训练观测窗轴第
-  1 轮与 D6 对表分立);实跑 ~4min≤est10:t_obs 8=3.4044(最优)/
-  16=6.3871/24=3.5582/48=5.4359,spread=1.88 ⇒ **TOSA_RESOLVED 非
-  单调锯齿短窗有益(首端),默认 t_obs=24 差 4.5%**;**D6 对表=
-  t_obs=8 已过 Fisher 辨识下界,精度最优=短窗足够辨识且推理负担
-  最小**;诚实边界=1-seed/窗长效应与 ctx 推断质量解耦未测(TOSA
-  族后续候选 1/2);train_prefix 导入遗漏当轮冒烟修复;160 测试
-  (157+3)+audit 全绿;队列三十六条全 pr-pending。下一心跳=goal_
-  check 裁决——判读轮后消化轮优先(回填资产索引 tosa 条目/分流/
-  条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 224:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 223 判读"窗长效应与
+  ctx 推断质量解耦未测"=TOSA 族后续候选 1/2(备选非指令性),池空
+  判读;消化三件套:①回填=资产索引 5 区 Methods 新增第 21 条观测
+  窗长度(TOSA_RESOLVED 非单调锯齿最优 t_obs=8+D6 对表短窗已过辨
+  识下界);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率
+  1.0/无报警;③条件重入口=§12.3 三路终态维持。S1 计数:轮 222
+  ([行动])/223(T1 判读)行动产出连续,本消化轮无蒸馏,无 S1 累
+  计。队列三十六条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-
+  EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
