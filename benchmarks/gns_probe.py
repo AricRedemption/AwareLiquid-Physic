@@ -144,6 +144,9 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out_dir",
                     default="benchmarks/physics_out_v02/gns_probe")
+    ap.add_argument("--out_name", default="gns_probe.json",
+                    help="round-151 (GNS-PROBE-2) writes its own filename "
+                         "on the stacked branch; v1 default unchanged")
     args = ap.parse_args()
     checkpoints = sorted(int(c) for c in args.checkpoints.split(","))
 
@@ -198,7 +201,7 @@ def main():
           flush=True)
 
     os.makedirs(args.out_dir, exist_ok=True)
-    with open(os.path.join(args.out_dir, "gns_probe.json"), "w") as f:
+    with open(os.path.join(args.out_dir, args.out_name), "w") as f:
         json.dump({"args": vars(args),
                    "meta": run_metadata({
                        "benchmark": "gns_probe",
