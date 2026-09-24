@@ -44,15 +44,19 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 155:自生成后续迭代入队 SHARP-PROBE-2**——
-  goal_check QUEUE-EMPTY⇒先盘后续池:**非空**=轮 154 判读行明示"2000
-  步后是否逼近 EOS 未测"(sharpness 族 1/2,T1 装得下:总训练 10k 步
-  ≈2.5min+140 HVP)⇒入队迭代等同行动产出重置 S1;SHARP-PROBE-2=同
-  estimator 同判据 checkpoint 轴延长 {0,1000,2000,4000,6000,8000,
-  10000},判读=λ_max·lr 持续远低于 2 或出现逼近/悬停;非同参重跑
-  (新参数轴),sharpness 族段内第 2 轮达 ≤2 上限之后换方向或入停车
-  场;est 10min;14=14+ID 数数锚核对。下一心跳=goal_check 路由迭代
-  SHARP-PROBE-2)
+updated: 2026-09-24 (**轮 156:SHARP-PROBE-2 判读 SHARP_BELOW 维持,
+  dir/sharp-probe-v2 PR#15 即终点**——goal_check NOT-Achieved⇒T1 探针
+  环心跳;预注册先于执行钉死(同 estimator 同判据唯 checkpoint 轴延长
+  {0..10000},族护栏 2/2 原文入预注册);实跑 ~4min≤est10:λ_max·lr
+  0.009→0.082 全程≪EOS 阈值 2(末端仍差 24×),7 checkpoint 全收敛,
+  rising 持续无悬停;**体制定性收口=深度稳定噪声主导的优化体制**
+  (EOS 解释通道对训练全程排除;与轮 151 GNS 末端 B_simple~33<64
+  一致互证,轮 126 种子敏感性归因采样噪声读数链闭合);判负未触发;
+  **格式化器第八袭(dir 分支 SHARP-PROBE/-2 两条被删)checkout 还原
+  14=14+wave/loop 15=15 双侧核对**;sharpness 族 2/2 用尽;160 测试
+  (157+3)+audit 全绿;队列十五条全 pr-pending。下一心跳=goal_check
+  裁决——判读轮后消化轮优先(回填资产索引 sharpness 条目/分流/条件
+  重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -147,6 +151,7 @@ goal_queue:
   goal: sharpness进度轴延长迭代——SHARP-PROBE同款estimator同判据但checkpoint轴延长{0,1000,2000,4000,6000,8000,10000}(轮154判读明示后续: 2000步后是否逼近EOS未测), 判读=λ_max·lr是否持续远低于阈值2或出现逼近/悬停(完善训练体制定性); 判负同轮154(幂迭代不收敛>10%或非有限⇒不可分辨); sharpness族段内第2轮达≤2上限之后必须换方向或入停车场; Adam修正面注记沿用
   done_condition: PRD §19有"SHARP-PROBE-2 判读"锚且benchmarks/physics_out_v02/sharp_probe_v2/sharp_probe_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "SHARP-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/sharp_probe_v2/sharp_probe_v2.json
+  status: pr-pending(PR#15, 判读SHARP_BELOW维持=训练全程10k步深度稳定区体制定性收口, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
