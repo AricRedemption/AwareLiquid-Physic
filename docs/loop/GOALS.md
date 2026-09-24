@@ -44,14 +44,18 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 171:自生成后续迭代入队 LEN-EXTRAP-2**——
-  goal_check QUEUE-EMPTY⇒先盘后续池:**非空**=轮 170 判读行明示
-  "相对化口径=族后续候选 1/2;60s 之外未测"⇒入队迭代等同行动产出
-  重置 S1;LEN-EXTRAP-2=相对化口径(per-step MSE/信号能量,剥离
-  信号量级演化混杂)+更长池 gen 1001 步(100s)外推段 [40,60]s 与
-  [80,100]s(窗外 4-10×),稳健域边界定位;非同参重跑,LEN 族段内
-  第 2 轮达 ≤2 上限之后换方向或入停车场;est 10min;20=20+ID 数数
-  锚核对。下一心跳=goal_check 路由迭代 LEN-EXTRAP-2)
+updated: 2026-09-24 (**轮 172:LEN-EXTRAP-2 判读 LEN_ROBUST 维持,
+  dir/len-extrap-v2 PR#21 即终点**——goal_check NOT-Achieved⇒T1 探针
+  环心跳;预注册先于执行钉死(同池同 seed 唯两处:评估池 100.1s+相对
+  化口径,族护栏 2/2 原文入预注册);实跑 ~4min≤est10:相对 comp=
+  0.88 与绝对一致,extended[80,100]s=0.78 ⇒ **LEN_ROBUST 维持,稳健
+  域延伸至窗外 8-10×**;相对化=绝对一致的物理解读=弹簧能量守恒信号
+  能量恒定,轮 170 混杂担忧解除(相对化保留为非守恒体系协议准备);
+  边界跳变/E-drift 复现;实现瑕疵如实(window_note 硬编码仅展示层);
+  格式化器第十三袭(LEN-EXTRAP-2 整条被删)checkout 还原 21=21+ID
+  核对;LEN 族 2/2 用尽;160 测试(157+3)+audit 全绿;队列二十一条
+  全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先(回
+  填资产索引 len-extrap-2 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -182,6 +186,7 @@ goal_queue:
   goal: 长度外推稳健域延长迭代——同estimator但相对化口径+更长池: per-step MSE除以各时刻信号能量(相对误差剖面, 剥离信号量级演化混杂) + 新池gen1001步(100s)外推段[40,60]s(窗外4-6×)与[80,100]s(8-10×), 判读=相对comp三分支同轮170门(<3 ROBUST/≥3边界跳变WINDOW_EDGE/≥3渐进GRADUAL)+外推倍数延长下稳健域边界定位; 判负=发散或相对化数值异常; 族边界=物理时长轴LEN族第2轮达≤2上限之后换方向或入停车场
   done_condition: PRD §19有"LEN-EXTRAP-2 判读"锚且benchmarks/physics_out_v02/len_extrap_v2/len_extrap_v2.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LEN-EXTRAP-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/len_extrap_v2/len_extrap_v2.json
+  status: pr-pending(PR#21, 判读LEN_ROBUST维持=相对化与绝对一致守恒体系无增量区分度稳健域延伸至窗外8-10×, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
