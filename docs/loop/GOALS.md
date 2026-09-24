@@ -44,17 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 201:LRDECAY-LADDER 判读 LRDECAY_RESOLVED,
-  dir/lrdecay-ladder PR#30 即终点**——goal_check NOT-Achieved⇒T1 探
-  针环心跳;预注册先于执行钉死(三臂 lr_decay{1.0,0.999,0.99},prefix
-  参数天然可注入=轮 181 哨兵条款适用,spread 判据,族边界=lr 调度
-  形状轴第 1 轮);实跑 ~2min≤est8:lr_decay 1.0=3.5582/0.999=3.0186
-  (最优)/0.99=3.1596,spread=1.18 ⇒ **LRDECAY_RESOLVED 内点最优:
-  温和衰减优于恒定与快衰减,train.py 内部断言获实证支持**;交叉验
-  证锚=lr_decay 1.0 臂与轮 175/178/181 三重逐位一致;族护栏 LRDECAY
-  族 1/2;160 测试(157+3)+audit 全绿;队列三十条全 pr-pending。下一
-  心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引 lrdecay
-  条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 202:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 201 判读无指令性后续
+  (衰减率精化为受限延伸未明示),池空;消化三件套:①回填=资产索
+  引 5 区 Methods 新增第 16 条 lr 调度形状(LRDECAY_RESOLVED 内点
+  最优 0.999+train.py 内部断言获实证+三重交叉验证锚);②分流=
+  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条
+  件重入口=§12.3 三路终态维持。S1 计数:轮 200([行动])/201(T1
+  判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。队列三十条全
+  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方
+  向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
