@@ -44,20 +44,17 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 194:KSPAN-LADDER-2 判读 KSPAN_RESOLVED,
-  dir/kspan-ladder-v2 PR#28 即终点**——goal_check NOT-Achieved⇒T1 探
-  针环心跳;预注册先于执行钉死(与轮 191 同款唯阶梯 {1,2,4} 首端补
-  探=轮 193 后续池判读明示,族护栏 2/2 原文入预注册);v1 加 --out_
-  name 叠支最小演进;实跑 ~2min≤est8:k_train 1=3.5851/2=3.5997/
-  4=1.8775(与轮 191 逐位一致复现锚),spread=1.92 ⇒ **首端补探非
-  平台=1/2 均显著差于 4,轮 191"内点最优在首端附近"精确化为
-  k_train=4 恰为内点最优**;语义=过短覆盖不足过长后段误差主导,
-  4 为平衡点;轮 191+194 合并结论=k_train 敏感默认 8 非最优;
-  族护栏 KSPAN 族 2/2 用尽;160 测试(157+3)+audit 全绿;**推送欠
-  账清零(wave/loop 至 2276c79 补推+dir/kspan-ladder-v2 已推)**;
-  队列二十八条全 pr-pending。下一心跳=goal_check 裁决——判读轮后
-  消化轮优先(回填资产索引 kspan-2 条目/分流/条件重入口,禁新蒸
-  馏))
+updated: 2026-09-24 (**轮 195:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 194 判读后续(多 seed/
+  k=3 精化/其他池)全归停车场(KSPAN 族 2/2 用尽),池空;消化三件
+  套:①回填=资产索引第 14 条追加 KSPAN-LADDER-2 首端补探结果(真
+  最优 k_train=4 内点确认,1/2 均差 1.9×);②分流=balance_gauge
+  EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3
+  三路终态维持。S1 计数:轮 193([行动])/194(T1 判读)行动产出连
+  续,本消化轮无蒸馏,无 S1 累计。**推送欠账清零**(wave/loop 至
+  3eae14b+dir/kspan-ladder-v2 已推)。队列二十八条全 pr-pending。
+  下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行
+  动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
