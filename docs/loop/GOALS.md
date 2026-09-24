@@ -44,21 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 153:蒸馏第 37 族曲率动力学/训练稳定性族
-  入库(scan§37)+SHARP-PROBE 入队**——goal_check QUEUE-EMPTY(后续池
-  空,GNS 族 2/2 用尽)⇒蒸馏轮;选族钩子=轮 149 判读副产品(0→1k 步
-  B_simple 暴增 7×=早期体制剧变)的曲率侧解释缺口;机制核对全库
-  grep 零命中(命中均本仓实验非文献族),与 §36 分界=采样噪声 vs
-  景观曲率;3 槽一次命中+4 题录当场核验(AMM-015):①Yang & Hu
-  Tensor Programs V(arXiv:2203.03466)μP 跨宽度标度=容量轴方法论
-  坐标 ②★Cohen ICLR 2021 EOS(arXiv:2103.00065)+Kalra NeurIPS 2023
-  warmup 机制=sharpness 动力学直击 ③Karkada 2024 lazy/rich 教程=
-  N1 立场理论语言;[行动] SHARP-PROBE 入队(engineering,T1:M1 弹簧
-  5 checkpoint×HVP 幂迭代 20 步估 λ_max,判读=λ_max·η 相对 EOS
-  阈值 2 位置+趋势,判负=幂迭代不收敛/非有限;Adam 修正面如实注记;
-  est 8min);S1 重置([行动])蒸馏第 30 次达标;157 测试+audit
-  全绿显式退出码(零代码轮);队列十四条(十三 pr-pending+SHARP-PROBE
-  actionable)。下一心跳=goal_check 路由迭代 SHARP-PROBE)
+updated: 2026-09-24 (**轮 154:SHARP-PROBE 判读 SHARP_BELOW,dir/
+  sharp-probe PR#14 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
+  预注册先于执行钉死(M1 弹簧同池 checkpoint{0..2000}×固定 128 轨全
+  窗口 loss Hessian 幂迭代 20 步,四值判据,Adam 修正面如实注记);
+  实跑 ~3min≤est8:λ_max 2.85→22.15 全收敛(rel~1e-7),**λ_max·lr
+  0.009→0.066 全部≪EOS 阈值 2(差 30×)⇒SHARP_BELOW:本仓训练不在
+  edge of stability,轮 146 非单调反弹的 EOS 振荡解释通道排除**;
+  趋势 rising(7.8×)未及悬停,与 warmup 预言相反=初始化附近最平坦;
+  跨族对账=GNS 噪声峰先到+曲率缓升⇒轮 126 种子敏感性主因更可能采样
+  噪声,体制定性=稳定但噪声可观;PLAYBOOK 回写二阶梯度探针 allow_
+  unused 坑;160 测试(157+3)+audit 全绿;**格式化器第七袭(SHARP-
+  PROBE 整条被删)checkout 还原 14=14**;队列十四条全 pr-pending。
+  下一心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引
+  sharpness 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -147,6 +146,7 @@ goal_queue:
   goal: sharpness轨迹探针——M1弹簧同池(E1口径与GNS-PROBE同配置)checkpoint{0,200,500,1000,2000}各估训练loss的λ_max(HVP幂迭代20步双反向), 判读=λ_max·η(lr=3e-3)相对EOS阈值2位置(SHARP_EOS∈[1.5,3]/BELOW/ABOVE)+λ_max随训练走向(对照EOS悬停与warmup早期高后降两预言, scan§37), 判负=幂迭代不收敛(相邻迭代>10%)或非有限⇒本体制sharpness不可分辨; Adam修正面如实注记(判据由GD推导)
   done_condition: PRD §19有"SHARP-PROBE 判读"锚且benchmarks/physics_out_v02/sharp_probe/sharp_probe.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "SHARP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/sharp_probe/sharp_probe.json
+  status: pr-pending(PR#14, 判读SHARP_BELOW=本仓训练不在EOS轮146反弹EOS解释排除, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
