@@ -960,6 +960,19 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **S1 计数**:本轮有 [行动] 产出 ⇒ 重置;蒸馏轮第 26 次达标。
 - **台账**:零算力轮;scan §33+蒸馏结论 28;1 处弱坐标(Frequency-Separable HNN 细节)带 ? 登记 SCAN-AUDIT;157 测试+audit 全绿显式退出码(零代码轮);队列九条(八 pr-pending+FASTSLOW-PROBE actionable);双锚单行 check_cmd 经真 goal_check 复核路由正确;下一心跳=goal_check 路由迭代 FASTSLOW-PROBE。
 
+**轮 137 记录(FASTSLOW-PROBE:弹性摆快慢双时标探针;T1 算力轮)**:
+- **路由**:goal_check NOT-Achieved(FASTSLOW-PROBE actionable 队首)⇒ 心跳单元=预注册判负 → 冒烟校准 → probe_run T1 → 当轮判读 → dir/fastslow-probe PR(AMM-024 T1 探针环)。
+- **FASTSLOW-PROBE 预注册(先于执行钉死)**:
+  - **动机**:scan §33——本仓全部家族单时标,N1 时标适用范围空白;§33.2(刚性=架构×dt 联合性质)与 §33.3(弹性摆母题:快弹簧 ω_s 与慢摆动 ω_p 能量交换)给出载体与失效模式。检验:dim=2 可分头在**解析 dt** 训练后能否**同时**捕捉快模态与长视距慢交换。
+  - **协议**:probe-local 弹性摆族(dim=2 可分 H=T(p)+V(r),V=弹簧 k(|r|−L₀)²/2+重力 m·g·y;参数 m=1,k=100(ω_s=10),L₀=1,g=1(ω_p≈1),时标分离 10×;VV 真值解析力场;n_train 256/n_eval 64/seed 0);主臂=HamiltonianHead(dim2,hidden64,depth2,ctx0)于 dt=0.02(解析 ω_s·dt=0.2)1-step 监督 10000 步 lr 3e-3 batch 64(escape-door 训练式);评估三轴:**A 快模态**=短视距 T=2(≪1/ω_p)rollout MSE/信号能量比 E_fast_rel;**B 慢交换**=长视距 T=40(≈6.4 慢周期)rollout MSE/信号比 E_long_rel(含真值能量沿预测轨迹漂移);**C 刚性签名(文档轴,不作门)**=同头以未解析 dt=0.5(ω_s·dt=5)滚出对细 dt 参照的偏移(§33.2 刚性预测的直接展示)。
+  - **时长实测校准(AMM-008)**:同轮 120/129 裸头 10000 步 ~1min ⇒ **预计 ≤5min,T1**(est 5)。
+  - **判负标准(机械四值分类,门为信号相对量)**:**双时标捕捉**=E_fast_rel ≤0.01 且 E_long_rel ≤0.1 ⇒ 头在解析 dt 下同时捕捉两时标,N1 时标条款获筛查级支持;**仅快模态**=E_fast_rel ≤0.01 且 E_long_rel >0.1 ⇒ 慢交换丢失,时标条款降级"快模态解析下短视距可用";**仅慢包络**=E_fast_rel >0.01 且 E_long_rel ≤0.1(反常,如实记录);**双失败**=两者皆超 ⇒ 深入失效分析如实入档。C 轴只作刚性展示不改判读。预期(预注册非预言):快模态可捕捉,慢交换存疑。
+  - **命令/产物**:`./scripts/probe_run T1 5 -- .venv/bin/python benchmarks/fastslow_probe.py`;产物 benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json(results 键包裹,meta exec_tier 透传);判读锚="FASTSLOW-PROBE 判读"。
+  - **结论分级**:T1 筛查只解锁 N1 时标条款路由,终局声明须多 seed(停车场)或隐藏卷。
+- **判读(FASTSLOW-PROBE 判读)**:**机械判读 BOTH_FAILED(双门均超)——N1 时标条款获得量化边界:解析 dt 下快模态部分捕捉、慢交换长视距丢失**。主结果(弹性摆 dim=2 可分头,dt=0.02 解析 ω_s,10000 步,train_loss 4.496e-5,实跑 ~2min ≤est5):**A 快模态轴**(T=2 短视距)rel MSE **0.0316**>门 0.01 ⇒ c_fast 触发——1 个快周期后 3.2% 相对误差,接近门但未过(部分捕捉);**B 慢交换轴**(T=40≈6.4 慢周期)rel MSE **1.2166**≫门 0.1 ⇒ 慢包络完全丢失,真值能量沿预测轨迹漂移 max **15.5%**(尺度稳健归一)。失效纹理(如实):1-step 映射已学会(train 4.5e-5)但 rollout 相位误差经 ~100 个快周期累积污染慢包络——失效模式=§33.2 预言的"快捕捉有限+慢交换丢失"混合,非刚性爆権(C 轴:粗 dt=0.5 下未解析滚出仍有限无爆権,文档轴记录)。**诚实注记(实现修正)**:首跑的诊断能量函数重力项符号与力场不一致(动力学本身正确,A/B 门轴数字不受影响),被真值能量守恒测试当场抓出,修正归一化后重跑(漂移 28.5%→15.5%),轮 74"新力项先写守恒探针"条款的测试版拦截成功。N1 时标条款路由:适用范围限定="单时标家族;双时标(弹性摆 10× 分离)上短视距快模态部分可用(3.2% rel)而慢交换长视距不可用(122% rel)"——Limitations 量化条目,下一消化轮回填。诚实边界:幅度设置为准规则区(非混沌区),混沌区更差;1-seed T1 筛查,多 seed 终局=停车场。
+- **台账**:163 测试(160+3)+audit 全绿显式退出码;产物 benchmarks/physics_out_v02/fastslow_probe/(gitignored,数字已抄本判读行);TOOLS +fastslow_probe;N1 Limitations 时标条目下一消化轮回填;队列弹出后八条 pr-pending,下一心跳=消化轮。
+
+
 
 
 
