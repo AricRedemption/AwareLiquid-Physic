@@ -278,6 +278,24 @@ interface-reachable upper bound, not a reachable gain.
    training losses (equivalent-solution signature; sign-symmetry basins,
    Lubana et al. ICML 2023), minority transient. Reported as a property of
    the training axis, not averaged away.
+4c. **Two-timescale boundary (budget-attributed).** On the elastic
+   pendulum family (10x timescale separation, directly representable by
+   the separable head) trained at an analytically resolving dt, the fast
+   mode is captured — short-horizon rel MSE 0.26% at 4x budget vs the 1%
+   gate (3.2% and failing at the round-137 budget) — while the
+   slow-exchange envelope over T=40 (~6.4 slow periods) stays above its
+   10% gate: 22% at 4x budget, a 5.4x improvement from the 122%
+   baseline but not through the gate. Two-arm attribution
+   (hidden128+40k vs hidden64+40k, shared pool/gates/seed) classifies
+   this BUDGET_DOMINANT — an optimization limit, not a structural floor
+   (§33.2 stiffness signature rejected); capacity contributes a factor
+   2 on the slow axis (0.224 vs 0.439) as a secondary effect [B, 1-seed
+   screening; PRD §19 rounds 137/143; PR#9/#10]. Scope: the structure-by-
+   construction claims cover single-timescale families; two-timescale
+   long-horizon slow exchange is not usable in this training regime,
+   and the budget needed to bring the slow axis through its gate is
+   untested (parked as a T2/T3 direction). Multi-seed finals remain
+   parked.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -331,5 +349,9 @@ spectral-bias naming downgraded to weak hypothesis in Mechanism Analysis
 seed-level sign instability added to Limitations 4b (diagnostic probe,
 PR#5, PRD §19 round 126). Updated round 130: dt-transfer qualifier for
 the "learned H" claim (FLOW_LIKE, PR#6, PRD §19 round 129). Updated
-round 138: two-timescale boundary added to Limitations (FASTSLOW-PROBE,
-PR#9, PRD §19 round 137).*
+round 144: two-timescale boundary added to Limitations 4c WITH budget
+attribution (FASTSLOW-PROBE round 137 + FASTSLOW-2 round 143, PR#9/#10,
+PRD §19) — a round-137 provenance note pre-announced this entry as
+"round 138" but the Limitations body had been left to a digest round
+that was redirected; the dangling announcement is fixed here per the
+round-111 carrier-layer rule (announcement and body now agree).*

@@ -44,18 +44,20 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 143:FASTSLOW-2 判读 BUDGET_DOMINANT,dir/
-  fastslow-v2 PR#10 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
-  预注册先于执行钉死(两臂同族同池同门:MAIN=hidden128+40k 步 4×容量
-  ×4×预算,H64 对照=hidden64+40k 分离容量与步数;冒烟校准 2000 步 7s
-  ⇒est15 T1 直跑,标度直觉疑触 T2 差 20×=轮 92 条款反向实证入
-  PLAYBOOK);实跑 ~2min:MAIN 快轴 3.2%→0.26% 过门+慢轴 122%→22.4%
-  未过门⇒FAST_ONLY,H64 同判 FAST_ONLY⇒机械 BUDGET_DOMINANT=步数为因
-  容量次要,判负②(§33.2 结构地板)未触发;N1 时标条款路由=
-  SCOPE_LIMITED_KEPT+量化升级(优化限制型趋势非结构地板,慢轴到门
-  预算未检验=停车场 T2/T3 方向);163 测试(160+3)+audit 全绿;队列
-  十条全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先
-  (回填 N1 时标条款量化升级→分流→条件重入口),期间禁新蒸馏)
+updated: 2026-09-24 (**轮 144:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 143 判读唯一后续(慢轴到
+  门预算)属 T2/T3 停车场不自主解停,池空;消化三件套:①回填=N1
+  Limitations 新增 4c 双时标条目(137+143 双轮结果+BUDGET_DOMINANT
+  量化升级),并修复轮 137 的"悬空预告"(日志行预写 round 138 added
+  而正文留空,轮 138 被转向后悬空 6 轮,本轮抓出补完+日志如实改写,
+  PLAYBOOK 回写悬空预告坑)+资产索引 4b-2 归因结果追加;②分流=
+  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③登记
+  与生效=停车场新增第 5 项(慢轴到门预算归因,T2 档起步)+AMM-027
+  按"用户粘贴即批准"注记改 APPLIED(本会话运行时指令即 v6.1 全文,
+  生效实证=轮 143→144 已按新语义执行);§12.3 三路终态维持。S1 计数:
+  轮 142(修复)/143(T1 判读)均为行动产出,本消化轮无蒸馏。队列
+  十条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮
+  收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
