@@ -44,16 +44,21 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 179:消化轮(T0 零算力;QUEUE-EMPTY 后续池
-  空+判读轮后消化轮优先)**——后续池盘查=轮 178 判读无指令性后续
-  (lr 调优对照为受限延伸未明示),池空;消化三件套:①回填=资产索
-  引 5 区 Methods 新增第 11 条优化器体制(SGD-m 泛化好 8.6%+训练-
-  泛化解耦第三实例 n=3+受限对照限定+便利选择措辞);②分流=
-  balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条
-  件重入口=§12.3 三路终态维持。S1 计数:轮 177([行动])/178(T1
-  判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。队列二十三条全
-  pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方
-  向,须带 [行动] 否则 S1 累计 1/2))
+updated: 2026-09-24 (**轮 180:蒸馏第 44 族正则化强度族入库
+  (scan§44)+WD-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
+  OPT 族无指令性后续)⇒蒸馏轮;选族钩子=轮 178 判读注记"本仓
+  Adam 无 weight-decay(默认 0)"——正则化强度从未消融;机制核对
+  grep 命中均为语境提及(§35.2 grokking 机制/§43.1 AdamW 注记),
+  正则化强度轴未收族头声明分界;3 槽一次命中+3 题录当场核验
+  (AMM-015):①★Loshchilov & Hutter ICLR 2019(~49000 引)AdamW
+  解耦 wd=事实标准 ②wd×lr×SGD 噪声隐式正则机制(arXiv 2024-11/
+  Bjorck Cornell 2021,新文如实注记)③Hernández-García(~45 引)
+  数据增强可替代显式正则=判读诚实边界;[行动] WD-LADDER 入队
+  (engineering,T1:三臂 wd{0,1e-4,1e-2} 2000 步,spread 判据
+  <1.05 不可分辨/≥1.05 报告最优 wd 与方向,判负=发散;est 8min);
+  S1 重置([行动])蒸馏第 37 次达标;157 测试+audit 全绿显式退出码
+  (零代码轮);队列二十四条(二十三 pr-pending+WD-LADDER actionable)。
+  下一心跳=goal_check 路由迭代 WD-LADDER)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -197,6 +202,11 @@ goal_queue:
   done_condition: PRD §19有"OPT-COMPARE 判读"锚且benchmarks/physics_out_v02/opt_compare/opt_compare.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "OPT-COMPARE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/opt_compare/opt_compare.json
   status: pr-pending(PR#23待建-网络断连推送欠账, 判读OPT_SGD_BETTER=SGD-m泛化好8.6%Adam训练优势不传递, dir/opt-compare 6580473+5080a07已推)
+- id: WD-LADDER
+  track: engineering
+  goal: weight decay阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: Adam weight_decay∈{0默认,1e-4,1e-2}, 判读=三臂rollout MSE(k100同held-out)spread(max/min): <1.05⇒WD_UNRESOLVABLE强度不可分辨(§44.3增强已够相容)/≥1.05⇒报告最优wd与方向(单调有益/有害/中间最优点), 判负=任一臂发散非有限或spread数值异常; 族边界=正则化强度轴WD族第1轮与§35.2 grokking机制语境/§43.1 AdamW注记分立
+  done_condition: PRD §19有"WD-LADDER 判读"锚且benchmarks/physics_out_v02/wd_ladder/wd_ladder.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "WD-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/wd_ladder/wd_ladder.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替

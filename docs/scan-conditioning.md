@@ -2691,6 +2691,83 @@ long-horizon rollout 全库 grep 零命中;与 §18.1/§31/§40 分立。
 命中(命中=§36 的 Adam 修正面措辞,族头声明分立)。选族启发式
 n=12(钩子=Adam 全仓固定从未对照)。
 
+## 44. 经验蒸馏 39(轮 180,2026-09-24,QUEUE-EMPTY 轮):正则化强度族(weight decay 与解耦正则)
+
+> 新 query 族(与前 43 族零重叠:§35.2 weight decay=grokking 机制
+> 语境,§43.1 AdamW=一句修正注记——本族=**正则化强度作为训练
+> 配置轴**(wd 阶梯×泛化、解耦正则)。钩子:轮 178 判读注记"本仓
+> Adam 无 weight-decay(默认 0)"——正则化强度从未消融,AdamW
+> 修正直接相关)。标记:[坐标] ×3(1 ★)+ [行动] ×1。三槽:① AdamW
+> 奠基 ② 机制面(wd×lr×噪声)③ 对照(增强可替代显式正则)。
+> 题录当场核验(AMM-015,3 条 venue/作者确认)。
+
+### 44.1 AdamW 奠基:解耦 weight decay [坐标]
+
+- 【出处】Loshchilov & Hutter, "Decoupled Weight Decay Regularization",
+  ICLR 2019(arXiv 2017),~49000 引(官方实现 loshchil/AdamW-and-SGDW)
+- 【内容】Adam 的 L2 正则实现次优——wd 应从梯度更新解耦、直接
+  作用于权重并与 lr 调度联动(scale λ'=λ·lr);AdamW 修复后成为
+  transformer 训练事实标准。
+- 【对我们的映射】本仓 Adam(weight_decay=0 默认)在 AdamW 语义
+  下=wd 强度 0 的特例;WD-LADDER 的阶梯即对该特例的消融;若
+  wd>0 有益,AdamW 式解耦实现是派发协议字段。
+- 【适用条件】WD-LADDER 判读参照;派发协议正则字段。
+- 【验证状态】题录当场核验(ICLR 2019+作者+引用约数);社区已
+  验证(事实标准)。
+
+### 44.2 机制面:wd×lr×SGD 噪声的隐式正则 ★ [坐标]
+
+- 【出处】"Why Do We Need Weight Decay in Modern Deep Learning?"
+  (arXiv 2024-11);Bjorck et al., "Understanding Decoupled and
+  Early Weight Decay"(Cornell 2021)
+- 【内容】wd 的收益机制不止显式范数惩罚:wd+大 lr 组合维持非消失
+  SGD 噪声→隐式正则;解耦 wd 与早/晚 wd 作用不同(lr 联动耦合)。
+- 【对我们的映射】与 §36 梯度噪声、轮 178 优化器判读衔接:wd 是
+  噪声-正则链的第三变量;若 wd 阶梯改变 rollout,§36/§43 的体制
+  定性需加 wd 维度。
+- 【适用条件】WD-LADDER 判读解释;训练配置辩护。
+- 【验证状态】题录当场核验(arXiv 2024-11;Cornell 2021+作者);
+  社区验证中(新文如实注记)。
+
+### 44.3 对照槽:数据增强可替代显式正则 [坐标]
+
+- 【出处】Hernández-García et al., "Do Deep Nets Really Need Weight
+  Decay and Dropout?", OpenReview(~45 引)
+- 【内容】数据增强 alone 可达到甚至超过 wd+dropout 的泛化;显式
+  正则对超参调优敏感。
+- 【对我们的映射】本仓正则=零(wd=0/dropout=0/增强=无)——三分支
+  判读若显示 wd 无益,与"增强可替代"文献面一致;物理仿真域的
+  天然增强(窗口采样,轮 159)=本仓已有的隐式增强,如实注记。
+- 【适用条件】WD-LADDER 判读的诚实边界。
+- 【验证状态】题录当场核验(OpenReview+作者+引用约数);社区验证
+  早期(如实注记)。
+
+### 44.4 [行动] WD-LADDER:weight decay 阶梯对照(入队)
+
+- 【出处】§44.1-44.3 的合成行动面;载体=house M1 弹簧异频池
+  (E1 口径)。
+- 【内容】2000 步 prefix hidden64 三臂:Adam weight_decay∈
+  {0(默认),1e-4,1e-2},其余同;判读=三臂 rollout MSE(k100 同
+  held-out)spread(max/min):<1.05 ⇒ WD_UNRESOLVABLE(强度不可
+  分辨,§44.3"增强已够"相容);≥1.05 ⇒ 报告最优 wd 与方向
+  (单调有益/有害/最优点在中间)。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  WD_UNRESOLVABLE(该强度不可用如实登记);spread 计算数值异常
+  ⇒ 判负。
+- 【族边界】正则化强度轴(WD 族第 1 轮);与 §35.2(grokking 机制
+  语境)/§43.1(AdamW 注记)分立。
+- 【适用条件】T1 可行动:3×2000 步 prefix≈1.5min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论 39
+
+3 [坐标](1 ★)+ 1 [行动](WD-LADDER 入队,engineering)。
+第 44 族;**S1 重置([行动] 产出)**。蒸馏轮第 37 次达标(≥1 条入库
++新目标)。机制核对:weight decay/regulariz 全库 grep 命中均为语境
+提及(§35.2 grokking 机制/§43.1 AdamW 注记),正则化强度轴未收;
+族头声明分界。选族启发式 n=13(钩子=轮 178 判读注记 wd=0)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
