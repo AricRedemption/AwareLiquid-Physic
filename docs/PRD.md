@@ -1020,6 +1020,17 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **判读(SHARP-PROBE 判读)**:**机械判读 SHARP_BELOW(传统稳定区,判负未触发)——本仓训练不运行在 edge of stability,轮 146 非单调反弹的 EOS 振荡解释通道排除**。主结果(M1 弹簧同池 hidden64 prefix 循环 lr=3e-3 Adam,checkpoint {0,200,500,1000,2000},固定 128 轨全窗口 loss 的 Hessian,幂迭代 20 步,seed 0,1-seed 筛查,实跑 ~3min ≤est8):λ_max 序列 2.85→8.20→9.05→12.45→22.15;**λ_max·lr=0.009/0.025/0.027/0.037/0.066,全部 ≪EOS 阈值 2(差 ~30×)**,五 checkpoint 幂迭代全部收敛(rel ~1e-7,判负的 10% 门远未触)。趋势读数(不承门)=**rising**:λ_max 随训练上升 7.8×,方向与 EOS"上升"半段一致但 2000 步内未及悬停平台;与 warmup"早期高后降"预言相反——本体制初始化附近最平坦。跨族对账:结合轮 149 GNS(B_simple 1k 步峰值)——**梯度噪声峰值先到、曲率持续缓升,轮 126 种子敏感性主因更可能=采样噪声(梯度侧)而非曲率失稳**;训练体制定性="稳定但噪声可观"。Adam 修正面:判据由 GD 推导,λ_max·η 精确阈值不严格适用于 Adam,但 0.066 vs 2 的 30× 量级差距在修正面内稳健。诚实边界:1-seed;固定单窗口大批 loss 口径(非随机窗口期望 Hessian);2000 步后是否逼近 EOS 未测(后续池候选,sharpness 族 1/2)。
 - **台账**:sharp_probe.py(fixed_loss EOS 全批口径+HVP 幂迭代纯函数+预注册四值判据;allow_unused 零填充修复 tiny/稀疏图二阶反向=PLAYBOOK 回写)+ tests/test_sharp_probe.py(判据 4 分支钉死+阈值常量核对+CLI 冒烟);TOOLS +sharp_probe;产物 benchmarks/physics_out_v02/sharp_probe/(gitignored,数字已抄本判读行);队列弹出条件=PR 合并后 check 过自动弹出,下一心跳=goal_check 裁决。
 
+**轮 156 记录(SHARP-PROBE-2:sharpness 进度轴延长迭代;T1 算力轮;dir/sharp-probe-v2 叠支自 dir/sharp-probe,PR#15 合并顺序在 PR#14 后)**:
+- **路由**:goal_check NOT-Achieved(SHARP-PROBE-2 actionable 队首,轮 155 入队=AMM-027 后续池路由)⇒ 心跳单元=预注册判负 → 同循环标度校准 → probe_run T1 → 当轮判读 → dir/sharp-probe-v2 PR。
+- **SHARP-PROBE-2 预注册(先于执行钉死)**:
+  - **问题**:轮 154 判读行明示后续——2000 步后是否逼近 EOS 未测:λ_max·lr 是否持续远低于 2,或出现逼近/悬停(完善"稳定但噪声可观"体制定性)?
+  - **协议**:与轮 154 完全同款(estimator/判据/池/载体/seed 逐字复用),唯 checkpoint 轴延长 **{0,1000,2000,4000,6000,8000,10000}**;v1 脚本加 --out_name 参数(默认 sharp_probe.json 不变,v2 写 sharp_probe_v2.json);非同参重跑(新参数轴);1-seed 筛查口径;Adam 修正面注记沿用。
+  - **机械判据(执行前钉死)**:同轮 154 四值判据——①SHARP_UNRESOLVABLE(判负)=任一 checkpoint 幂迭代不收敛(最后 3 步相对变化 >10%)或 λ_max 非有限;②SHARP_EOS=存在 checkpoint λ_max·lr∈[1.5,3];③SHARP_BELOW=全部 <1.5;④SHARP_ABOVE=全部 >3。趋势读数(不承门):λ_max 走向对照"升至悬停"预言(悬停=相邻 checkpoint λ_max·lr 相对变化 <15% 的平台段)。
+  - **族边界与护栏**:sharpness 族段内第 2 轮(154/156),**达 ≤2 上限——之后不得再迭代**,延伸(更长轴/多 seed)归停车场②泛容器。
+  - **命令/产物**:`./scripts/probe_run T1 10 -- .venv/bin/python -u benchmarks/sharp_probe.py --checkpoints 0,1000,2000,4000,6000,8000,10000 --out_dir benchmarks/physics_out_v02/sharp_probe_v2 --out_name sharp_probe_v2.json`;时长依据=同循环标度(10k 步 ≈2.5min+140 HVP ≈40s),est 10min 宁松。
+- **判读(SHARP-PROBE-2 判读)**:**机械判读 SHARP_BELOW 维持(判负未触发)——训练全程(10k 步)λ_max·lr 始终 <0.1,"稳定但噪声可观"体制定性强化**。主结果(M1 弹簧同池 hidden64 prefix 循环 lr=3e-3 Adam,checkpoint 延长 {0,1000,2000,4000,6000,8000,10000},seed 0,1-seed 筛查,实跑 ~4min ≤est10):λ_max·lr 序列 0.009→0.031→0.051→0.051→0.054→0.071→**0.082(10k 步)**——全部 ≪EOS 阈值 2(末端仍差 ~24×);幂迭代 7 checkpoint 全收敛。趋势读数(不承门)=**rising 持续,无悬停**:λ_max 增长 9.6× 未现 EOS"升至悬停"平台(4k-6k 微平台后 8k-10k 继续升);外推 20k 步 ≈0.24 仍远低于 2(线性外推,仅量级参考)。判读=轮 154 的 SHARP_BELOW 结论延长强化,**EOS 解释通道对训练全程(10k 步)排除,体制定性收口:"深度稳定、噪声主导的优化体制"**(与轮 151 GNS 末端 B_simple~33<64 一致互证——噪声侧主导性确立,轮 126 种子敏感性归因采样噪声的读数链闭合)。判负分支未触发。**族护栏:sharpness 族段内 2/2 用尽(154/156),更长进度轴/多 seed 终局归停车场②泛容器,不得自主迭代**。诚实边界:1-seed;固定单窗口口径;Adam 修正面。
+- **台账**:v1 脚本加 --out_name 参数(叠支最小演进零新代码,轮 151 做法复用)+sharp_probe_v2.json 产物(gitignored,数字已抄本判读行);TOOLS sharp_probe 行追加 v2 读数;队列弹出条件=PR#15 合并(PR#14 后)check 过自动弹出,下一心跳=goal_check 裁决。
+
 
 
 

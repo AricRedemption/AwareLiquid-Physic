@@ -144,6 +144,10 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out_dir",
                     default="benchmarks/physics_out_v02/sharp_probe")
+    ap.add_argument("--out_name", default="sharp_probe.json",
+                    help="round-156 (SHARP-PROBE-2) writes its own "
+                         "filename on the stacked branch; v1 default "
+                         "unchanged")
     args = ap.parse_args()
     checkpoints = sorted(int(c) for c in args.checkpoints.split(","))
 
@@ -206,7 +210,7 @@ def main():
           f"{detail.get('criterion', detail.get('reason', ''))}", flush=True)
 
     os.makedirs(args.out_dir, exist_ok=True)
-    with open(os.path.join(args.out_dir, "sharp_probe.json"), "w") as f:
+    with open(os.path.join(args.out_dir, args.out_name), "w") as f:
         json.dump({"args": vars(args),
                    "meta": run_metadata({
                        "benchmark": "sharp_probe",
