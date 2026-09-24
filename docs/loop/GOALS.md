@@ -44,19 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 156:SHARP-PROBE-2 判读 SHARP_BELOW 维持,
-  dir/sharp-probe-v2 PR#15 即终点**——goal_check NOT-Achieved⇒T1 探针
-  环心跳;预注册先于执行钉死(同 estimator 同判据唯 checkpoint 轴延长
-  {0..10000},族护栏 2/2 原文入预注册);实跑 ~4min≤est10:λ_max·lr
-  0.009→0.082 全程≪EOS 阈值 2(末端仍差 24×),7 checkpoint 全收敛,
-  rising 持续无悬停;**体制定性收口=深度稳定噪声主导的优化体制**
-  (EOS 解释通道对训练全程排除;与轮 151 GNS 末端 B_simple~33<64
-  一致互证,轮 126 种子敏感性归因采样噪声读数链闭合);判负未触发;
-  **格式化器第八袭(dir 分支 SHARP-PROBE/-2 两条被删)checkout 还原
-  14=14+wave/loop 15=15 双侧核对**;sharpness 族 2/2 用尽;160 测试
-  (157+3)+audit 全绿;队列十五条全 pr-pending。下一心跳=goal_check
-  裁决——判读轮后消化轮优先(回填资产索引 sharpness 条目/分流/条件
-  重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 157:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 156 判读后续(更长轴/多
+  seed)全归停车场(sharpness 族 2/2 用尽),池空;消化三件套:①回填
+  =资产索引 5 区 Methods 新增第 5 条 sharpness/曲率体制(λ_max·lr 全
+  程 <0.1+EOS 排除+与 GNS 互证噪声侧主导+轮 126 归因链闭合);②分流
+  =balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件
+  重入口=§12.3 三路终态维持。S1 计数:轮 148-156 段(148/150/153/155
+  入队[行动],149/151/154/156 T1 判读,147/152/157 消化)行动产出连
+  续,无 S1 累计。队列十五条全 pr-pending。下一心跳=goal_check 裁决
+  (QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
