@@ -44,22 +44,17 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 200:蒸馏第 48 族 LR 调度族入库(scan§48)
-  +LRDECAY-LADDER 入队**——goal_check QUEUE-EMPTY(后续池空,
-  NSCALES 族无指令性后续)⇒蒸馏轮;选族钩子=train.py docstring 明
-  言"Constant lr overfits long schedules"且 lr_decay=1.0 恒定全仓
-  固定从未消融(自带未检验内部断言);机制核对 grep 零命中(lr_
-  decay/schedule;train.py 内部断言非文献族);3 槽命中+题录当场
-  核验(AMM-015):①★Defazio et al. arXiv:2310.07831 线性衰减最优
-  实证(固定预算最全面评估)②Bordelon & Mori arXiv:2602.04774
-  near-optimal schedules 理论(warmup+渐进衰减;新文如实注记)
-  ③d2l 教科书共识面(衰减减少过拟合,非原创如实注记);[行动]
-  LRDECAY-LADDER 入队(engineering,T1:三臂 lr_decay{1.0,0.999,
-  0.99} 2000 步,spread 判据<1.05 不可分辨/≥1.05 报告最优 decay,
-  判负=发散;est 8min);S1 重置([行动])蒸馏第 41 次达标;157 测
-  试+audit 全绿显式退出码(零代码轮);队列三十条(二十九 pr-pending+
-  LRDECAY-LADDER actionable)。下一心跳=goal_check 路由迭代
-  LRDECAY-LADDER)
+updated: 2026-09-24 (**轮 201:LRDECAY-LADDER 判读 LRDECAY_RESOLVED,
+  dir/lrdecay-ladder PR#30 即终点**——goal_check NOT-Achieved⇒T1 探
+  针环心跳;预注册先于执行钉死(三臂 lr_decay{1.0,0.999,0.99},prefix
+  参数天然可注入=轮 181 哨兵条款适用,spread 判据,族边界=lr 调度
+  形状轴第 1 轮);实跑 ~2min≤est8:lr_decay 1.0=3.5582/0.999=3.0186
+  (最优)/0.99=3.1596,spread=1.18 ⇒ **LRDECAY_RESOLVED 内点最优:
+  温和衰减优于恒定与快衰减,train.py 内部断言获实证支持**;交叉验
+  证锚=lr_decay 1.0 臂与轮 175/178/181 三重逐位一致;族护栏 LRDECAY
+  族 1/2;160 测试(157+3)+audit 全绿;队列三十条全 pr-pending。下一
+  心跳=goal_check 裁决——判读轮后消化轮优先(回填资产索引 lrdecay
+  条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -244,6 +239,7 @@ goal_queue:
   goal: lr衰减阶梯对照探针——异频池(E1口径)prefix hidden64 2000步三臂: lr_decay∈{1.0恒定默认,0.999,0.99}(prefix参数天然可注入=轮181哨兵条款适用), 评估同口径k100 held-out rollout MSE, 判读=三臂spread(max/min): <1.05⇒LRDECAY_UNRESOLVABLE调度形状不可分辨(恒定默认充分如实登记)/≥1.05⇒报告最优decay与方向, 判负=任一臂发散非有限或spread数值异常; 族边界=lr调度形状轴LRDECAY族第1轮与§43优化器/§40排序/§36噪声分立
   done_condition: PRD §19有"LRDECAY-LADDER 判读"锚且benchmarks/physics_out_v02/lrdecay_ladder/lrdecay_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LRDECAY-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/lrdecay_ladder/lrdecay_ladder.json
+  status: pr-pending(PR#30, 判读LRDECAY_RESOLVED=调度形状可分辨最优lr_decay=0.999内点恒定lr差17.9%, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
