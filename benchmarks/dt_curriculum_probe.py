@@ -100,6 +100,14 @@ def main():
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out_dir",
                     default="benchmarks/physics_out_v02/dt_curriculum")
+    ap.add_argument("--out_name", default="dt_curriculum.json",
+                    help="round 167 (DT-CURRICULUM-2) writes its own "
+                         "filename on the stacked branch")
+    ap.add_argument("--arm_b_reverse", action="store_true",
+                    help="round 167 (DT-CURRICULUM-2): arm B becomes the "
+                         "REVERSE curriculum (fine dt first, then coarse); "
+                         "evaluated on a fine-dt model after weight "
+                         "re-mount; v1 default unchanged")
     args = ap.parse_args()
 
     # dt=0.05 data for BOTH training (arm A and arm B phase 2) and eval;
@@ -130,6 +138,29 @@ def main():
             train_prefix(model, qs_fine[tr], ps_fine[tr], args.t_obs,
                          args.k_train, args.steps_fine, args.lr,
                          args.batch, args.seed)
+            loss = float("nan")
+        elif args.arm_b_reverse:
+            # REVERSE curriculum: fine dt first, then coarse; weights
+            # re-mounted on a fine-dt model so ALL arms evaluate on the
+            # same dt=dt_fine model (round-165 weight-carry method).
+            fine_model = LiquidHamiltonianModel(
+                1, d_model=args.d_model, context_dim=args.context_dim,
+                n_scales=args.n_scales, hidden_dim=args.hidden, depth=2,
+                dt=args.dt_fine)
+            train_prefix(fine_model, qs_fine[tr], ps_fine[tr],
+                         args.t_obs, args.k_train, args.steps_coarse,
+                         args.lr, args.batch, args.seed)
+            model.load_state_dict(fine_model.state_dict())
+            coarse_model = LiquidHamiltonianModel(
+                1, d_model=args.d_model, context_dim=args.context_dim,
+                n_scales=args.n_scales, hidden_dim=args.hidden, depth=2,
+                dt=args.dt_coarse)
+            coarse_model.load_state_dict(model.state_dict())
+            train_prefix(coarse_model, qs_coarse[tr], ps_coarse[tr],
+                         args.t_obs, args.k_train,
+                         args.steps_fine - args.steps_coarse, args.lr,
+                         args.batch, args.seed)
+            model.load_state_dict(coarse_model.state_dict())
             loss = float("nan")
         else:
             # phase 1 on coarse-dt data: model.dt must match the training
@@ -174,8 +205,7 @@ def main():
           flush=True)
 
     os.makedirs(args.out_dir, exist_ok=True)
-    with open(os.path.join(args.out_dir, "dt_curriculum.json"),
-              "w") as f:
+    with open(os.path.join(args.out_dir, args.out_name), "w") as f:
         json.dump({"args": vars(args),
                    "meta": run_metadata({
                        "benchmark": "dt_curriculum_probe",
