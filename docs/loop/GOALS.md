@@ -44,17 +44,18 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 204:蒸馏第 49 轮 batch×lr 等价规则受控
-  检验行动面准入(scan§49)+LRBATCH-GRID 入队**——goal_check QUEUE-
-  EMPTY(后续池空)⇒蒸馏轮;本轮不收新族——给 §43.3 Smith 等价坐
-  标补行动面(已收坐标的行动面缺口,蒸馏交付=行动准入);[行动]
-  LRBATCH-GRID 入队(engineering,T1:四单元 (batch,lr) 网格{(16,
-  3e-3),(64,3e-3),(16,1.2e-2),(64,1.2e-2)},判读=线性等价对与平方
-  根等价对各<5% 差即规则成立/≥5% 规则打破如实报告,判负=单元发散
-  登记;est 10min);S1 重置([行动])蒸馏第 42 次达标;157 测试+
-  audit 全绿显式退出码(零代码轮);队列三十条(二十九 pr-pending+
-  LRBATCH-GRID actionable)。下一心跳=goal_check 路由迭代
-  LRBATCH-GRID)
+updated: 2026-09-24 (**轮 205:LRBATCH-GRID 判读 SCALING_BROKEN,dir/
+  lrbatch-grid PR#31 即终点**——goal_check NOT-Achieved⇒T1 探针环心
+  跳;预注册先于执行钉死(五单元 (batch,lr) 网格,等价对判据,发散
+  优先);实跑 ~3min≤est10:线性等价对差 33.1%+平方根等价对差
+  20.6% 均≥5% ⇒ **SCALING_BROKEN:Smith 等价本仓打破,batch×lr 需
+  联合调优不可分离外推**;最好单元 (64,1.2e-2)=1.597 最差
+  (16,1.2e-2)=5.454=batch×lr 真交互(lr 效应依赖 batch);交叉验
+  证锚=(64,3e-3) 与轮 175/178/181 逐位一致;执行勘误如实=预注册
+  网格漏 (64,6e-3) 单元当轮测试抓出补入;N1 路由=训练配置辩护补
+  batch×lr 联合调优必要性;160 测试(157+3)+audit 全绿;队列三十一
+  条全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先
+  (回填资产索引 lrbatch 条目/分流/条件重入口,禁新蒸馏))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -245,6 +246,7 @@ goal_queue:
   goal: batch×lr缩放规则检验——§43.3 Smith等价坐标行动面: 异频池2000步prefix四单元(batch,lr)网格{(16,3e-3),(64,3e-3),(16,1.2e-2),(64,1.2e-2)}, 判读=等价对rollout MSE差: 线性等价对(16,3e-3)vs(64,1.2e-2)与平方根等价对(16,3e-3)vs(64,6e-3)各<5%⇒该规则成立/≥5%⇒规则打破如实报告哪条更准, 判负=任一单元发散非有限⇒LRBATCH_UNRESOLVABLE该组合不可用登记; 族边界=batch×lr交互轴§43行动面与§42池宽度/§45深度分立
   done_condition: PRD §19有"LRBATCH-GRID 判读"锚且benchmarks/physics_out_v02/lrbatch_grid/lrbatch_grid.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "LRBATCH-GRID 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/lrbatch_grid/lrbatch_grid.json
+  status: pr-pending(PR#31, 判读SCALING_BROKEN=两条缩放规则均打破batch×lr需联合调优, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
