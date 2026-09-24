@@ -7,7 +7,7 @@
 
 ```yaml
 state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 141 用户质询重入,见 updated)
-mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
+mode: OFF                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
   治理轮 2+对齐修正(2026-09-19 15:09,设计会话):AMM-010(T1 放宽 ≤30min
@@ -25,16 +25,23 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  **v5.0 T1 探针环已生效(AMM-024,2026-09-22 用户裁定)**:心跳单元=
-  T1 可行动目标(预注册判负 → probe_run T1 ≤30min → 当轮判读 →
-  dir/<slug> PR 提交即终点);超 T1 方向入 AMM-024 停车场(T3-MENU:
-  N1 v1+/T2/T3 候选/Kaggle 派发线/隐藏卷,停放待用户重启)。下一心跳:
-  队列空 ⇒ 蒸馏轮收方向(只收 T1 可行动),或按 goal_check 裁决。
+  **v5.1 价值出口修正生效(AMM-028,2026-09-25 用户对话授权)**:在
+  v5.0 T1 探针环之上加五条门——①决策耦合门:入队必带"哪种结果⇒改
+  变哪个决策",填不出不入队,配方族默认关闭准入;②回灌强制门:≥3
+  族判"默认非最优"⇒禁开新族,强制组合配方对照探针,判读后回灌或
+  如实登记不回灌;③统计升级:对照类 T1 默认 3-seed(均值+方向一致
+  性+seed 间 spread);④题录核验硬门:弱题录不得作 [行动] 依据,
+  蒸馏题录须网络核验;⑤anytime 周检:收尾轮画"默认配方 held-out
+  质量 vs 累计探针小时"曲线,连续两周持平⇒S3 武装。
+  当前行动=回灌门首例 RECIPE-SYNTHESIS(预注册见 PRD §19 轮 227)。
+  下一心跳:执行/路由 RECIPE-SYNTHESIS;蒸馏轮只收"声明了决策耦合"
+  的族。超 T1 方向入 AMM-024 停车场(T3-MENU:N1 v1+/T2/T3 候选/
+  Kaggle 派发线/隐藏卷,停放待用户重启)。
 blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
   不阻塞 v5 循环。
-next_trigger_hint: goal_check → 十条全 pr-pending(PR#1-#10)机械跳过 ⇒ QUEUE-EMPTY 仪表路由(判读轮后消化轮优先:回填 N1 时标条款量化升级/分流/条件重入口,禁新蒸馏;后续池=慢轴到门预算归因属停车场 T2/T3 待用户重启,无 T1 可迭代点)/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → RECIPE-SYNTHESIS actionable(AMM-028 回灌门首例:两臂×3-seed 组合配方对照,判读→回灌决策:SYNERGIC⇒开配方回灌 PR/NULL⇒配方轴收口+蒸馏配方族关闭/ANTAGONISTIC⇒冲突归因停车场)→ 判读后消化轮优先(回填资产索引 recipe 条目);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   台账,清欠顺序与指标);docs/loop/AMENDMENTS.md(AMM-007/008/009);
   docs/scan-conditioning.md §8-22(文献坐标;轮 61/63/65/73/75/77/79/81/83/85/87
@@ -44,23 +51,29 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 225:蒸馏第 53 族 ctx 隐变量容量族入库
-  (scan§53)+CTX-DIM-LADDER 入队**——goal_check QUEUE-EMPTY(后续池
-  空,TOSA-LADDER 判读读数交付)⇒蒸馏轮;选族钩子=context_dim=8 全
-  仓固定从未消融(ω=1 维真值的容量冗余问题);机制核对 grep 零命中
-  (D2/E4a=梯度流实验记录非族,族头声明分立);3 槽命中+题录核验
-  (Zhou arXiv:2410.05493 强题录;CAVIA 谱系与 BayesFlow SBI 谱系
-  弱题录带 ? 登记 SCAN-AUDIT 复核,AMM-015 允许);[行动] CTX-DIM-
-  LADDER 入队(engineering,T1:四臂 context_dim{1,2,4,8} 2000 步,
-  spread 判据<1.05 不可分辨/≥1.05 报告最优 ctx_dim,判负=发散;
-  est 8min);S1 重置([行动])蒸馏第 47 次达标;157 测试+audit 全
-  绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-
-  LADDER actionable)。下一心跳=goal_check 路由迭代 CTX-DIM-LADDER)
+updated: 2026-09-25 (**轮 227:AMM-028 价值出口五门落地+RECIPE-SYNTHESIS
+  组合回灌探针入队**——用户对话质询"单位时间产出/判读为何不改变任何东
+  西"触发;AMM-028 APPLIED(决策耦合门/回灌强制门/统计升级 3-seed/题
+  录网络核验/anytime 周检);回灌门首例触发=WD/DEPTH/LRDECAY/TOSA/
+  CTX-DIM 五族判"默认非最优"(ctx_dim=8 差 80%=最大配置误差,轮 226)
+  ⇒禁止开新族;[行动] RECIPE-SYNTHESIS 入队(engineering,T1:两臂
+  ×3-seed,A=全默认 vs B=depth4+lrdecay0.999+wd1e-4+warmup200+
+  ktrain4,三分支判读 SYNERGIC⇒回灌 PR/NULL⇒配方轴收口关闭/ANTA-
+  GONISTIC⇒冲突归因,est 15min);心跳经用户授权暂停落地(iteration
+  stop→start 恢复);测试+audit 全绿显式退出码;队列三十八条(三十
+  七 pr-pending+RECIPE-SYNTHESIS actionable)。下一心跳=路由迭代
+  RECIPE-SYNTHESIS(判读→回灌决策))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
 ```yaml
 goal_queue:
+- id: RECIPE-SYNTHESIS
+  track: engineering
+  goal: 组合配方回灌探针(AMM-028 回灌强制门首例)——异频池(E1口径)prefix 2000步两臂×3-seed{0,1,2}: A=全默认(depth2,lr_decay1.0,wd0,warmup0,k_train8,ctx_dim8) vs B=单轴最优合成(depth4,lr_decay0.999,wd1e-4,warmup前200步线性升3e-3,k_train4), 评估同口径k100 held-out rollout MSE, 判读=3-seed均值比ratio=mean_B/mean_A三分支: <0.95⇒RECIPE_SYNERGIC组合收益(决策=默认配置回灌开PR)/0.95-1.05⇒RECIPE_NULL单轴不可加(决策=配方轴收口,蒸馏配方族关闭准入)/>1.05⇒RECIPE_ANTAGONISTIC冲突(决策=归因停车场1-2), 判负=任一臂任一seed发散; 判读行附逐seed值+方向一致性计数+seed间spread(AMM-028统计升级首例); 交叉验证锚=A臂seed0与轮175/191/223/226历史默认臂逐位一致; 决策耦合声明=三种结果各有明确决策改变(AMM-028门1首例)
+  done_condition: PRD §19有"RECIPE-SYNTHESIS 判读"锚且benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json产物存在, 判负标准执行前预注册(轮227已落盘)
+  check_cmd: grep -q "RECIPE-SYNTHESIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json
+  status: actionable(AMM-028b回灌门强制,禁其他新族)
 - id: M1-CAP-AXIS
     track: frontier
     goal: M1容量轴探针——d_model∈{24,48,96}×n32同池同预算(2000步,seed0,prefix/all2all双臂), E3容量否定的M1侧对照, 判读=liquid edge随容量走向
@@ -276,10 +289,14 @@ goal_queue:
     goal: ctx容量阶梯对照探针——§53.1 ICL信息论容量坐标行动面: 异频池(E1口径)prefix hidden64 2000步四臂: context_dim∈{1,2,4,8}(构造参数天然可注入=轮181哨兵条款适用), 评估同口径k100 held-out rollout MSE, 判读=四臂spread(max/min): <1.05⇒CTXDIM_UNRESOLVABLE容量不可分辨(ctx_dim=8默认充分如实登记)/≥1.05⇒报告最优ctx_dim与方向(容量有益/有害/内点), 判负=任一臂发散非有限或spread数值异常; 族边界=ctx隐变量容量轴CTX-DIM族第1轮与D2/E4a梯度流分立=容量宽窄; 与SSM替代线分立
     done_condition: PRD §19有"CTX-DIM-LADDER 判读"锚且benchmarks/physics_out_v02/ctx_dim_ladder/ctx_dim_ladder.json产物存在, 判负标准执行前预注册
     check_cmd: grep -q "CTX-DIM-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/ctx_dim_ladder/ctx_dim_ladder.json
+  status: pr-pending(PR#37, 判读CTXDIM_RESOLVED=容量单调有害最优ctx_dim=1默认8差80%最大配置误差, 合并后check过自动弹出)
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
 养成交付节奏;新方向(文献扫描/用户指定)追加到队尾并标 track。
+**AMM-028 门(2026-09-25)**:入队须带决策耦合声明(门 1),配方族默认
+关闭准入;≥3 族判"默认非最优"⇒回灌强制门(门 2)优先于一切新族;
+对照类探针 3-seed(门 3);弱题录不得作 [行动] 依据(门 4)。
 队列空 ⇒ 按 goal_check 路由(蒸馏/证据轮/清欠,以路由器裁决为准)。
 **在途 PR 注记(备份说明,AMM-026 起非承载)**:任务级恢复已由队列
 `status: pr-pending` 字段机械承载(goal_check 状态驱动跳过/弹出,回归
