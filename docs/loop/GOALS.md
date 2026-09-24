@@ -44,19 +44,14 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 185:DEPTH-LADDER 判读 DEPTH_RESOLVED,dir/
-  depth-ladder PR#25 即终点**——goal_check NOT-Achieved⇒T1 探针环心
-  跳;预注册先于执行钉死(三臂 depth{1,2,4},spread 判据,注入式实
-  现=轮 181 哨兵条款适用良好,族边界=深度轴第 1 轮);实跑 ~2min≤
-  est8:depth 4.73→3.56→2.44,spread=1.94 ⇒ **DEPTH_RESOLVED:深度
-  单调有益末端最优(1-4 域内未饱和),depth=2 默认充分性不成立
-  (4 更优 31.5%,1-seed)**;文献对表=§45.1 深度效率+§45.2 Mattheakis
-  HNN 消融方向一致,§45.3 哈密顿稳定性预言未显现(浅 MLP 如实注
-  记);参数量混杂如实注记(深度×宽度交叉=DEPTH 族后续候选 1/2);
-  交叉验证锚=depth=2 臂与轮 175 B 臂逐位一致;两处小 bug 当轮修复;
-  160 测试(157+3)+audit 全绿;队列二十五条全 pr-pending。下一心跳=
-  goal_check 裁决——判读轮后消化轮优先(回填资产索引 depth 条目/
-  分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 186:自生成后续迭代入队 DEPTH-WIDTH**——
+  goal_check QUEUE-EMPTY⇒先盘后续池:**非空**=轮 185 判读行明示
+  "深度×宽度交叉=DEPTH 族后续池候选 1/2"(轮 162 注记的参数量混杂:
+  深度收益部分可能是参数量效应,与宽度轴交叉后可分离)⇒入队迭代
+  等同行动产出重置 S1;DEPTH-WIDTH=depth{2,4}×d_model{48,96} 四单
+  元 2000 步,判读=两轴主效应+交互项;非同参重跑,DEPTH 族段内第
+  2 轮达 ≤2 上限之后换方向或入停车场;est 10min;25=25+ID 数数锚
+  核对。下一心跳=goal_check 路由迭代 DEPTH-WIDTH)
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
@@ -212,6 +207,11 @@ goal_queue:
   done_condition: PRD §19有"DEPTH-LADDER 判读"锚且benchmarks/physics_out_v02/depth_ladder/depth_ladder.json产物存在, 判负标准执行前预注册
   check_cmd: grep -q "DEPTH-LADDER 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/depth_ladder/depth_ladder.json
   status: pr-pending(PR#25, 判读DEPTH_RESOLVED=深度单调有益末端最优depth=4默认非最优, 合并后check过自动弹出)
+- id: DEPTH-WIDTH
+  track: engineering
+  goal: 深度×宽度交叉矩阵探针——轮185判读行明示后续: depth∈{2,4}×d_model∈{48,96}四单元2000步prefix(hidden固定), 判读=两轴效应分离(主效应depth/width+交互项: 交互超比例⇒深度收益依赖宽度或反之)与轮162 M1-CAP-AXIS宽度轴数字对表, 判负=任一单元发散非有限或交互不可分辨如实登记; DEPTH族段内第2轮达≤2上限之后换方向或入停车场
+  done_condition: PRD §19有"DEPTH-WIDTH 判读"锚且benchmarks/physics_out_v02/depth_width/depth_width.json产物存在, 判负标准执行前预注册
+  check_cmd: grep -q "DEPTH-WIDTH 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/depth_width/depth_width.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;两轨交替
