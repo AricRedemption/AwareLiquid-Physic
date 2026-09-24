@@ -3190,6 +3190,36 @@ n=12(钩子=Adam 全仓固定从未对照)。
 (命中=systematic review/CTI 弱匹配非族)。选族启发式 n=19(钩子=
 权重平均从未试+§30 盆地几何的收益面)。
 
+## 50.1x 补充(轮 213,2026-09-24):§37.2 warmup 坐标的行动面准入
+
+> 本轮不收新族——给 §37.2(Kalra NeurIPS 2023 warmup 机制,已在库)
+> 补行动面:lr warmup 对照(WARMUP-PROBE 入队)。族=§37 曲率动力学
+> 族的 warmup 行动面(与 §45.4 DEPTH-LADDER 同族行动面模式)。
+
+### 50.2b [行动] WARMUP-PROBE:lr warmup 对照(入队)
+
+- 【出处】§37.2 Kalra 坐标(warmup=等待 sharpness 自然下降)的行动
+  检验;载体=house M1 弹簧异频池(E1 口径,与轮 201 LRDECAY 同
+  配置)。
+- 【内容】2000 步 prefix hidden64 两臂:A=恒定 lr=3e-3(默认);
+  B=warmup(前 200 步 lr 从 0 线性升至 3e-3,其后恒定);判读=A/B
+  rollout MSE(k100 同 held-out)三分支:差<5% ⇒ warmup 不可分辨
+  (与轮 194 SHARP_BELOW 一致:本仓不在 EOS,warmup 预言的收益域
+  可能不触发——如实登记)/B 好 ≥5% ⇒ warmup 有益(§37.2 方向);
+  B 差 ≥5% ⇒ warmup 有害如实登记。
+- 【判负(预注册,执行前钉死进 PRD §19)】=任一臂发散/非有限 ⇒
+  WARMUP_UNRESOLVABLE 登记;sharpness 前置读数(可选诊断)非承门。
+- 【族边界】warmup 行动面(§37 行动化);与 §48 LRDECAY(衰减形状)
+  分立=warmup(上升段)。
+- 【适用条件】T1 可行动:2×2000 步 prefix≈1min,est 8min;
+  1-seed 筛查口径。
+- 【验证状态】入队执行;预注册判负标准先于执行钉死(下心跳)。
+
+### 蒸馏结论补充(§37 行动面)
+
+1 [行动](WARMUP-PROBE 入队,engineering;§37 行动面补全)。
+蒸馏轮第 44 次达标(行动准入)。**S1 重置([行动] 产出)**。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
