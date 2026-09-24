@@ -44,18 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 175:POOL-WIDTH 判读 WIDTH_COST,dir/
-  pool-width PR#22 即终点**——goal_check NOT-Achieved⇒T1 探针环心跳;
-  预注册先于执行钉死(两臂各评估同分布 held-out,三分支判据,族边
-  界=训练分布宽度轴第 1 轮);实跑 ~1min≤est8:A 窄池 0.0949 vs B
-  宽池 3.5582 ⇒ **ratio=37.5⇒WIDTH_COST**;口径拆解防误读=任务难度
-  +ctx 推断代价合计非纯训练多样性损害(Kumar 混合);**跨池数字不可
-  比=池宽度加入基线表强制列(轮 111 条款又一实证)**;与轮 120 单频
-  控制臂方向一致互补;N1 路由=评测口径声明补池宽度列;格式化器第
-  十四袭(POOL-WIDTH 整条被删)checkout 还原 22=22+ID 核对;160 测试
-  (157+3)+audit 全绿;队列二十二条全 pr-pending。下一心跳=goal_
-  check 裁决——判读轮后消化轮优先(回填资产索引 pool-width 条目/
-  分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 176:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 175 判读无指令性后续
+  (口径拆解为注记),池空;消化三件套:①回填=资产索引 5 区 Methods
+  新增第 10 条池分布宽度(WIDTH_COST 判负记录+口径拆解=难度+推断
+  代价合计+跨池数字不可比池宽度列强制);②分流=balance_gauge
+  EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3
+  三路终态维持。S1 计数:轮 174([行动])/175(T1 判读)行动产出连
+  续,本消化轮无蒸馏,无 S1 累计。队列二十二条全 pr-pending。下一
+  心跳=goal_check 裁决(QUEUE-EMPTY ⇒ 蒸馏轮收方向,须带 [行动]
+  否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
