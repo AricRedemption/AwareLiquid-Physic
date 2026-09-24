@@ -44,18 +44,16 @@ pointer: docs/PRD.md §19(判读报告落点);docs/loop/DEBT-LEDGER.md(欠账
   docs/structure-injection-vs-discovery.md(轮 86);docs/grad-path-audit.md(轮 93);
   docs/scan-traceability-audit.md(轮 94 溯源审计)
 
-updated: 2026-09-24 (**轮 172:LEN-EXTRAP-2 判读 LEN_ROBUST 维持,
-  dir/len-extrap-v2 PR#21 即终点**——goal_check NOT-Achieved⇒T1 探针
-  环心跳;预注册先于执行钉死(同池同 seed 唯两处:评估池 100.1s+相对
-  化口径,族护栏 2/2 原文入预注册);实跑 ~4min≤est10:相对 comp=
-  0.88 与绝对一致,extended[80,100]s=0.78 ⇒ **LEN_ROBUST 维持,稳健
-  域延伸至窗外 8-10×**;相对化=绝对一致的物理解读=弹簧能量守恒信号
-  能量恒定,轮 170 混杂担忧解除(相对化保留为非守恒体系协议准备);
-  边界跳变/E-drift 复现;实现瑕疵如实(window_note 硬编码仅展示层);
-  格式化器第十三袭(LEN-EXTRAP-2 整条被删)checkout 还原 21=21+ID
-  核对;LEN 族 2/2 用尽;160 测试(157+3)+audit 全绿;队列二十一条
-  全 pr-pending。下一心跳=goal_check 裁决——判读轮后消化轮优先(回
-  填资产索引 len-extrap-2 条目/分流/条件重入口,禁新蒸馏))
+updated: 2026-09-24 (**轮 173:消化轮(T0 零算力;QUEUE-EMPTY 后续池
+  空+判读轮后消化轮优先)**——后续池盘查=轮 172 判读后续(更长窗/
+  多 seed/非守恒体系)全归停车场(LEN 族 2/2 用尽),池空;消化三件
+  套:①回填=资产索引 5 区 Methods 新增第 9 条长度外推(窗外 8-10×
+  平缓延续+无边界效应+能量漂移解耦注记);②分流=balance_gauge
+  EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3
+  三路终态维持。S1 计数:轮 169([行动])/170(T1 判读)/171(自生成
+  入队)/172(T1 判读)行动产出连续,本消化轮无蒸馏,无 S1 累计。
+  队列二十一条全 pr-pending。下一心跳=goal_check 裁决(QUEUE-EMPTY
+  ⇒ 蒸馏轮收方向,须带 [行动] 否则 S1 累计 1/2))
 
 ## goal_queue(双轨交替:engineering / frontier;顶部为当前目标)
 
