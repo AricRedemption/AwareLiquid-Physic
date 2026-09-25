@@ -14,29 +14,28 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 42 条全
-  pr-pending;RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC 回灌 PR=用户线下;
-  AMM-031 谱域次级口径提案 PROPOSED 待用户;轮 249 EQUIV-HEAD 判
-  EQUIV_TRADEOFF(解析 T 分布内 3/3 全赢 −14%=正发现/外推恶化=
-  归因 V+ctx)。下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(AMM-028
-  门 1:只收声明决策耦合的族,配方族默认关闭;S1 要求 [行动] 交付;
-  推送欠账两笔网络恢复即补)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 43 条
+  (42 pr-pending+RECIPE-HORIZON actionable);AMM-031 提案 PROPOSED
+  待用户;蒸馏第 55 族(配方视距稳健)入库。下一心跳:goal_check
+  路由迭代 RECIPE-HORIZON(dir/recipe-horizon 分支回灌配方 vs 默认
+  三视距 k{100,200,400}×3-seed,决策耦合=回灌 PR scope 声明三分支
+  路由;哨兵=A@k100 s0 逐位 3.5582)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合:哪种结果⇒改变哪个决策;配方族默认关闭;弱题录禁 [行动]);用户指令 / 停车场重启 / AMM-031 提案裁决 / 网络恢复补推随时重入
+next_trigger_hint: goal_check → RECIPE-HORIZON actionable(dir/recipe-horizon 分支三视距×3-seed:探针执行→判读→PR,哨兵=A@k100 s0=3.5582)→ 判读后消化轮优先(回填资产索引配方条目);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启 / AMM-031 提案裁决
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 250:消化轮+等变权衡回填**)——轮 249
-  EQUIV-HEAD 判读(EQUIV_TRADEOFF 两向:解析 T 分布内 3/3 全赢
-  −14% 正发现/外推 rel_comp 恶化 2.7×=归因 V+ctx 通道,与轮 239/
-  241 合流)回填资产索引第 24 条;分流 balance_gauge EXP=0.2 无报
-  警;推送欠账两笔(轮 248 wave/loop+轮 249 dir/equiv-head)网络中
-  断待补;判读后续池空(V 齐次参数化=自行停车场非池条目)⇒ 下一
-  心跳蒸馏轮;队列四十二条全 pr-pending。
+updated: 2026-09-25 (**轮 251:蒸馏第 55 族+RECIPE-HORIZON 入队**)——
+  池空蒸馏轮:自生成方向(轮 133 先例),钩子=回灌决策 scope 开放
+  面(全部回灌证据在 k100 单一口径);[行动] RECIPE-HORIZON 入队
+  (配方 vs 默认×3-seed 三视距 k{100,200,400},三分支=回灌 PR
+  scope 确认/限中视距注记/脆弱登记);蒸馏第 51 次达标;队列四十
+  三条(42 pr-pending+RECIPE-HORIZON actionable)。下一心跳=
+  goal_check 路由迭代 RECIPE-HORIZON。
 
 
 ## goal_queue(顶部为当前目标)
@@ -169,6 +168,9 @@ goal_queue:
 - id: EQUIV-HEAD
   status: pr-pending(PR#44待建-判读EQUIV_TRADEOFF=解析T分布内3/3全赢均值-14%但外推rel_comp中位9.07vs3.33恶化, 判读与代码在dir/equiv-head分支, 合并后check过自动弹出; 决策=解析动能spring配置候选走独立线+归因重定向V与ctx通道, 第54族段内1/2)
   check_cmd: grep -q "EQUIV-HEAD 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/equiv_head/equiv_head.json
+- id: RECIPE-HORIZON
+  status: actionable
+  check_cmd: grep -q "RECIPE-HORIZON 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_horizon/recipe_horizon.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
