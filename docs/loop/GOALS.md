@@ -14,35 +14,30 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 40 条
-  (39 pr-pending+AMP-ATTR actionable);RECIPE-SYNTHESIS 判
-  RECIPE_SYNERGIC(组合收益 10.7% 3-seed)回灌 PR=用户线下;轮 241
-  TOSA-CTX-DECOUPLE 判 DEC_TRAIN_HARMFUL(轮 223 t8 4.5%=评估口径
-  伪影+seed0 抽取双层 dissolution,t_obs 维持 24;3-seed 门三连证,
-  新条款=跨臂比较预注册须声明 eval 口径固定性)。下一心跳:goal_check
-  路由迭代 AMP-ATTR(dir/amp-attr 分支线性等变性归因探针:ctx 不变性
-  vs 动力学头等变性分解,轮 216 判读行明示"可检测机制线索",决策
-  耦合=非线性偏差载体定位→修复候选路由);池余一条(RESIDUAL 谱
-  指标)出处已锚定留池。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 38 条
+  (37 pr-pending+CTX-DIM-2 actionable);RECIPE-SYNTHESIS 判
+  RECIPE_SYNERGIC(组合收益 10.7% 3-seed)回灌 PR=用户线下;轮 237
+  WARMUP-PROBE-2 判 WARMUP_3S_BENEFICIAL(比值 0.8561 但一致性 1/3
+  =收益 seed0 驱动,44.2% 降格定性,回灌依据改记组合 3/3)。下一心跳:
+  goal_check 路由迭代 CTX-DIM-2(dir/ctx-dim-2 分支 3-seed ctx_dim
+  1v8 确认+ω 语义重标定诊断,轮 226 判读行明示族后续=最大配置误差
+  的统计升级,决策耦合=回灌配方 ctx 轴去留);池余三条(AMP 线性
+  不变性归因/RESIDUAL 谱指标/TOSA 窗长-ctx 解耦)出处已锚定按序留池。
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check → AMP-ATTR actionable(dir/amp-attr 分支线性等变性归因:scale{1,2,4} 等变误差+ctx 不变性+同 ctx 强制头分解×3-seed:探针执行→判读→PR)→ 判读后消化轮优先(回填资产索引 amp 条目);池余一条(RESIDUAL 谱指标);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → CTX-DIM-2 actionable(dir/ctx-dim-2 分支 3-seed ctx_dim 1v8 +ω 语义诊断:探针执行→判读→PR,哨兵锚=ctx8 臂 s0 逐位 3.5582+ctx1 臂 s0 逐位 1.9746)→ 判读后消化轮优先(回填资产索引 ctx 条目);池余三条按序(AMP 归因/RESIDUAL 谱指标/TOSA 解耦);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 242:消化轮+AMP-ATTR 入队+格式化器第七袭修复**)——
-  轮 241 TOSA-CTX-DECOUPLE 判读(DEC_TRAIN_HARMFUL,ratio 5.5975;
-  轮 223 t8 4.5% 双层 dissolution=评估口径伪影+seed0 抽取,t_obs
-  维持 24,RECIPE t_obs 条款收口;3-seed 门三连证)回填资产索引
-  第 21 条;**格式化器第七袭如实登记**=轮 240 提交已带入重排格式且
-  CTX-DIM-2 条目被删(计数锚验证与 git add 之间被介入,提交信息
-  "三十九条"失实),本轮脚本化重建干净队列(38 条内容提取+CTX-DIM-2
-  归位+转移应用,40=40=40 三锚验收+goal_check 实跑),PRD 历史行
-  不改以本行为准;分流 balance_gauge EXP=0.2 无报警;池盘点非空 ⇒
-  同轮入队 AMP-ATTR(轮 216 判读行明示机制线索,AMPLITUDE 族段内
-  第 2 轮达上限);队列四十条(39 pr-pending+AMP-ATTR actionable)。
-  下一心跳=goal_check 路由迭代 AMP-ATTR。
+updated: 2026-09-25 (**轮 238:消化轮+CTX-DIM-2 入队**)——轮 237
+  WARMUP-PROBE-2 判读(WARMUP_3S_BENEFICIAL,比值 0.8561 但一致性
+  1/3=收益 seed0 驱动,轮 213 的 44.2% 降格定性,回灌依据改记组合
+  3/3)回填资产索引第 18 条;分流 balance_gauge EXP=0.2 无报警/消化
+  率 1.0;池盘点非空 ⇒ 同轮入队 CTX-DIM-2(轮 226 判读行明示族后续
+  =最大配置误差 ctx_dim 的 3-seed 统计升级+ω 语义重标定诊断,族段内
+  第 2 轮达上限);队列三十八条(37 pr-pending+CTX-DIM-2 actionable)。
+  下一心跳=goal_check 路由迭代 CTX-DIM-2。
 
 ## goal_queue(顶部为当前目标)
 
@@ -157,18 +152,18 @@ goal_queue:
   status: pr-pending(PR#35, 判读RESIDUAL_PROFILED=残差能量93.2%在高频段高频欠拟合主导诊断读数交付, 合并后check过自动弹出)
   check_cmd: grep -q "RESIDUAL-SPEC 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec/residual_spec.json
 - id: WARMUP-PROBE-2
-  status: actionable
+  status: pr-pending(PR#39待建-判读WARMUP_3S_BENEFICIAL=比值0.8561<0.95但一致性1/3收益seed0驱动如实注记, 判读与代码在dir/warmup-probe-v2分支, 合并后check过自动弹出; 决策=warmup保留回灌配方候选依据改记组合3/3, 轮213的44.2%降格seed0抽取)
   check_cmd: grep -q "WARMUP-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe_v2/warmup_probe_v2.json
 - id: CTX-DIM-2
-  status: pr-pending(PR#40待建-判读CTX2_REVERSED=ratio1.1096>1.05反转由seed2单点驱动spread_B2.72高方差轴+语义诊断ctx不承载ω, 判读与代码在dir/ctx-dim-2分支, 合并后check过自动弹出; 决策=ctx轴维持默认8, 轮226读数降格, ctx_dim=1不入回灌; 轮242误弹恢复+锚加固=轮240消化标题含"CTX-DIM-2 判读"子串致grep过早命中, 锚改判读头格式)
-  check_cmd: grep -q "判读(CTX-DIM-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/ctx_dim_2/ctx_dim_2.json    status: pr-pending(PR#39待建-判读WARMUP_3S_BENEFICIAL=比值0.8561<0.95但一致性1/3收益seed0驱动如实注记, 判读与代码在dir/warmup-probe-v2分支, 合并后check过自动弹出; 决策=warmup保留回灌配方候选依据改记组合3/3, 轮213的44.2%降格seed0抽取)
+  status: pr-pending(PR#40待建-判读CTX2_REVERSED=ratio1.1096>1.05反转由seed2单点驱动spread_B2.72高方差轴+语义诊断ctx不承载ω, 判读与代码在dir/ctx-dim-2分支, 合并后check过自动弹出; 决策=ctx轴维持默认8, 轮226读数降格, ctx_dim=1不入回灌; 轮242误弹恢复+锚加固两轮=锚改判读头全串合并前不可能命中)
+  check_cmd: grep -q "CTX-DIM-2 判读:CTX2_REVERSED" docs/PRD.md && test -f benchmarks/physics_out_v02/ctx_dim_2/ctx_dim_2.json
 - id: TOSA-CTX-DECOUPLE
   status: pr-pending(PR#41待建-判读DEC_TRAIN_HARMFUL=ratio5.5975>1.05训练窗缩短在固定eval下5.6×恶化一致性0/3, 轮223 t8 4.5%定性=评估口径伪影+seed0抽取双层dissolution, 判读与代码在dir/tosa-decouple分支, 合并后check过自动弹出; 决策=t_obs维持默认24, t_obs=8不列回灌候选, RECIPE t_obs口径歧义条款收口)
   check_cmd: grep -q "TOSA-CTX-DECOUPLE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/tosa_decouple/tosa_decouple.json
 - id: AMP-ATTR
   status: actionable
   check_cmd: grep -q "AMP-ATTR 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_attr/amp_attr.json
-
+```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
 **价值出口六门**:细则唯一源=AMENDMENTS+goal_check 输出(每心跳必见),此处不复制——入队带决策耦合声明/配方族默认关闭/≥3 族判默认非最优⇒强制组合回灌/3-seed/弱题录禁 [行动]/判单+direction_gate 提交门。研究内容唯一源=PRD §19。
