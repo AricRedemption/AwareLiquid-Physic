@@ -212,6 +212,15 @@ static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍�
    (阶梯首端,默认 24 差 4.5%);与 D6 辨识下界对表(t_obs=8 已过
    Fisher 下界,短窗足够辨识且推理负担最小);诚实边界=窗长效应与
    ctx 推断质量解耦未测(TOSA 族后续候选 1/2);TOSA 族 1/2。
+   **轮 241 解耦(TOSA-CTX-DECOUPLE,dir/tosa-decouple 待合并)**:
+   2×2 训练窗×评估前缀解耦×3-seed ⇒ **DEC_TRAIN_HARMFUL:上行 t8
+   4.5% 收益双层 dissolution**——①口径层=own-window 评估给 t8 臂
+   更易任务,固定 24 窗下 t8 训练模型 5.6× 恶化(10.9-24.4,一致性
+   0/3,prefix 敏感性 4.197=t8 模型不会利用长前缀);②seed 层=
+   own-window 3-seed 均值 t8 已差 33.4%(又一次 seed0 抽取);决策=
+   t_obs 维持 24,t_obs=8 不列回灌候选;**跨臂比较预注册须显式固定
+   eval 口径(轮 241 新条款,3-seed 门三连证后的口径面升级)**;
+   TOSA 族段内 2/2 用尽收口。
 17. **batch×lr 交互(轮 205 LRBATCH-GRID,[B],1-seed T1 筛查;PR#31
    待合并)**:五单元 (batch,lr) 受控网格——线性等价对差 33.1%+
    平方根等价对差 20.6% 均 ≥5% ⇒ **SCALING_BROKEN:Smith 等价本仓
