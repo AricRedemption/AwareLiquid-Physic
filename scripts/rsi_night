@@ -26,7 +26,9 @@ import re
 import sys
 from pathlib import Path
 
-WIN_PAT = re.compile(r"^\*\*(?:轮\s*(\d+)|([A-Z][A-Za-z0-9-]*))[^*]*（[^）]*）\*\*")
+# 轮 232 修复:括号兼容半/全角——主线 PRD 记录头为半角 (…),旧模式只认
+# 全角 （…） 导致轮 141-231 解析 0 轮、夜账 91 轮空白(AMM-029 验收发现)
+WIN_PAT = re.compile(r"^\*\*(?:轮\s*(\d+)|([A-Z][A-Za-z0-9-]*))[^*]*[（(][^）)]*[）)]\*\*")
 VERDICT_PAT = re.compile(r"判读[()（）]")
 TOOL_ROW_PAT = re.compile(r"^\| `([^`]+)`")
 ROUND_IN_PAT = re.compile(r"轮\s*(\d+)")

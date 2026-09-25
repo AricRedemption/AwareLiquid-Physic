@@ -7,7 +7,8 @@
 > 先盘后续池+收口评估后续池否决项;v6.0 AMM-026 双层状态机:任务级
 > status 状态驱动恢复;AMM-025 永动收尾语义:快照不删锁+上下文过长=
 > 真耗尽;RSI v2 era 锚定+rsi_night 机械化夜账;v5.0 AMM-024 T1 探针环;
-> v4.x 会话连续性/简洁化/标准化)**——
+> v4.x 会话连续性/简洁化/标准化;v6.2 AMM-028 价值出口五门+AMM-029
+> 方向门禁(判单+direction_gate 提交门+漂移升级 BLOCKED-HUMAN))**——
 > 正文只写可执行动作与文件指针;立法史在 AMENDMENTS,路由细则在 goal_check,
 > 数值在 probe_run/balance_gauge。
 
@@ -16,7 +17,7 @@
 > 本文件由 AMENDMENTS 提案制维护;改这里的规则 = 改循环自身,走提案。
 
 ```text
-/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环:**本会话即马拉松,连续执行多个心跳**——每心跳运行 ./scripts/goal_check,严格按其 VERDICT 与提示行动;每心跳产出一个可验收成果,验收(pytest 全绿+benchmarks/audit_results.py --check 全过)后原子提交 push 到 fork;单轮弹出/结案后立即进入下一心跳,不得以"等待触发"为由结束会话。循环不自行停止,结束会话仅限三因:手动停止/触发收口判据/上下文过长(=真耗尽:自动压缩后仍无法维持工作记忆;快照进 GOALS 后结束,重开粘贴续跑,快照不删 .loop-lock)。
+/goal 按 docs/loop/GOALS.md 的 goal_queue 持续自循环:**本会话即马拉松,连续执行多个心跳**——每心跳运行 ./scripts/goal_check,严格按其 VERDICT 与提示行动;每心跳产出一个可验收成果,验收(pytest 全绿+benchmarks/audit_results.py --check 全过+scripts/direction_gate --check 过)后原子提交 push 到 fork;单轮弹出/结案后立即进入下一心跳,不得以"等待触发"为由结束会话。循环不自行停止,结束会话仅限三因:手动停止/触发收口判据/上下文过长(=真耗尽:自动压缩后仍无法维持工作记忆;快照进 GOALS 后结束,重开粘贴续跑,快照不删 .loop-lock)。
 
 ## 心跳单元(T1 探针环)
 每个队列目标必须 T1 可行动:预注册判负标准(PRD §19)→ scripts/probe_run T1 探针(本机 ≤30 分钟,唯一执行点)→ 当轮判读 → dir/<slug> 分支开 PR 提交。PR 提交即本轮终点(合入由用户线下处理),弹出后立即进入下一心跳。超过 T1 的方向不入队,登记 AMENDMENTS 停车场(T3-MENU)待重启。
@@ -38,8 +39,9 @@
 ## 纪律
 - 算力四档 T0/T1/T2/T3,上限以 scripts/probe_run 为唯一执行点;当前只激活 T0/T1(T1 当轮直跑当轮判读);T2/T3 与 Kaggle 配额派发线停放待用户重启,重启前不派发任何外部算力,Probe-First 与隐藏卷纪律保留为重启时生效。
 - 资源红线 CPU<80% 不可逾越,异常即中止,护机优先。
-- 结论分级:T1/T2 只解锁路由与筛选,终局声明须 T3 或隐藏卷;meta 带 exec_tier。
-- 判读完下一心跳=消化轮(回填→分流→条件重入口),期间禁新蒸馏;balance_gauge 报警即行动。
+- 结论分级:T1/T2 只解锁路由与筛选,终局声明须 T3 或隐藏卷;meta 带 exec_tier;对照类探针 3-seed。
+- 价值出口六门:入队必带决策耦合声明(哪种结果⇒改变哪个决策),训练配方族默认关闭;累计≥3 族判"默认配置非最优"⇒禁开新族强制组合回灌;弱题录(带 ?)不得作 [行动] 唯一依据;每轮提交前向 docs/loop/direction-gate.jsonl 追加方向判单并过 scripts/direction_gate --check,连续 2 条 DRIFT ⇒ state: BLOCKED-HUMAN 待用户裁决。
+- 判读完下一心跳=消化轮(回填→分流→条件重入口),期间禁新蒸馏;balance_gauge 报警即行动;夜账经 rsi_night 出草稿人工终判,工具输出 0 轮=工具失效须先修工具不得跳过夜账。
 - 预注册判负标准先行(PRD §19);结论类目标附隐藏卷指令,验证过后方可弹出。
 
 ## 记录与治理
