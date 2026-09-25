@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 141 用户质询重入,见 updated)
+state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 264 S1 2/2 收口,重入口见 updated)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -32,11 +32,14 @@ next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明�
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 262:消化轮+V 侧检验回填+池空**)——
-  轮 261 V-HOM 判读(VHOM_NULL+seed1 rel_comp 1.443 近完美外推恢
-  复强信号=齐次 V 收益真实被训练稳定性阻塞;第 54 族收口)回填资
-  产索引第 24 条;分流 balance_gauge EXP=0.2 无报警;池空 ⇒ 下一
-  心跳蒸馏轮;队列四十六条全 pr-pending。
+updated: 2026-09-25 (**轮 264:收口 IDLE**)——S1 2/2 武装(轮
+  263/264 蒸馏无 [行动])且池空无否决、人决区三问审计全过 ⇒ IDLE
+  真收尾。本会话段(轮 236-264,29 心跳)产出:9 探针全判读全 PR
+  (四连 1-seed 溶解=AMM-028 门 3 四连实证/回灌 scope 确认/第 7 轴
+  候选建议采纳/齐次 V seed1 近完美恢复信号)+scan §54-§58 五族+
+  AMM-031 提案+队列全量重建治理+PLAYBOOK 十条;夜 13 草稿入账待
+  人裁。重入口=45+PR 合并/用户指令/AMM-031+AMM-022 裁决/停车场与
+  算力重启/V-HOM-STAB 段入口。队列四十六条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
