@@ -1091,6 +1091,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 255 判读(GENLEN-PROBE 判读:GENLEN_RESOLVED——均值单调改善但逐 seed 混合高方差;T1 算力轮;dir/genlen-probe,PR 即终点 AMM-024)**:
+- **交付**:① `benchmarks/genlen_probe.py`(训练池 gen_steps{160,301,450}×3-seed,house 训练,统一 canonical held-out k100 评估);② `tests/test_genlen_probe.py` 6 用例(两分支/门界/判负先行/双哨兵/中位);③ 产物 `genlen_probe.json`(audit 过,meta git_sha=da29c63=轮 254 预注册提交,exec_tier=T1,est22,预注册先于执行)。
+- **双哨兵锚 ✓**:160 臂 seed0=3.5581917762756348 与历史默认臂逐位一致(canonical 训练路径);**301 臂 seed0=2.9031009674072266 与 residual_spec2 默认臂逐位一致**(跨脚本复现锚免费兑现,轮 246 读数独立确认)。
+- **机械判读(预注册兑现)**:**GENLEN_RESOLVED**——均值 ladder 160=**2.9612**/301=**2.8362**/450=**2.6991**,spread=2.9612/2.6991=**1.0971**≥1.05 门,best=450。
+- **诚实注记(判读载荷核心)**:均值单调改善但**逐 seed 方向混合**——seed0 单调大赢(3.558→2.903→**1.639**,−54%);seed1 非单调(2.606→2.423→2.617);**seed2 单调变差**(2.720→3.182→3.841,+41%);450 臂组内 spread=3.841/1.639=2.34(高方差轴)。**"免费改进"的均值结论由 seed0 单点主导**,与轮 237/239/241/246 的 seed 抽取纹理同族——t0 覆盖对不同 seed 的效应方向不一致(可能=覆盖-探索权衡的 seed 依赖)。决策照预注册 RESOLVED 分支兑现但**降格注记**:house 训练轨迹长度=配置候选变量(回灌第 7 轴候选)须带"均值改善 1.097× 但逐 seed 方向混合(3-seed 1/2 赢)高方差"置信标——回灌 PR 注记升级按此措辞,不建议无验证直接改默认。
+- **机制候选(N1 素材)**:t0 值域增大=覆盖-方差权衡:更长轨迹给更多起点样本但也引入更远起点(终点 1 步精度损失面),seed 依赖=盆地依赖(轮 126/209 纹理)。
+- **判负对账**:九臂全有限(判负未触发);双哨兵逐位命中。范围=T1 路由/筛选级,隐藏卷条款不适用。族边界=第 56 族第 1 轮(段内余 1;更长阶梯/方向一致性确认=族后续候选但优先级低)。
+- 台账:T1 算力轮(E 分母+1);176 测试(170+6)+audit 96 全绿显式退出码;判单轮 255;分支 dir/genlen-probe 推 fork,下心跳 wave/loop 推进队列 pr-pending。
 **轮 254 记录(蒸馏补池:第 56 族训练轨迹长度族 + GENLEN-PROBE 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(池空)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:自生成方向(轮 133 先例)——钩子=轮 252 根因修订的意外实测(residual_spec2 默认臂 gen-301 池 2.9031 显著优于 canonical 3.5582,纯起点覆盖差异);机制核对:训练轨迹长度作为训练变量全库未收(D1 系=定长内重分配/LEN-EXTRAP=评估外推/KSPAN=rollout 跨度,声明分立);关联视距稳定文献扫描(SWAD/SPF/APEBench/Differentiability-2024)无决策耦合 [行动](pushforward 轮 62 已判不适用;配方打磨违 AMM-028 精神),坐标留档 §56.2。
