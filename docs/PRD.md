@@ -1091,6 +1091,10 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 250 记录(消化轮:等变权衡回填+池空蒸馏轮路由;T0 零算力)**:
+- **路由**:轮 249 判读完成(dir/equiv-head 分支,EQUIV_TRADEOFF)⇒ 消化轮优先;判读后续池盘点**空**——轮 249 判读行明示的后续(V 齐次参数化)为**自行停车场登记**(非指令性池条目),无其他明示可迭代点 ⇒ 下一心跳=蒸馏轮路由。
+- **消化三件套**:①回填=资产索引新增第 24 条齐次动能注入权衡(分布内 3/3 全赢 −14%=正发现/外推恶化 2.7×=归因 V+ctx/第 54 族段内 1/2);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。**推送欠账如实登记**=github 网络中断(SSL/HTTP2 帧错误持续),轮 248 wave/loop(11e32aa)与轮 249 dir/equiv-head 两笔未推,本地提交安全,网络恢复即补(轮 193 先例)。
+- **台账**:零算力消化轮;S1 计数=轮 248/249 行动产出,轮 250 消化;队列四十二条全 pr-pending(41 待合并+RECIPE);判单轮 250;下一心跳=goal_check QUEUE-EMPTY ⇒ 蒸馏轮(只收声明决策耦合的族,配方族默认关闭)。
 **轮 248 记录(蒸馏补池:第 54 族能量头齐次性族 + EQUIV-HEAD 入队;T0 零算力检索轮)**:
 - **路由**:goal_check QUEUE-EMPTY(池空)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:钩子=本会话段自有发现(轮 244 AMP-ATTR:动力学头标度齐次性破坏为主因载体)——从自家新实测缺口找文献族;机制核对 grep(等变/齐次/scale-invariant)仅命中 LieGAN 发现谱系(上游工具线)与 §26.2 对称性改变缩放律形状(缩放律几何),族头声明分立,零撞车。
