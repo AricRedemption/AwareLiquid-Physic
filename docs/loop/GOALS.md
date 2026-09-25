@@ -47,7 +47,7 @@ updated: 2026-09-25 (**轮 264:收口 IDLE**)——S1 2/2 武装(轮
 ```yaml
 goal_queue:
 - id: RECIPE-SYNTHESIS
-  status: pr-pending(PR#38待建-判读RECIPE_SYNERGIC=组合收益10.7% ratio=0.893 3/3方向一致, 判读与代码在dir/recipe-synthesis分支, 合并后check过自动弹出; 决策=臂B五轴为M1默认配置候选, 回灌PR用户线下处理)
+  status: pr-pending(PR#44-判读RECIPE_SYNERGIC=组合收益10.7% ratio=0.893 3/3方向一致, 判读与代码在dir/recipe-synthesis分支, 合并后check过自动弹出; 决策=臂B五轴为M1默认配置候选, 回灌PR用户线下处理)
   check_cmd: grep -q "RECIPE-SYNTHESIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json
 - id: M1-CAP-AXIS
   status: pr-pending(PR#1)
@@ -155,37 +155,38 @@ goal_queue:
   status: pr-pending(PR#35, 判读RESIDUAL_PROFILED=残差能量93.2%在高频段高频欠拟合主导诊断读数交付, 合并后check过自动弹出)
   check_cmd: grep -q "RESIDUAL-SPEC 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec/residual_spec.json
 - id: WARMUP-PROBE-2
-  status: pr-pending(PR#39待建-判读WARMUP_3S_BENEFICIAL=比值0.8561<0.95但一致性1/3收益seed0驱动如实注记, 判读与代码在dir/warmup-probe-v2分支, 合并后check过自动弹出; 决策=warmup保留回灌配方候选依据改记组合3/3, 轮213的44.2%降格seed0抽取)
+  status: pr-pending(PR#48-判读WARMUP_3S_BENEFICIAL=比值0.8561<0.95但一致性1/3收益seed0驱动如实注记, 判读与代码在dir/warmup-probe-v2分支, 合并后check过自动弹出; 决策=warmup保留回灌配方候选依据改记组合3/3, 轮213的44.2%降格seed0抽取)
   check_cmd: grep -q "WARMUP-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe_v2/warmup_probe_v2.json
 - id: CTX-DIM-2
-  status: pr-pending(PR#40待建-判读CTX2_REVERSED=ratio1.1096>1.05反转由seed2单点驱动spread_B2.72高方差轴+语义诊断ctx不承载ω, 判读与代码在dir/ctx-dim-2分支, 合并后check过自动弹出; 决策=ctx轴维持默认8, 轮226读数降格, ctx_dim=1不入回灌; 轮242误弹恢复+锚加固两轮=锚改判读头全串合并前不可能命中)
+  status: pr-pending(PR#39-判读CTX2_REVERSED=ratio1.1096>1.05反转由seed2单点驱动spread_B2.72高方差轴+语义诊断ctx不承载ω, 判读与代码在dir/ctx-dim-2分支, 合并后check过自动弹出; 决策=ctx轴维持默认8, 轮226读数降格, ctx_dim=1不入回灌; 轮242误弹恢复+锚加固两轮=锚改判读头全串合并前不可能命中)
   check_cmd: grep -q "CTX-DIM-2 判读:CTX2_REVERSED" docs/PRD.md && test -f benchmarks/physics_out_v02/ctx_dim_2/ctx_dim_2.json
 - id: TOSA-CTX-DECOUPLE
-  status: pr-pending(PR#41待建-判读DEC_TRAIN_HARMFUL=ratio5.5975>1.05训练窗缩短在固定eval下5.6×恶化一致性0/3, 轮223 t8 4.5%定性=评估口径伪影+seed0抽取双层dissolution, 判读与代码在dir/tosa-decouple分支, 合并后check过自动弹出; 决策=t_obs维持默认24, t_obs=8不列回灌候选, RECIPE t_obs口径歧义条款收口)
+  status: pr-pending(PR#46-判读DEC_TRAIN_HARMFUL=ratio5.5975>1.05训练窗缩短在固定eval下5.6×恶化一致性0/3, 轮223 t8 4.5%定性=评估口径伪影+seed0抽取双层dissolution, 判读与代码在dir/tosa-decouple分支, 合并后check过自动弹出; 决策=t_obs维持默认24, t_obs=8不列回灌候选, RECIPE t_obs口径歧义条款收口)
   check_cmd: grep -q "TOSA-CTX-DECOUPLE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/tosa_decouple/tosa_decouple.json
 - id: AMP-ATTR
-  status: pr-pending(PR#42待建-判读AMPATTR_OK=归因动力学头主因载体头等变误差s2中位1.362/s4 2.838 vs ctx非不变0.417/1.224两层均O(1)+违反, 判读与代码在dir/amp-attr分支, 合并后check过自动弹出; 决策=头侧等变性参数化列停车场候选, AMPLITUDE族2/2收口)
+  status: pr-pending(PR#38-判读AMPATTR_OK=归因动力学头主因载体头等变误差s2中位1.362/s4 2.838 vs ctx非不变0.417/1.224两层均O(1)+违反, 判读与代码在dir/amp-attr分支, 合并后check过自动弹出; 决策=头侧等变性参数化列停车场候选, AMPLITUDE族2/2收口)
   check_cmd: grep -q "AMP-ATTR 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_attr/amp_attr.json
 - id: RESIDUAL-SPEC-2
-  status: pr-pending(PR#43待建-判读SPECTRA_INCREMENTAL=逐seed排序一致1/3+聚合同向双口径k4均优, 判读与代码在dir/residual-spec-2分支, 合并后check过自动弹出; 决策=谱指标候选house次级口径走AMM-031提案PROPOSED待用户, RESIDUAL族2/2收口; 轮252根因修订=gen_steps不改数据值真因训练t0范围)
+  status: pr-pending(PR#45-判读SPECTRA_INCREMENTAL=逐seed排序一致1/3+聚合同向双口径k4均优, 判读与代码在dir/residual-spec-2分支, 合并后check过自动弹出; 决策=谱指标候选house次级口径走AMM-031提案PROPOSED待用户, RESIDUAL族2/2收口; 轮252根因修订=gen_steps不改数据值真因训练t0范围)
   check_cmd: grep -q "RESIDUAL-SPEC-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_2/residual_spec_2.json
 - id: EQUIV-HEAD
-  status: pr-pending(PR#44待建-判读EQUIV_TRADEOFF=解析T分布内3/3全赢均值-14%但外推rel_comp中位9.07vs3.33恶化, 判读与代码在dir/equiv-head分支, 合并后check过自动弹出; 决策=解析动能spring配置候选走独立线+归因重定向V与ctx通道, 第54族段内1/2)
+  status: pr-pending(PR#40-判读EQUIV_TRADEOFF=解析T分布内3/3全赢均值-14%但外推rel_comp中位9.07vs3.33恶化, 判读与代码在dir/equiv-head分支, 合并后check过自动弹出; 决策=解析动能spring配置候选走独立线+归因重定向V与ctx通道, 第54族段内1/2)
   check_cmd: grep -q "EQUIV-HEAD 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/equiv_head/equiv_head.json
 - id: RECIPE-HORIZON
-  status: pr-pending(PR#45待建-判读HORIZON_ROBUST=ratio0.893/0.834/0.825随视距增强逐视距3/3一致回灌scope确认, 判读与代码在dir/recipe-horizon分支, 合并后check过自动弹出; 决策=回灌PR scope确认k100-400稳健增强, 附轮246根因修订)
+  status: pr-pending(PR#43-判读HORIZON_ROBUST=ratio0.893/0.834/0.825随视距增强逐视距3/3一致回灌scope确认, 判读与代码在dir/recipe-horizon分支, 合并后check过自动弹出; 决策=回灌PR scope确认k100-400稳健增强, 附轮246根因修订)
   check_cmd: grep -q "RECIPE-HORIZON 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_horizon/recipe_horizon.json
 - id: GENLEN-PROBE
-  status: pr-pending(PR#46待建-判读GENLEN_RESOLVED=means2.961/2.836/2.699spread1.097best450但逐seed方向混合seed0主导高方差, 判读与代码在dir/genlen-probe分支, 合并后check过自动弹出; 决策=house训练轨迹长度=配置候选带置信标回灌第7轴候选, 301臂跨脚本复现轮246)
+  status: pr-pending(PR#42-判读GENLEN_RESOLVED=means2.961/2.836/2.699spread1.097best450但逐seed方向混合seed0主导高方差, 判读与代码在dir/genlen-probe分支, 合并后check过自动弹出; 决策=house训练轨迹长度=配置候选带置信标回灌第7轴候选, 301臂跨脚本复现轮246)
   check_cmd: grep -q "GENLEN-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_probe/genlen_probe.json
 - id: GENLEN-CONFIRM
-  status: pr-pending(PR#47待建-判读GENLEN_CONFIRMED=出样方向2/3稳健ratio0.8738与轮255量级一致第7轴候选升级建议采纳置信中, 判读与代码在dir/genlen-confirm分支, 合并后check过自动弹出; 决策=采纳实施架构变更走独立线用户, 第56族段内2/2收口)
+  status: pr-pending(PR#41-判读GENLEN_CONFIRMED=出样方向2/3稳健ratio0.8738与轮255量级一致第7轴候选升级建议采纳置信中, 判读与代码在dir/genlen-confirm分支, 合并后check过自动弹出; 决策=采纳实施架构变更走独立线用户, 第56族段内2/2收口)
   check_cmd: grep -q "GENLEN-CONFIRM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_confirm/genlen_confirm.json
 - id: V-HOM
-  status: pr-pending(PR#48待建-判读VHOM_NULL+seed1强机制信号=齐次V外推修复收益真实seed1 rel_comp1.443近完美恢复但训练不稳定瓶颈, 判读与代码在dir/v-hom分支, 合并后check过自动弹出; 决策=齐次V构造保留候选前置训练稳定性研究项T2停车场, 第54族2/2收口)
+  status: pr-pending(PR#47-判读VHOM_NULL+seed1强机制信号=齐次V外推修复收益真实seed1 rel_comp1.443近完美恢复但训练不稳定瓶颈, 判读与代码在dir/v-hom分支, 合并后check过自动弹出; 决策=齐次V构造保留候选前置训练稳定性研究项T2停车场, 第54族2/2收口)
   check_cmd: grep -q "V-HOM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/v_hom/v_hom.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
+**PR 号勘误(轮 266)**:gh 裸命令默认查 origin(上游),fork 上 48 PR 全部真实 OPEN(轮 236-264 各 PR 实号已按 gh pr list 勘误;历史行不改);RECIPE-SYNTHESIS=PR#44。
 **条件性重入口(轮 65 条款)**:V-HOM-STAB(第 54 族第 3 轮,幅度-方向解耦稳定化,scan §57)=触发新马拉松段(族额度重置)即入队;入口=PRD §19 轮 261 判读行+scan §57。
 **价值出口六门**:细则唯一源=AMENDMENTS+goal_check 输出(每心跳必见),此处不复制——入队带决策耦合声明/配方族默认关闭/≥3 族判默认非最优⇒强制组合回灌/3-seed/弱题录禁 [行动]/判单+direction_gate 提交门。研究内容唯一源=PRD §19。
