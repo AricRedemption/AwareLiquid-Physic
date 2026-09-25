@@ -1091,6 +1091,12 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 247 记录(消化轮:谱口径验证回填+AMM-031 提案+池空蒸馏轮路由;T0 零算力)**:
+- **路由**:轮 246 判读完成(dir/residual-spec-2 分支,SPECTRA_INCREMENTAL)⇒ 消化轮优先;判读后续池盘点**空**(五条全部收口:warmup 3-seed/CTX 重标定/TOSA 解耦/AMP 归因/残差谱口径)⇒ 下一心跳=蒸馏轮路由(goal_check QUEUE-EMPTY)。
+- **消化三件套**:①回填=资产索引第 20 条残差谱追加轮 246 口径验证注记(SPECTRA_INCREMENTAL/逐 seed 1/3+聚合同向/第四次 seed 侵蚀附带实证 k4 47%→11.2%);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
+- **AMM-031 提案落地(轮 246 判读路由兑现)**:house evaluate() 增设谱域次级口径(低频带残差占比可选键,不替代主判据)——**PROPOSED 待用户裁决**(触及 house 工具契约,循环不自采;带轮 246 噪声注记)。AMENDMENTS 提案区排序勘误=新提案应 appended 于 AMM-030 后主文区(初插到提案列表 AMM-001 后,当轮挪正)。
+- **本会话段判读后续池收口总账(五/五)**:warmup 3-seed 消融(轮 237,WARMUP_3S_BENEFICIAL 但 1/3 一致=seed0 驱动)/CTX 重标定(轮 239,CTX2_REVERSED+语义诊断 ctx 不承载 ω)/TOSA 解耦(轮 241,DEC_TRAIN_HARMFUL+双层 dissolution)/AMP 归因(轮 244,主因=动力学头)/残差谱口径(轮 246,SPECTRA_INCREMENTAL)——四项 3-seed/诊断升级中三次溶解既有 1-seed 强读数,回灌配方决策的承重证据收敛为 RECIPE 组合 3/3(轮 228)。
+- **台账**:零算力消化轮;S1 计数=轮 245/246 行动产出,轮 247 消化(回填+提案=行动性产出),下一心跳蒸馏轮须带 [行动] 否则 S1 累计;队列四十一条全 pr-pending(40 待合并+RECIPE);判单轮 247;下一心跳=goal_check QUEUE-EMPTY ⇒ 蒸馏轮(只收声明决策耦合的族,配方族默认关闭)。
 **轮 245 记录(消化轮:AMP 归因回填+残差谱指标二轮入队;T0 零算力)**:
 - **路由**:轮 244 判读完成(dir/amp-attr 分支,AMPATTR_OK 主因=头)⇒ 消化轮优先;判读后续池盘点**非空(末位条目)** ⇒ 同轮入队(轮 61 惯例)。
 - **消化三件套**:①回填=资产索引第 19 条初始幅度外推追加轮 244 归因注记(主因=动力学头标度齐次性破坏,两层均 O(1)+ 违反,与轮 239 独立互证);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。格式化器第八袭注记=本轮开场 GOALS 又被删条(40→39),按轮 243 协议提交流程最末从 cd221ef 基重建。

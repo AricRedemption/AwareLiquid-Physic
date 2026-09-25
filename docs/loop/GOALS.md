@@ -14,33 +14,31 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 41 条
-  (40 pr-pending+RESIDUAL-SPEC-2 actionable);RECIPE-SYNTHESIS 判
-  RECIPE_SYNERGIC(组合收益 10.7% 3-seed)回灌 PR=用户线下;轮 244
-  AMP-ATTR 判 AMPATTR_OK(主因=动力学头标度齐次性破坏,两层均 O(1)+
-  违反,AMPLITUDE 族收口)。下一心跳:goal_check 路由迭代
-  RESIDUAL-SPEC-2(dir/residual-spec-2 分支谱指标口径验证:标量 MSE
-  vs 低频带残差占比排序一致性,轮 220 判读行明示口径候选,决策耦合=
-  谱指标采纳/否决);池已清空(五条全部收口:3 项 3-seed 升级+1 项
-  归因+1 项口径验证),下一轮 QUEUE-EMPTY ⇒ 蒸馏轮。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 41 条全
+  pr-pending;RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC(组合收益 10.7%
+  3-seed)回灌 PR=用户线下。本会话段判读后续池五条全部收口(四次
+  1-seed 强读数被溶解,回灌承重证据=RECIPE 组合 3/3);AMM-031 谱域
+  次级口径提案 PROPOSED 待用户。下一心跳:goal_check ⇒ QUEUE-EMPTY
+  ⇒ 蒸馏轮(AMM-028 门 1:只收声明决策耦合的族,训练配方族默认关闭;
+  S1 要求 [行动] 交付)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check → RESIDUAL-SPEC-2 actionable(dir/residual-spec-2 分支谱指标口径验证:默认 vs k_train=4 两臂×3-seed 双口径读数:探针执行→判读→PR,哨兵=A 臂 s0 逐位 3.5582)→ 判读后消化轮优先(回填资产索引残差谱条目);池已清空 ⇒ 蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合:哪种结果⇒改变哪个决策;配方族默认关闭;弱题录禁 [行动]);用户指令 / 停车场重启 / AMM-031 提案裁决随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 245:消化轮+残差谱指标二轮入队,池清空**)——
-  轮 244 AMP-ATTR 判读(AMPATTR_OK,归因=动力学头主因载体,两层均
-  O(1)+ 违反;AMPLITUDE 族收口)回填资产索引第 19 条;分流
-  balance_gauge EXP=0.2 无报警;格式化器第八袭(再删条)按轮 243
-  协议处置;判读后续池**五条全部收口**(warmup 3-seed/CTX 重标定/
-  TOSA 解耦/AMP 归因/RESIDUAL 谱指标)⇒ 本轮入队末位条目残差谱
-  二轮(轮 220 消化注记明示口径候选,RESIDUAL 族段内第 2 轮达上限),
-  下一心跳执行后池空 ⇒ 蒸馏轮路由;队列四十一条(40 pr-pending+
-  RESIDUAL-SPEC-2 actionable)。
+updated: 2026-09-25 (**轮 247:消化轮+AMM-031 提案+池空**)——
+  轮 246 RESIDUAL-SPEC-2 判读(SPECTRA_INCREMENTAL,逐 seed 排序
+  1/3+聚合同向;哨兵口径错配如实登记)回填资产索引第 20 条;
+  AMM-031 提案(house evaluate() 谱域次级口径)PROPOSED 待用户;
+  **判读后续池五条全部收口**,四次 1-seed 强读数被 3-seed/诊断升级
+  溶解(warmup 44.2%→seed0 驱动/ctx 80%→反转/t_obs 8→口径伪影+
+  反转/k4 47%→11.2%),回灌配方决策承重证据=RECIPE 组合 3/3;队列
+  四十一条全 pr-pending。下一心跳=goal_check ⇒ QUEUE-EMPTY ⇒
+  蒸馏轮。
 
 
 ## goal_queue(顶部为当前目标)
@@ -168,7 +166,7 @@ goal_queue:
   status: pr-pending(PR#42待建-判读AMPATTR_OK=归因动力学头主因载体头等变误差s2中位1.362/s4 2.838 vs ctx非不变0.417/1.224两层均O(1)+违反, 判读与代码在dir/amp-attr分支, 合并后check过自动弹出; 决策=头侧等变性参数化列停车场候选, AMPLITUDE族2/2收口)
   check_cmd: grep -q "AMP-ATTR 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_attr/amp_attr.json
 - id: RESIDUAL-SPEC-2
-  status: actionable
+  status: pr-pending(PR#43待建-判读SPECTRA_INCREMENTAL=逐seed排序一致1/3+聚合同向双口径k4均优, 判读与代码在dir/residual-spec-2分支, 合并后check过自动弹出; 决策=谱指标候选house次级口径走AMM-031提案PROPOSED待用户, RESIDUAL族2/2收口)
   check_cmd: grep -q "RESIDUAL-SPEC-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_2/residual_spec_2.json
 ```
 

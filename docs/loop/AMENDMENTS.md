@@ -577,6 +577,21 @@
 - 风险与回滚:压缩丢失信息⇒git 历史+PRD §19 唯一源在;回滚=git revert。执行会话竞态按 AMM-021 先例热更新协议(重读文件)。
 - 状态:**APPLIED**(2026-09-25,用户提议即批准;本轮实施,等效双跑已证)
 
+### AMM-031: house evaluate() 增设谱域次级口径(低频带残差占比)
+- 动机:轮 219 判明标量 rollout MSE 被高频残差主导(93.2% 能量在
+  >2×ω_max 带),低频结构误差被掩盖;轮 246 双口径验证(k_train
+  {4,8}×3-seed)判 SPECTRA_INCREMENTAL——逐 seed 排序与标量一致仅
+  1/3(读数含噪声成分,如实注记),聚合层面双口径同向(k4 均值
+  MSE 2.5187<2.8362 且低频中位 0.0749>0.0675)。
+- 提案 diff:`benchmarks/liquid_physics_eval.py` 的 `evaluate()` 返回
+  dict 增加可选键 `residual_low_band_ratio`(k=200 残差 FFT 中
+  ≤2×ω_max 带能量占比,与标量 rollout_mse 并列呈现,不替代主判据);
+  既有调用方兼容(新增键不破坏消费方);测试:tests 增口径函数单测。
+- 风险与回滚:谱读数 seed 间噪声大(轮 246:1/3 逐 seed 翻转)⇒
+  仅作并列呈现不作判定门;回滚=git revert 单提交。
+- 状态:**PROPOSED**(2026-09-25,轮 246 判读路由;采纳与否待
+  AricRedemption 裁决,循环不自采——触及 house 工具契约)
+
 ## 规则
 
 1. 循环每轮可追加 PROPOSED 提案,但**不得**自行修改 cron 提示词;
