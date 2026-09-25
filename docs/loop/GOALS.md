@@ -14,28 +14,29 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 46 条
-  (45 pr-pending+V-HOM actionable);AMM-031 提案 PROPOSED 待用户。
-  下一心跳:goal_check 路由迭代 V-HOM(dir/v-hom 分支 V 侧齐次参
-  数化检验:双臂同解析 T,A=V 自由 vs B=V=q²·s_θ 二次齐次×3-seed,
-  轮 249 归因重定向的 V 侧落实+停车登记三问审计修订,决策耦合=头
-  参数化候选三路路由;哨兵=A 臂 s0 预期逐位 2.7787=轮 249 B 臂)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 46 条全
+  pr-pending;RECIPE-SYNTHESIS 回灌 PR=用户线下(证据链=组合 3/3+
+  视距稳健+轨迹长度候选);AMM-031 提案 PROPOSED 待用户。本会话段
+  产出台账=9 探针全判读(warmup/ctx/tosa/amp/residual/equiv/
+  horizon/genlen+confirm/v-hom)+3 自生成族+AMM-031+队列治理
+  (格式化器八袭)+PLAYBOOK 十条;全部族收口。下一心跳:goal_check
+  ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(AMM-028 门 1:只收声明决策耦合的族,
+  配方族默认关闭;S1 要求 [行动] 交付,连续 2 轮无行动类产出 ⇒
+  S1 评估收口)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check → V-HOM actionable(dir/v-hom 分支 V 齐次参数化×3-seed:探针执行→判读→PR,哨兵=A 臂 s0=2.7787 轮 249 B 臂)→ 判读后消化轮优先(回填资产索引);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启 / AMM-031 提案裁决
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / AMM-031 提案裁决 / PR 合并随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 260:蒸馏轮+V-HOM 入队**)——池空蒸
-  馏轮:轮 249 判读行明示归因 V+ctx 的 V 侧检验;原轮 249"V 齐次
-  参数化"停车登记经人决区三问审计推翻(T1 可动/可逆/无宪法门槛
-  ⇒自主)如实修订;[行动] V-HOM 入队(双臂同解析 T,A=V 自由 vs
-  B=V=q²·s_θ 二次齐次×3-seed,读数=分布内 MSE+rel_comp,第 54 族
-  段内 2/2);蒸馏第 53 次达标;队列四十六条(45 pr-pending+V-HOM
-  actionable)。下一心跳=goal_check 路由迭代 V-HOM。
+updated: 2026-09-25 (**轮 262:消化轮+V 侧检验回填+池空**)——
+  轮 261 V-HOM 判读(VHOM_NULL+seed1 rel_comp 1.443 近完美外推恢
+  复强信号=齐次 V 收益真实被训练稳定性阻塞;第 54 族收口)回填资
+  产索引第 24 条;分流 balance_gauge EXP=0.2 无报警;池空 ⇒ 下一
+  心跳蒸馏轮;队列四十六条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
@@ -178,7 +179,7 @@ goal_queue:
   status: pr-pending(PR#47待建-判读GENLEN_CONFIRMED=出样方向2/3稳健ratio0.8738与轮255量级一致第7轴候选升级建议采纳置信中, 判读与代码在dir/genlen-confirm分支, 合并后check过自动弹出; 决策=采纳实施架构变更走独立线用户, 第56族段内2/2收口)
   check_cmd: grep -q "GENLEN-CONFIRM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_confirm/genlen_confirm.json
 - id: V-HOM
-  status: actionable
+  status: pr-pending(PR#48待建-判读VHOM_NULL+seed1强机制信号=齐次V外推修复收益真实seed1 rel_comp1.443近完美恢复但训练不稳定瓶颈, 判读与代码在dir/v-hom分支, 合并后check过自动弹出; 决策=齐次V构造保留候选前置训练稳定性研究项T2停车场, 第54族2/2收口)
   check_cmd: grep -q "V-HOM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/v_hom/v_hom.json
 ```
 
