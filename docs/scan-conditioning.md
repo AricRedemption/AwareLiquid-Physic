@@ -3471,6 +3471,83 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 式 n=22(钩子=ctx_dim=8 全仓固定从未消融;ω=1 维真值的容量
 冗余)。
 
+## 54. 经验蒸馏 50(轮 248,2026-09-25,QUEUE-EMPTY 轮):能量头齐次性/标度等变参数化族
+
+> 新 query 族(与前 53 族零重叠:机制核对 grep 等变/齐次仅命中
+> LieGAN 发现谱系(§对称性发现=上游工具线,族头声明分立)与 §26.2
+> 对称性改变缩放律形状(缩放律几何,非能量参数化)——本族=**能量头
+> 的标度齐次结构注入**(T/V 的齐次参数化 vs 自由 MLP)。钩子:轮 244
+> AMP-ATTR 实证动力学头标度齐次性破坏(头等变误差 s2 中位 1.362/s4
+> 2.838)。标记:[坐标] ×3 + [行动] ×1。三槽:①物理不变性嵌入谱系
+> ②等变哈密顿网络 ③硬结构 vs 软学习对照。题录当场核验(AMM-015:
+> Gruver 标题漂移被核验抓出,正题=Deconstructing...;Frezat/Holl
+> 全名单未核带 ? 登记 SCAN-AUDIT)。
+
+### 54.1 物理不变性嵌入的湍流建模先例 [坐标]
+
+- 【出处】Frezat et al., "Physical Invariance in Neural Networks for
+  Subgrid-Scale Flux Modeling", Physical Review Fluids 6.024607
+  (2021,~73 引;全作者名单未核带 ? 登记 SCAN-AUDIT)
+- 【内容】把物理不变性(伽利略不变性等)架构性嵌入 NN 次网格通量
+  模型,约束下的模型物理一致性提升。
+- 【对我们的映射】不变性嵌入在流体建模的成熟先例;本族把它落到
+  哈密顿头的标度齐次性(轮 244 实测缺口)。
+- 【适用条件】EQUIV-HEAD 判读参照;N1 结构注入哲学的跨域盟友。
+- 【验证状态】题录部分核验(首作者+期刊+DOI);社区已验证。
+
+### 54.2 标度不变的物理反演 [坐标]
+
+- 【出处】Holl et al., "Scale-invariant Learning by Physics
+  Inversion", NeurIPS 2022(全作者名单未核带 ? 登记 SCAN-AUDIT)
+- 【内容】以物理求解器求逆产生对参数化缩放不变的梯度更新
+  (PhysGrad 谱系),优化侧实现标度不变。
+- 【对我们的映射】优化侧标度不变与本族架构侧齐次注入互补——
+  两条获得标度不变性的路径坐标。
+- 【适用条件】future work 优化线;非当前行动。
+- 【验证状态】题录部分核验(venue+首作者);社区已验证。
+
+### 54.3 李群等变卷积与哈密顿系统 [坐标]
+
+- 【出处】Finzi, Stanton, Izmailov & Wilson, "Generalizing
+  Convolutional Neural Networks for Equivariance to Lie Groups on
+  Arbitrary Continuous Data", ICML 2020, arXiv:2002.12880(LieConv,
+  ~501 引);关联:同组 Gruver et al. ICLR 2022 见 54.4。
+- 【内容】任意李群等变的连续数据卷积;应用于哈密顿系统时等变性
+  带来线性/角动量的精确守恒。
+- 【对我们的映射】等变性⇒精确守恒的定理级联系(动量守恒侧);
+  本族的标度齐次性=同一哲学在能量函数齐次结构上的实例。
+- 【适用条件】N1 Related Work 等变线引用;EQUIV-HEAD 定位。
+- 【验证状态】题录当场核验(arXiv+四作者);社区已验证。
+
+### 54.4 HNN 归纳偏置的解构 [坐标] ★强 + [行动]
+
+- 【出处】★Gruver, Finzi, Stanton & Wilson, "Deconstructing the
+  Inductive Biases of Hamiltonian Neural Networks", ICLR 2022
+  (spotlight), arXiv:2202.01461(核验注记:检索初稿题名"Inductive
+  Biases of..."漂移,当场核验抓出正题=Deconstructing...)
+- 【内容】解构 HNN 的各类归纳偏置(能量守恒/辛结构/结构先验)对
+  分布内拟合与外推行为的不同贡献——硬结构换外推的谱系坐标。
+- 【对我们的映射】轮 244 实测"头标度齐次性破坏"(主因载体)的
+  文献对表:硬注入齐次结构是否兑现外推收益=本族行动检验的问题。
+- 【适用条件】EQUIV-HEAD 预注册的机制依据。
+- 【验证状态】题录当场核验(四作者+venue+arXiv);社区已验证。
+
+### 蒸馏结论
+
+- 【行动】EQUIV-HEAD 入队(engineering,T1):齐次动能注入 A/B——
+  A=house 默认(T,V 自由 MLP) vs B=T=½Σp² 解析+V_θ(q) MLP(动能
+  解析注入,弹簧族物理已知);异频池 2000 步×3-seed;双读数=分布内
+  rollout MSE(k100)+幅度外推 rel_comp(轮 216 口径,scale∈{2,4});
+  判读:B 分布内持平(0.95≤ratio≤1.05)且外推修复(rel_comp_B<3)
+  ⇒ EQUIV_RESOLVED(齐次注入=免费等变性,架构线候选 escape-door
+  式 [B] 升级)/B 分布内劣化>5% ⇒ EQUIV_TRADEOFF(齐次注入有分布内
+  代价,如实登记)/外推未修复 ⇒ EQUIV_ATTRIB(缺口不在 T,归因
+  V/积分器重定向);判负=发散/非有限;决策耦合=三结果各改变架构线
+  路由(候选升级/限制文档/归因重定向);族边界=第 54 族第 1 轮
+  (与 R1b T 偶线/escape-door 线分立=T 偶是时间反演,本族是标度
+  齐次);est 15min。
+- 【坐标】54.1-54.3 解读用,不进队列。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
