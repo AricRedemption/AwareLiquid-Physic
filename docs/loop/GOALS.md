@@ -14,26 +14,28 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 36 条全
-  pr-pending;RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC(组合收益 10.7%
-  3-seed)回灌 PR=用户线下。下一心跳:goal_check 路由 ⇒ QUEUE-EMPTY
-  先盘判读后续池(warmup 3-seed 消融/AMP 线性不变性归因/RESIDUAL
-  谱指标/TOSA 窗长-ctx 解耦/CTX 重标定,均带决策耦合声明+判单)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 37 条
+  (36 pr-pending+WARMUP-PROBE-2 actionable);RECIPE-SYNTHESIS 判
+  RECIPE_SYNERGIC(组合收益 10.7% 3-seed)回灌 PR=用户线下。下一心跳:
+  goal_check 路由迭代 WARMUP-PROBE-2(dir/warmup-probe-v2 分支 3-seed
+  单轴 warmup 消融,轮 228 判读行明示族后续,决策耦合=回灌配方
+  warmup 轴去留);池余四条(AMP 线性不变性归因/RESIDUAL 谱指标/
+  TOSA 窗长-ctx 解耦/CTX 重标定)出处已锚定按序留池。
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check → RECIPE-SYNTHESIS actionable(AMM-028 回灌门首例:两臂×3-seed 组合配方对照,判读→回灌决策:SYNERGIC⇒开配方回灌 PR/NULL⇒配方轴收口+蒸馏配方族关闭/ANTAGONISTIC⇒冲突归因停车场)→ 判读后消化轮优先(回填资产索引 recipe 条目);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启
+next_trigger_hint: goal_check → WARMUP-PROBE-2 actionable(3-seed 单轴 warmup 消融:dir/warmup-probe-v2 分支探针执行→判读→PR,哨兵锚=臂 A seed0 逐位 3.5582)→ 判读后消化轮优先(回填资产索引 warmup 条目);池余四条按序(AMP 归因/RESIDUAL 谱指标/TOSA 解耦/CTX 重标定);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 233:AMM-030 大道至简第二轮落地**——判单三
-  字段化(旧五字段兼容)/六门细则唯一源=goal_check 输出+AMENDMENTS/
-  GOALS 322→159 行(队列 pr-pending 压 3 行每条,研究内容唯一源=PRD
-  §19);RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC(组合收益 10.7% 3-seed)
-  回灌 PR=用户线下;170 测试+audit 87 全绿;队列三十六条全 pr-pending。
-  下一心跳=goal_check 路由 ⇒ QUEUE-EMPTY 先盘判读后续池(warmup
-  3-seed 消融/AMP 线性不变性归因/RESIDUAL 谱指标/TOSA 窗长-ctx 解耦/
-  CTX 重标定,均带决策耦合声明+三字段判单)。
+updated: 2026-09-25 (**轮 236:判读后续池盘点=WARMUP-PROBE-2 入队**)——
+  dir/recipe-synthesis 轮 228 判读行明示 warmup 归因族后续(3-seed 单轴
+  消融)⇒ 入队(T0 零算力);六门对账过(决策耦合=回灌配方 warmup 轴
+  去留/非新族=段内第 2 轮/3-seed=门 3 统计升级本体);轮 213 单 seed
+  44.2% 反预期值收口路径落定;池余四条(AMP 归因/RESIDUAL 谱指标/TOSA
+  解耦/CTX 重标定)出处锚定按序留池;队列三十七条(36 pr-pending+
+  WARMUP-PROBE-2 actionable)。下一心跳=goal_check 路由迭代
+  WARMUP-PROBE-2。
 
 ## goal_queue(顶部为当前目标)
 
@@ -147,6 +149,9 @@ goal_queue:
 - id: RESIDUAL-SPEC
   status: pr-pending(PR#35, 判读RESIDUAL_PROFILED=残差能量93.2%在高频段高频欠拟合主导诊断读数交付, 合并后check过自动弹出)
   check_cmd: grep -q "RESIDUAL-SPEC 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec/residual_spec.json
+- id: WARMUP-PROBE-2
+  status: actionable
+  check_cmd: grep -q "WARMUP-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe_v2/warmup_probe_v2.json
 ```
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
 **价值出口六门**:细则唯一源=AMENDMENTS+goal_check 输出(每心跳必见),此处不复制——入队带决策耦合声明/配方族默认关闭/≥3 族判默认非最优⇒强制组合回灌/3-seed/弱题录禁 [行动]/判单+direction_gate 提交门。研究内容唯一源=PRD §19。
