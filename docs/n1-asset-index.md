@@ -184,7 +184,13 @@ static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍�
    期小),分离需逐步 sharpness 追踪(停车场候选 1/2);A 臂与历史
    三重逐位一致=复现锚;训练配置注记=warmup 200 步有益(1-seed),
    派发协议字段=warmup 步数候选;WARMUP 行动面=§37 行动化一次性
-   准入。
+   准入。**轮 237 3-seed 升级(WARMUP-PROBE-2,dir/warmup-probe-v2
+   待合并)**:ratio=0.8561<0.95 机械判 WARMUP_3S_BENEFICIAL,但
+   **方向一致性 1/3=均值收益 14.4% 全部由 seed0 单点驱动**(B/A=
+   0.558 与上行 44.2% 同一次抽取;seeds 1/2 反而小输 +3.2%/+7.8%)
+   ⇒ 上行 44.2% 降格定性=seed0 抽取非稳健单轴收益;回灌配方候选
+   含 warmup 的依据=RECIPE 组合臂 3/3 逐 seed 一致(10.7%)而非单
+   轴均值;WARMUP 族段内 2/2 用尽收口。
 19. **初始幅度外推(轮 216 AMP-EXTRAP,[B],1-seed T1 筛查;PR#34 待
    合并)**:训练 scale=1 标准池,评估初条件幅度缩放池(scale 2/4,
    能量 ∝scale²)——相对口径(rel_mse=rollout/信号能量)下 rel 退
