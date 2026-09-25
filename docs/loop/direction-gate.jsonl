@@ -16,3 +16,4 @@
 {"round": 257, "direction": "ALIGNED", "evidence": "本轮产物=PRD 轮257 GENLEN-CONFIRM 预注册(轮255 GENLEN_RESOLVED 的均值结论seed0主导=落实前置缺口, 出样确认设计)+GOALS 队列入队(45=45 数数锚); 自生成族段内第2轮确认轮(轮224先例), 决策耦合=CONFIRMED/REFUTED两分支各改变第7轴候选状态, 直接对准蒸馏轮S1要求"}
 {"round": 259, "direction": "ALIGNED", "evidence": "本轮产物=资产索引第25条出样确认回填+PRD 轮259 消化记录(池空判定)+GOALS 推进 GENLEN-CONFIRM→pr-pending(46条全待合并); 消化三件套完成, 第56族收口, 直接对准消化轮优先规则"}
 {"round": 260, "direction": "ALIGNED", "evidence": "本轮产物=scan §54 第2轮行动注记+PRD 轮260 V-HOM 预注册(轮249判读行明示归因V+ctx的V侧检验, 停车登记经三问审计推翻如实修订)+GOALS 队列入队(47=47 数数锚); 决策耦合三结果各改变头参数化候选状态, 直接对准蒸馏轮S1要求与族额度合规"}
+{"round": 261, "direction": "ALIGNED", "evidence": "本轮产物=benchmarks/v_hom_probe.py(ScaledQuadratic 齐次包装)+tests 8 用例+v_hom.json(audit 过, git_sha=5215a97=预注册提交)+PRD 轮261 判读行; 哨兵逐位命中+跨脚本 rel_comp 逐位一致, 机械判读 VHOM_NULL 按轮260预注册兑现, 强机制信号如实注记(seed1 rel_comp 1.443 近完美恢复=齐次V收益真实但训练不稳定瓶颈), 两跑失败成本如实登记, 直接对准队列目标 V-HOM"}
