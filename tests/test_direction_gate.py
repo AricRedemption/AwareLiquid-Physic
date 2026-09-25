@@ -10,8 +10,7 @@ import pytest
 GATE = Path(__file__).resolve().parents[1] / "scripts" / "direction_gate"
 
 VALID = {"round": 231, "direction": "ALIGNED",
-         "evidence": "PRD §19 轮 231 判读行 RECIPE_X 数字 3.2",
-         "effective_output": "探针判读一行", "next_adjust": "维持"}
+         "evidence": "PRD §19 轮 231 判读行 RECIPE_X 数字 3.2"}
 
 
 def run_gate(*args):
@@ -42,12 +41,20 @@ def test_bad_json_line_rejects(tmp_path):
     lambda e: {k: v for k, v in e.items() if k != "evidence"},
     lambda e: {**e, "direction": "SURE"},
     lambda e: {**e, "evidence": ""},
-    lambda e: {**e, "effective_output": "NONE"},
 ])
 def test_invalid_entries_reject(tmp_path, mutate):
     p = write_ledger(tmp_path, [mutate(VALID)])
     r = run_gate("--check", "--file", str(p))
     assert r.returncode == 1
+
+
+def test_legacy_five_field_entry_still_valid(tmp_path_factory):
+    """AMM-030 三字段化向前兼容:旧五字段判单(轮 231/232)仍过。"""
+    legacy = {**VALID, "effective_output": "探针判读一行",
+              "next_adjust": "维持"}
+    p = write_ledger(tmp_path_factory.mktemp("legacy"), [legacy])
+    r = run_gate("--check", "--file", str(p))
+    assert r.returncode == 0
 
 
 def test_valid_aligned_passes(tmp_path):
@@ -70,17 +77,14 @@ def test_single_drift_passes(tmp_path):
 
 
 def test_two_consecutive_drifts_escalate(tmp_path):
-    drift = lambda r: {"round": r, "direction": "DRIFT", "evidence": "-",
-                       "effective_output": "状态机搬运",
-                       "next_adjust": "回正轨"}
+    drift = lambda r: {"round": r, "direction": "DRIFT", "evidence": "-"}
     p = write_ledger(tmp_path, [VALID, drift(232), drift(233)])
     r = run_gate("--check", "--file", str(p))
     assert r.returncode == 3 and "BLOCKED-HUMAN" in r.stdout
 
 
 def test_drift_streak_broken_by_aligned(tmp_path):
-    drift = {"round": 232, "direction": "DRIFT", "evidence": "-",
-             "effective_output": "x", "next_adjust": "回正轨"}
+    drift = {"round": 232, "direction": "DRIFT", "evidence": "-"}
     p = write_ledger(tmp_path, [drift, VALID])
     r = run_gate("--check", "--file", str(p))
     assert r.returncode == 0

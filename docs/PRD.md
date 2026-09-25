@@ -1091,6 +1091,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 233 记录(AMM-030 大道至简第二轮:判单三字段化+GOALS 死重量清理+六门唯一源;治理轮;用户提议"大道至简")**:
+- **路由**:用户提议"好的架构就应该大道至简,看一下有没有简化的空间";按 AMM-021 等效铁律自审——AMM-028/029 两天的加门正是"用加机制回应复杂度",本轮对自身开刀。
+- **简化三件**:①判单五字段→三字段(round/direction/evidence;产出与下轮调整由 GOALS updated 承载不重复填报;旧五字段判单向前兼容+测试钉死);②六门细则唯一源=goal_check 输出+AMENDMENTS(GOAL-PROMPT 纪律节压一行指针/GOALS 队列规则段压指针);③GOALS 322→159 行(current_goal 2026-09-19 历史日志 15 行→2 行指针/队列 36 条 pr-pending 长文压 3 行每条保留 id+status+check_cmd 机械字段/在途 PR 注记段删除/pointer 压缩)。
+- **成本型容忍清单(审查后不动)**:12 脚本各有唯一职责;AMENDMENTS 590 行立法史;RSI-INDEX/PLAYBOOK/PRD/scan 研究记录。
+- **执行会话竞态如实注记**:本轮进行中用户已贴 prompt 启动执行会话(.loop-lock 在),其 CTX-DIM 弹出写回(37→36 条)与本轮压缩同工作区并发——按 AMM-021 先例热更新协议处置:压缩保留其弹出状态,执行会话下心跳重读文件即得简化版;竞态期间一次 split 正则事故(^ 无 MULTILINE)与一次替换丢尾事故均由备份+重建恢复,未污染 git。
+- **等效证明**:goal_check 改动前后 VERDICT=QUEUE-EMPTY/36 条 skip/门行输出一致(实跑);170 测试(含 legacy 五字段兼容新用例 12 项)+audit 87 全绿显式退出码。
+- **台账**:零算力治理轮;队列三十六条全 pr-pending;下一心跳=goal_check 裁决。
 **轮 232 记录(RSI 体系验收 + GOAL-PROMPT v6.2;治理轮;用户指令"验收整体 RS 状况与 Goal prompt")**:
 - **RSI 验收发现(两处体系级缺陷,均已修复)**:①**夜账断喂 91 轮**——账本停在夜 10(轮 120-140),轮 141-231 约 91 轮无夜账;根因=rsi_night 的 WIN_PAT 只认全角括号（…）而主线 PRD 记录头为半角 (…),模式失配⇒工具对该段输出 0 轮,执行会话无从入账=轮 119"断喂 18 心跳无人察觉"事故重演,且同样静默;修复=WIN_PAT 兼容半/全角 `[（(][^）)]*[）)]`,修复后识别 29 轮(mining 15/t0 14)。②**记分口径结构性盲区(如实登记,未修)**——机械口径下夜 11 段 K≤1/E=0,因 20+ 探针判读全在 dir/ 分支未合并,"以已合并不变量为基线"口径看不见它们;这使记分体系系统性低估实验产出、相对高估蒸馏产出(蒸馏行在主线可见),与"36 判读零合并"互为因果;处置=PR 合并由补账轮并入(夜 11 行已注记),根治=分支合并管道打通(P2 用户侧)。
 - **夜账补齐**:夜 11(轮 141-229 马拉松:主线口径 K=0/E=0/T+=+1/A=3,dir 在途 20+ 判读待合并补入;S3-v2 因账断无法评估,补账后起点 K=0/T+=+1 不触发)+夜 12(轮 230-231 治理:K=0/T+=+1/A=1);两行均标草稿待人裁终判(轮 119 授权条款);**隐藏集纪律核验 ✓**:seed 999 退役/998 留存未动,全段无隐藏卷消耗。

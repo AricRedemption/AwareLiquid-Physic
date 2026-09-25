@@ -5,12 +5,13 @@
   执行会话提交前向 docs/loop/direction-gate.jsonl 追加一条判单(JSONL),
   然后跑 `direction_gate --check`,exit 0 才许提交。
 
-判单五字段(缺一不可):
+判单三字段(AMM-030 简化,缺一不可):
   round           轮号(int)
   direction       ALIGNED | DRIFT | UNCERTAIN   —— 本轮方向判定
-  evidence        引用本轮具体产物(文件/判读行/数字),ALIGNED 必填
-  effective_output 本轮有效产出一句话;确无则字面 NONE
-  next_adjust     下一轮调整或字面 "维持"
+  evidence        引用本轮具体产物(文件/判读行/数字),ALIGNED 必填;
+                  一句话讲清"产出了什么+为什么对准目标"
+                  (有效产出与下轮调整由 GOALS updated 段承载,不重复填报;
+                  旧五字段判单向前兼容,多余字段忽略)
 
 退出码:0=放行 1=判单缺失/非法(禁提交) 3=连续 2 条 DRIFT(强制升级:
 GOALS state → BLOCKED-HUMAN,循环无权自解,待用户裁决)
@@ -29,8 +30,7 @@ import sys
 from pathlib import Path
 
 GATE_FILE = Path("docs/loop/direction-gate.jsonl")
-FIELDS = ("round", "direction", "evidence", "effective_output",
-          "next_adjust")
+FIELDS = ("round", "direction", "evidence")
 DIRECTIONS = ("ALIGNED", "DRIFT", "UNCERTAIN")
 DRIFT_LIMIT = 2  # preregistered: consecutive DRIFT rounds -> escalate
 
@@ -68,9 +68,6 @@ def validate(entry, idx: int):
         if not isinstance(ev, str) or len(ev.strip()) < 8:
             problems.append(f"判单 #{idx} ALIGNED 但 evidence 空或无具体"
                             f"引用(<8 字符):无证据的方向判定无效")
-        if entry.get("effective_output") == "NONE":
-            problems.append(f"判单 #{idx} 矛盾:ALIGNED 但 effective_output"
-                            f"=NONE(方向对却无产出?)")
     return problems
 
 
@@ -98,8 +95,7 @@ def check(path: Path) -> int:
               f"BLOCKED-HUMAN,循环无权自解,待用户裁决(AMM-029)")
         return 3
     print(f"GATE OK: 轮 {last.get('round')} direction="
-          f"{last.get('direction')} 产出={last.get('effective_output')}"
-          f" 下轮={last.get('next_adjust')}"
+          f"{last.get('direction')}"
           + (" (警告:UNCERTAIN——下一轮须先对准 current_action)"
              if last.get("direction") == "UNCERTAIN" else ""))
     return 0

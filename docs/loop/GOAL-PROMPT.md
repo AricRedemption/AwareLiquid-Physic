@@ -40,7 +40,7 @@
 - 算力四档 T0/T1/T2/T3,上限以 scripts/probe_run 为唯一执行点;当前只激活 T0/T1(T1 当轮直跑当轮判读);T2/T3 与 Kaggle 配额派发线停放待用户重启,重启前不派发任何外部算力,Probe-First 与隐藏卷纪律保留为重启时生效。
 - 资源红线 CPU<80% 不可逾越,异常即中止,护机优先。
 - 结论分级:T1/T2 只解锁路由与筛选,终局声明须 T3 或隐藏卷;meta 带 exec_tier;对照类探针 3-seed。
-- 价值出口六门:入队必带决策耦合声明(哪种结果⇒改变哪个决策),训练配方族默认关闭;累计≥3 族判"默认配置非最优"⇒禁开新族强制组合回灌;弱题录(带 ?)不得作 [行动] 唯一依据;每轮提交前向 docs/loop/direction-gate.jsonl 追加方向判单并过 scripts/direction_gate --check,连续 2 条 DRIFT ⇒ state: BLOCKED-HUMAN 待用户裁决。
+- 价值出口六门(细则唯一源=goal_check 输出与 AMENDMENTS):决策耦合声明/配方族默认关闭/≥3 族判默认非最优⇒强制组合回灌/3-seed/弱题录禁 [行动];每轮提交前向 docs/loop/direction-gate.jsonl 追加判单(round/direction/evidence 三字段,细则以 scripts/direction_gate 为准)并过其 --check,连续 2 条 DRIFT ⇒ state: BLOCKED-HUMAN 待用户裁决。
 - 判读完下一心跳=消化轮(回填→分流→条件重入口),期间禁新蒸馏;balance_gauge 报警即行动;夜账经 rsi_night 出草稿人工终判,工具输出 0 轮=工具失效须先修工具不得跳过夜账。
 - 预注册判负标准先行(PRD §19);结论类目标附隐藏卷指令,验证过后方可弹出。
 
