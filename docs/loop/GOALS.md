@@ -14,29 +14,30 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 43 条全
-  pr-pending;RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC 回灌 PR=用户线下
-  (轮 252 视距稳健确认 scope=k100-400 增强型);AMM-031 提案
-  PROPOSED 待用户。本会话段产出台账=6 探针全判读(warmup/ctx/tosa/
-  amp/residual/equiv)+1 自生成族视距验证+AMM-031 提案+队列治理
-  (格式化器七袭连环+全量重建)+PLAYBOOK 六条回写。下一心跳:
-  goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(AMM-028 门 1:只收声明决策
-  耦合的族,配方族默认关闭;S1 要求 [行动] 交付)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 44 条
+  (43 pr-pending+GENLEN-PROBE actionable);AMM-031 提案 PROPOSED
+  待用户;蒸馏第 56 族(训练轨迹长度)入库。下一心跳:goal_check
+  路由迭代 GENLEN-PROBE(dir/genlen-probe 分支训练池 gen_steps
+  {160,300,450}×3-seed 统一 canonical 评估,轮 252 意外读数的行动
+  检验,决策耦合=house 训练轨迹长度配置去留;哨兵=160 臂 s0 逐位
+  3.5582)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合:哪种结果⇒改变哪个决策;配方族默认关闭;弱题录禁 [行动]);用户指令 / 停车场重启 / AMM-031 提案裁决 / PR 合并随时重入
+next_trigger_hint: goal_check → GENLEN-PROBE actionable(dir/genlen-probe 分支训练长度阶梯×3-seed:探针执行→判读→PR,哨兵=160 臂 s0=3.5582)→ 判读后消化轮优先(回填资产索引);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启 / AMM-031 提案裁决
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 253:消化轮+视距稳健回填+池空**)——
-  轮 252 RECIPE-HORIZON 判读(HORIZON_ROBUST,ratio 0.893/0.834/
-  0.825 随视距增强 3/3 一致,回灌 scope 确认=k100-400 增强型;附
-  轮 246 根因修订=gen_steps 不改数据值真因训练 t0 范围)回填资产
-  索引第 22 条;分流 balance_gauge EXP=0.2 无报警;池空 ⇒ 下一心
-  跳蒸馏轮;队列四十三条全 pr-pending。
+updated: 2026-09-25 (**轮 254:蒸馏第 56 族+GENLEN-PROBE 入队**)——
+  池空蒸馏轮:钩子=轮 252 根因修订的意外实测(301 池默认臂 2.9031
+  优于 canonical 3.5582=纯起点覆盖差异);scan §56 入库(自生成+
+  视距稳定文献坐标留档);[行动] GENLEN-PROBE 入队(训练池
+  gen_steps{160,300,450}×3-seed 统一 canonical 评估,决策耦合=
+  house 训练轨迹长度配置去留=回灌第 7 轴候选);蒸馏第 52 次达标;
+  队列四十四条(43 pr-pending+GENLEN-PROBE actionable)。下一心跳=
+  goal_check 路由迭代 GENLEN-PROBE。
 
 
 ## goal_queue(顶部为当前目标)
@@ -172,6 +173,9 @@ goal_queue:
 - id: RECIPE-HORIZON
   status: pr-pending(PR#45待建-判读HORIZON_ROBUST=ratio0.893/0.834/0.825随视距增强逐视距3/3一致回灌scope确认, 判读与代码在dir/recipe-horizon分支, 合并后check过自动弹出; 决策=回灌PR scope确认k100-400稳健增强, 附轮246根因修订)
   check_cmd: grep -q "RECIPE-HORIZON 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_horizon/recipe_horizon.json
+- id: GENLEN-PROBE
+  status: actionable
+  check_cmd: grep -q "GENLEN-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_probe/genlen_probe.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。

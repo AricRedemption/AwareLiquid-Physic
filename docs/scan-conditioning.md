@@ -3576,6 +3576,64 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
   第 55 族第 1 轮(与 KSPAN 族分立=训练视距轴,本族=评估视距轴;
   §41.2/§46.1 文献坐标声明分立);est 18min(6×2000 步+3 视距评估)。
 
+## 56. 经验蒸馏 52(轮 254,2026-09-25,QUEUE-EMPTY 轮):训练轨迹长度族(自生成)
+
+> 自生成方向(AMM-027 轮 133 先例)。钩子=轮 252 根因修订的意外
+> 实测:residual_spec2 的默认臂在 gen-301 训练池上 rollout 2.9031
+> 显著优于 canonical 池的 3.5582(纯起点覆盖差异,同一配置同一
+> seed)。机制核对:训练轨迹长度作为训练变量全库未收(D1 系=
+> 定长轨迹内起点重分配,LEN-EXTRAP=评估外推,KSPAN=rollout 展开
+> 跨度——族头声明分立);关联视距稳定文献扫描(SWAD 平坦极小/
+> SPF/APEBench)无决策耦合 [行动](pushforward 已被轮 62 D5 判定
+> 不适用;配方打磨违 AMM-028 精神),坐标留档不展开。
+
+### 56.1 训练 t0 值域=轨迹长度的函数 [坐标](house 实测)
+
+- 【出处】house 产物对照:residual_spec2(轮 246)默认臂
+  2.9031(gen-301 训练池,t0∈[0,270))vs canonical 3.5582
+  (gen-160,t0∈[0,129)),同配置同 seed;轮 252 实证数据值
+  first-161 逐位相同(差异纯来自训练 t0 范围)。
+- 【内容】训练轨迹长度增大 → t0 抽样值域增大 → 起点覆盖更广 →
+  rollout 泛化提升(与 D1g 起点覆盖理论一致的方向)。
+- 【对我们的映射】house 训练配置 gen_steps=160 的 t0 值域可能是
+  免费的泛化余量;GENLEN 探针直接检验。
+- 【适用条件】GENLEN-PROBE 判读参照。
+- 【验证状态】house 实测(本轮重验钉死);单点信号如实注记
+  (residual_spec2 为口径验证轮的附带读数)。
+
+### 56.2 视距稳定文献坐标 [坐标](留档,无行动)
+
+- 【出处】SWAD "Domain Generalization by Seeking Flat Minima"
+  (NeurIPS 2021,~778 引,全名单带 ? 登记 SCAN-AUDIT);
+  "Differentiability in Unrolled Training of Neural Physics
+  Simulators"(arXiv 2024-10,作者未核带 ?);SPF Stochastic
+  PushForward(Zhou et al.,arXiv:2508.18565,2025,首作者核验);
+  APEBench(Koehler et al.,NeurIPS 2024 D&B,首作者核验)。
+- 【内容】展开训练谱系:pushforward/课程式 rollout 长度调度/随机
+  pushforward/系统基准;平坦极小与泛化。
+- 【对我们的映射】house 训练已内建自反馈(轮 62 D5:pushforward
+  不适用);展开训练课程=配方打磨方向(AMM-028 精神排除);坐标
+  留档供 N1 相关工作。
+- 【适用条件】N1 相关工作;无当前行动。
+- 【验证状态】题录部分核验(带 ? 项登记 SCAN-AUDIT)。
+
+### 蒸馏结论
+
+- 【行动】GENLEN-PROBE 入队(engineering,T1):训练池
+  gen_steps∈{160,300,450}×3-seed(canonical 训练切片同前;
+  训练 t0 值域随长度增大),评估统一 canonical held-out k100;
+  判读(3-seed 均值 spread=max/min,预注册):<1.05 ⇒
+  GENLEN_UNRESOLVABLE(起点覆盖饱和如实登记,轮 252 意外读数
+  归因为单点噪声)/≥1.05 ⇒ GENLEN_RESOLVED(报告最优训练长度
+  与方向+D1g 对表,house 训练轨迹长度=配置决策变量);判负(下
+  心跳预注册落盘后执行)=任一臂任一 seed 发散(非有限或
+  rollout>1e6);**决策耦合声明(AMM-028 门 1)**=RESOLVED⇒house
+  训练轨迹长度=免费配置改进(回灌配方第 7 轴候选,回灌 PR 注记
+  升级)/UNRESOLVABLE⇒轮 252 意外读数归因单点噪声+覆盖饱和登记,
+  两分支各改变配置决策,EIG 合格;哨兵=160 臂 s0=3.5582(canonical
+  训练=历史默认路径);族边界=第 56 族第 1 轮(与 D1 系=定长内
+  重分配分立);est 22min(9×2000 步+评估)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
