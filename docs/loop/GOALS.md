@@ -26,21 +26,14 @@ next_trigger_hint: goal_check → RECIPE-SYNTHESIS actionable(AMM-028 回灌门�
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 230 验收修复:goal_check 焊入 AMM-028 门
-  +队列账实勘误**——①QUEUE-EMPTY 路由出口追加五门提示行(决策耦合
-  声明/配方族默认关闭/回灌门≥3 族强制组合/3-seed/弱题录禁 [行动]),
-  门禁测试 test_queue_empty_carries_amm028_gates 钉死=规则从 prose
-  挪进脚本每心跳强制可见;②账实勘误=队列实际 37 条非 38,漂移源
-  头轮 225 入 CTX 时多算 1(声明 37 实际 36),轮 227/229 沿用错
-  基数,自本轮起以机械计数为准;③iteration start 脚本重写 updated
-  首行覆盖轮 229 段首=已知行为,本段重写恢复。附轮 229 存档:
-  RECIPE-SYNTHESIS 标记 pr-pending(PR#38 待建,判读
-  RECIPE_SYNERGIC=组合收益 10.7% ratio=0.893 3/3 方向一致,AMM-028
-  门 3 首例;判读与代码在 dir/recipe-synthesis,合并后 check 过自
-  动弹出;anytime 周检首点 2.9613@3-seed 落盘)。158 测试
-  (157+1)+audit 87 全绿显式退出码;队列三十七条全 pr-pending。
-  下一心跳=goal_check 裁决(判读轮后消化轮优先,禁新蒸馏;回灌
-  PR 建立与合并=用户线下,AMM-028 门 2 决策=回灌候选已登记))
+updated: 2026-09-25 (**轮 233:AMM-030 大道至简第二轮落地**——判单三
+  字段化(旧五字段兼容)/六门细则唯一源=goal_check 输出+AMENDMENTS/
+  GOALS 322→159 行(队列 pr-pending 压 3 行每条,研究内容唯一源=PRD
+  §19);RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC(组合收益 10.7% 3-seed)
+  回灌 PR=用户线下;170 测试+audit 87 全绿;队列三十六条全 pr-pending。
+  下一心跳=goal_check 路由 ⇒ QUEUE-EMPTY 先盘判读后续池(warmup
+  3-seed 消融/AMP 线性不变性归因/RESIDUAL 谱指标/TOSA 窗长-ctx 解耦/
+  CTX 重标定,均带决策耦合声明+三字段判单)。
 
 ## goal_queue(顶部为当前目标)
 
