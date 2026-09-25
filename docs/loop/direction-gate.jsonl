@@ -15,3 +15,4 @@
 {"round": 256, "direction": "ALIGNED", "evidence": "本轮产物=资产索引第25条轨迹长度回填+PRD 轮256 消化记录(池空判定)+GOALS 推进 GENLEN-PROBE→pr-pending(44条全待合并); 消化三件套完成, 推送欠账更新(genlen一笔待补), 直接对准消化轮优先规则"}
 {"round": 257, "direction": "ALIGNED", "evidence": "本轮产物=PRD 轮257 GENLEN-CONFIRM 预注册(轮255 GENLEN_RESOLVED 的均值结论seed0主导=落实前置缺口, 出样确认设计)+GOALS 队列入队(45=45 数数锚); 自生成族段内第2轮确认轮(轮224先例), 决策耦合=CONFIRMED/REFUTED两分支各改变第7轴候选状态, 直接对准蒸馏轮S1要求"}
 {"round": 259, "direction": "ALIGNED", "evidence": "本轮产物=资产索引第25条出样确认回填+PRD 轮259 消化记录(池空判定)+GOALS 推进 GENLEN-CONFIRM→pr-pending(46条全待合并); 消化三件套完成, 第56族收口, 直接对准消化轮优先规则"}
+{"round": 260, "direction": "ALIGNED", "evidence": "本轮产物=scan §54 第2轮行动注记+PRD 轮260 V-HOM 预注册(轮249判读行明示归因V+ctx的V侧检验, 停车登记经三问审计推翻如实修订)+GOALS 队列入队(47=47 数数锚); 决策耦合三结果各改变头参数化候选状态, 直接对准蒸馏轮S1要求与族额度合规"}
