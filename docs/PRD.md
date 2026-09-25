@@ -1091,6 +1091,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 252 判读(RECIPE-HORIZON 判读:HORIZON_ROBUST——回灌收益视距稳健且随视距增强+轮 246 根因修订;T1 算力轮;dir/recipe-horizon,PR 即终点 AMM-024)**:
+- **交付**:① `benchmarks/recipe_horizon_probe.py`(回灌配方 vs 默认×3-seed,双池设计=canonical 哨兵池+gen-450 视距池,注入式配方循环);② `tests/test_recipe_horizon_probe.py` 7 用例(三分支/判负先行/逐视距一致性+spread/哨兵+配方组成/中位);③ 产物 `recipe_horizon.json`(audit 过,meta git_sha=1a4af63=轮 251 预注册提交,exec_tier=T1,est18,预注册先于执行)。
+- **哨兵锚 ✓**:A 臂 canonical k100 seed0=3.5581917762756348 逐位命中。
+- **机械判读(预注册兑现)**:**HORIZON_ROBUST**——ratio(k)=mean_B/mean_A:k100=**0.8932**/k200=**0.8339**/k400=**0.8247**,全部 <0.95 门且随视距单调增强(收益 10.7%→16.6%→17.5%);逐 horizon 方向一致性均 3/3;逐 seed(A→B):k400 A=[4.567, 4.141, 4.039] vs B=[3.569, 3.450, 3.493]。
+- **诚实注记(判读载荷核心)**:①回灌配方的相对优势随评估视距增长(训练配置 k_train=4 的短跨度训练在长视距 rollout 下相对优势扩大),回灌 PR 的 scope 声明可升级为"k100-400 视距稳健且增强";②**轮 246 根因修订(新证据新增,不改轮 246 历史行)**——本轮实证 gen_spring 数据值不随 gen_steps 变化(gen 160 vs 450 first-161 逐位相同,max diff=0.0),且 B 臂 horizon 池 k100 读数与轮 228 canonical 值逐位一致(3.3909592628479004 等);轮 246 判读行的根因陈述("gen_steps 改变数据流"+off-by-one 比较实证)**错误**:真实机制=训练 t0 抽样范围是轨迹长度 S 的函数(residual_spec2 的 301 步池 t0∈[0,270) vs canonical [0,129) → 更大起点覆盖→默认臂 2.9031 反而更好,与 D1g 起点覆盖理论一致);轮 246 的哨兵失配是"301 池训练=更大起点覆盖"效应而非数据流差异;PLAYBOOK 已回写比较工具坑与根因修订。
+- **决策(预注册 ROBUST 分支兑现)**:回灌 PR scope 确认=k100-400 视距稳健;无范围收缩注记。
+- **判负对账**:十八臂次全有限(判负未触发);哨兵逐位命中。范围=T1 路由/筛选级,隐藏卷条款不适用。族边界=第 55 族第 1 轮(无明示后续;更长视距 k>400 属视距外推线=停车场候选注记)。
+- 台账:T1 算力轮(E 分母+1);177 测试(170+7)+audit 95 全绿显式退出码;判单轮 252;分支 dir/recipe-horizon 推 fork,下心跳 wave/loop 推进队列 pr-pending。
 **轮 251 记录(蒸馏补池:第 55 族配方视距稳健族 + RECIPE-HORIZON 入队;T0 零算力)**:
 - **路由**:goal_check QUEUE-EMPTY(池空)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:自生成方向(AMM-027 轮 133 先例)——钩子=回灌决策的 scope 开放面:RECIPE-SYNTHESIS 全部证据(轮 227/228)产生于 k=100 单一评估口径,部署视距下收益是否保持未测;机制核对(视距/horizon)仅命中 §41.2/§46.1 文献坐标(LEN/KSPAN 族),声明分立零撞车;与用户在途回灌 PR 直接耦合=其 scope 声明的证据缺口。
