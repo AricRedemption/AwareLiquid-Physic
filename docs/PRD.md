@@ -1091,6 +1091,10 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 253 记录(消化轮:视距稳健回填+池空蒸馏轮路由;T0 零算力)**:
+- **路由**:轮 252 判读完成(dir/recipe-horizon 分支,HORIZON_ROBUST)⇒ 消化轮优先;判读后续池盘点**空**(轮 252 判读无明示后续,k>400=停车场候选注记)⇒ 下一心跳=蒸馏轮路由。
+- **消化三件套**:①回填=资产索引第 22 条组合配方回灌追加轮 252 视距稳健注记(HORIZON_ROBUST=scope 确认 k100-400 增强型+轮 246 根因修订引用);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
+- **台账**:零算力消化轮;S1 计数=轮 251/252 行动产出,轮 253 消化;队列四十三条全 pr-pending(42 待合并+RECIPE);判单轮 253;下一心跳=goal_check QUEUE-EMPTY ⇒ 蒸馏轮(只收声明决策耦合的族,配方族默认关闭)。
 **轮 251 记录(蒸馏补池:第 55 族配方视距稳健族 + RECIPE-HORIZON 入队;T0 零算力)**:
 - **路由**:goal_check QUEUE-EMPTY(池空)⇒ 蒸馏轮;S1 要求带 [行动]。
 - **选族**:自生成方向(AMM-027 轮 133 先例)——钩子=回灌决策的 scope 开放面:RECIPE-SYNTHESIS 全部证据(轮 227/228)产生于 k=100 单一评估口径,部署视距下收益是否保持未测;机制核对(视距/horizon)仅命中 §41.2/§46.1 文献坐标(LEN/KSPAN 族),声明分立零撞车;与用户在途回灌 PR 直接耦合=其 scope 声明的证据缺口。

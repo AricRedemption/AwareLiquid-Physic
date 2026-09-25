@@ -267,7 +267,13 @@ static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍�
    收口);A 臂 seed0 与历史默认臂逐位一致=哨兵;决策(预注册兑现)
    =臂 B 五轴为 M1 默认配置候选开回灌 PR;anytime 周检(AMM-028
    门 5)首点=默认配方 2.9613@3-seed;ctx_dim=1/t_obs=8 不入本轮
-   回灌(语义/口径重标定,族后续)。
+   回灌(语义/口径重标定,族后续)。**轮 252 视距稳健(RECIPE-
+   HORIZON,dir/recipe-horizon 待合并)**:回灌配方 vs 默认×
+   3-seed 三视距 k{100,200,400}——**HORIZON_ROBUST:ratio=0.893/
+   0.834/0.825 全部<0.95 且随视距单调增强(收益 10.7%→16.6%→
+   17.5%),逐视距 3/3 一致**;回灌 PR scope 确认=k100-400 视距稳健
+   且增强;附轮 246 根因修订(gen_steps 不改数据值,真因=训练 t0
+   范围随轨迹长度,与 D1g 起点覆盖一致);第 55 族 1/2(段内)。
 23. **ctx 隐变量容量(轮 226 CTX-DIM-LADDER 1-seed + 轮 239
    CTX-DIM-2 3-seed 升级,dir/ctx-dim-ladder+dir/ctx-dim-2 待
    合并)**:阶梯 1-seed spread=1.80 判"单调有害 ctx_dim=1 最优

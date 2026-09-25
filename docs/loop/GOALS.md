@@ -14,28 +14,29 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 43 条
-  (42 pr-pending+RECIPE-HORIZON actionable);AMM-031 提案 PROPOSED
-  待用户;蒸馏第 55 族(配方视距稳健)入库。下一心跳:goal_check
-  路由迭代 RECIPE-HORIZON(dir/recipe-horizon 分支回灌配方 vs 默认
-  三视距 k{100,200,400}×3-seed,决策耦合=回灌 PR scope 声明三分支
-  路由;哨兵=A@k100 s0 逐位 3.5582)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 43 条全
+  pr-pending;RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC 回灌 PR=用户线下
+  (轮 252 视距稳健确认 scope=k100-400 增强型);AMM-031 提案
+  PROPOSED 待用户。本会话段产出台账=6 探针全判读(warmup/ctx/tosa/
+  amp/residual/equiv)+1 自生成族视距验证+AMM-031 提案+队列治理
+  (格式化器七袭连环+全量重建)+PLAYBOOK 六条回写。下一心跳:
+  goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(AMM-028 门 1:只收声明决策
+  耦合的族,配方族默认关闭;S1 要求 [行动] 交付)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check → RECIPE-HORIZON actionable(dir/recipe-horizon 分支三视距×3-seed:探针执行→判读→PR,哨兵=A@k100 s0=3.5582)→ 判读后消化轮优先(回填资产索引配方条目);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启 / AMM-031 提案裁决
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合:哪种结果⇒改变哪个决策;配方族默认关闭;弱题录禁 [行动]);用户指令 / 停车场重启 / AMM-031 提案裁决 / PR 合并随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 251:蒸馏第 55 族+RECIPE-HORIZON 入队**)——
-  池空蒸馏轮:自生成方向(轮 133 先例),钩子=回灌决策 scope 开放
-  面(全部回灌证据在 k100 单一口径);[行动] RECIPE-HORIZON 入队
-  (配方 vs 默认×3-seed 三视距 k{100,200,400},三分支=回灌 PR
-  scope 确认/限中视距注记/脆弱登记);蒸馏第 51 次达标;队列四十
-  三条(42 pr-pending+RECIPE-HORIZON actionable)。下一心跳=
-  goal_check 路由迭代 RECIPE-HORIZON。
+updated: 2026-09-25 (**轮 253:消化轮+视距稳健回填+池空**)——
+  轮 252 RECIPE-HORIZON 判读(HORIZON_ROBUST,ratio 0.893/0.834/
+  0.825 随视距增强 3/3 一致,回灌 scope 确认=k100-400 增强型;附
+  轮 246 根因修订=gen_steps 不改数据值真因训练 t0 范围)回填资产
+  索引第 22 条;分流 balance_gauge EXP=0.2 无报警;池空 ⇒ 下一心
+  跳蒸馏轮;队列四十三条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
@@ -163,13 +164,13 @@ goal_queue:
   status: pr-pending(PR#42待建-判读AMPATTR_OK=归因动力学头主因载体头等变误差s2中位1.362/s4 2.838 vs ctx非不变0.417/1.224两层均O(1)+违反, 判读与代码在dir/amp-attr分支, 合并后check过自动弹出; 决策=头侧等变性参数化列停车场候选, AMPLITUDE族2/2收口)
   check_cmd: grep -q "AMP-ATTR 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_attr/amp_attr.json
 - id: RESIDUAL-SPEC-2
-  status: pr-pending(PR#43待建-判读SPECTRA_INCREMENTAL=逐seed排序一致1/3+聚合同向双口径k4均优, 判读与代码在dir/residual-spec-2分支, 合并后check过自动弹出; 决策=谱指标候选house次级口径走AMM-031提案PROPOSED待用户, RESIDUAL族2/2收口)
+  status: pr-pending(PR#43待建-判读SPECTRA_INCREMENTAL=逐seed排序一致1/3+聚合同向双口径k4均优, 判读与代码在dir/residual-spec-2分支, 合并后check过自动弹出; 决策=谱指标候选house次级口径走AMM-031提案PROPOSED待用户, RESIDUAL族2/2收口; 轮252根因修订=gen_steps不改数据值真因训练t0范围)
   check_cmd: grep -q "RESIDUAL-SPEC-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_2/residual_spec_2.json
 - id: EQUIV-HEAD
   status: pr-pending(PR#44待建-判读EQUIV_TRADEOFF=解析T分布内3/3全赢均值-14%但外推rel_comp中位9.07vs3.33恶化, 判读与代码在dir/equiv-head分支, 合并后check过自动弹出; 决策=解析动能spring配置候选走独立线+归因重定向V与ctx通道, 第54族段内1/2)
   check_cmd: grep -q "EQUIV-HEAD 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/equiv_head/equiv_head.json
 - id: RECIPE-HORIZON
-  status: actionable
+  status: pr-pending(PR#45待建-判读HORIZON_ROBUST=ratio0.893/0.834/0.825随视距增强逐视距3/3一致回灌scope确认, 判读与代码在dir/recipe-horizon分支, 合并后check过自动弹出; 决策=回灌PR scope确认k100-400稳健增强, 附轮246根因修订)
   check_cmd: grep -q "RECIPE-HORIZON 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_horizon/recipe_horizon.json
 ```
 
