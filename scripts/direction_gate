@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+"""scripts/direction_gate — AMM-029 方向门禁(第六门)判单校验器。
+
+每轮提交前置条件(与 pytest 全绿 + audit --check 并列):
+  执行会话提交前向 docs/loop/direction-gate.jsonl 追加一条判单(JSONL),
+  然后跑 `direction_gate --check`,exit 0 才许提交。
+
+判单五字段(缺一不可):
+  round           轮号(int)
+  direction       ALIGNED | DRIFT | UNCERTAIN   —— 本轮方向判定
+  evidence        引用本轮具体产物(文件/判读行/数字),ALIGNED 必填
+  effective_output 本轮有效产出一句话;确无则字面 NONE
+  next_adjust     下一轮调整或字面 "维持"
+
+退出码:0=放行 1=判单缺失/非法(禁提交) 3=连续 2 条 DRIFT(强制升级:
+GOALS state → BLOCKED-HUMAN,循环无权自解,待用户裁决)
+
+用法:
+  direction_gate --check                 校验末条判单+漂移计数(提交门)
+  direction_gate --add '<JSON 字符串>'   追加判单(执行会话用)
+
+诚实边界(AMM-029):判官=执行会话自评,存在自我裁判偏差;缓解=
+证据强制+连续漂移自动升级+夜账抽样复核。独立无状态判官会话=停车场。
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+GATE_FILE = Path("docs/loop/direction-gate.jsonl")
+FIELDS = ("round", "direction", "evidence", "effective_output",
+          "next_adjust")
+DIRECTIONS = ("ALIGNED", "DRIFT", "UNCERTAIN")
+DRIFT_LIMIT = 2  # preregistered: consecutive DRIFT rounds -> escalate
+
+
+def load_entries(path: Path):
+    if not path.exists():
+        return None  # 判单文件不存在=从未填写
+    entries = []
+    for i, line in enumerate(path.read_text().splitlines(), 1):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            entries.append(json.loads(line))
+        except json.JSONDecodeError as e:
+            print(f"FAIL: 判单第 {i} 行非合法 JSON({e}):禁提交", file=sys.stderr)
+            sys.exit(1)
+    return entries
+
+
+def validate(entry, idx: int):
+    """Return list of problems (empty = valid). Pure, test-pinned."""
+    problems = []
+    if not isinstance(entry, dict):
+        return [f"判单 #{idx} 不是对象"]
+    for f in FIELDS:
+        if f not in entry or entry[f] in (None, ""):
+            problems.append(f"判单 #{idx} 缺字段 {f}")
+    d = entry.get("direction")
+    if d is not None and d not in DIRECTIONS:
+        problems.append(f"判单 #{idx} direction 非法: {d!r}"
+                        f"(须为 {'/'.join(DIRECTIONS)})")
+    if d == "ALIGNED":
+        ev = entry.get("evidence") or ""
+        if not isinstance(ev, str) or len(ev.strip()) < 8:
+            problems.append(f"判单 #{idx} ALIGNED 但 evidence 空或无具体"
+                            f"引用(<8 字符):无证据的方向判定无效")
+        if entry.get("effective_output") == "NONE":
+            problems.append(f"判单 #{idx} 矛盾:ALIGNED 但 effective_output"
+                            f"=NONE(方向对却无产出?)")
+    return problems
+
+
+def check(path: Path) -> int:
+    entries = load_entries(path)
+    if entries is None:
+        print("FAIL: 判单文件不存在(从未填写):禁提交——"
+              "每轮提交前须追加本轮方向判单(AMM-029)", file=sys.stderr)
+        return 1
+    if not entries:
+        print("FAIL: 判单为空:禁提交", file=sys.stderr)
+        return 1
+    last = entries[-1]
+    problems = validate(last, len(entries))
+    if problems:
+        for p in problems:
+            print(f"FAIL: {p}:禁提交", file=sys.stderr)
+        return 1
+    recent_drifts = sum(1 for e in entries[-DRIFT_LIMIT:]
+                        if isinstance(e, dict)
+                        and e.get("direction") == "DRIFT")
+    if recent_drifts >= DRIFT_LIMIT:
+        print(f"ESCALATE: 连续 {recent_drifts} 条 DRIFT(门限 "
+              f"{DRIFT_LIMIT})——方向漂移坐实:GOALS state → "
+              f"BLOCKED-HUMAN,循环无权自解,待用户裁决(AMM-029)")
+        return 3
+    print(f"GATE OK: 轮 {last.get('round')} direction="
+          f"{last.get('direction')} 产出={last.get('effective_output')}"
+          f" 下轮={last.get('next_adjust')}"
+          + (" (警告:UNCERTAIN——下一轮须先对准 current_action)"
+             if last.get("direction") == "UNCERTAIN" else ""))
+    return 0
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--check", action="store_true",
+                    help="校验末条判单+漂移计数(提交门)")
+    ap.add_argument("--add", metavar="JSON",
+                    help="追加一条判单(JSON 字符串)")
+    ap.add_argument("--file", default=str(GATE_FILE))
+    args = ap.parse_args()
+    path = Path(args.file)
+    if args.add:
+        try:
+            entry = json.loads(args.add)
+        except json.JSONDecodeError as e:
+            print(f"FAIL: --add 参数非合法 JSON({e})", file=sys.stderr)
+            sys.exit(1)
+        problems = validate(entry, "new")
+        if problems:
+            for p in problems:
+                print(f"FAIL: {p}", file=sys.stderr)
+            sys.exit(1)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a") as f:
+            f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        print(f"ADDED: 轮 {entry.get('round')} 判单已追加")
+        sys.exit(0)
+    if args.check:
+        sys.exit(check(path))
+    ap.print_help()
+    sys.exit(2)
+
+
+if __name__ == "__main__":
+    main()

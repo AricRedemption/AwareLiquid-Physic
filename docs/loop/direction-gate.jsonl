@@ -1,0 +1,1 @@
+{"round": 231, "direction": "ALIGNED", "evidence": "本轮产物=AMM-029(APPLIED)+scripts/direction_gate+tests/test_direction_gate.py 12用例+GOALS v5.2 接线, 直接对准用户本轮指令(加方向门禁防跑偏)与 current_action 的治理线", "effective_output": "第六门方向门禁落地: 判单制度+校验器+漂移升级+12不变式测试", "next_adjust": "维持——下一心跳由执行会话按六门跑判读后续池"}

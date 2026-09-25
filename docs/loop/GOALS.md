@@ -25,18 +25,21 @@ current_goal: >-
   与 AMM-012 对齐/平衡阈值收归 gauge/收尾清单补 B+EXP 计量/隐藏卷条款
   去 PR 专属措辞)。
 current_action: >-
-  **v5.1 价值出口修正生效(AMM-028,2026-09-25 用户对话授权)**:在
-  v5.0 T1 探针环之上加五条门——①决策耦合门:入队必带"哪种结果⇒改
-  变哪个决策",填不出不入队,配方族默认关闭准入;②回灌强制门:≥3
-  族判"默认非最优"⇒禁开新族,强制组合配方对照探针,判读后回灌或
-  如实登记不回灌;③统计升级:对照类 T1 默认 3-seed(均值+方向一致
-  性+seed 间 spread);④题录核验硬门:弱题录不得作 [行动] 依据,
-  蒸馏题录须网络核验;⑤anytime 周检:收尾轮画"默认配方 held-out
-  质量 vs 累计探针小时"曲线,连续两周持平⇒S3 武装。
-  当前行动=回灌门首例 RECIPE-SYNTHESIS(预注册见 PRD §19 轮 227)。
-  下一心跳:执行/路由 RECIPE-SYNTHESIS;蒸馏轮只收"声明了决策耦合"
-  的族。超 T1 方向入 AMM-024 停车场(T3-MENU:N1 v1+/T2/T3 候选/
-  Kaggle 派发线/隐藏卷,停放待用户重启)。
+  **v5.2 方向门禁生效(AMM-029,2026-09-25 用户提议)**:在 v5.1
+  五门之上加第六门=方向门禁:执行会话每轮提交前向
+  docs/loop/direction-gate.jsonl 追加判单(五字段:round/direction
+  ∈{ALIGNED,DRIFT,UNCERTAIN}/evidence 引用本轮具体产物/
+  effective_output/next_adjust),跑 scripts/direction_gate --check
+  过(exit 0)为提交前置条件,与 pytest+audit 并列;连续 2 条
+  DRIFT ⇒ exit 3 强制升级(state → BLOCKED-HUMAN,待用户裁决);
+  判单入 git,夜账抽样复核,系统性宽松化=判官失效升级用户。
+  v5.1 五门(AMM-028)不变:决策耦合门/回灌强制门/统计升级 3-seed/
+  题录核验硬门/anytime 周检。当前队列 37 条全 pr-pending,
+  RECIPE-SYNTHESIS 判 RECIPE_SYNERGIC(组合收益 10.7% 3-seed)待
+  用户回灌 PR;下一心跳:goal_check 路由(QUEUE-EMPTY⇒先盘判读
+  后续池:warmup 3-seed 消融/AMP 线性不变性归因/RESIDUAL 谱指标/
+  TOSA 窗长-ctx 解耦/CTX 多参数族重标定,均须带决策耦合声明+
+  判单;配方族默认关闭准入)。超 T1 方向入 AMM-024 停车场。
 blocked_on: >-
   1) PR 合入=用户线下处理,非循环阻塞;2) 停车场重启(N1 v1+/T2/T3/
   Kaggle 派发/隐藏卷)均待用户指令;3) Kaggle 凭证=停车场激活材料,
