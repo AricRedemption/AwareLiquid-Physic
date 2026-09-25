@@ -1091,6 +1091,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **3 槽一次命中+题录当场核验(AMM-015)**:①★Zhou et al. "An Information-Theoretic Approach to In-Context Learning"(arXiv:2410.05493,2024)=ICL 信息论容量分析(容量与噪声/干扰权衡,容量并非越大越好);②元学习 ctx 谱系(CAVIA 语境;"Identifiable Latent Dynamics via Meta-Learning of Context" OpenReview 弱题录带 ? 登记 SCAN-AUDIT 复核)=低维 ctx 正则化效应;③BayesFlow/sbi 摘要空间 sufficiency 谱系(弱题录带 ? 登记 SCAN-AUDIT 复核)=SBI 摘要维度与后验 sufficiency 权衡。
 - **CTX-DIM-LADDER 入队([行动],engineering,T1)**:异频池(E1 口径)prefix hidden64 2000 步四臂——context_dim∈{1,2,4,8}(构造参数天然可注入=轮 181 哨兵条款适用);评估=同 held-out 128 轨 k100 rollout MSE;判读=四臂 spread(max/min):<1.05 ⇒ CTXDIM_UNRESOLVABLE(容量不可分辨,ctx_dim=8 默认充分如实登记)/≥1.05 ⇒ 报告最优 ctx_dim 与方向(容量有益/有害/内点);判负(下心跳预注册落盘后执行)=任一臂发散/非有限 ⇒ 该容量不可用登记,spread 数值异常 ⇒ 判负;族边界=ctx 隐变量容量轴 CTX-DIM 族第 1 轮(与 D2/E4a 梯度流/SSM 替代线分立);双锚单行 check_cmd;est 8min(4×2000 步 prefix)。
 - **台账**:零算力轮;scan §53+蒸馏结论 49;S1 重置([行动]),蒸馏第 47 次达标;157 测试+audit 全绿显式退出码(零代码轮);队列三十七条(三十六 pr-pending+CTX-DIM-LADDER actionable);双锚单行 check_cmd 经数数锚 37=37+逐条 ID 核对验收;下一心跳=goal_check 路由迭代 CTX-DIM-LADDER。
+**轮 244 判读(AMP-ATTR 判读:AMPATTR_OK——线性等变性归因=动力学头主因载体,但两层均 O(1) 违反;T1 算力轮;dir/amp-attr,PR 即终点 AMM-024)**:
+- **交付**:① `benchmarks/amp_attr_probe.py`(3-seed house 默认训练+三件诊断:①ctx 不变性=infer_context(s·prefix) 对 ctx(prefix) 相对差;②头等变性=model.rollout 原生 ctx 参数强制同 ctx 下 rollout(s·s0) 对 s·rollout(s0) 相对 RMS 误差;③归因=②/① 相对量级);② `tests/test_amp_attr_probe.py` 6 用例(分类器/非有限判负/哨兵/中位/恒定头 vs 比例头 ctx 不变性/线性 vs 偏置 rollout 等变性,stub 模型过真实口径函数);③ 产物 `amp_attr.json`(audit 过,meta git_sha=b1fd910,exec_tier=T1,est12)。
+- **哨兵锚 ✓**:训练臂=house 默认,seed0 评估 3.5581917762756348 逐位命中(seed1/2 2.6059/2.7197 亦与历史默认臂逐位一致);**复现锚=首跑崩溃前六诊断读数与重跑逐位一致**(确定性交叉验证,免费)。
+- **归因读数(报告型,预注册口径兑现)**:头等变误差 s2 中位 **1.362**/s4 **2.838**(跨 seed 1.02-2.92);ctx 非不变性 s2 **0.417**/s4 **1.224**(跨 seed 0.39-1.87)。**主因载体=动力学头**(②>① 两尺度一致),判读=轮 216 AMPEX_DEGRADES(rel_comp=4.08)的症状主体归因于头的标度齐次性破坏;**诚实注记=两层均 O(1)+ 违反**(相对误差 ≥100%),非线性普遍性非局部缺陷——ctx 通道亦非幅度不变物理潜变量(与轮 239 ω-corr≈0 独立互证)。机制句(N1 素材):"线性振子的精确标度等变性未被模型继承,主载体=哈密顿头的标度齐次性破坏(MLP 的 T/V 非齐次),次载体=ctx 推断通道的幅度敏感"。
+- **决策(报告型三分支之 head 主因兑现)**:架构线修复候选注记=头侧等变性参数化(如齐次参数化/输入标度归一)列为停车场候选;N1 机制句按上行措辞;AMPLITUDE 族段内 2/2 用尽(轮 216+本轮)⇒ 族收口。
+- **工具实现偏离注记**:预注册写 OracleOperatorWrapper 强制同 ctx,实现改用 model.rollout 原生 context 参数(语义相同=同 ctx 强制,少一层指纹查表);首跑崩溃(9min 算力损失=results 字典尾随逗号变 1-tuple 延迟爆炸)后重跑,判读以重跑 git_sha=b1fd910 为准,PLAYBOOK 已回写。
+- **判负对账**:六诊断全有限(判负未触发);哨兵逐位命中。范围=T1 诊断轮报告级,非终局声明,隐藏卷条款不适用。
+- 台账:T1 算力轮(E 分母+1);176 测试(170+6)+audit 92 全绿显式退出码;判单轮 244;分支 dir/amp-attr 推 fork,下心跳 wave/loop 推进队列 pr-pending。
 **轮 242 记录(消化轮:TOSA 解耦判读回填+AMP-ATTR 入队+格式化器第七袭修复;T0 零算力)**:
 - **路由**:轮 241 判读完成(dir/tosa-decouple 分支,DEC_TRAIN_HARMFUL,1e5ed46)⇒ 消化轮优先;判读后续池盘点**非空** ⇒ 同轮入队下一池条目(轮 61 惯例)。
 - **消化三件套**:①回填=资产索引 5 区 Methods 第 21 条观测窗长度追加轮 241 解耦注记(轮 223 t8 4.5% 双层 dissolution:own-window 评估口径伪影+seed0 抽取,固定 24 窗下 t8 训练 5.6× 恶化,prefix 敏感性 4.197,t_obs 维持 24);②分流=balance_gauge EXP=0.2 达标/WIP=0/欠账 0/消化率 1.0/无报警;③条件重入口=§12.3 三路终态维持。
