@@ -14,27 +14,28 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 44 条全
-  pr-pending;RECIPE-SYNTHESIS 回灌 PR=用户线下(轮 252 视距稳健+
-  轮 255 轨迹长度第 7 轴候选注记);AMM-031 提案 PROPOSED 待用户。
-  本会话段产出台账=7 探针全判读+2 自生成族+AMM-031+队列治理+PLAY
-  BOOK 八条。下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(AMM-028
-  门 1:只收声明决策耦合的族,配方族默认关闭;S1 要求 [行动] 交付;
-  连续 2 轮无行动类产出 ⇒ S1 评估收口)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。当前队列 45 条
+  (44 pr-pending+GENLEN-CONFIRM actionable);AMM-031 提案 PROPOSED
+  待用户。下一心跳:goal_check 路由迭代 GENLEN-CONFIRM(dir/
+  genlen-confirm 分支出样确认:新 seed{3,4,5} 两臂 160v450,轮 255
+  均值结论的出样检验,决策耦合=第 7 轴候选状态;CONFIRMED⇒建议
+  采纳/REFUTED⇒搁置+族收口)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / AMM-031 提案裁决 / PR 合并 / 网络恢复补推随时重入
+next_trigger_hint: goal_check → GENLEN-CONFIRM actionable(dir/genlen-confirm 分支出样确认×3 新 seed:探针执行→判读→PR)→ 判读后消化轮优先(回填资产索引);蒸馏轮只收"声明了决策耦合"的族/ 用户指令 / 停车场重启 / AMM-031 提案裁决 / 网络恢复补推
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-25 (**轮 256:消化轮+轨迹长度回填+池空**)——
-  轮 255 GENLEN-PROBE 判读(GENLEN_RESOLVED,means 2.961/2.836/
-  2.699 spread 1.097 best=450;逐 seed 混合高方差置信标;301 臂跨
-  脚本复现轮 246)回填资产索引第 25 条;分流 balance_gauge EXP=0.2
-  无报警;池空 ⇒ 下一心跳蒸馏轮;队列四十四条全 pr-pending。
+updated: 2026-09-25 (**轮 257:GENLEN-CONFIRM 入队**)——池空蒸
+  馏轮:第 56 族段内第 2 轮(轮 224 先例确认轮)——轮 255 均值结论
+  seed0 主导=落实前置缺口,[行动] GENLEN-CONFIRM 入队(新 seed
+  {3,4,5} 两臂 160v450 出样确认,CONFIRMED⇒第 7 轴候选升级建议采
+  纳/REFUTED⇒搁置+族收口);推送欠账=wave/loop 轮 256(920f213)
+  一笔网络待补;队列四十五条(44 pr-pending+GENLEN-CONFIRM
+  actionable)。下一心跳=goal_check 路由迭代 GENLEN-CONFIRM。
 
 
 ## goal_queue(顶部为当前目标)
@@ -173,6 +174,9 @@ goal_queue:
 - id: GENLEN-PROBE
   status: pr-pending(PR#46待建-判读GENLEN_RESOLVED=means2.961/2.836/2.699spread1.097best450但逐seed方向混合seed0主导高方差, 判读与代码在dir/genlen-probe分支, 合并后check过自动弹出; 决策=house训练轨迹长度=配置候选带置信标回灌第7轴候选, 301臂跨脚本复现轮246)
   check_cmd: grep -q "GENLEN-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_probe/genlen_probe.json
+- id: GENLEN-CONFIRM
+  status: actionable
+  check_cmd: grep -q "GENLEN-CONFIRM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_confirm/genlen_confirm.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
