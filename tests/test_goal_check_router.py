@@ -87,6 +87,18 @@ def test_queue_empty_normal_when_exp_healthy(tmp_path):
     assert r.returncode == 2 and "QUEUE-EMPTY" in r.stdout
 
 
+def test_queue_empty_carries_amm028_gates(tmp_path):
+    """AMM-028(轮 227):QUEUE-EMPTY 输出必须携带价值出口门提示——
+    决策耦合声明/配方族关闭/回灌门/3-seed/弱题录,每心跳强制可见。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    r = run(tmp_path)
+    assert r.returncode == 2
+    assert "[AMM-028 门]" in r.stdout
+    assert "决策耦合声明" in r.stdout
+    assert "配方族默认关闭" in r.stdout
+    assert "3-seed" in r.stdout
+
+
 def test_cloud_only_debt_does_not_block(tmp_path):
     """AMM-014:纯云档(C-debt)欠账 ⇒ 不触发 DEBT-FIRST,队列正常路由。"""
     make_repo(tmp_path, EVIDENCE6, LEDGER_CLOUD_ONLY, QUEUE_ONE)

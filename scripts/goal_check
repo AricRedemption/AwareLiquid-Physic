@@ -50,7 +50,14 @@ def queue_empty_exit():
         print(f"VERDICT: MINING-FROZEN — EXP={gauge['exp_ratio']}<20%"
               f"(AMM-012):禁蒸馏,先补证据轮(T0 数字判读/T1 探针/台账消化)")
         sys.exit(3)
-    print("VERDICT: QUEUE-EMPTY"); sys.exit(2)
+    print("VERDICT: QUEUE-EMPTY")
+    # AMM-028(轮 227):价值出口门焊入路由器——蒸馏准入每心跳强制可见
+    print("  [AMM-028 门] ①蒸馏准入:条目须带决策耦合声明(哪种结果⇒改变"
+          "哪个决策),训练配方族默认关闭;②回灌门:累计≥3 族判『默认配置"
+          "非最优』⇒禁开新族,强制组合配方对照(当前回灌候选 RECIPE-SYNTHESIS"
+          " 已判 RECIPE_SYNERGIC,回灌 PR=用户线下);③对照类探针 3-seed;"
+          "④弱题录(带 ?)不得作 [行动] 唯一依据;⑤QUEUE-EMPTY 先盘判读后续池")
+    sys.exit(2)
 
 if not block_m:
     queue_empty_exit()
