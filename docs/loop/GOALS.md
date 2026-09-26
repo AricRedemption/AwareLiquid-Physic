@@ -14,19 +14,18 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 275 蒸馏轮
-  =第 61 族(训练盆地稳定性族,scan §61 三槽)入库+POOL-BITS 入队
-  执行,判读 ANCHOR_BOTH_FRAGILE(比特级池扰动下双头锚均脆弱:
-  默认头 spread 中位 1.86/候选 1.29 稳 30% 但双过 1.10 门,
-  variant-160 双锚逐位真,PR#53)=**AMM-033 锚计划增补多变体
-  协议**。下一心跳=消化轮(AMM-033 锚计划多变体协议回填+分流),
-  期间禁新蒸馏;消化后 ⇒ 蒸馏轮,S1 要求 [行动](AMM-028 门 1:
-  只收声明决策耦合的族,配方族默认关闭)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 276 消化轮
+  完成:AMM-033 锚重置计划增补第⑤条多变体协议(每锚附 4 池变体
+  spread 注记;候选头稳 30% 注记为锚选型加分项)+分流干净(EXP
+  0.2/WIP 0/欠账 0/消化率 1.0)。下一心跳:goal_check ⇒
+  QUEUE-EMPTY ⇒ 蒸馏轮(S1 要求 [行动];AMM-028 门 1:只收声明
+  决策耦合的族,配方族默认关闭;连续 2 轮无行动类产出 ⇒ S1 评估
+  收口)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 消化轮(AMM-033 锚计划多变体协议回填+分流,禁新蒸馏);消化后 ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -55,8 +54,9 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   增补长视距维度条款+分流干净。轮 275 蒸馏轮=第 61 族入库(scan
   §61 三槽)+POOL-BITS 判读 ANCHOR_BOTH_FRAGILE(默认头 spread
   中位 1.86/候选 1.29 稳 30% 但双过门,PR#53;variant-160 双锚
-  逐位真)=AMM-033 锚计划增补多变体协议;200 测试+audit 99 全绿;
-  队列五十一条全 pr-pending。
+  逐位真)=AMM-033 锚计划增补多变体协议;200 测试+audit 99 全绿。
+  轮 276 消化轮=AMM-033 锚计划⑤条多变体协议回填+分流干净;队列
+  五十一条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
