@@ -73,7 +73,12 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   过早挂起,解停两项;SPEC3 判读 ORDER_TIED=修正口径成分持平
   (r246 增量系截止伪影,PR#56;标量双锚逐位真)=AMM-031 降级
   reference-only,轮 267 待办闭账;S1 重置;队列五十四条全
-  pr-pending。
+  pr-pending。**AMM-034 落地(用户指令)=收口语义 v7**:IDLE 废除
+  (状态机=RUNNING/PARKED/BLOCKED-HUMAN),S1/S2 改模式切换信号,
+  自主工作阶梯入 prompt(判读池→停车场解停→N1 写作→工程硬化→
+  合并债治理),唯一自停=上下文真耗尽,PARKED=S3 真停滞专属;
+  GOAL-PROMPT v7.0 已落 docs/loop/GOAL-PROMPT-v7.md 待用户粘贴
+  新会话。
 
 
 ## goal_queue(顶部为当前目标)
