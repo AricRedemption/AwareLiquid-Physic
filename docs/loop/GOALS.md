@@ -13,25 +13,24 @@ current_goal: >-
   v5.2 六门体系下的 T1 探针环:队列目标逐个探针-判读-PR(细则与立法史
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
-  v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯。
-  轮 297 写作轮落地(§2 对称强制段)。轮 298 挂起轮(阶梯⑥,逐项
-  审计防假空):①判读后续池=空(本会话 13 连 QUEUE-EMPTY,队列
-  54 条 pr-pending 未变,无合并落地);②停车场=无变化(轮 285
-  全审计:k 泛化决策耦合弱留池,T2/T3/Kaggle/隐藏卷=用户资源,
-  齐次 V 稳定性已被轮 268 取代,N1 v1+ 已解停执行);③N1 写作=
-  自主缺口清零(索引主锚 4-23 审计梯/ω 外推/ICL/迁移限定词/齐次
-  头链/§64 回填全部入稿,余项=标题/venue/[C] 级声明/终稿 polish
-  =AMM-022 人决边界);④工程硬化=双机械锚(--check-round+--audit)
-  +状态机 sweep 扫尽,无新缺口;⑤合并债=简报现行(轮 294,无
-  PR 状态变化)⇒ 本心跳挂起等待(结束回合不结束会话;本会话段
-  轮 285-297 高产出,S3 无停滞)。下一触发:goal_check(阶梯复
-  审)/用户指令/PR 合并随时重入。
+  v8(AMM-035 体系优化版):心跳节奏=有活连跑/无活冷却(⑥同会话
+  连续 3 次空审计⇒PARKED,产出心跳清零计数);PR 零催促(blocked_on
+  禁列 PR 项,pr-pending=躺在 PR 区)。轮 403 体系优化轮(用户指令
+  "优化 RSI 体系+Goal prompt 导致 Agent 理解错"):①rsi_night
+  --include-dir 落地(dir 分支判读行并入夜账,主线 stub 不屏蔽 dir
+  判读,+2 测试全绿;全段 232-298 定量=v3 口径 K 候选 147 vs 主线
+  口径个位数=结构性失明实锤);②RSI-INDEX v3 口径节+夜 15 行(轮
+  283-298 段,K=1 SPEC3 in-flight+T+=+1+产出清单;段无 §19 逐轮
+  行缺口如实注记);③AMM-035 三条款(夜账 v3/挂起冷却上限/PR 零
+  催促重申)APPLIED;④GOAL-PROMPT-v8.md 落盘待用户粘贴新会话。
+  下一心跳:goal_check ⇒ 阶梯(k 泛化独立线解停候选/工程硬化/蒸馏)。
 
 blocked_on: >-
-  1) PR 合入=用户线下(操作手册=docs/loop/PR-BRIEFING.md);
-  2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
-  3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check(阶梯复审)/用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
+  1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
+  2) Kaggle 凭证=激活材料不阻塞。
+  (AMM-035 条款 3:PR 项禁列——pr-pending=躺在 PR 区,合并后
+  check_cmd 过自动弹出是唯一联动,零催促;PR-BRIEFING 仅初次产物)
+next_trigger_hint: goal_check ⇒ 阶梯(空审计计数=挂起冷却机制见 v8;用户指令/新欠账随时重入)
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -125,7 +124,13 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   四门全绿显式退出码。轮 298:挂起轮(阶梯⑥五项逐项审计防假空,
   依据入 current_action;本会话段 285-297 高产出 S3 无停滞);187
   测试+audit 107+gate --check-round 298+queue audit 四门全绿显式
-  退出码。
+  退出码。轮 299-402:阶梯⑥挂起空转段(104 次零产出心跳,逐轮
+  goal_check+audit 复核维持——AMM-035 挂起冷却上限的直接动机,如
+  实留痕)。轮 403:体系优化轮(用户指令)=rsi_night --include-dir
+  (v3 全口径,dir 判读行并入,全段 232-298 K 候选 147 vs 主线个位
+  数实证)+RSI-INDEX v3 节+夜 15 补账(轮 283-298 段)+AMM-035
+  三条款 APPLIED+GOAL-PROMPT-v8.md 落盘待粘贴+blocked_on PR 项
+  移除(AMM-022/267 合规修正);rsi 测试 5→7 全绿。
 
 
 ## goal_queue(顶部为当前目标)

@@ -58,14 +58,39 @@ def test_round_parsing_and_k_upper(tmp_path):
     assert out["rounds"] == [110, 111, 112, 113]
     assert out["classes"] == {"110": "evidence", "111": "t0",
                               "112": "mining", "113": "evidence"}
-    # 判读( 与 判读) 两种句式都算候选;蒸馏轮不算
+    # 判读( 与 判读) 两种句式都算候选;蒸馏轮不算(AMM-035 v3:候选按
+    # 轮号唯一,k_candidate_sources 标来源;无 --include-dir 时 caliber=
+    # v2-main-only,dir 分支不并入)
     assert out["k_candidate_rounds"] == [110, 111, 113]
     assert out["k_upper"] == 3
+    assert out["caliber"] == "v2-main-only"
+    assert out["k_candidate_sources"] == {"110": "main", "111": "main",
+                                          "113": "main"}
     # E = 判读∧算力 / 算力轮
     assert out["e"] == 1.0
-    assert out["exp_rounds"] == [110, 113]
+    assert out["exp_rounds"] == ["main#110", "main#113"]
 
 
+def test_include_dir_real_repo_inflight_verdict(tmp_path):
+    """AMM-035 v3 全口径集成(真仓):dir/residual-spec-3 的轮 283 判读行
+    在未合并状态下也必须入 k_upper(主线口径恒 0 的结构性失真修复)。
+    合并落地后主线行与 dir 行并存,k_upper 仍按轮号唯一=1。"""
+    r = subprocess.run(
+        [".venv/bin/python", SCRIPT, "--from", "283", "--to", "283",
+         "--include-dir"],
+        capture_output=True, text=True, cwd=REPO)
+    assert r.returncode == 0, r.stderr
+    out = json.loads(r.stdout.splitlines()[0])
+    assert out["caliber"] == "v3-full(dir 并入)"
+    assert "dir/residual-spec-3" in out["dir_branches"]
+    assert out["k_upper"] >= 1 and 283 in out["k_candidate_rounds"]
+    # 无 --include-dir 时保持 v2 主线口径(向后兼容)
+    r2 = subprocess.run(
+        [".venv/bin/python", SCRIPT, "--from", "283", "--to", "283"],
+        capture_output=True, text=True, cwd=REPO)
+    out2 = json.loads(r2.stdout.splitlines()[0])
+    assert out2["caliber"] == "v2-main-only"
+    assert "dir_branches" in out2 and out2["dir_branches"] == []
 def test_tool_and_proposal_attribution(tmp_path):
     r = run(110, 111, tmp_path)
     out = json.loads(r.stdout.splitlines()[0])

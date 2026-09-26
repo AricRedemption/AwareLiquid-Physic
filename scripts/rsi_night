@@ -18,11 +18,20 @@ seed 终跑触发,本工具绝不推断 T;K 的"重大"判定不机械化。
 人工确认并入(轮 119 实测:113/115/118 在途时对 wave/loop 不可见)。
 用法:
   ./scripts/rsi_night --from 110 --to 113 [--prd ... --tools ... --amm ...]
+                      [--include-dir]
 输出:一行 JSON(机器)+ 草稿 markdown 行(stdout 尾)。
+
+--include-dir(AMM-035,轮 403):夜账 v3 全口径——遍历本地 dir/* 分支,
+  git show <branch>:<prd> 提取在途判读行并入 K/E 草稿(每条带 source=
+  dir/<slug> 标注,in-flight 如实)。修复夜 11-14 "主线口径 K 恒 0"的结构
+  性失真:T1 探针环产出全走 dir/PR 路径,只读主线=账本对产出方式失明
+  (S3-v2 输入随之失真)。K 终判仍由确认人裁,dir 条目在合并后由下一补账
+  轮转正(merge_into 标注)。
 """
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -100,13 +109,39 @@ def main():
     ap.add_argument("--prd", default="docs/PRD.md")
     ap.add_argument("--tools", default="docs/loop/TOOLS.md")
     ap.add_argument("--amm", default="docs/loop/AMENDMENTS.md")
+    ap.add_argument("--include-dir", dest="include_dir", action="store_true",
+                    help="夜账 v3 全口径:并入本地 dir/* 在途分支的判读行")
     args = ap.parse_args()
 
     prd = Path(args.prd).read_text(encoding="utf-8")
     tools = Path(args.tools).read_text(encoding="utf-8")
     amm = Path(args.amm).read_text(encoding="utf-8")
 
-    rounds = parse_rounds(prd, args.lo, args.hi)
+    rounds = [{"source": "main", **r}
+              for r in parse_rounds(prd, args.lo, args.hi)]
+
+    dir_branches, dir_err = [], None
+    if args.include_dir:
+        try:
+            ls = subprocess.run(["git", "branch", "--list", "dir/*"],
+                                capture_output=True, text=True, check=True)
+            dir_branches = [b.strip().lstrip("* ").split()[0]
+                            for b in ls.stdout.splitlines() if b.strip()]
+        except Exception as e:            # 无 git/异常=如实降级回主线口径
+            dir_err = str(e)
+        for br in dir_branches:
+            try:
+                show = subprocess.run(
+                    ["git", "show", f"{br}:{args.prd}"],
+                    capture_output=True, text=True, check=True)
+            except Exception:
+                continue                  # 分支无 PRD=跳过
+            for r in parse_rounds(show.stdout, args.lo, args.hi):
+                rounds.append({"source": br, **r})
+        # k_upper 口径=按轮号唯一(同轮主线 stub 与 dir 判读行并存时,
+        # 判读行有效;主线 stub 不屏蔽 dir 判读——轮 403 实测修正)
+        rounds.sort(key=lambda r: (r["round"], r["source"] != "main"))
+
     exp_rounds = [r for r in rounds if r["class"] == "evidence"]
     k_upper = sum(1 for r in rounds if r["has_verdict"])
     tools_new = tools_in_range(tools, args.lo, args.hi)
@@ -114,11 +149,18 @@ def main():
 
     out = {
         "range": [args.lo, args.hi],
+        "caliber": "v3-full(dir 并入)" if args.include_dir else "v2-main-only",
+        "dir_branches": dir_branches,
+        "dir_error": dir_err,
+        "sources": {f"{r['source']}#{r['round']}": r["source"] for r in rounds},
         "rounds": [r["round"] for r in rounds],
         "classes": {r["round"]: r["class"] for r in rounds},
         "k_upper": k_upper,
-        "k_candidate_rounds": [r["round"] for r in rounds if r["has_verdict"]],
-        "exp_rounds": [r["round"] for r in exp_rounds],
+        "k_candidate_rounds": sorted(
+            {r["round"] for r in rounds if r["has_verdict"]}),
+        "k_candidate_sources": {str(r["round"]): r["source"]
+                                for r in rounds if r["has_verdict"]},
+        "exp_rounds": [f"{r['source']}#{r['round']}" for r in exp_rounds],
         "e": (len([r for r in rounds if r["has_verdict"] and r["class"] == "evidence"])
               / len(exp_rounds)) if exp_rounds else None,
         "tools_new": tools_new,
