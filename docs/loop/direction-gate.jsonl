@@ -31,3 +31,4 @@
 {"round": 274, "direction": "ALIGNED", "evidence": "消化轮: AMM-033锚重置计划增补第4条长视距维度(k400/k1000双读数入新锚集+跨脚本锚仅限同参调用条款); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空⇒下轮蒸馏轮S1要求[行动]"}
 {"round": 275, "direction": "ALIGNED", "evidence": "POOL-BITS ANCHOR_BOTH_FRAGILE: 比特级池扰动下默认头spread中位1.86/候选1.29(稳30%但双过1.10门), variant-160双锚逐位真(轮273同参锚教训实证); 决策=AMM-033锚计划增补多变体协议(锚带spread注记); 下轮=消化轮(AMM-033锚计划回填+分流)禁新蒸馏"}
 {"round": 276, "direction": "ALIGNED", "evidence": "消化轮: AMM-033锚重置计划增补第5条多变体协议(每锚附4池变体spread注记, 候选头稳30%注记为锚选型加分项); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空⇒下轮蒸馏轮S1要求[行动]"}
+{"round": 277, "direction": "ALIGNED", "evidence": "HOM-SAMPLE 判负分支兑现: B s0 n128 训练NaN(1/18单元), 有限格注记=纹理反转(n64 ratio 0.99持平 vs n256 0.66)=候选优势是全数据现象, 62.1-62.3文献命题玩具标度未获支持; 哨兵A逐位真; 决策=AMM-033 benefit-scope保守注记(消化轮回填); 下轮=消化轮禁新蒸馏"}
