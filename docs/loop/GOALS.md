@@ -14,19 +14,18 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 273 蒸馏轮
-  =第 60 族(长视距守恒族,scan §60 三槽)入库+HOM-DRIFT 入队
-  执行,判读 HOM_DRIFT_ROBUST(候选头全视距双轴占优,漂移稳定
-  0.14 不随视距增长,PR#52;哨兵失配=超越函数池比特尺寸依赖
-  如实诊断)=**AMM-033 锚重置计划纳入长视距锚**。下一心跳=消化
-  轮(AMM-033 锚集计划长视距维度回填+分流),期间禁新蒸馏;消化
-  后 ⇒ 蒸馏轮,S1 要求 [行动](AMM-028 门 1:只收声明决策耦合
-  的族,配方族默认关闭)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 274 消化轮
+  完成:AMM-033 锚重置计划增补第④条长视距维度(k400/k1000 双读
+  数入新锚集;跨脚本逐位锚仅限池构造完全同参调用)+分流干净
+  (EXP 0.2/WIP 0/欠账 0/消化率 1.0)。下一心跳:goal_check ⇒
+  QUEUE-EMPTY ⇒ 蒸馏轮(S1 要求 [行动];AMM-028 门 1:只收声明
+  决策耦合的族,配方族默认关闭;连续 2 轮无行动类产出 ⇒ S1 评估
+  收口)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 消化轮(AMM-033 锚集计划回填+分流,禁新蒸馏);消化后 ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -51,7 +50,8 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   干净。轮 273 蒸馏轮=第 60 族入库(scan §60 三槽)+HOM-DRIFT
   判读 HOM_DRIFT_ROBUST(候选头全视距双轴占优,PR#52;哨兵失配
   =超越函数池比特尺寸依赖如实诊断)=AMM-033 锚集计划纳入长视距
-  锚;201 测试+audit 99 全绿;队列五十条全 pr-pending。
+  锚;201 测试+audit 99 全绿。轮 274 消化轮=AMM-033 锚重置计划
+  增补长视距维度条款+分流干净;队列五十条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
