@@ -59,6 +59,12 @@ current_action: >-
   空(判读行无明示后续迭代点;轮 404 阶梯审计继续有效:停车场无
   解停/N1 缺口清零/合并债无变化)。下一心跳:goal_check ⇒ 阶梯
   (蒸馏候选/挂起计数语义见 v8)。
+  轮 408 N1 写作轮(阶梯③,轮 406 新素材回填):§5 评估协议稳健
+  性段入稿(精度轴 ≤2.3e-6 vs 池组成轴 1.3-1.9×=评估方差主源是池
+  组成非浮点精度;锚协议须多变体 spread 注记但非精度变体;单机确
+  定性 CPU 推理 scope 注记;双产物指针 ANCHOR-PRECISION 轮 406/
+  POOL-BITS 轮 275;[B]/T1 级如实标注)+footer 轮 408 注记。下一
+  心跳:goal_check ⇒ 阶梯(蒸馏候选/挂起)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -179,7 +185,9 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   PLAYBOOK 测试环境依赖坑;190+5 测试+audit 107+gate --check-round
   406+queue audit 四门全绿显式退出码。轮 407:消化轮=资产索引第
   26 条回填+分流无报警+池空;190 测试+audit 107+gate --check-round
-  407+queue audit 四门全绿显式退出码。
+  407+queue audit 四门全绿显式退出码。轮 408:N1 写作轮=§5 评估
+  协议稳健性段入稿(轮 406 素材回填,T0)+footer 注记;190 测试+
+  audit 107+gate --check-round 408+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)

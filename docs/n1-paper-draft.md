@@ -330,6 +330,22 @@ one dataset); and warmup's 3-seed confirmation is consistency-1/3, so
 its recipe candidacy carries a confidence annotation rather than a clean
 win.
 
+Evaluation-protocol robustness (round 408 update): recomputing the same
+weights at fp64 instead of the fp32 house caliber — both heads, both
+anchor calibers (k=100 on the house pool, k=400 on the long-horizon
+pool), three readouts (rollout MSE, final and max energy drift) — moves
+every reading by at most 2.3e-6 relative, four orders of magnitude below
+the 1.10 stability gate (ANCHOR-PRECISION, PRD §19 round 406, PR#57
+pending merge; bitwise sentinels A=3.5582/B=2.0024 re-verified). The
+pool-composition axis, by contrast, swings single-readout anchors by
+1.3-1.9x (POOL-BITS, round 275, PR#53 pending merge). Evaluation
+variance in this regime is therefore dominated by pool composition, not
+floating-point precision — the basis on which the anchor protocol
+requires per-anchor multi-variant spread annotations but no precision
+variants. Scoped to single-machine deterministic CPU inference; the
+multi-hardware/multi-precision serving regime is a different operating
+point (scan §65, Yuan et al. 2025).
+
 ## 6 Mechanism Analysis
 
 **Inference gap (M1).** Why does the amortized context underuse the
@@ -601,4 +617,7 @@ from scan §64 (Polyakov homogeneous ANN / symmetry-enforcement
 precedent group SCNN–Dierkes–CHNN–Celledoni / Noether Networks as the
 unknown-structure middle path); the paper's head-structure claim is
 confined to the known-structure case, matching Sec. 6's measured
-boundary.*
+boundary. Updated round 408: Sec. 5 evaluation-protocol robustness
+paragraph added from ANCHOR-PRECISION round 406 (precision axis
+<=2.3e-6 vs pool-composition axis 1.3-1.9x; both artifacts
+re-verified; scoped to single-machine deterministic CPU inference).*
