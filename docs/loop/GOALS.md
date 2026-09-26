@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # 轮 419 用户指令重入(AMM-034 v7:IDLE 废除;前段轮 417 PARKED 处置已完成合规收束)
+state: PARKED             # 轮 423:阶梯⑥空审计 3/3(421/422/423)⇒ PARKED,处置完成(夜 17+rsi_night 420-423+快照+PRD §19);重入口=用户一句话/PR 合并/新欠账(AMM-034 v7)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -287,7 +287,13 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   queue audit 四门全绿显式退出码。轮 420:RSI 夜账=夜 17 行入账
   (轮 413-419 段,K=0/E=0/A=1 AMM-036 APPLIED;rsi_night 只识别
   §19 轮 417=口径注记如实);190 测试+audit 107+gate --check-round
-  420+queue audit 四门全绿显式退出码。
+  420+queue audit 四门全绿显式退出码。轮 421-423:空审计 3 连续
+  (五项逐项审计防假空,依据入 current_action)⇒ 计数 3/3 ⇒
+  state=RUNNING→PARKED,处置完成(rsi_night 420-423 实跑+快照+PRD
+  §19 轮 423 记录);**AMM-036 修正后首次完整生命周期验证通过**=
+  产出心跳→回合内连跑空审计→PARKED→合规收束,无误停事故;190
+  测试+audit 107+gate --check-round 逐轮+queue audit 55=55 每轮四
+  门全绿显式退出码。
   轮 421 空审计心跳(阶梯⑥ 1/3,回合内连跑=AMM-036):①判读池空
   (无新判读行)②停车场无变化 ③N1 素材已回填(§65/§66/406)④硬化
   无新缺口(v8.2 刚落)⑤合并债无变化(55 pr-pending)⇒ 计数 1/3。

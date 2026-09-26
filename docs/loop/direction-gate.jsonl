@@ -73,3 +73,4 @@
 {"round": 420, "direction": "ALIGNED", "evidence": "RSI夜账轮: rsi_night --from 413 --to 419 --include-dir实跑exit0; 夜17行=K0/E0/A1(AMM-036 APPLIED)+产出清单(v8.1/v8.2+简报+N1+PLAYBOOK); 口径注记=段内仅轮417有PRD §19记录余在GOALS/RSI-INDEX, rsi_night WIN_PAT只识别417非漏轮"}
 {"round": 421, "direction": "ALIGNED", "evidence": "空审计心跳1/3(AMM-036回合内连跑): 五项全空(池空/停车场无变化/N1已回填/硬化v8.2刚落/合并债无变化)"}
 {"round": 422, "direction": "ALIGNED", "evidence": "空审计心跳2/3: 五项复审无变化(55=55机械复核)=>计数2/3, 下心跳仍空=>PARKED"}
+{"round": 423, "direction": "ALIGNED", "evidence": "PARKED触发与处置(第二次, AMM-036修正后首次完整生命周期): 空审计3/3连续(421/422/423五项逐项审计)=>state RUNNING->PARKED; 处置三件=rsi_night 420-423实跑(K0/E0稀疏如实)+GOALS快照+PRD §19记录; 生命周期验证=产出心跳=>回合内连跑空审计=>PARKED=>合规收束, 无误停事故"}
