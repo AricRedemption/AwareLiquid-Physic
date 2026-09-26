@@ -63,6 +63,20 @@ def test_parity_boundary_is_not_robust():
     assert verdict == "HOM_DRIFT_DEGRADES"
 
 
+def test_gates_are_per_horizon_not_per_seed():
+    # k100 ratio 3x (> gate) must DEGRADE even though every per-seed
+    # across-horizon mean favors B (the round-273b axis pin)
+    verdict, d = classify_hom_drift(
+        [[1.0, 1.0, 1.0], [10.0, 10.0, 10.0]],
+        [[3.0, 3.0, 3.0], [1.0, 1.0, 1.0]],
+        [[0.05, 0.05, 0.05], [0.05, 0.05, 0.05]],
+        [[0.04, 0.04, 0.04], [0.04, 0.04, 0.04]],
+        horizons=(100, 400))
+    assert verdict == "HOM_DRIFT_DEGRADES"
+    assert d["mse_ratio_per_k"][0] == 3.0
+    assert d["mse_ratio_per_k"][1] == 0.1
+
+
 def test_declared_anchors():
     assert SENTINEL == 3.5581917762756348
     assert B_EXPECTED_K100 == [2.0023648738861084, 1.6420986652374268,

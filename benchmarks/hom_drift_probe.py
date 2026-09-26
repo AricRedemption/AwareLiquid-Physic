@@ -76,7 +76,11 @@ B_EXPECTED_K100 = [2.0023648738861084, 1.6420986652374268,
 def classify_hom_drift(mses_a, mses_b, dratios_a, dratios_b,
                        horizons=HORIZONS, parity: float = PARITY,
                        norm_cap: float = NORM_CAP):
-    """Preregistered round-273 verdict (pure, test-pinned)."""
+    """Preregistered round-273 verdict (pure, test-pinned). The gates
+    are PER-HORIZON: rows are [horizon][seed]; means are across seeds
+    within each horizon (round-273b axis fix — the first implementation
+    transposed and aggregated across horizons per seed, contradicting
+    the preregistered per-horizon wording)."""
     for tag, per_arm in (("A", mses_a), ("B", mses_b)):
         for h, vals in zip(horizons, per_arm):
             for s, m in zip(SEEDS, vals):
@@ -86,16 +90,20 @@ def classify_hom_drift(mses_a, mses_b, dratios_a, dratios_b,
                     return "HOM_ARM_DIVERGED", {
                         "reason": f"arm {tag} seed {s} k={h} {state} "
                                   f"(mse={m:.3e})"}
-    mean = lambda rows: [sum(v) / len(v) for v in zip(*rows)]
-    ratios = [b / max(a, 1e-30) for a, b in zip(mean(mses_a), mean(mses_b))]
-    mean_da = mean(dratios_a)
-    mean_db = mean(dratios_b)
+    mean_k = lambda rows: [sum(v) / len(v) for v in rows]
+    mean_a, mean_b = mean_k(mses_a), mean_k(mses_b)
+    ratios = [b / max(a, 1e-30) for a, b in zip(mean_a, mean_b)]
+    mean_da, mean_db = mean_k(dratios_a), mean_k(dratios_b)
     dratios = [b / max(a, 1e-30) for a, b in zip(mean_da, mean_db)]
     stats = {"parity": parity, "horizons": list(horizons),
              "mses_A": mses_a, "mses_B": mses_b,
              "drift_A": dratios_a, "drift_B": dratios_b,
-             "mean_drift_A": mean_da, "mean_drift_B": mean_db,
-             "mse_ratio_per_k": ratios, "drift_ratio_per_k": dratios}
+             "mean_mse_A_per_k": mean_a, "mean_mse_B_per_k": mean_b,
+             "mean_drift_A_per_k": mean_da, "mean_drift_B_per_k": mean_db,
+             "mse_ratio_per_k": ratios, "drift_ratio_per_k": dratios,
+             "consistent_mse_B_per_seed":
+                 [sum(1 for a, b in zip(ka, kb) if b < a)
+                  for ka, kb in zip(zip(*mses_a), zip(*mses_b))]}
     mse_ok = all(r < parity for r in ratios)
     drift_ok = all(r <= parity for r in dratios)
     if mse_ok and drift_ok:
