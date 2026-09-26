@@ -279,6 +279,21 @@ R1, horizon R2, interface E2, attention R1c), the M2 headroom is **closed**
 hard-constraint boundary explicitly; the oracle gap (−26%) is an
 interface-reachable upper bound, not a reachable gain.
 
+**Distribution shift separates the two stages.** Out-of-band ω pools
+(training band ω ∈ [0.7, 1.8]; evaluation in / low-out / high-out bands)
+decouple the two stages the architecture splits [B, PRD §19 round 115;
+PR#2 pending merge]: the structural arm stays *absolutely dominant in
+every band* — 0.77 / 7.53 / 2.65 vs the static counterpart's 2.33 /
+9.76 / 5.90 (rollout MSE, ±stderr in the artifact) — while linear
+decodability of ω from the inferred context code collapses to noise
+level out-of-band (corr 0.38 in-band → −0.01 / 0.01 out-of-band). Two
+honest qualifications: what breaks first under shift is the *inference*
+stage, not the conserving rollout; and in relative terms the structural
+arm's own low-band degradation ratio (9.8×) exceeds the static arm's
+(4.2×) — absolute dominance and relative degradation point in opposite
+directions here, so both axes are reported (the artifact's pre-registered
+criterion "structure amplifies OOD risk" evaluates false).
+
 **Head structure (M1) — what the free function form costs.** A
 seven-probe chain (same-pool paired arms, 3 seeds, every cell carrying a
 bitwise cross-run anchor) measures the structured head of Sec. 3 against
@@ -381,6 +396,16 @@ measured and reported in the same breath.
    default-head replacement itself is a registered proposal awaiting PR
    merge (AMM-033), not an applied change; multi-seed finals remain
    parked.
+4e. **Band-limited context inference.** Context inference claims are
+   in-band claims: trained on ω ∈ [0.7, 1.8], out-of-band rollout
+   degrades up to 9.8× on the relative axis even though the structural
+   arm remains absolutely dominant in every band — and on that same
+   relative axis the structural arm's degradation (9.8×) *exceeds* the
+   static control's (4.2×), so dominance and degradation-ratio point
+   in opposite directions and both are reported; linear decodability
+   of ω from the context code is noise-level out-of-band [B, PRD §19
+   round 115; PR#2 pending merge]. No out-of-band inference claim is
+   made.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -450,4 +475,10 @@ caught two prose-arithmetic slips in the dir-branch verdict rows (round
 268 "mean 1.957" — artifact mean 1.949; round 273 default-head drift
 "[0.294, 1.626, 0.313]" — artifact per-horizon means [0.93, 0.82,
 0.48]); this draft cites artifact-verified fields, history rows are not
-rewritten, and correction notes ride the merge.*
+rewritten, and correction notes ride the merge. Updated round 286:
+distribution-shift separation added (Sec. 6 paragraph + Limitations
+4e) from the ω out-of-band extrapolation asset (PRD §19 round 115,
+PR#2 pending merge; numbers re-verified against the result artifact) —
+an asset-index entry registered since round 115 that no prior writing
+round had absorbed; the writing-round gap scan (asset-index entries vs
+draft coverage) is now part of the ladder's N1 line.*
