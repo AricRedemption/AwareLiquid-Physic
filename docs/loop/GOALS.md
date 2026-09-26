@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: PARKED             # AMM-035 轮 417:阶梯⑥空审计 3/3(轮 415/416/417)⇒ PARKED;处置完成(RSI 夜 16 已入账+快照+PRD §19 记录);重入口=用户一句话/PR 合并/新欠账(AMM-034 v7:IDLE 废除)
+state: RUNNING            # 轮 419 用户指令重入(AMM-034 v7:IDLE 废除;前段轮 417 PARKED 处置已完成合规收束)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -279,7 +279,12 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   佐证句(§66.1 回填,T0);190 测试+audit 107+gate --check-round
   414+queue audit 四门全绿显式退出码。轮 418:交付轮=核验+AMM-036
   APPLIED+GOAL-PROMPT-v8.1.md 落盘;190 测试+audit 107+gate
-  --check-round 418+queue audit 四门全绿显式退出码。
+  --check-round 418+queue audit 四门全绿显式退出码。轮 419:用户
+  指令重入(state RUNNING)+歧义清查=v8.1 首行"收束"残留矛盾命中
+  +v8.2 落盘(术语节机械化,[行动]/[坐标] 入定义,计数纯机械)+真
+  RSI 三层评估落账(治理半环真/研究半环受控,三缺口=合并回路/回
+  灌闭环/K 终判自动化);190 测试+audit 107+gate --check-round 419+
+  queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
