@@ -14,18 +14,19 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 293
-  工程硬化轮续(阶梯④):stop_gate v7 状态机对齐——v6 遗留正则
-  state:(IDLE|BLOCKED-HUMAN) 漏掉新 PARKED 态(叠加队列非空+锁
-  新鲜=合法自停收束被误拦最多 3 次),修正为仅 state=RUNNING 拦截
-  (PARKED/BLOCKED-HUMAN 放行);新建 tests/test_stop_gate.py 五用例
-  状态矩阵全绿;TOOLS/PLAYBOOK 回写(状态机修订必须扫尽读取方
-  工具条款)。停车场审计无变化。S1 重置。下一心跳:goal_check ⇒
-  阶梯(工程硬化可续/蒸馏轮亦可)。
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 294
+  合并债治理轮(阶梯⑤):docs/loop/PR-BRIEFING.md 落地——56 open
+  PR 实测盘点(54 队列+2 已取代归档),分支全平行无堆叠=升序合并,
+  逐文件冲突解法表(GOALS/判单取 ours 已核验、PLAYBOOK 联合、
+  PRD 双侧保留、代码取 theirs),族分组八速览,逐 PR 详情唯一源
+  =GOALS 队列;AMM-033 实施=合并后新段首消化轮。停车场审计无
+  变化。S1 重置。下一心跳:goal_check ⇒ 阶梯(工程硬化可续/
+  蒸馏轮亦可)。
 
 blocked_on: >-
-  1) PR 合入=用户线下;2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)
-  待用户指令;3) Kaggle 凭证=激活材料不阻塞。
+  1) PR 合入=用户线下(操作手册=docs/loop/PR-BRIEFING.md);
+  2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
+  3) Kaggle 凭证=激活材料不阻塞。
 next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(工程硬化可续/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
@@ -106,7 +107,10 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   台账 54=54 尾条 SPEC3);182 测试+audit 107+gate --check-round
   292+queue audit 四门全绿显式退出码。轮 293:stop_gate v7 对齐
   (PARKED 放行语义修复+五用例状态矩阵);187 测试+audit 107+gate
-  --check-round 293+queue audit 四门全绿显式退出码。
+  --check-round 293+queue audit 四门全绿显式退出码。轮 294:合并债
+  治理 PR-BRIEFING.md 落地(56 PR 盘点+冲突解法表+族分组);187
+  测试+audit 107+gate --check-round 294+queue audit 四门全绿显式
+  退出码。
 
 
 ## goal_queue(顶部为当前目标)
