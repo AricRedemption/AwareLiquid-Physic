@@ -121,7 +121,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--n_train", type=int, default=256)
     ap.add_argument("--n_eval", type=int, default=128)
-    ap.add_argument("--gen_steps", type=int, default=160)
+    ap.add_argument("--gen_steps", type=int, default=1100,
+                    help="pool length; must exceed t_obs-1+max(eval_ks) "
+                         "(k1000 needs >=1024; round-273 first-run fix)")
     ap.add_argument("--eval_ks", default="100,400,1000")
     ap.add_argument("--dt", type=float, default=0.1)
     ap.add_argument("--omega_lo", type=float, default=0.7)
