@@ -291,6 +291,7 @@ screening only, no terminal claims ]:
 | context capacity | CTX2_REVERSED | ctx_dim = 1 ratio 1.11 at 3 seeds (reversal); axis stays at default 8 |
 | recipe composition | RECIPE_SYNERGIC | single-axis optima compose to −10.7%, 3/3 consistent |
 | trajectory length | GENLEN_RESOLVED | 7th recipe-axis candidate (2.96 → 2.70; per-seed direction mixed, seed-0-driven) |
+| training-amount curve | SMOOTH_ASYMPTOTE (judged negative) | rollout-MSE curve smooth (max adjacent-step ratio 1.42 ≪ 3× gate); grokking naming not applicable in this regime |
 
 The ladder's decision logic is the point, not any single row: at least
 three axes judge the default configuration non-optimal, which under the
@@ -348,6 +349,19 @@ arm's own low-band degradation ratio (9.8×) exceeds the static arm's
 (4.2×) — absolute dominance and relative degradation point in opposite
 directions here, so both axes are reported (the artifact's pre-registered
 criterion "structure amplifies OOD risk" evaluates false).
+
+**Few-shot adaptation lands in the same place.** On an unseen spring
+task (c = 1.5, outside the pretraining corpus {0.8, 1.0, 1.2}), three
+adaptation modes order strictly — pretrain-then-finetune 1.20e-2 <
+from-scratch 1.34e-2 < amortized zero-shot prefix 5.82e-2 rollout MSE:
+implicit in-context adaptation pays 4.9× over gradient fine-tuning
+[B, PRD §19 round 132; PR#7 pending merge]. An interpolation control
+(c = 1.1, inside the corpus) tightens the arms to near-parity (1.21e-2
+/ 0.97e-2 / 1.03e-2; the zero-shot/fine-tune gap falls 4.9× → 1.25×)
+— the gap is an extrapolation effect, not an adaptation-mechanism
+deficit [B, round 134; PR#8 pending merge]: the out-of-distribution
+weakness that the band-shift paragraph shows at the ω level reappears
+at the task level.
 
 **Head structure (M1) — what the free function form costs.** A
 seven-probe chain (same-pool paired arms, 3 seeds, every cell carrying a
@@ -545,4 +559,9 @@ added to Sec. 5 (22 axes, every reading extracted from its result
 artifact; label divergence on the curriculum-order probe recorded
 in-table); the ladder is the evidence base for the forced-composition
 rule (≥3 axes judge the default non-optimal → composition probe
-−10.7% → either-or head result).*
+−10.7% → either-or head result). Updated round 289: few-shot
+adaptation paragraph added to Sec. 6 (ICL-M3 round 132 + interpolation
+control round 134, PRs #7/#8 pending merge; three-arm orderings
+re-verified against the artifacts) and the training-amount negative
+result added as a ladder row (grok_curve SMOOTH_ASYMPTOTE, max ratio
+1.42).*

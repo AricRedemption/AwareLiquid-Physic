@@ -14,16 +14,14 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 288
-  大盘表格轮(阶梯③):§5 训练体制审计梯入稿——22 轴全表
-  (GNS/sharp/rep/课程/顺序/长度/池宽/优化器/wd/depth/depth-width/
-  kspan/nscales/lrdecay/lrbatch/wsa/warmup/amp/tosa/ctx/recipe/
-  genlen),每数从产物 JSON 批量提取逐数成表;决策耦合叙事=≥3 轴
-  判默认非最优⇒强制组合回灌(−10.7% 3/3)⇒either-or 头结果闭题;
-  标签分歧注记(dt_v2 CURRICULUM_HARMFUL=ORDER_MATTERS 同数据两
-  描述);GENLEN/GNS 补核通过。停车场审计无变化。S1 重置。下一
-  心跳:goal_check ⇒ 阶梯(N1 缺口扫描可续:基线三声明扩写/§8
-  future work 对齐索引 §10/工程硬化/蒸馏轮亦可)。
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 289
+  写作轮续(阶梯③):少样本适配段入稿 §6(ICL-M3 三臂严格序
+  B<C<A=5.82e-2 零样本付 4.9×;内插控制贴紧 1.25×=外插效应非
+  适配机制缺陷,与分布偏移段同源呼应)+审计梯补行 grok_curve
+  SMOOTH_ASYMPTOTE 判负(1.42≪3× 门);产物 arms 顶层专用键提取
+  逐位核验(非统一 schema 坑记 PLAYBOOK)。停车场审计无变化。
+  S1 重置。下一心跳:goal_check ⇒ 阶梯(N1 缺口扫描可续:§8
+  future work 对齐索引 §10 细项/工程硬化/蒸馏轮亦可)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)
@@ -97,7 +95,9 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   286 推送后台长退避落地(长断网处置入 PLAYBOOK);174 测试+
   audit 107+gate 轮 287 全绿显式退出码。轮 288:§5 训练体制审计
   梯 22 轴入稿(产物逐数提取+标签分歧注记+组合回灌叙事);174
-  测试+audit 107+gate 轮 288 全绿显式退出码。
+  测试+audit 107+gate 轮 288 全绿显式退出码。轮 289:少样本适配
+  段+grokking 判负行入稿(ICL 三臂/内插控制产物逐位核验);174
+  测试+audit 107+gate 轮 289 全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
