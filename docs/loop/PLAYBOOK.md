@@ -555,3 +555,10 @@
   心跳=空审计+提交+立即继续下一心跳;真停止仅两因=S4 手动/上下文真
   耗尽;3 空审计⇒PARKED(AMM-035)仍成立,PARKED 处置完才允许会话
   结束(锁不删自过期)。语义修正提案=AMM-036(PROPOSED)。
+- **pytest 入口 sys.path 差异(2026-09-27 轮 425,坑)**:裸 `.venv/bin/pytest`
+  收集 `tests/test_amm031_low_band.py` 报 `ModuleNotFoundError: No module named
+  'benchmarks'`(根目录不在 sys.path,无根 conftest.py);`PYTHONPATH=.` 或
+  `.venv/bin/python -m pytest` 则把 cwd 注入 sys.path,190 全绿。→ 门禁链
+  统一用 `.venv/bin/python -m pytest -q`,显式取退出码;勿换入口。(出处:
+  轮 425;适用条件:本仓 pytest 门禁;验证状态:已验证——两入口对照,
+  `python -m` 形式 exit0 190 passed。)

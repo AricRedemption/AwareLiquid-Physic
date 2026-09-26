@@ -75,3 +75,4 @@
 {"round": 422, "direction": "ALIGNED", "evidence": "空审计心跳2/3: 五项复审无变化(55=55机械复核)=>计数2/3, 下心跳仍空=>PARKED"}
 {"round": 423, "direction": "ALIGNED", "evidence": "PARKED触发与处置(第二次, AMM-036修正后首次完整生命周期): 空审计3/3连续(421/422/423五项逐项审计)=>state RUNNING->PARKED; 处置三件=rsi_night 420-423实跑(K0/E0稀疏如实)+GOALS快照+PRD §19记录; 生命周期验证=产出心跳=>回合内连跑空审计=>PARKED=>合规收束, 无误停事故"}
 {"round": 424, "direction": "ALIGNED", "evidence": "用户指令研究轮: 六路社区细粒度检索(scan §67: Anthropic短小准则/Manus上下文工程/渐进披露/DGM-Voyager-Reflexion谱系, 题录核验)=>AMM-037 APPLIED=正本GOAL-PROMPT.md重写v9.0(~20行指针+铁律, 吸收AMM-030-036缺失语义, 修复v6.2滞后双重真相源缺陷, 27不变式零改动全过=语义无损)+术语注记下沉GOALS+v8.x作废+版本化副本惯例废止+RSI三提案登记(自动Reflexion/K终判机械化/AMENDMENTS归档)"}
+{"round": 425, "direction": "ALIGNED", "evidence": "空审计心跳1/3(新段计数, 回合内连跑=AMM-036): 五项全空(判读池空=424研究轮无判读行/停车场无解停=RSI三提案待用户审/N1空=§67治理面非论文素材/硬化无新缺口=AMM-037刚落/合并债gh实测merged=0)"}
