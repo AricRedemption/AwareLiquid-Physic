@@ -33,3 +33,4 @@
 {"round": 276, "direction": "ALIGNED", "evidence": "消化轮: AMM-033锚重置计划增补第5条多变体协议(每锚附4池变体spread注记, 候选头稳30%注记为锚选型加分项); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空⇒下轮蒸馏轮S1要求[行动]"}
 {"round": 277, "direction": "ALIGNED", "evidence": "HOM-SAMPLE 判负分支兑现: B s0 n128 训练NaN(1/18单元), 有限格注记=纹理反转(n64 ratio 0.99持平 vs n256 0.66)=候选优势是全数据现象, 62.1-62.3文献命题玩具标度未获支持; 哨兵A逐位真; 决策=AMM-033 benefit-scope保守注记(消化轮回填); 下轮=消化轮禁新蒸馏"}
 {"round": 278, "direction": "ALIGNED", "evidence": "消化轮: AMM-033 benefit-scope保守注记回填(优势限于house规模, 小样本不外推, P1协议面分立, 发散单元入锚集适用条件); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空(齐次头线T1六轴全测harvested)⇒下轮蒸馏轮S1要求[行动]"}
+{"round": 279, "direction": "ALIGNED", "evidence": "RECIPE-HEAD COMPOSE_ABSORBED: 四格均值 B0候选头单独1.949全场最优 < B1组合2.241 < A1配方2.645 < A0默认2.961=次可加, 配方吸收候选优势; 三哨兵逐位全真(A0/A1轮252/B0轮269); 决策=either-or采纳(选候选头单独, 回灌PR scope注记配方增益以默认头为参照系); 下轮=消化轮(AMM-033 either-or注记回填+分流)禁新蒸馏"}
