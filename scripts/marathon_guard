@@ -6,6 +6,11 @@
 #   exit 0 = 放行(无锁 = 无马拉松;或锁已过期 >100 分钟 = 马拉松已死)
 #   exit 1 = 让位(锁新鲜 = 有马拉松在运行)
 #
+# 轮 404 增补:BUSY 时输出诊断(锁 mtime vs 最后本地提交时间)。v8 设计下
+# 会话收束不删锁,收束后 100min 内重启会被 BUSY 误挡——若锁龄 ≥30min 且
+# 锁创建后零提交(活会话心跳=分钟级提交节奏),打印 STALE-HINT 指向
+# PLAYBOOK 死锁残留接管协议。退出码语义不变(AMM-005)。
+#
 # 用法:粘贴/启动马拉松前先跑本脚本;exit 0 才开始迭代。
 set -u
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
@@ -17,6 +22,15 @@ mtime=$(stat -f %m "$LOCK" 2>/dev/null || echo 0)
 age=$(( $(date +%s) - mtime ))
 if [ "$age" -lt "$TTL" ]; then
   echo "BUSY(锁龄 ${age}s < ${TTL}s)"
+  lock_iso=$(stat -f '%Sm' -t '%F %T' "$LOCK" 2>/dev/null || echo '?')
+  commit_ct=$(git -C "$REPO" log -1 --format=%ct 2>/dev/null || echo 0)
+  commit_iso=$(git -C "$REPO" log -1 --format='%h %ci' 2>/dev/null || echo '?')
+  echo "  锁 mtime: ${lock_iso} (epoch ${mtime})"
+  echo "  最后本地提交: ${commit_iso} (epoch ${commit_ct})"
+  if [ "$age" -ge 1800 ] && [ "$commit_ct" -le "$mtime" ]; then
+    echo "  STALE-HINT: 锁龄 ${age}s ≥1800s 且锁创建后零提交(活会话心跳=分钟级提交节奏)⇒ 疑似死锁残留"
+    echo "  接管协议=PLAYBOOK『死锁残留接管协议』条(全清单核实后 date +%s > .loop-lock 再跑 goal_check)"
+  fi
   exit 1
 fi
 echo "GO(锁已过期 ${age}s)"

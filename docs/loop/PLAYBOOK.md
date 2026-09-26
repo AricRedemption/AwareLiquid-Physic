@@ -528,3 +528,14 @@
   读错,产生错误——才清理);Context Rot 研究(Chroma 2025)证实施行
   指令本身也是干扰物,弱 agent 在干扰物密度下退化最剧。既成本:GOALS
   条件重入口 19 行→4 行,双跑逐字节一致(09-20)。
+- **死锁残留接管协议(2026-09-27 轮 404,本轮实证)**:marathon_guard 只读
+  锁 mtime,而 v8 设计=会话收束不删 `.loop-lock`(100min 自过期)⇒ 收束后
+  100min 内重启会被 BUSY 误挡至自过期,白等最长 100min。轮 404 实证:上一
+  会话轮 403 收束于 03:45,04:38 用户粘贴 GOAL-PROMPT-v8 重启,guard 报
+  BUSY(锁龄 3188s)。**证据清单(全满足才可接管,缺一即让位)**:①锁龄
+  <6000s 但 ≥1800s;②锁 mtime ≈ 最后本地提交 epoch(goal_check 每心跳刷
+  锁,活会话锁龄=分钟级,历史节奏 4 分钟/轮);③锁 mtime ≈ .git/index
+  mtime(=收束即最后动作);④无存活心跳会话。**接管动作**=`date +%s >
+  .loop-lock` 后立即跑 goal_check,提交信息注记接管依据。guard 已加诊断
+  输出(BUSY 时打印锁 mtime vs 最后提交+STALE-HINT,退出码语义不变=AMM-005
+  不动);测试 test_marathon_guard.py 3→5。

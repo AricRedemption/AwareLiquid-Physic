@@ -15,15 +15,23 @@ current_goal: >-
 current_action: >-
   v8(AMM-035 体系优化版):心跳节奏=有活连跑/无活冷却(⑥同会话
   连续 3 次空审计⇒PARKED,产出心跳清零计数);PR 零催促(blocked_on
-  禁列 PR 项,pr-pending=躺在 PR 区)。轮 403 体系优化轮(用户指令
-  "优化 RSI 体系+Goal prompt 导致 Agent 理解错"):①rsi_night
-  --include-dir 落地(dir 分支判读行并入夜账,主线 stub 不屏蔽 dir
-  判读,+2 测试全绿;全段 232-298 定量=v3 口径 K 候选 147 vs 主线
-  口径个位数=结构性失明实锤);②RSI-INDEX v3 口径节+夜 15 行(轮
-  283-298 段,K=1 SPEC3 in-flight+T+=+1+产出清单;段无 §19 逐轮
-  行缺口如实注记);③AMM-035 三条款(夜账 v3/挂起冷却上限/PR 零
-  催促重申)APPLIED;④GOAL-PROMPT-v8.md 落盘待用户粘贴新会话。
-  下一心跳:goal_check ⇒ 阶梯(k 泛化独立线解停候选/工程硬化/蒸馏)。
+  禁列 PR 项,pr-pending=躺在 PR 区)。轮 404 工程硬化轮(阶梯④,
+  开场实证死锁残留缺口):上一会话轮 403 收束 54min 后用户粘贴
+  GOAL-PROMPT-v8 重启,marathon_guard 误报 BUSY(锁龄 3188s<
+  6000s,但锁=死锁残留非活马拉松);人工证据链接管(锁 mtime==
+  最后提交==.git/index mtime+此后零活动+历史心跳节奏分钟级)后
+  本轮工具化:①guard BUSY 增诊断输出(打印锁 mtime vs 最后提交
+  epoch,锁龄≥1800s 且锁创建后零提交⇒STALE-HINT 指向接管协议;
+  退出码语义不变=AMM-005 不动);②PLAYBOOK 新条=死锁残留接管
+  协议(证据清单 4 项+接管动作+接管依据入提交);③guard 测试
+  3→5。阶梯审计(逐项):①判读后续池=空(SPEC3 闭账/齐次头六轴
+  harvested);②停车场无解停(k 泛化留池=轮 285 决策耦合弱判据
+  +HOM-BOUND 已实测 k=2 次数匹配;T2/T3/Kaggle/隐藏卷/慢轴=用户
+  资源;N1 已解停执行至缺口清零);③N1 写作=空(零 [坐标] 占位,
+  余项=AMM-022 人决边界);⑤合并债=空(gh merged=0,队列 54 不
+  变,简报现行)。⇒ 本轮为产出心跳,挂起计数清零。190 测试+
+  audit 107+gate --check-round 404+queue audit 54=54 四门全绿
+  显式退出码。下一心跳:goal_check ⇒ 阶梯(蒸馏候选/硬化余量)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -35,7 +43,7 @@ next_trigger_hint: goal_check ⇒ 阶梯(空审计计数=挂起冷却机制见 v
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
+updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   连续双胜**)——用户重贴 GOAL-PROMPT 重启马拉松(新段,族额度
   重置);轮 65 条款条件入口兑现:V-HOM-STAB(幅度-方向解耦稳定
   化,预注册机制细化=1-D detach 无操作/病理在方向特征不连续,先于
@@ -130,7 +138,12 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   (v3 全口径,dir 判读行并入,全段 232-298 K 候选 147 vs 主线个位
   数实证)+RSI-INDEX v3 节+夜 15 补账(轮 283-298 段)+AMM-035
   三条款 APPLIED+GOAL-PROMPT-v8.md 落盘待粘贴+blocked_on PR 项
-  移除(AMM-022/267 合规修正);rsi 测试 5→7 全绿。
+  移除(AMM-022/267 合规修正);rsi 测试 5→7 全绿。轮 404(09-27,
+  用户粘贴 v8 重启新会话):死锁残留接管(轮 403 收束 54min 后
+  guard 误报 BUSY,人工证据链接管如实注记)→阶梯④工程硬化=
+  guard BUSY 诊断输出+STALE-HINT(退出码语义不变)+PLAYBOOK 接
+  管协议条+guard 测试 3→5;190 测试+audit 107+gate --check-round
+  404+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
