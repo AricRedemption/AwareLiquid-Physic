@@ -25,3 +25,4 @@
 {"round": 268, "direction": "ALIGNED", "evidence": "V-HOM-STAB STAB_REPAIRS: 方向通道置零修复轮261训练灾难(0/3灾难, MSE均值1.957<自由V基线2.548)+外推收益3/3兑现(median rel_comp 1.705<3.0); REF臂逐位复现轮261 B臂(确定性锚); 与§57.1解耦处方一致且预注册机制细化先于执行落盘; 下轮=池盘点(判读行明示齐次头实现确认候选)"}
 {"round": 269, "direction": "ALIGNED", "evidence": "HOM-DEFAULT HOM_DEFAULT_DOMINATES: 齐次头完整构造(解析T+方向自由齐次V)对house默认头双轴3/3全胜(分布内ratio 0.658=−34%, 外推median 1.705 vs 3.334=−49%); 双哨兵逐位全真(A=全仓锚3.5582+B=轮268 STAB跨脚本锚); 决策=默认M1替换候选, 采纳走AMM-033提案(机制改动带锚重置计划); 下轮=消化轮(回填+分流+AMM-033草案), 禁新蒸馏"}
 {"round": 270, "direction": "ALIGNED", "evidence": "消化轮: AMM-033提案登记(默认M1头替换带锚重置计划三条款+实施自决排程=PR#49/#50合并后新段首消化轮); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空(第54族2/2收口); 下一心跳=蒸馏轮S1要求[行动]"}
+{"round": 271, "direction": "ALIGNED", "evidence": "HOM-BOUND HOM_BOUND_DEGREE_MATCHED: 纯四次池三臂实测边界=次数轴(r4=2.8e-4, 次数匹配齐次V比自由V好约3500x近完美恢复+守恒精确; r2=7.56, 次数误设付出7.56x); 决策=AMM-033范围注记升级为次数匹配齐次族配方实测推广路径; 下轮=消化轮(AMM-033范围注记修订+分流)禁新蒸馏"}
