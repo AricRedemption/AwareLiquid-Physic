@@ -14,18 +14,18 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 277 蒸馏轮
-  =第 62 族(归纳偏置×样本效率族,scan §62 三槽)入库+HOM-SAMPLE
-  入队执行,判读 HOM_ARM_DIVERGED=判负分支兑现(B s0 n128 训练
-  NaN;有限格注记=纹理反转,候选优势是全数据现象,PR#54)=AMM-033
-  benefit-scope 保守注记。下一心跳=消化轮(AMM-033 保守注记回填+
-  分流),期间禁新蒸馏;消化后 ⇒ 蒸馏轮,S1 要求 [行动](AMM-028
-  门 1:只收声明决策耦合的族,配方族默认关闭)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 278 消化轮
+  完成:AMM-033 benefit-scope 保守注记(优势限于 house 规模,小
+  样本不外推;P1 协议面分立)+分流干净(EXP 0.2/WIP 0/欠账 0/
+  消化率 1.0);齐次头线 T1 级六轴全测 harvested。下一心跳:
+  goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(S1 要求 [行动];AMM-028
+  门 1:只收声明决策耦合的族,配方族默认关闭;连续 2 轮无行动类
+  产出 ⇒ S1 评估收口)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 消化轮(AMM-033 benefit-scope 保守注记回填+分流,禁新蒸馏);消化后 ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -59,7 +59,9 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   277 蒸馏轮=第 62 族入库(scan §62 三槽)+HOM-SAMPLE 判读
   HOM_ARM_DIVERGED=判负兑现(B s0 n128 NaN;纹理反转=候选优势是
   全数据现象,PR#54)=AMM-033 benefit-scope 保守注记;201 测试+
-  audit 99 全绿;队列五十二条全 pr-pending。
+  audit 99 全绿。轮 278 消化轮=AMM-033 benefit-scope 保守注记
+  回填+分流干净;齐次头线 T1 级六轴全测 harvested;队列五十二条
+  全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
