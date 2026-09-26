@@ -131,6 +131,14 @@ current_action: >-
   逐轮+queue audit 55=55 每轮四门全绿显式退出码。会话收束=合法
   (AMM-035/036:PARKED 处置完=第三合法出口);锁不删自过期;重入
   口=用户一句话/PR 合并/停车场与算力重启/新欠账。
+  轮 418 交付轮(用户指令"核验 RSI 体系与 Goal prompt+交付最新
+  prompt"):①核验=AMM-035 三条款全落地且经本会话实战(夜 16
+  --include-dir 入账/挂起冷却 3 空审计⇒PARKED 实战触发/blocked_on
+  零 PR 项);②AMM-036 转 APPLIED(索要 prompt=授权三先例)+
+  **GOAL-PROMPT-v8.1.md 落盘交付**(相对 v8.0:挂起心跳=回合内
+  连跑绝不结束回合/会话收束三因=PARKED 处置完入列/启动 guard
+  STALE-HINT 死锁残留诊断接管/运维项同步);用户下一步=粘贴
+  v8.1 驱动新会话(即重入口,state 恢复 RUNNING)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -269,7 +277,9 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   实跑 exit 0;190 测试+audit 107+gate --check-round 413+queue
   audit 四门全绿显式退出码。轮 414:N1 写作轮=§5 段增补 Biswas
   佐证句(§66.1 回填,T0);190 测试+audit 107+gate --check-round
-  414+queue audit 四门全绿显式退出码。
+  414+queue audit 四门全绿显式退出码。轮 418:交付轮=核验+AMM-036
+  APPLIED+GOAL-PROMPT-v8.1.md 落盘;190 测试+audit 107+gate
+  --check-round 418+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
