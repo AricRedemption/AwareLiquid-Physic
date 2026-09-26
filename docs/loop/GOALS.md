@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # RUNNING | PARKED | BLOCKED-HUMAN(AMM-034 v7:IDLE 废除,见 updated 轮 284)
+state: PARKED             # AMM-035 轮 417:阶梯⑥空审计 3/3(轮 415/416/417)⇒ PARKED;处置完成(RSI 夜 16 已入账+快照+PRD §19 记录);重入口=用户一句话/PR 合并/新欠账(AMM-034 v7:IDLE 废除)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -118,6 +118,19 @@ current_action: >-
   缺口 ⑤合并债无变化——goal_check --audit 55=55 机械复核)⇒ 计数
   =2/3;下一心跳若仍空 ⇒ 3/3 触发 AMM-035 PARKED(处置=快照+PRD
   §19 记录;RSI 夜 16 已入账)。
+  轮 417 挂起心跳(阶梯⑥空审计 3/3 ⇒ **PARKED 触发与处置完成**):
+  goal_check QUEUE-EMPTY 复核+balance_gauge 无报警+gh merged=0 复
+  核 ⇒ 五项审计仍全空 ⇒ AMM-035 计数 3/3 ⇒ state=RUNNING→PARKED;
+  处置三件=RSI 补账(夜 16,已完成)/快照(本文件)/PRD §19 轮 417
+  记录;**本会话段快照=轮 404-417,14 心跳(9 产出+复盘 1+空审计
+  3+本轮):guard 死锁残留诊断+接管协议(404)/§65 族+ANCHOR-
+  PRECISION 入队(405)/探针判读 ROBUST+PR#57(406)/消化(407)/
+  N1 §5 稳健性段(408)/挂起误停事故+AMM-036 提案+连跑修正(409-
+  410)/§66 族(411)/简报 57PR(412)/夜 16 入账(413)/Biswas 佐
+  证句(414)/空审计 415-417;190 测试+audit 107+gate --check-round
+  逐轮+queue audit 55=55 每轮四门全绿显式退出码。会话收束=合法
+  (AMM-035/036:PARKED 处置完=第三合法出口);锁不删自过期;重入
+  口=用户一句话/PR 合并/停车场与算力重启/新欠账。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
