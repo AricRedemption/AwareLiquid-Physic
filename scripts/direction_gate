@@ -18,6 +18,10 @@ GOALS state → BLOCKED-HUMAN,循环无权自解,待用户裁决)
 
 用法:
   direction_gate --check                 校验末条判单+漂移计数(提交门)
+  direction_gate --check-round N         --check 全部校验+末条轮号必须=N
+                                         (轮 236 条款机械化:--check 只验
+                                         末条合法不验轮号连续,调用侧锚
+                                         以门禁实现闭合;不等 ⇒ exit 1)
   direction_gate --add '<JSON 字符串>'   追加判单(执行会话用)
 
 诚实边界(AMM-029):判官=执行会话自评,存在自我裁判偏差;缓解=
@@ -71,7 +75,7 @@ def validate(entry, idx: int):
     return problems
 
 
-def check(path: Path) -> int:
+def check(path: Path, expect_round=None) -> int:
     entries = load_entries(path)
     if entries is None:
         print("FAIL: 判单文件不存在(从未填写):禁提交——"
@@ -85,6 +89,11 @@ def check(path: Path) -> int:
     if problems:
         for p in problems:
             print(f"FAIL: {p}:禁提交", file=sys.stderr)
+        return 1
+    if expect_round is not None and last.get("round") != expect_round:
+        print(f"FAIL: 末条判单轮号 {last.get('round')} ≠ 本轮轮号 "
+              f"{expect_round}:判单链断裂(轮 236 盲区:--check 不校验"
+              f"轮号,连续性由 --check-round 钉死):禁提交", file=sys.stderr)
         return 1
     recent_drifts = sum(1 for e in entries[-DRIFT_LIMIT:]
                         if isinstance(e, dict)
@@ -105,6 +114,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true",
                     help="校验末条判单+漂移计数(提交门)")
+    ap.add_argument("--check-round", type=int, metavar="N", dest="check_round",
+                    help="--check 全部校验+末条轮号必须=N(轮 236 链完整性"
+                         "机械化;不等 exit 1)")
     ap.add_argument("--add", metavar="JSON",
                     help="追加一条判单(JSON 字符串)")
     ap.add_argument("--file", default=str(GATE_FILE))
@@ -126,11 +138,12 @@ def main():
             f.write(json.dumps(entry, ensure_ascii=False) + "\n")
         print(f"ADDED: 轮 {entry.get('round')} 判单已追加")
         sys.exit(0)
-    if args.check:
-        sys.exit(check(path))
+    if args.check or args.check_round is not None:
+        sys.exit(check(path, expect_round=args.check_round))
     ap.print_help()
     sys.exit(2)
 
 
 if __name__ == "__main__":
     main()
+

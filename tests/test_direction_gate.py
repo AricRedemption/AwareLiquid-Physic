@@ -99,3 +99,32 @@ def test_add_rejects_invalid_then_accepts_valid(tmp_path):
     assert r.returncode == 0 and p.exists()
     r = run_gate("--check", "--file", str(p))
     assert r.returncode == 0
+
+
+# --- 轮 291 工程硬化:--check-round N(轮 236 链完整性机械化) ---
+
+def test_check_round_matching_round_passes(tmp_path):
+    p = write_ledger(tmp_path, [VALID, {**VALID, "round": 232}])
+    r = run_gate("--check-round", "232", "--file", str(p))
+    assert r.returncode == 0 and "GATE OK" in r.stdout
+
+
+def test_check_round_mismatched_round_rejects(tmp_path):
+    """轮 236 盲区实例:末条合法但轮号≠本轮 ⇒ 旧 --check 放行,新门拦截。"""
+    p = write_ledger(tmp_path, [{**VALID, "round": 233}])
+    r_old = run_gate("--check", "--file", str(p))
+    assert r_old.returncode == 0  # 旧门确实放行(盲区实证)
+    r = run_gate("--check-round", "290", "--file", str(p))
+    assert r.returncode == 1 and "判单链断裂" in r.stderr
+
+
+def test_check_round_still_validates_fields(tmp_path):
+    p = write_ledger(tmp_path, [{k: v for k, v in VALID.items()
+                                 if k != "evidence"}])
+    r = run_gate("--check-round", "231", "--file", str(p))
+    assert r.returncode == 1  # 轮号相等也不能绕过字段校验
+
+
+def test_check_round_missing_file_rejects(tmp_path):
+    r = run_gate("--check-round", "1", "--file", str(tmp_path / "none.jsonl"))
+    assert r.returncode == 1 and "判单文件不存在" in r.stderr

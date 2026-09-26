@@ -14,20 +14,19 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 290
-  写作轮续(阶梯③):悬空预告修复——轮 130 footer 声称的 dt 迁移
-  限定词正文实际缺失,正文补 §3"What is learned"段(MAP-VS-FLOW
-  轮 129,PR#6 在途:跨 dt ratio 0.8948≤2 门+1 步斜率 1.9949=
-  O(dt²) 双轴互证向量场对象,原生参照臂 13.5-16.1×反差=训练 dt
-  是条件性变量),footer 如实注记悬空与补完轮次(轮 144 条款
-  实例,轮 286 缺口扫描抓获)。停车场审计无变化。S1 重置。下一
-  心跳:goal_check ⇒ 阶梯(N1 缺口扫描=索引主锚已大体消化,余
-  增量转工程硬化/蒸馏轮)。
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 291
+  工程硬化轮(阶梯④):direction_gate --check-round N 落地——轮 236
+  判单链完整性盲区机械化(--check 全部校验+末条轮号必须=N,不等
+  exit 1),真实台账双路径实测 290 过/291 拦,12→16 测试全绿(含
+  旧盲区钉死测试);自本轮起提交门用 --check-round 本轮号;TOOLS/
+  PLAYBOOK 回写。停车场审计无变化。S1 重置。下一心跳:goal_check
+  ⇒ 阶梯(工程硬化可续:goal_check/marathon_guard 同类调用侧锚
+  盘点/蒸馏轮亦可)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(N1 缺口基本清零⇒工程硬化/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(工程硬化可续/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -100,7 +99,10 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   段+grokking 判负行入稿(ICL 三臂/内插控制产物逐位核验);174
   测试+audit 107+gate 轮 289 全绿显式退出码。轮 290:悬空预告
   修复+dt 迁移限定词入稿(§3 What is learned,双轴产物核验);
-  174 测试+audit 107+gate 轮 290 全绿显式退出码。
+  174 测试+audit 107+gate 轮 290 全绿显式退出码。轮 291 工程硬化:
+  direction_gate --check-round N 落地(轮 236 盲区机械化,16 测试+
+  台账双路径实测);178 测试+audit 107+gate --check-round 291 全绿
+  显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
