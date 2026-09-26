@@ -51,6 +51,14 @@ current_action: >-
   (dir/anchor-precision,堆叠自 dir/pool-bits 先例);PLAYBOOK 回写
   测试环境依赖坑(仓外 tmp 隔离);下一心跳:goal_check ⇒ 消化轮
   (轮 405 预注册闭环回填+分流)禁新蒸馏。
+  轮 407 消化轮(判读后条款,禁新蒸馏):①回填=n1-asset-index 第
+  26 条(ANCHOR-PRECISION 精度轴稳健=N1 §9 报告规范评估协议句素材
+  +POOL-BITS 池组成轴对照;判读行/scan §65/TOOLS 已在各自分支落
+  地不重复写;AMM-033 ⑤ 维持现文本=无 AMENDMENTS 修订需要)②分流
+  =balance_gauge EXP 0.2/WIP 0/欠账 0/消化率 1.0/无报警 ③池盘点=
+  空(判读行无明示后续迭代点;轮 404 阶梯审计继续有效:停车场无
+  解停/N1 缺口清零/合并债无变化)。下一心跳:goal_check ⇒ 阶梯
+  (蒸馏候选/挂起计数语义见 v8)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -169,7 +177,9 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   轮 406:探针执行轮=ANCHOR-PRECISION 判读 PRECISION_ANCHOR_ROBUST
   (精度轴稳健 ≤2.29e-6,AMM-033 ⑤维持现文本,PR#57 在途)+
   PLAYBOOK 测试环境依赖坑;190+5 测试+audit 107+gate --check-round
-  406+queue audit 四门全绿显式退出码。
+  406+queue audit 四门全绿显式退出码。轮 407:消化轮=资产索引第
+  26 条回填+分流无报警+池空;190 测试+audit 107+gate --check-round
+  407+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
