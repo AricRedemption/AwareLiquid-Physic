@@ -6,26 +6,26 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 282 收口:S1 2/2 武装+池空+人决区三问全过=真收尾,见 updated)
+state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 283 用户重入恢复:收口复盘解停停车场自主项,见 updated)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
   v5.2 六门体系下的 T1 探针环:队列目标逐个探针-判读-PR(细则与立法史
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
-  收口态(轮 282):S1 2/2 武装(轮 281/282 蒸馏无 [行动])+
-  池空无否决+人决区三问审计全过 ⇒ IDLE 真收尾。本会话段(轮
-  268-282,13 心跳)总账=7 探针全判读全 PR(PR#49-#55:齐次头
-  六轴+组合确认)+AMM-033 提案(默认 M1 头替换,锚重置计划 5
-  条款+either-or 注记)+scan §59-§63 五族+PLAYBOOK 7 条;齐次头
-  证据链完成=解析 T+方向自由齐次 V 列为默认 M1 替换候选。重入口
-  =53+PR 合并(合并落地触发 AMM-033 实施排程)/用户指令/停车场
-  与算力重启/新欠账。
+  v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 283(用户第
+  六次质询"为什么又停下来了"重入):收口复盘=轮 282 收口漏审
+  停车场,自主项被过早挂起,解停两项;SPEC3 判读 ORDER_TIED=修正
+  截止下成分持平,r246 谱增量系截止伪影,AMM-031 降级
+  reference-only(PR#56;标量双锚逐位真)=轮 267 待办闭账,S1 重置。
+  下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 写作轮(N1 齐次头证据链,
+  AMM-022 已解锁)/池观察项(k 泛化第三点,决策耦合弱留池)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: IDLE 重入口=53+PR 合并(触发 AMM-033 实施排程=新段首消化轮)/用户指令/停车场与算力重启/新欠账
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 写作轮(N1 齐次头证据链,AMM-022 已解锁)/池观察项(k 泛化第三点留池);用户指令 / PR 合并(触发 AMM-033 实施排程)/停车场与算力重启随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -68,7 +68,12 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   合格无行动,S1 1/2,scan §63 N1 素材)。轮 282 蒸馏轮第二次
   尝试仍无行动 ⇒ S1 2/2 武装 ⇒ 收口评估五步全过(池空/S2 未
   触发/S3-v2 未触发/人决区三问全过)⇒ **IDLE 真收尾**;夜 14
-  草稿入账待人裁;真收尾删 .loop-lock;队列五十三条全 pr-pending。
+  草稿入账待人裁;真收尾删 .loop-lock。轮 283 用户第六次质询
+  ("为什么又停下来了")重入:收口复盘=轮 282 漏审停车场自主项
+  过早挂起,解停两项;SPEC3 判读 ORDER_TIED=修正口径成分持平
+  (r246 增量系截止伪影,PR#56;标量双锚逐位真)=AMM-031 降级
+  reference-only,轮 267 待办闭账;S1 重置;队列五十四条全
+  pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
@@ -234,6 +239,9 @@ goal_queue:
 - id: RECIPE-HEAD
   status: pr-pending(PR#55-判读COMPOSE_ABSORBED=次可加B0候选头单独1.949全场最优<B1组合2.241<A1配方2.645<A0默认2.961, 三哨兵逐位全真A0/A1轮252/B0轮269, 判读与代码在dir/recipe-head分支, 合并后check过自动弹出; 决策=either-or采纳选候选头单独配方与头不叠加回灌PR scope注记, 组合确认轮回灌门2精神)
   check_cmd: grep -q "RECIPE-HEAD 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_head/recipe_head.json
+- id: SPEC3
+  status: pr-pending(PR#56-判读SPEC3_ORDER_TIED=修正截止下双臂low_band约0.998成分差0.02pp, r246谱增量系截止伪影且轮267排序对冲亦被推翻, 判读与代码在dir/residual-spec-3分支, 合并后check过自动弹出; 决策=AMM-031降级reference-only修正house值落账闭轮267待办, 标量双锚逐位真, RESIDUAL族口径修正闭账)
+  check_cmd: grep -q "SPEC3 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_3/residual_spec_3.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
