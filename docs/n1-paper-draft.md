@@ -178,6 +178,16 @@ is 2.94→47 MB across k = 8/32/128 with measured slope 1.0000
 (saved-tensors-hooks accounting) — zero memory pressure at operating
 points [B, GRAD-PATH probe].
 
+**What is learned.** A head trained at dt = 0.1 transfers across the
+scanned dt multiples at fixed physical horizon: cross-dt ratio 0.895
+(≤ 2 gate) and 1-step log-log slope 1.995 = O(dt²) — two independent
+axes agreeing that the learned object is the vector field, not a
+dt-mapping [B, PRD §19 round 129; PR#6 pending merge]. The qualifier
+"within the scanned dt multiples" attaches to every "learned H" claim
+in this paper; notably, the native reference arms trained at the
+evaluation grids perform 13–16× worse (0.046–0.049 vs 0.0030–0.0034),
+so the training dt is itself a conditional variable.
+
 **Escape hatches (registered per-injection).** conservation → dissipation
 slot (γ); T-even assumption → R1b relaxation (never triggered, terminal);
 separability → nonseparable head (available, unused); MLP smoothness →
@@ -564,4 +574,10 @@ adaptation paragraph added to Sec. 6 (ICL-M3 round 132 + interpolation
 control round 134, PRs #7/#8 pending merge; three-arm orderings
 re-verified against the artifacts) and the training-amount negative
 result added as a ladder row (grok_curve SMOOTH_ASYMPTOTE, max ratio
-1.42).*
+1.42). Updated round 290: the round-130 provenance line below claimed a
+dt-transfer qualifier that the body did not actually carry (the
+round-144 dangling-announcement pattern, caught by the round-286 gap
+scan); the body now carries it — Sec. 3 "What is learned" (MAP-VS-FLOW,
+PRD §19 round 129, PR#6 pending merge; cross-dt ratio 0.895 / slope
+1.995 and the native-reference 13–16× reading re-verified against the
+artifact) — and announcement and body agree.*
