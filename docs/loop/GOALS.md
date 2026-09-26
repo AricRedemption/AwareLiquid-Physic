@@ -95,6 +95,13 @@ current_action: >-
   依赖注记=PR#57 含 PR#53 提交,先并 #53 则 #57 diff 自动缩减;判
   读详情唯一源不变)。下一心跳:goal_check ⇒ 阶梯(RSI 夜账节点
   评估/空审计,均回合内连跑)。
+  轮 413 RSI 夜账轮(AMM-035 段完成即入账首例):rsi_night --from
+  403 --to 412 --include-dir 实跑 exit 0(工具草稿 range 与夜 15
+  重叠,夜 16 行按 404-412 修正如实注记);夜 16=K 1 人裁候选(轮
+  406 ANCHOR-PRECISION 协议确认级,工具 k_upper=0 未自动计)/E 1.0
+  (1/1 算力轮)/T+ +2 在途上界/A AMM-036 PROPOSED;产出清单+口径
+  注记见 RSI-INDEX 夜 16 行。下一心跳:goal_check ⇒ 阶梯(空审计
+  语义=AMM-036 回合内连跑)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -227,7 +234,11 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   --check-round 411+queue audit 四门全绿显式退出码。轮 412:合并债
   简报增量更新(PR#57 新开=PR 状态变化条款触发,56→57,堆叠依赖
   注记);190 测试+audit 107+gate --check-round 412+queue audit
-  四门全绿显式退出码。
+  四门全绿显式退出码。轮 413:RSI 夜账轮=夜 16 行入账(轮 404-412
+  段,AMM-035 段完成即入账首例,K=1 人裁候选/E=1/T+=+2/A=AMM-036
+  PROPOSED,工具草稿 range 重叠修正注记);rsi_night --include-dir
+  实跑 exit 0;190 测试+audit 107+gate --check-round 413+queue
+  audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
