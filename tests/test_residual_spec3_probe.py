@@ -42,7 +42,7 @@ def test_tied_gate_boundary():
     verdict, d = classify_spec3([0.99, 0.99, 0.99],
                                 [0.99 - TIED_GATE] * 3)
     assert verdict == "SPEC3_ORDER_REPRODUCES"
-    assert abs(d["median_diff"]) == TIED_GATE
+    assert abs(abs(d["median_diff"]) - TIED_GATE) < 1e-12
 
 
 def test_declared_anchors():
