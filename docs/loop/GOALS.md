@@ -13,21 +13,25 @@ current_goal: >-
   v5.2 六门体系下的 T1 探针环:队列目标逐个探针-判读-PR(细则与立法史
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
-  v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 297
-  N1 写作轮(阶梯③,§64 素材回填):§2 增"Enforcing versus
-  discovering structure"段——对称强制先例群(SCNN/Dierkes/CHNN/
-  Celledoni)与分层注入哲学同构,Polyakov 齐次 ANN=齐次度是真实
-  接口参数的独立文献先例(与 §6 边界实测互证),Noether Networks=
-  结构未知时 meta-learn 中间路线;本稿主张限定 known-structure
-  case,预答"why not meta-learn"质疑。下一心跳:goal_check ⇒
-  阶梯(N1 可续/工程硬化/蒸馏均可)。
+  v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯。
+  轮 297 写作轮落地(§2 对称强制段)。轮 298 挂起轮(阶梯⑥,逐项
+  审计防假空):①判读后续池=空(本会话 13 连 QUEUE-EMPTY,队列
+  54 条 pr-pending 未变,无合并落地);②停车场=无变化(轮 285
+  全审计:k 泛化决策耦合弱留池,T2/T3/Kaggle/隐藏卷=用户资源,
+  齐次 V 稳定性已被轮 268 取代,N1 v1+ 已解停执行);③N1 写作=
+  自主缺口清零(索引主锚 4-23 审计梯/ω 外推/ICL/迁移限定词/齐次
+  头链/§64 回填全部入稿,余项=标题/venue/[C] 级声明/终稿 polish
+  =AMM-022 人决边界);④工程硬化=双机械锚(--check-round+--audit)
+  +状态机 sweep 扫尽,无新缺口;⑤合并债=简报现行(轮 294,无
+  PR 状态变化)⇒ 本心跳挂起等待(结束回合不结束会话;本会话段
+  轮 285-297 高产出,S3 无停滞)。下一触发:goal_check(阶梯复
+  审)/用户指令/PR 合并随时重入。
 
 blocked_on: >-
   1) PR 合入=用户线下(操作手册=docs/loop/PR-BRIEFING.md);
   2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
   3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(N1 可续/工程硬化/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check(阶梯复审)/用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -118,7 +122,10 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   测试+audit 107+gate --check-round 296+queue audit 四门全绿显式
   退出码。轮 297:§2 对称强制段入稿(scan §64 回填,known-structure
   限定);187 测试+audit 107+gate --check-round 297+queue audit
-  四门全绿显式退出码。
+  四门全绿显式退出码。轮 298:挂起轮(阶梯⑥五项逐项审计防假空,
+  依据入 current_action;本会话段 285-297 高产出 S3 无停滞);187
+  测试+audit 107+gate --check-round 298+queue audit 四门全绿显式
+  退出码。
 
 
 ## goal_queue(顶部为当前目标)
