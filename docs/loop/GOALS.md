@@ -14,32 +14,36 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 268(新马拉松
-  段第 1 轮)=V-HOM-STAB 入队执行,判读 STAB_REPAIRS(方向通道置零
-  修复轮 261 训练灾难且外推收益 3/3 兑现,REF 逐位复现哨兵真,齐次
-  头完整构造候选提级=头部构造独立线),PR#49 在途;队列 47 条全
-  pr-pending。下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 盘判读后续池
-  (轮 268 判读行明示可迭代点=齐次头完整构造入 house 默认 M1 的
-  实现确认探针,非空 ⇒ 入队迭代;池空 ⇒ 蒸馏轮,S1 要求 [行动])。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 268-269 连续
+  双行动:V-HOM-STAB 判读 STAB_REPAIRS(方向通道置零修复训练灾难+
+  外推收益 3/3,PR#49)⇒ 池盘点入队迭代 HOM-DEFAULT 判读
+  HOM_DEFAULT_DOMINATES(齐次头完整构造对 house 默认头双轴 3/3
+  全胜,双哨兵逐位真,PR#50)=**解析 T+方向自由齐次 V 列为默认
+  M1 替换候选**,第 54 族新段 2/2 收口。下一心跳=消化轮(回填→
+  分流→AMM-033 提案草案[默认头替换,带全仓哨兵锚重置计划]),期间
+  禁新蒸馏;池盘点空 ⇒ 蒸馏轮,S1 要求 [行动]。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 盘后续池(轮 268 判读行明示齐次头实现确认候选 ⇒ 入队迭代;空 ⇒ 蒸馏轮,新方向须声明决策耦合,配方族默认关闭,无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 消化轮(AMM-033 提案草案+分流;判读完下一心跳=消化轮条款,期间禁新蒸馏);消化后池空 ⇒ 蒸馏轮,新方向须声明决策耦合,配方族默认关闭,无 [行动] 则 S1 累计;用户指令 / 停车场重启 / PR 合并随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
   (蒸馏唯一源);docs/n1-asset-index.md(N1 素材)。
-updated: 2026-09-26 (**轮 268:新马拉松段第 1 轮,V-HOM-STAB
-  STAB_REPAIRS**)——用户重贴 GOAL-PROMPT 重启马拉松(新段,族额度
-  重置);轮 65 条款条件入口兑现:V-HOM-STAB 入队执行(幅度-方向
-  解耦稳定化,预注册机制细化=1-D detach 无操作/病理在方向特征不
-  连续,先于执行落盘),判读 STAB_REPAIRS=方向通道置零修复训练
-  灾难(0/3 灾难,MSE 均值 1.957<自由 V 基线 2.548)+外推收益 3/3
-  兑现(median rel_comp 1.705<3),REF 臂逐位复现轮 261 B 臂;
-  **齐次头完整构造候选提级(头部构造独立线)**;PR#49 在途;
-  PRD/TOOLS/PLAYBOOK/资产索引第 24 条已回填(dir 分支);193 测试+
-  audit 99 全绿;队列四十七条全 pr-pending。
+updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
+  连续双胜**)——用户重贴 GOAL-PROMPT 重启马拉松(新段,族额度
+  重置);轮 65 条款条件入口兑现:V-HOM-STAB(幅度-方向解耦稳定
+  化,预注册机制细化=1-D detach 无操作/病理在方向特征不连续,先于
+  执行落盘)判读 STAB_REPAIRS=方向通道置零修复训练灾难(0/3,MSE
+  均值 1.957<自由 V 基线 2.548)+外推收益 3/3 兑现,REF 逐位复现
+  轮 261 B 臂,PR#49;池盘点入队迭代 HOM-DEFAULT(齐次头完整构造
+  vs house 默认头)判读 HOM_DEFAULT_DOMINATES=双轴 3/3 全胜(分布
+  内 ratio 0.658 −34%/外推 median −49%),双哨兵逐位全真(全仓锚
+  3.5582+轮 268 STAB 跨脚本锚),PR#50;**决策=解析 T+方向自由齐次
+  V 列为默认 M1 替换候选**,采纳走 AMM-033 提案(带全仓哨兵锚重置
+  计划);第 54 族新段 2/2 收口;193/201 测试+audit 99 全绿;队列
+  四十八条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
@@ -187,6 +191,9 @@ goal_queue:
 - id: V-HOM-STAB
   status: pr-pending(PR#49-判读STAB_REPAIRS=方向通道置零修复训练灾难0/3+MSE均值1.957低于自由V基线2.548+外推收益3/3兑现median1.705<3, 判读与代码在dir/v-hom-stab分支, 合并后check过自动弹出; 决策=方向自由齐次头候选提级头部构造独立线; REF哨兵逐位复现轮261 B臂, 第54族新段第1轮)
   check_cmd: grep -q "V-HOM-STAB 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/v_hom_stab/v_hom_stab.json
+- id: HOM-DEFAULT
+  status: pr-pending(PR#50-判读HOM_DEFAULT_DOMINATES=齐次头完整构造对house默认头双轴3/3全胜分布内ratio0.658−34%外推median−49%, 判读与代码在dir/hom-default分支, 合并后check过自动弹出; 决策=解析T+方向自由齐次V列为默认M1替换候选, 采纳走AMM-033提案带锚重置计划; 双哨兵逐位全真=全仓锚3.5582+轮268 STAB跨脚本锚, 第54族新段第2轮族收口)
+  check_cmd: grep -q "HOM-DEFAULT 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_default/hom_default.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
