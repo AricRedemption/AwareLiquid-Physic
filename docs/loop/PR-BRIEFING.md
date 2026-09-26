@@ -56,3 +56,15 @@
    `n1-paper-draft.md` 溯源 footer 的"pending merge"注记全部兑现。
 3. **AMM-033(默认头替换)实施=合并后新段首消化轮**(提案条款),
    循环自决排程,无需用户指令。
+
+## 6. 增量更新(轮 412,2026-09-27,⑤合并债条款=PR 状态变化时产出)
+
+- **PR#57 新开**(dir/anchor-precision → wave/loop):ANCHOR-PRECISION
+  判读 PRECISION_ANCHOR_ROBUST(第 65 族第 1 轮,锚读数精度轴稳健,
+  决策=AMM-033 锚协议⑤维持现文本)。**在途 PR 总数 56→57**;有队列
+  条目者 54→55(ANCHOR-PRECISION 条目已入 GOALS 队尾)。
+- **堆叠依赖注记**:dir/anchor-precision 自 dir/pool-bits 切出(齐次
+  头线先例),含 PR#53 全部提交——先合并 PR#53 则 PR#57 diff 自动
+  缩减为本族两文件(probe+tests)+判读行;反之 PR#57 先合并亦无冲突
+  (超集包含)。
+- 判读详情唯一源不变=GOALS 队列条目 status 字段(AMM-021)。
