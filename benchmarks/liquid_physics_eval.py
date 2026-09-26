@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import sys
 
@@ -139,8 +140,24 @@ def train(model, qs, ps, t_obs, k_train, steps, lr, batch, seed, lr_decay=1.0):
     return loss.item()
 
 
+def residual_low_band_ratio(resid: torch.Tensor, omega_max: float,
+                            dt: float) -> float:
+    """AMM-031 (self-applied 2026-09-26): fraction of residual energy at or
+    below 2 x omega_max (cycles/step). Secondary spectral caliber reported
+    ALONGSIDE scalar MSE — informational only, never a gate (round-246:
+    composition adds discrimination but is seed-noisy at small budgets).
+    resid: (k+1, B, dim) rollout residual."""
+    spec = torch.fft.rfft(resid, dim=0).abs() ** 2
+    freqs = torch.fft.rfftfreq(resid.shape[0], d=dt)
+    total = spec.sum()
+    hf_cut = omega_max / (2 * math.pi * dt)
+    hf = spec[freqs > hf_cut].sum()
+    return (1 - hf / total.clamp_min(1e-30)).item()
+
+
 def evaluate(model, qs, ps, omega, t_obs, eval_k, dt):
-    """Free-running eval from the prefix. Rollout MSE + energy drift (true omega)."""
+    """Free-running eval from the prefix. Rollout MSE + energy drift (true
+    omega) + AMM-031 spectral secondary caliber (low-band residual ratio)."""
     model.eval()
     q_obs = qs[:, :t_obs]; p_obs = ps[:, :t_obs]
     fut = slice(t_obs - 1, t_obs + eval_k)
@@ -152,11 +169,15 @@ def evaluate(model, qs, ps, omega, t_obs, eval_k, dt):
     E = spring_energy(qs_pred, ps_pred, omega.view(1, -1))         # (k+1, B)
     E0 = E[0].abs().clamp_min(1e-6)
     drift = ((E - E[0]).abs() / E0).mean(-1)                      # (k+1,)
+    resid = torch.cat([qs_pred - q_true.permute(1, 0, 2),
+                       ps_pred - p_true.permute(1, 0, 2)], dim=-1)
+    low_band = residual_low_band_ratio(resid, float(omega.max()), dt)
     return {"rollout_mse": mse,
             "rollout_mse_stderr": rollout_mse_stderr(qs_pred, q_true.permute(1, 0, 2),
                                                      ps_pred, p_true.permute(1, 0, 2)),
             "energy_drift_final": drift[-1].item(),
-            "energy_drift_max": drift.max().item()}
+            "energy_drift_max": drift.max().item(),
+            "residual_low_band_ratio": low_band}
 
 
 def main():

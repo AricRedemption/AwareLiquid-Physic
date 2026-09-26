@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 264 S1 2/2 收口,重入口见 updated)
+state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 267 分工校准后恢复,见 updated)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
