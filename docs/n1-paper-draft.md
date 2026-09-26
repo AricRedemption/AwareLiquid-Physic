@@ -205,6 +205,17 @@ Three-piece defense for the methods section:
    (Higher-order composition is available — Yoshida — but deferred:
    conservation is carried by measurement, and hω ≈ 0.18 leaves orders of
    magnitude before integrator error approaches learning error.)
+4. **Training-grid resolution (measured boundary of the fixed-step
+   defense).** On a single-frequency pool (ω ∈ {1, 2, 4} × dt ∈
+   {0.05, 0.1, 0.2}, nine cells, fixed physical horizon), the
+   coarse/fine degradation ratio at the highest frequency (24.2)
+   exceeds the low-frequency ratio (0.05) by 2410% (pre-registered gate
+   20%): frequency–grid interaction is real and concentrated in the
+   single near-Nyquist cell (ω·dt = 0.8) — there the model cannot
+   *learn* (training grid insufficient), not merely fails to be
+   *measured* [B, PRD §19 round 162; PR#17 pending merge]. Practical
+   safe domain ω·dt ≲ 0.4; cross-dt consistency claims (round 130) are
+   conditional on grid resolution.
 
 ## 5 Experiments
 
@@ -481,4 +492,8 @@ distribution-shift separation added (Sec. 6 paragraph + Limitations
 PR#2 pending merge; numbers re-verified against the result artifact) —
 an asset-index entry registered since round 115 that no prior writing
 round had absorbed; the writing-round gap scan (asset-index entries vs
-draft coverage) is now part of the ladder's N1 line.*
+draft coverage) is now part of the ladder's N1 line. Updated round 287:
+training-grid resolution clause added to Sec. 4 item 4 (SPECTRAL-DT,
+PRD §19 round 162, PR#17 pending merge; 2410% interaction excess
+re-verified against the artifact) — the write-in promised by that
+round's verdict row.*
