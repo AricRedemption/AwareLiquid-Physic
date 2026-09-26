@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # 轮 424 用户指令重入(AMM-034 v7:IDLE 废除;轮 423 PARKED 处置完合规收束)
+state: PARKED             # 轮 427 空审计 3/3(425/426/427)⇒ PARKED(AMM-035);处置三件完成=夜 18 补账+快照+PRD §19 轮 427;重入口=用户一句话/57PR 任一合并/停车场与算力重启(含 RSI 三提案审阅)/新欠账
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -319,6 +319,14 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   本轮插曲=轮 425 提交 push 遇 github.com:443 间歇 SSL 阻断,按
   PLAYBOOK 轮 286/287 协议后台长退避重试落地(ahead 归零后才开本轮
   提交,防漏推),零互扰。
+  轮 427 空审计心跳(阶梯⑥ 3/3)⇒ **PARKED 触发与处置(第三次完整
+  生命周期)**:五项复审仍全空(gh api merged=0/无新判读行/停车场
+  RSI 三提案待用户审/N1 人决边界/硬化无新缺口)⇒ 计数 3/3 ⇒
+  state=RUNNING→PARKED;处置三件=①rsi_night 424-427 实跑 exit0
+  (K=0/E=空,段内无探针轮如实)+RSI-INDEX 夜 18 行 ②本快照
+  ③PRD §19 轮 427 记录;锁不删自过期;balance_gauge 无报警。
+  **AMM-035+AMM-036 生命周期第三次验证通过**=产出心跳(424 研究
+  轮)⇒回合内连跑空审计(425-427)⇒PARKED⇒合规收束,无误停事故。
 
 
 ## 心跳语义注记(AMM-037 自 prompt 下沉,机械定义)
