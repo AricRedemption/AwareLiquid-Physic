@@ -138,6 +138,21 @@ is only as strong as its search]; FiLM-style conditioning (UFNO-FiLM),
 HyperNetwork conditioning (HyperFNO), full-field concatenation (FNO), and
 modulation taxonomies are the nearest neighbors.
 
+**Enforcing versus discovering structure.** Within the Hamiltonian line,
+a precedent group enforces known symmetries by construction — symmetry
+control via cyclic coordinates (SCNN), Lie-algebra symmetry detection,
+manifold-constrained Hamiltonian/Lagrangian networks (CHNN/CLNN;
+Celledoni et al.) [scan §64.2] — the same layered-injection stance we
+take at the head (Sec. 3). Polyakov's generalized homogeneous ANN is a
+dedicated approximator for homogeneous function classes [B-adjacent
+literature coordinate, scan §64.1], independent precedent that the
+homogeneity degree is a real interface parameter (our Sec. 6 boundary
+measurement agrees). When the structure is *unknown*, meta-learning is
+the measured middle path — Noether Networks report discovered conservation
+losses matching hand-coded ones [scan §64.3]; our claim is confined to
+the known-structure case, where the hard construction beats the free
+form on both axes.
+
 **Base and training paradigm.** Closed-form liquid base: CfC [Hasani et
 al., Nature MI 2022] — honest scope: the closed-form approximation layer
 is not disentangled (limitation 6). Training paradigm: semigroup/prefix
@@ -580,4 +595,10 @@ round-144 dangling-announcement pattern, caught by the round-286 gap
 scan); the body now carries it — Sec. 3 "What is learned" (MAP-VS-FLOW,
 PRD §19 round 129, PR#6 pending merge; cross-dt ratio 0.895 / slope
 1.995 and the native-reference 13–16× reading re-verified against the
-artifact) — and announcement and body agree.*
+artifact) — and announcement and body agree. Updated round 297:
+Related Work "Enforcing versus discovering structure" paragraph added
+from scan §64 (Polyakov homogeneous ANN / symmetry-enforcement
+precedent group SCNN–Dierkes–CHNN–Celledoni / Noether Networks as the
+unknown-structure middle path); the paper's head-structure claim is
+confined to the known-structure case, matching Sec. 6's measured
+boundary.*

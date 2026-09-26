@@ -14,20 +14,20 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 296
-  蒸馏轮:第 64 族齐次/对称函数专用网络族入库(scan §64,三槽三
-  [坐标])——Polyakov 2024 广义齐次函数专用 ANN 逼近器(题录双源
-  核验)+对称强制谱系(SCNN/Dierkes/CHNN/Celledoni)+Noether
-  Networks 对照(结构已知硬构造胜/未知 meta-learn 互补);决策
-  耦合=强化 AMM-033 范围注记+N1 答辩池,无 [行动],S1 累计 1/2
-  (v7 模式切换信号)。下一心跳:goal_check ⇒ 阶梯(蒸馏/[坐标]
-  消化/工程硬化均可)。
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 297
+  N1 写作轮(阶梯③,§64 素材回填):§2 增"Enforcing versus
+  discovering structure"段——对称强制先例群(SCNN/Dierkes/CHNN/
+  Celledoni)与分层注入哲学同构,Polyakov 齐次 ANN=齐次度是真实
+  接口参数的独立文献先例(与 §6 边界实测互证),Noether Networks=
+  结构未知时 meta-learn 中间路线;本稿主张限定 known-structure
+  case,预答"why not meta-learn"质疑。下一心跳:goal_check ⇒
+  阶梯(N1 可续/工程硬化/蒸馏均可)。
 
 blocked_on: >-
   1) PR 合入=用户线下(操作手册=docs/loop/PR-BRIEFING.md);
   2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
   3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(工程硬化/N1 可续/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(N1 可续/工程硬化/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -116,7 +116,9 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   蒸馏轮第 64 族入库(scan §64 三槽三 [坐标],Polyakov 齐次逼近器
   +对称强制谱系+Noether Networks 对照,强化 AMM-033 答辩池);187
   测试+audit 107+gate --check-round 296+queue audit 四门全绿显式
-  退出码。
+  退出码。轮 297:§2 对称强制段入稿(scan §64 回填,known-structure
+  限定);187 测试+audit 107+gate --check-round 297+queue audit
+  四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
