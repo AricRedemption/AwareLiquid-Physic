@@ -79,3 +79,4 @@
 {"round": 426, "direction": "ALIGNED", "evidence": "空审计心跳2/3: 五项复审无变化(gh api merged=0/queue 55=55机械复核)=>计数2/3, 下心跳仍空=>PARKED; 插曲=425 push遇github.com:443间歇SSL阻断按PLAYBOOK 286/287后台长退避落地, ahead归零后才开本轮提交"}
 {"round": 427, "direction": "ALIGNED", "evidence": "空审计3/3=>PARKED触发与处置(第三次完整生命周期, AMM-035+AMM-036): 五项复审全空=>state RUNNING->PARKED; 处置三件=rsi_night 424-427实跑exit0+夜18行+GOALS快照+PRD §19轮427记录; 生命周期验证=产出心跳424=>回合内连跑空审计425-427=>PARKED=>合规收束, 无误停事故"}
 {"round": 428, "direction": "ALIGNED", "evidence": "复盘轮(用户第八次质询): 机械审计55条check_cmd两半=0/55全过(grep格式失配+test-f依赖gitignored本机路径)=>AMM-026弹出联动=死路, 工具静默失效家族第三例; AMM-038 PROPOSED五条款(弹出与合并脱钩/check_cmd迁移/零催促用户面清理/RSI空审计盘在途存量/端到端弹出演练)"}
+{"round": 429, "direction": "ALIGNED", "evidence": "对标杆轮: db+git还原sess_8166=轮283-298产出14轮+轮299-402空转100+拍零提交(宿主goal-continuation驱动, v7 PARKED条件会话内不可满足); AMM-035=治6.5h空转的过正修正=迭代一次就停的直接来源; AMM-038增补条款⑥=PARKED回归跨段S3+空拍轻量化+产出心跳才全门禁"}
