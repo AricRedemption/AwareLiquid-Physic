@@ -14,20 +14,20 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 294
-  合并债治理轮(阶梯⑤):docs/loop/PR-BRIEFING.md 落地——56 open
-  PR 实测盘点(54 队列+2 已取代归档),分支全平行无堆叠=升序合并,
-  逐文件冲突解法表(GOALS/判单取 ours 已核验、PLAYBOOK 联合、
-  PRD 双侧保留、代码取 theirs),族分组八速览,逐 PR 详情唯一源
-  =GOALS 队列;AMM-033 实施=合并后新段首消化轮。停车场审计无
-  变化。S1 重置。下一心跳:goal_check ⇒ 阶梯(轮 295 状态机
-  sweep 已扫尽;蒸馏轮为下一候选)。
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 296
+  蒸馏轮:第 64 族齐次/对称函数专用网络族入库(scan §64,三槽三
+  [坐标])——Polyakov 2024 广义齐次函数专用 ANN 逼近器(题录双源
+  核验)+对称强制谱系(SCNN/Dierkes/CHNN/Celledoni)+Noether
+  Networks 对照(结构已知硬构造胜/未知 meta-learn 互补);决策
+  耦合=强化 AMM-033 范围注记+N1 答辩池,无 [行动],S1 累计 1/2
+  (v7 模式切换信号)。下一心跳:goal_check ⇒ 阶梯(蒸馏/[坐标]
+  消化/工程硬化均可)。
 
 blocked_on: >-
   1) PR 合入=用户线下(操作手册=docs/loop/PR-BRIEFING.md);
   2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
   3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(工程硬化可续/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(工程硬化/N1 可续/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -112,7 +112,11 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   测试+audit 107+gate --check-round 294+queue audit 四门全绿显式
   退出码。轮 295:状态机读取方 sweep 扫尽(ignite.sh+headless_loop.sh
   两沉睡脚本对齐 v7,PARKED 误点火风险消除);187 测试+audit 107+
-  gate --check-round 295+queue audit 四门全绿显式退出码。
+  gate --check-round 295+queue audit 四门全绿显式退出码。轮 296:
+  蒸馏轮第 64 族入库(scan §64 三槽三 [坐标],Polyakov 齐次逼近器
+  +对称强制谱系+Noether Networks 对照,强化 AMM-033 答辩池);187
+  测试+audit 107+gate --check-round 296+queue audit 四门全绿显式
+  退出码。
 
 
 ## goal_queue(顶部为当前目标)

@@ -3778,11 +3778,80 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - 【坐标】×3 入库(§63.1-63.3,N1 素材性质,门 1 不合格无行动)。
 - 【判定】无 [行动]:S1 累计 1/2。蒸馏第 59 次达标(坐标级)。
 
+## 64. 经验蒸馏 60(轮 296,2026-09-26,QUEUE-EMPTY 蒸馏轮):齐次/对称函数专用网络族([坐标] 轮)
+
+> 选族(轮 114 反向启发式):自家钩子=HOM-BOUND_DEGREE_MATCHED(次数
+> 匹配 ~3500×/误设 7.56×,轮 271)与 AMM-033"次数匹配齐次族配方"注记
+> ⇒ 检索"齐次度=接口参数"的文献先例。决策耦合(AMM-028 门 1):文献
+> 坐标直接强化 AMM-033 范围注记与 N1 Related Work 对称强制段答辩池;
+> 撞车检查=§30.2(种子敏感)/§58(配置采纳)非同族,§21.3 硬约束与
+> §23 发现谱系分工明确(本族=已知结构参数的专用逼近器,非发现线)。
+
+### 64.1 齐次函数专用逼近器(Polyakov 2024) [坐标]
+
+- 【出处】A. Polyakov, "Generalized Homogeneous Artificial Neural
+  Network and ...", HAL (INRIA) 开放档案预印本, 2024,21 页(cited 2,
+  经两次独立检索核验题录;作者即 INRIA Lille 齐次控制理论研究者,
+  generalized homogeneity=dilation symmetry 谱系)。链接=
+  https://inria.hal.science (HAL 被反爬,未取到 HAL id——如实注记,
+  非 arXiv 题录,venue=预印本未经同行评审)。
+- 【内容】提出作为广义齐次函数(generalized homogeneous functions,
+  具伸缩/dilation 对称性的函数类)的全局逼近器的 ANN 构造。
+- 【适用条件】齐次度已知/固定的函数类逼近;与我们 V=‖q‖^{2k}·s_θ(0,c)
+  次数匹配齐次族配方(HOM-BOUND 轮 271 实测:匹配 ~3500×/误设 7.56×)
+  互证——**齐次度是真实接口参数且文献已有专用逼近器先例**。
+- 【验证状态】题录已核验(双源);内容仅据检索摘要,全文未读=引用
+  等级限 [坐标] 素材,终局引用前须读全文。
+
+### 64.2 对称强制谱系(HNN 线内"by construction"先例群) [坐标]
+
+- 【出处】① SCNN "Improving Simulations with Symmetry Control Neural
+  Networks"(arXiv:2104.14444,SimDL workshop 2021,循环坐标强制);
+  ② Dierkes et al. 2023,HNN+Lie 代数自动对称检测(PMID 37276568);
+  ③ Finzi et al., CHNN/CLNN(arXiv:2010.13581,NeurIPS 2020,流形约束
+  坐标);④ Celledoni et al. 2023,J. Comput. Appl. Math.,余切丛上
+  受约束力学系统的哈密顿学习。
+- 【内容】HNN 线内"enforce known symmetry by construction"先例群:
+  对称强制/坐标重参数化/流形约束——与我们分层注入哲学(轮 86)同构,
+  与 AMM-033 齐次头(已知齐次度⇒构造强制)同型。
+- 【适用条件】N1 Related Work 对称强制段;AMM-033 答辩引用池;
+  与发现谱系(§23 SINDy/LieGAN/Noether Networks)分工=本族管
+  "已知结构怎么硬注入",发现线管"未知结构怎么提出"。
+- 【验证状态】题录检索级核验(作者/年份/venue 当场核验);全文未读。
+
+### 64.3 对照槽:Noether Networks(结构未知时的中间路线) [坐标]
+
+- 【出处】Alet et al., "Noether Networks: Meta-Learning Useful
+  Conserved Quantities"(NeurIPS ML4PS workshop);另 NGCG
+  neural-symbolic 管线(2026 arXiv,动力学学习与不变量发现解耦)。
+- 【内容】meta-learn 守恒量,报告"发现的守恒损失追平手写守恒损失"——
+  与 HOM-DEFAULT_DOMINATES(轮 269:齐次度已知时硬构造双轴胜自由形式
+  −34%/−49%)构成**张力对而非冲突**:结构参数已知⇒by construction 胜;
+  未知⇒meta-learn 是可行中间路线。N1 表述按两情形互补组织。
+- 【适用条件】N1 Discussion"注入是可撤销赌注清单"段的平衡引用;
+  未来"齐次度自动发现"方向的文献坐标(若齐次度未知场景出现,T1
+  探针可测 meta-learn 路线——当前无此场景,不入队列)。
+- 【验证状态】题录检索级核验;全文未读。
+
+### 蒸馏结论
+
+- 【坐标】×3 入库(§64.1-64.3,N1/AMM-033 答辩素材,无 T1 新方向
+  故无 [行动];门 1 决策耦合=强化 AMM-033 范围注记,不改实施排程)。
+- 【判定】无 [行动]:S1 累计 1/2(v7 语义=模式切换信号非停止,
+  阶梯 ③④⑤ 均有候选)。蒸馏第 60 次达标(坐标级)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
 > "SCAN-AUDIT 修订(轮 94)"注记与 docs/scan-traceability-audit.md
 > 等级表为准(修后可复核率 94%,判负标准对账见审计报告 §9)。
+
+- [Polyakov, Generalized Homogeneous ANN (HAL/INRIA 2024)](https://inria.hal.science)——见 §64.1
+- [SCNN: Symmetry Control Neural Networks (arXiv:2104.14444, SimDL 2021)](https://arxiv.org/html/2104.14444v1)——见 §64.2
+- [Dierkes et al., HNN automatic symmetry detection (2023)](https://pubmed.ncbi.nlm.nih.gov/37276568)——见 §64.2
+- [Finzi et al., CHNN/CLNN (arXiv:2010.13581, NeurIPS 2020)](https://arxiv.org/abs/2010.13581)——见 §64.2
+- [Celledoni et al., Hamiltonians of constrained mechanical systems (JCAM 2023)](https://www.sciencedirect.com/science/article/pii/S037704272200303X)——见 §64.2
+- [Alet et al., Noether Networks (NeurIPS ML4PS)](https://arxiv.org)——见 §64.3
 
 - [UFNO-FiLM: Feature-Modulated UFNO (arXiv 2025)](https://arxiv.org)
 - [Feature-wise transformations (Distill 2018, FiLM)](https://distill.pub)
