@@ -6,26 +6,30 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 283 用户重入恢复:收口复盘解停停车场自主项,见 updated)
+state: RUNNING            # RUNNING | PARKED | BLOCKED-HUMAN(AMM-034 v7:IDLE 废除,见 updated 轮 284)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
   v5.2 六门体系下的 T1 探针环:队列目标逐个探针-判读-PR(细则与立法史
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
-  v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 283(用户第
-  六次质询"为什么又停下来了"重入):收口复盘=轮 282 收口漏审
-  停车场,自主项被过早挂起,解停两项;SPEC3 判读 ORDER_TIED=修正
-  截止下成分持平,r246 谱增量系截止伪影,AMM-031 降级
-  reference-only(PR#56;标量双锚逐位真)=轮 267 待办闭账,S1 重置。
-  下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 写作轮(N1 齐次头证据链,
-  AMM-022 已解锁)/池观察项(k 泛化第三点,决策耦合弱留池)。
+  v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 285
+  写作轮(阶梯③,N1 齐次头证据链):七探针链条目入稿
+  docs/n1-paper-draft.md(Abstract/贡献 3iii/§3 头结构轴/§6 头结构
+  小节/§7 限制 4d/溯源 footer);逐数回溯 8 产物 JSON 复算(轮 111
+  条款)抓出判读行散文算术两处(r268 均值 1.957 实为 1.949;r273
+  漂移散文与产物 per-k 均值不符),论文引产物字段,历史行不改,
+  修正注记随合并;停车场三问审计=AMM-024 五项+散布注记,N1 v1+
+  解停即本轮,齐次 V 训练稳定性项已被轮 268 事实取代,余留池。
+  S1 重置(行动产出)。下一心跳:goal_check ⇒ 阶梯(N1 可续:
+  推断缺口链/基线三声明/TSFM 协议线素材在索引;工程硬化/蒸馏轮
+  亦可)。
 
 blocked_on: >-
-  1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
+  1) PR 合入=用户线下;2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 写作轮(N1 齐次头证据链,AMM-022 已解锁)/池观察项(k 泛化第三点留池);用户指令 / PR 合并(触发 AMM-033 实施排程)/停车场与算力重启随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 自主工作阶梯(N1 写作可续/工程硬化/蒸馏轮);用户指令 / PR 合并(触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -78,7 +82,14 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   自主工作阶梯入 prompt(判读池→停车场解停→N1 写作→工程硬化→
   合并债治理),唯一自停=上下文真耗尽,PARKED=S3 真停滞专属;
   GOAL-PROMPT v7.0 已落 docs/loop/GOAL-PROMPT-v7.md 待用户粘贴
-  新会话。
+  新会话。轮 285 写作轮(阶梯③):N1 齐次头七探针证据链入稿
+  (修复/双轴支配/次数边界 3500×与 7.56×/长视距稳健/组合次可加
+  either-or/小样本判负 n64 0.99+1/18 NaN/双头锚脆弱),逐数回溯
+  8 产物 JSON 逐位核验,抓出判读行散文算术两处如实注记(论文引
+  产物字段,历史行不改,修正随合并);PLAYBOOK 回写散文聚合值
+  当场复算坑;停车场审计=N1 v1+ 解停兑现为本轮,齐次 V 训练稳定
+  性项被轮 268 事实取代,k 泛化/T2T3/Kaggle/隐藏卷/慢轴留池有据;
+  174 测试+audit 107+gate 轮 285 全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)

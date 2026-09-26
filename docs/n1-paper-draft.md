@@ -4,7 +4,9 @@
 > (AMM-022 提案授权范围:初稿/迭代可自主,终稿/投稿/venue/署名待人决)。
 > 所有数字严格取自 `docs/n1-asset-index.md`(溯源:条目级主锚 100% A 级,
 > docs/scan-traceability-audit.md);索引未覆盖的细节以 `[v0-TODO]` 显式
-> 留缺,不编造。证据分级见附录 A:`[A]`=构造保证(闭式)、`[B]`=本机
+> 留缺,不编造。轮 285 起每个引用数字回溯**产物 JSON 字段**复算一次
+> (轮 111 条款);判读行散文聚合值与产物字段不符时以产物为准(轮 285
+> 对账抓出两处,见溯源 footer 注记),历史判定行不改。证据分级见附录 A:`[A]`=构造保证(闭式)、`[B]`=本机
 > T1/T2 实测(确定性可复现)、`[C]`=终局声明待 T3 或隐藏卷(998 起一次性)。
 > 本稿**不含任何 [C] 级终局断言**——按结论分级纪律,T1/T2 只解锁路由
 > 与筛选。
@@ -47,8 +49,15 @@ a 27% headroom that end-to-end inference does not reach [B] — and the
 mechanism is an exchange identity: on periodic grids the mean-pooled
 aggregation layer *exactly annihilates* the medium field c(x) (total
 retention 8.6e-11), rather than an empirical observation [B]; four repair
-prescriptions were tested and all judged negative. We position the
-contribution on the structure-property axis with
+prescriptions were tested and all judged negative. On the head-structure
+axis we measure what the free function form costs and where it pays: a
+degree-matched homogeneous potential — partially surrendering functional
+freedom — dominates the free-form default head on both error axes (−34%
+in-distribution, −49% extrapolation median) at every horizon tested,
+while the boundary is measured, not asserted: the wrong homogeneity
+degree pays 7.56×, the advantage is a full-data phenomenon (parity at
+n=64), and it does not stack with training-recipe gains [B]. We position
+the contribution on the structure-property axis with
 explicit hard-constraint boundary declarations, and we catalogue failure
 modes with pre-registered escape hatches (dissipation slot, T-even
 relaxation, nonseparable head).
@@ -92,7 +101,14 @@ liquid continuous-time base infer the instance-specific context from data.
    the acceleration field vanishes term-by-term — c(x) information is
    *exactly* annihilated at the aggregation layer (total retention 8.6e-11
    [B]); attention repair opens the channel yet remains budget-limited
-   (judged negative), closing the M2 headroom [B].
+   (judged negative), closing the M2 headroom [B]. (iii) The
+   **head-structure axis**: a degree-matched homogeneous potential
+   (analytic T, radial homogeneous V) dominates the free-form default
+   head on both error axes and all horizons tested [B]; the boundary is
+   the degree axis (degree-matched ≈3500× over free V on a quartic pool;
+   the mis-set degree pays 7.56×), the advantage vanishes in the
+   small-sample regime, and composition with the training recipe is
+   sub-additive (either-or adoption) [B].
 4. **Honest baselining.** Cross-category references (TSFM zero-shot) under
    a three-declaration fairness protocol; classical identification as a
    near-oracle *upper reference*; oracle-context bound 0.0148 on the M2
@@ -139,6 +155,17 @@ the observation prefix and produces a context code c ∈ R^d (d small;
 **Hamiltonian head.** c enters as a potential-energy interface:
 H(q, p; c) = T(p) + V(q; c), with T, V realized as MLPs (function-form
 layer left free by design).
+
+**Head-structure axis.** Alongside the free-form default we measure a
+structured head: analytic T(p) = ½Σp² and a radial homogeneous potential
+V(q; c) = ‖q‖^{2k}·s_θ(0, c), whose one structural parameter k is
+matched to the true homogeneity of the potential (k = 1 for the quadratic
+spring, k = 2 for a quartic pool). The direction channel is removed
+(zeroed input), which makes V's continuity at q = 0 hold *by
+construction* — the pathology of the naive homogeneous parameterization
+was direction-feature discontinuity (sign flips of q̂ at q = 0), not
+homogeneity itself [B, PRD §19 round 268]. Sec. 6 measures what this
+partial surrender of functional freedom costs and what it buys.
 
 **Integrator.** Fixed-step velocity Verlet; the kick receives force terms
 as +dt/2·F (ṗ = −∇qH + F) [implementation pitfall registered: sign flips
@@ -252,6 +279,52 @@ R1, horizon R2, interface E2, attention R1c), the M2 headroom is **closed**
 hard-constraint boundary explicitly; the oracle gap (−26%) is an
 interface-reachable upper bound, not a reachable gain.
 
+**Head structure (M1) — what the free function form costs.** A
+seven-probe chain (same-pool paired arms, 3 seeds, every cell carrying a
+bitwise cross-run anchor) measures the structured head of Sec. 3 against
+the free-form default [B; PRD §19 rounds 268–279, verdict rows on the
+dir branches pending merge via PRs #49–#55 — all numbers below
+re-verified against the result artifacts]:
+
+- **Repair.** The naive homogeneous parameterization is
+  training-catastrophic (2/3 seeds). Zeroing the direction channel
+  repairs it — 0/3 catastrophic, mean rollout MSE 1.949 vs the free-V
+  baseline 2.548 (≈23% in-distribution gain at equal budget) — and
+  unlocks the extrapolation benefit in 3/3 seeds (median rel. comp
+  1.705 < gate 3; the un-repaired construction delivered it in 1/3).
+- **Dominance.** The complete construction beats the house default head
+  on both axes in 3/3 seeds: in-distribution ratio 0.658 (−34%),
+  extrapolation median −49% (1.705 vs 3.334). It is registered as the
+  default-M1 replacement candidate (proposal AMM-033; implementation
+  rides the PR merge).
+- **The boundary is the degree axis.** On a quartic pool
+  (H = p²/2 + q⁴/4), the degree-matched homogeneous V reaches 4.4e-5
+  rollout MSE vs 0.157 for free V (≈3500×, near-perfect recovery with
+  conservation intact), while the mis-set quadratic form pays 7.56×
+  (1.184). The free function form is not free — it is insurance against
+  a mis-specified degree, and the premium is measurable.
+- **Robustness.** The candidate dominates at every horizon tested
+  (k ∈ {100, 400, 1000}): MSE ratio 0.62 / 0.82 / 0.87 and energy-drift
+  ratio 0.16 / 0.17 / 0.30, its drift stable at ≈0.14 across horizons.
+- **Absorbed composition.** A 2×2 grid (training recipe {off, on} ×
+  head {default, candidate}; three cells anchored bitwise to historical
+  runs) is sub-additive: candidate head alone 1.949 < +recipe 2.241 <
+  recipe alone 2.645 < default 2.961. The recipe absorbs the head's
+  gain; adoption is either-or, not stacked.
+- **Negative results, kept.** At n = 64 training trajectories the
+  advantage vanishes (ratio 0.99) and one grid unit diverges (candidate
+  arm, n = 128, seed 0; 1/18 units) — the dominance is a full-data
+  (n = 256) phenomenon. And under bit-level pool perturbation (same
+  draws, tensor length 160/300/600/1100) the cross-run anchors of
+  *both* heads are fragile (median spread 1.86 default vs 1.29
+  candidate, both above the 1.10 stability gate): anchor reproducibility
+  needs a multi-variant protocol, registered into the anchor-reset plan.
+
+The chain's shape is the claim: a structural injection at the head pays
+where its single parameter (the degree) is matched to the true
+functional form, and every direction in which it does not pay is
+measured and reported in the same breath.
+
 ## 7 Honest Limitations
 
 1. **Noise-free simulation.** All results are in the noise-free regime
@@ -295,6 +368,18 @@ interface-reachable upper bound, not a reachable gain.
    long-horizon slow exchange is not usable in this training regime,
    and the budget needed to bring the slow axis through its gate is
    untested (parked as a T2/T3 direction). Multi-seed finals remain
+   parked.
+4d. **Head-structure scope (homogeneous family).** The Sec. 6 dominance
+   chain is a house-scale, spring-family, full-data result: at n = 64
+   training trajectories the advantage is absent (ratio 0.99, 1/18 grid
+   units diverged in the candidate arm) [B, PRD §19 round 277], so the
+   benefit scope is annotated conservatively — no small-sample or
+   cross-potential extrapolation (degree matching is per-family by
+   construction). Cross-run anchor reproducibility under pool
+   perturbation is fragile for both heads (round 275); the anchor-reset
+   plan adopts a multi-variant spread-annotated protocol. The
+   default-head replacement itself is a registered proposal awaiting PR
+   merge (AMM-033), not an applied change; multi-seed finals remain
    parked.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
@@ -354,4 +439,15 @@ attribution (FASTSLOW-PROBE round 137 + FASTSLOW-2 round 143, PR#9/#10,
 PRD §19) — a round-137 provenance note pre-announced this entry as
 "round 138" but the Limitations body had been left to a digest round
 that was redirected; the dangling announcement is fixed here per the
-round-111 carrier-layer rule (announcement and body now agree).*
+round-111 carrier-layer rule (announcement and body now agree). Updated
+round 285: head-structure axis chain added (Abstract, Contribution
+3(iii), Sec. 3 head-structure axis, Sec. 6 head-structure subsection,
+Limitations 4d) from PRD §19 rounds 268–279 dir-branch verdict rows
+(PR#49–#55, pending merge) plus round 283 SPEC3 closure of the residual
+line (PR#56, AMM-031 downgraded to reference-only); per the round-111
+rule every number was re-verified against the result artifacts, which
+caught two prose-arithmetic slips in the dir-branch verdict rows (round
+268 "mean 1.957" — artifact mean 1.949; round 273 default-head drift
+"[0.294, 1.626, 0.313]" — artifact per-horizon means [0.93, 0.82,
+0.48]); this draft cites artifact-verified fields, history rows are not
+rewritten, and correction notes ride the merge.*
