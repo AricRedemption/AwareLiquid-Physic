@@ -41,6 +41,7 @@
 | `recipe_horizon_probe.py` | **RECIPE-HORIZON 回灌配方视距稳健验证**(轮 252,dir/recipe-horizon 待合并,在途 PR#45):回灌配方 vs 默认×3-seed 三视距 k{100,200,400},双池设计(canonical 哨兵池+gen-450 视距池);判读 HORIZON_ROBUST ratio 0.893/0.834/0.825 随视距增强=回灌 scope 确认;哨兵=A canonical k100 s0=3.5582 逐位 | `probe_run T1 18 -- ... recipe_horizon_probe.py`;测试 `tests/test_recipe_horizon_probe.py` |
 | `genlen_probe.py` | **GENLEN-PROBE/-CONFIRM 训练轨迹长度阶梯**(轮 255/258,dir/genlen-probe+dir/genlen-confirm 待合并,在途 PR#46/#47):训练池 gen_steps{160,301,450}×3-seed 统一 canonical 评估(t0 值域=覆盖变量);判读 GENLEN_RESOLVED spread 1.097 best 450+GENLEN_CONFIRMED 出样方向 2/3=第 7 轴候选建议采纳置信中;双哨兵=160 臂 3.5582+301 臂 2.9031(轮 246 跨脚本复现)逐位;参数化支持 --seeds/--gen_steps_list/--out_dir 复用 | `probe_run T1 22 -- ... genlen_probe.py`;测试 `tests/test_genlen_probe.py` |
 | `v_hom_probe.py` | **V-HOM 齐次势能注入 V 侧检验**(轮 261,dir/v-hom 待合并,在途 PR#48):双臂同解析 T,A=V 自由 vs B=V=‖q‖²·s_θ(q̂,ctx) 严格二次齐次×3-seed;判读 VHOM_NULL 但 **seed1 rel_comp 1.443 近完美外推恢复强信号**(收益真实被训练稳定性阻塞,稳定性研究=T2 停车场);哨兵=A s0=2.7786638736724854(轮 249 B 臂)逐位;齐次性单测前置拦截 q²·s(q) 非齐次设计缺陷 | `probe_run T1 15 -- ... v_hom_probe.py`;测试 `tests/test_v_hom_probe.py` |
+| `hom_sample_probe.py` | **HOM-SAMPLE 候选头样本效率阶梯**(轮 277,dir/hom-sample 待合并,在途 PR#54):第 62 族首轮,2 头×n_train{64,128,256}×3-seed 评估池固定;判读 **HOM_ARM_DIVERGED=判负**(B s0 n128 训练 NaN,1/18 单元);有限格注记=纹理与经典预测**反转**(n64 ratio 0.99 持平 vs n256 0.66)=候选优势是全数据现象,AMM-033 benefit-scope 保守注记 | `probe_run T1 15 -- ... hom_sample_probe.py`;测试 `tests/test_hom_sample_probe.py` |
 
 ## 已知产物目录(结果本地留存,数字见 PRD §19)
 

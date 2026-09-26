@@ -1099,6 +1099,16 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **路由**:轮 275 判读完成(dir/pool-bits 分支,ANCHOR_BOTH_FRAGILE,PR#53 在途)⇒ 消化轮条款(回填→分流→禁新蒸馏)。
 - **消化三件套**:①回填=**AMM-033 锚重置计划增补第⑤条多变体协议**(依据=轮 275 POOL-BITS 实测:比特级池扰动下单读数锚跨变体摆动默认头中位 1.86×/候选头 1.29× 双过 1.10 门;新锚集每锚须附 4 池变体 spread 注记;候选头稳定性优势 ~30% 注记为锚选型加分项;比较类判读优先同池内比值);轮 275 判读行/scan §61/TOOLS/PLAYBOOK 均在 dir 分支随 PR#53 落地不重复写;②分流=balance_gauge EXP 0.2 达标/WIP 0/欠账 0/消化率 1.0/无报警;③池盘点=**空**(AMM-033 实施排程事项非池条目;第 61 族第 1 轮判读无明示后续迭代点)⇒ 下一心跳=蒸馏轮(S1 要求 [行动],AMM-028 门 1)。
 - **台账**:零算力轮;S1 未累计(消化轮;轮 275 行动产出);判单轮 276;队列五十一条全 pr-pending 不变;下一心跳=goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮。
+**轮 277 记录(蒸馏轮=第 62 族归纳偏置×样本效率族+HOM-SAMPLE 入队执行;T0 检索+T1)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮(S1 要求 [行动];轮 275 行动产出后清零,轮 276 消化不累计)。
+- **选族**:钩子=齐次头证据链的未测维度——约束头的经典价值命题=小样本端优势更强,候选头在 house 规模已赢(轮 269 ratio 0.66)而规模轴从未测;机制核对 grep(P1 样本效率=house 协议面/§45 深度容量/§61 盆地稳定性/§60 长视距)分立,族头=归纳偏置×样本效率族(新族第 62 族,scan §62)。
+- **3 槽命中+题录当场核验(AMM-015)**:①★Mialon "On Inductive Biases for ML in Data-Constrained Settings"(arXiv:2302.10692,2023)=数据受限体制的归纳偏置综述;②Elesedy & Zaidi "Provably Strict Generalisation Benefit for Equivariant Models"(ICML 2021;**arXiv id 勘误=2102.10333**,先前记忆有误如实注记)=等变可证严格泛化收益;③Lyle et al. "On the Benefits of Invariance in Neural Networks"(arXiv:2005.00178,2020,~131 引)=不变性收益量化框架。
+- **[行动] HOM-SAMPLE 入队+执行([行动],engineering,T1)**:dir/hom-sample 分支;单变量=头:**A**=house 默认头(不换头;size256 s0=3.5582 逐位锚)vs **B**=候选头 HomVStabHead(size256=轮 269 B 臂构造同参);数据规模阶梯 n_train∈{64,128,256}(评估池固定 n_eval=128 同 draws)×3-seed;读数=k100 分布内 rollout MSE 逐规模 ratio=B/A;est 15min(18×2000 步)。
+- **判读(预注册,机械)**:任一读数非有限或 >1e6 ⇒ HOM_ARM_DIVERGED(判负);ratio_256>1.0 ⇒ HOM_SAMPLE_CAND_WORSE(候选头本轮落后,与轮 269 矛盾如实注记)/ratio_64<0.97×ratio_256 ⇒ HOM_SAMPLE_SMALLDATA_ADV(优势随数据稀缺增长;决策=AMM-033 注记升级=归纳偏置价值在数据稀缺端最强)/ratio_64≤1.03×ratio_256 ⇒ HOM_SAMPLE_FLAT(规模无关注记)/其余 ⇒ HOM_SAMPLE_REVERSED(优势消失=约束网需数据拟合 s_θ;保守注记)。
+- **决策耦合声明(AMM-028 门 1)**:四分支各改变 AMM-033 benefit-scope/锚注记,EIG 合格。
+- **族边界**:第 62 族第 1 轮。
+- **判读(HOM-SAMPLE 判读:HOM_ARM_DIVERGED=判负分支兑现,候选头小样本体制训练发散;第 62 族第 1 轮,dir/hom-sample,PR 即终点 AMM-024)**:预注册先行落盘(3eb05e5 前置)后 probe_run T1 15 实跑 18×2000 步 prefix;**判负兑现**:B 臂 seed0 n=128 训练发散(rollout MSE=NaN,1/18 单元)⇒ 机械判读 HOM_ARM_DIVERGED(预注册判负分支:任一读数非有限即判负,负结果同等记录);哨兵✓A s0 size256=3.5581917762756348 逐位(构造无损);**有限格注记(信息性非门)**:规模阶梯纹理与经典预测**反转**——n=64 处 ratio≈0.9902(B 均值 2.09 vs A 2.11=持平),n=256 处 ratio=0.6582(全数据优势),即候选头优势**不**随数据稀缺增长而是**全数据现象**;且 B 臂在 n=128 出现唯一 NaN(小样本×2000 步=2 批次高重复→训练爆走温床);62.1-62.3 文献命题在本玩具标度**未获支持**,AMM-033 benefit-scope 注记按消化轮修订为保守口径(优势限于 house 规模,小样本体制不外推+稳定性缺口注记)。
+- **台账**:T1 算力轮(probe_run T1 15,实测 ≈12min);201 测试(174+8+11+8 新)+audit 99 全绿显式退出码;判单轮 277;TOOLS 补登 hom_sample_probe;PLAYBOOK 回写小样本批次重复度坑;第 62 族第 1 轮;下一心跳=消化轮(AMM-033 benefit-scope 保守注记回填+分流),期间禁新蒸馏。
 **轮 274 记录(消化轮:AMM-033 锚集计划长视距回填+分流;T0 零算力)**:
 - **路由**:轮 273 判读完成(dir/hom-drift 分支,HOM_DRIFT_ROBUST,PR#52 在途)⇒ 消化轮条款(回填→分流→禁新蒸馏)。
 - **消化三件套**:①回填=**AMM-033 锚重置计划增补第④条长视距维度**(新默认锚集必须含 k400/k1000 rollout MSE+能量漂移双读数=轮 273 口径;跨脚本逐位锚仅限池构造完全同参调用——轮 273 超越函数池比特尺寸依赖教训条款化);轮 273 判读行/scan §60/TOOLS/PLAYBOOK 均在 dir 分支随 PR#52 落地不重复写;②分流=balance_gauge EXP 0.2 达标/WIP 0/欠账 0/消化率 1.0/无报警;③池盘点=**空**(AMM-033 实施排程事项非池条目;第 60 族第 1 轮判读无明示后续迭代点)⇒ 下一心跳=蒸馏轮(S1 要求 [行动],AMM-028 门 1)。
