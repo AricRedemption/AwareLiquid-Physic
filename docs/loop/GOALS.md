@@ -6,25 +6,26 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 267 分工校准后恢复,见 updated)
+state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 282 收口:S1 2/2 武装+池空+人决区三问全过=真收尾,见 updated)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
   v5.2 六门体系下的 T1 探针环:队列目标逐个探针-判读-PR(细则与立法史
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
-  v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 281 蒸馏轮
-  =第 63 族 [坐标] 轮(ω 推断机制钩子门 1 审计不合格=无近期决策
-  改变 EIG 弱+CTX 族相邻,无 [行动],scan §63 三槽 N1 素材入库),
-  S1 累计 1/2。下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮
-  (若无 [行动] ⇒ S1 2/2 武装 ⇒ 收口评估:盘后续池非空否决收口;
-  人决区三问审计)。
+  收口态(轮 282):S1 2/2 武装(轮 281/282 蒸馏无 [行动])+
+  池空无否决+人决区三问审计全过 ⇒ IDLE 真收尾。本会话段(轮
+  268-282,13 心跳)总账=7 探针全判读全 PR(PR#49-#55:齐次头
+  六轴+组合确认)+AMM-033 提案(默认 M1 头替换,锚重置计划 5
+  条款+either-or 注记)+scan §59-§63 五族+PLAYBOOK 7 条;齐次头
+  证据链完成=解析 T+方向自由齐次 V 列为默认 M1 替换候选。重入口
+  =53+PR 合并(合并落地触发 AMM-033 实施排程)/用户指令/停车场
+  与算力重启/新欠账。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
+next_trigger_hint: IDLE 重入口=53+PR 合并(触发 AMM-033 实施排程=新段首消化轮)/用户指令/停车场与算力重启/新欠账
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -64,8 +65,10 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   选头单独全场最优,PR#55;三哨兵逐位真)=AMM-033 either-or 采纳
   注记;199 测试+audit 99 全绿。轮 280 消化轮=AMM-033 either-or
   注记回填+分流干净。轮 281 蒸馏轮=第 63 族 [坐标] 轮(门 1 不
-  合格无行动,S1 1/2,scan §63 N1 素材);队列五十三条全
-  pr-pending。
+  合格无行动,S1 1/2,scan §63 N1 素材)。轮 282 蒸馏轮第二次
+  尝试仍无行动 ⇒ S1 2/2 武装 ⇒ 收口评估五步全过(池空/S2 未
+  触发/S3-v2 未触发/人决区三问全过)⇒ **IDLE 真收尾**;夜 14
+  草稿入账待人裁;真收尾删 .loop-lock;队列五十三条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
