@@ -102,6 +102,10 @@ current_action: >-
   (1/1 算力轮)/T+ +2 在途上界/A AMM-036 PROPOSED;产出清单+口径
   注记见 RSI-INDEX 夜 16 行。下一心跳:goal_check ⇒ 阶梯(空审计
   语义=AMM-036 回合内连跑)。
+  轮 414 N1 写作轮(阶梯③,§66 素材回填):§5 评估协议稳健性段增补
+  Biswas 2026 比较研究独立佐证句(积分器式更新⇒稳定滚出=本仓构造
+  论点外部同向,共享训练协议口径;预印本如实标注)+footer 轮 414
+  注记。下一心跳:goal_check ⇒ 阶梯(空审计,回合内连跑)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -238,7 +242,9 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   段,AMM-035 段完成即入账首例,K=1 人裁候选/E=1/T+=+2/A=AMM-036
   PROPOSED,工具草稿 range 重叠修正注记);rsi_night --include-dir
   实跑 exit 0;190 测试+audit 107+gate --check-round 413+queue
-  audit 四门全绿显式退出码。
+  audit 四门全绿显式退出码。轮 414:N1 写作轮=§5 段增补 Biswas
+  佐证句(§66.1 回填,T0);190 测试+audit 107+gate --check-round
+  414+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)

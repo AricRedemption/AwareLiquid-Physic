@@ -344,7 +344,13 @@ floating-point precision — the basis on which the anchor protocol
 requires per-anchor multi-variant spread annotations but no precision
 variants. Scoped to single-machine deterministic CPU inference; the
 multi-hardware/multi-precision serving regime is a different operating
-point (scan §65, Yuan et al. 2025).
+point (scan §65, Yuan et al. 2025). Independently, a recent comparative
+study across chaotic-system surrogate architectures reports that
+integrator-like updates yield lower bias and perturbation amplification
+and stabler long-horizon rollouts (Biswas, arXiv:2605.24868, 2026
+preprint, scan §66.1) — external corroboration, under a shared
+training protocol, of the structure-preserving thesis this paper
+defends by construction.
 
 ## 6 Mechanism Analysis
 
@@ -620,4 +626,6 @@ confined to the known-structure case, matching Sec. 6's measured
 boundary. Updated round 408: Sec. 5 evaluation-protocol robustness
 paragraph added from ANCHOR-PRECISION round 406 (precision axis
 <=2.3e-6 vs pool-composition axis 1.3-1.9x; both artifacts
-re-verified; scoped to single-machine deterministic CPU inference).*
+re-verified; scoped to single-machine deterministic CPU inference).
+Updated round 414: the Sec. 5 robustness paragraph gains the Biswas
+2026 comparative-study corroboration (scan §66.1, verified preprint).*
