@@ -1099,6 +1099,14 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **路由**:轮 271 判读完成(dir/hom-bound 分支,HOM_BOUND_DEGREE_MATCHED,PR#51 在途)⇒ 消化轮条款(回填→分流→禁新蒸馏)。
 - **消化三件套**:①回填=**AMM-033 范围注记实测化修订**——风险条款③"窄构造对非二次势真值偏倚=已知边界"由断言升级为实测(纯四次池 HOM_BOUND_DEGREE_MATCHED:次数匹配比自由 V 好 ~3500× 近完美恢复+守恒精确,次数误设付出 7.56×);配方注记升级=**次数匹配齐次族配方**(V=‖q‖^{2k}·s_θ(0,ctx),k=势能真值齐次次数);AMM-033 实施按弹簧线 k=1 落地,k 泛化=独立线候选停车场注记;轮 271 判读行/scan §59/TOOLS/PLAYBOOK 均在 dir 分支随 PR#51 落地不重复写;②分流=balance_gauge EXP 0.2 达标/WIP 0/欠账 0/消化率 1.0/无报警;③池盘点=**空**(k 泛化=停车场注记非池条目;第 59 族第 1 轮判读无明示后续迭代点)⇒ 下一心跳=蒸馏轮(S1 要求 [行动],AMM-028 门 1)。
 - **台账**:零算力轮;S1 未累计(消化轮;轮 271 行动产出);判单轮 272;队列四十九条全 pr-pending 不变;下一心跳=goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮。
+**轮 273 记录(蒸馏轮=第 60 族长视距守恒族+HOM-DRIFT 入队执行;T0 检索+T1)**:
+- **路由**:goal_check QUEUE-EMPTY ⇒ 蒸馏轮(S1 要求 [行动];轮 271 行动产出后 S1 清零,轮 272 消化不累计)。
+- **选族**:钩子=AMM-033 锚重置计划的长视距维度缺口——替换候选读数止于 k100 分布内/k200 外推(轮 268/269),结构保持文献预测约束模型长期能量误差有界 vs 通用模型漂移,替换默认头前必须测;机制核对 grep(Symplectic RNN 已在库不重复收/§22.2 梯度方法面/LEN-EXTRAP 长度外推稳健性面/P0-3 协议面)分立,族头=长视距守恒与稳定性族(新族第 60 族,scan §60)。
+- **3 槽命中+题录当场核验(AMM-015)**:①★Jin, Zhang, Zhu, Tang & Karniadakis "SympNets"(Neural Networks 132:166-179, 2020;常被误标 NeurIPS,期刊为准)=内嵌辛结构⇒长期能量误差有界;②Manek & Kolter "Learning Stable Deep Dynamics Models"(NeurIPS 2019,arXiv:2001.06116;常被误标 2020)=Lyapunov 稳定性认证学习;③Cranmer et al. "Lagrangian Neural Networks"(arXiv:2003.04630,2020;workshop venue 弱如实注记)=保守形式学习谱系。
+- **[行动] HOM-DRIFT 入队+执行([行动],engineering,T1)**:dir/hom-drift 分支;E1 池双臂单变量=头:**A**=house 默认头(不换头,哨兵锚 s0=3.5582 逐位)vs **B**=解析 T+方向自由齐次 V(HomVStabHead,AMM-033 候选;k100 跨脚本锚=轮 268 STAB 读数逐位);×3-seed×视距 k∈{100,400,1000}(dt=0.1 ⇒ 10s/40s/100s;k1000=训练窗 6.25×);读数=rollout MSE+house 能量漂移(final)双轴;est 15min(6×2000 步训练+三视距评估)。
+- **判读(预注册,机械)**:任一读数非有限或 >1e6 ⇒ HOM_ARM_DIVERGED(判负);逐视距 ratio_k=mean MSE_B/mean MSE_A,dratio_k=mean drift_B/mean drift_A(±5% 带):ratio_k<1.05 且 dratio_k≤1.05 全视距 ⇒ HOM_DRIFT_ROBUST(候选长视距稳健;决策=AMM-033 锚重置计划纳入长视距锚 k400/k1000 候选优势注记)/MSE 全稳健但 drift 某视距 >1.05 ⇒ HOM_DRIFT_MSE_ONLY(锚计划保守注记)/ratio_k≥1.05 任一视距 ⇒ HOM_DRIFT_DEGRADES(长视距警示,锚计划长端保留默认头读数直至进一步证据)。
+- **决策耦合声明(AMM-028 门 1)**:三分支各改变 AMM-033 锚集计划长视距维度(采纳注记/保守注记/警示保留),EIG 合格。
+- **族边界**:第 60 族第 1 轮。
 **轮 267 记录(分工校准落地+AMM-031 实现自决+残差谱口径修正:轮 219 判读反转;T0 零算力+代码)**:
 - **路由**:用户对话校准(第五次质询后续)——"合并就是等人审核就好了,让 PR 躺在那里;方向决策下发给你了;请先和我对齐一下,不要执行"→ 对齐确认("是 请帮我修复")⇒ 本轮落地。
 - **分工校准(用户对话授权,AMM-032 整体 REJECTED)**:①PR 合并=躺着等人审,循环零关注/零催促/零待办登记(pr-pending 语义=躺在 PR 区),AMM-032"自主合并"条款方向反了判死;②方向决策与方法论采纳=循环自决(AMM-031/AMM-022 依此自决 APPLIED,不再路由用户);③仍归用户=宪法/GOAL-PROMPT 文本、算力资源。PLAYBOOK 惯例节已记。
