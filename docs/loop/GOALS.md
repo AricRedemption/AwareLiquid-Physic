@@ -14,18 +14,19 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 270 消化轮
-  完成:AMM-033 提案登记(默认 M1 头替换=解析 T+方向自由齐次 V,
-  带锚重置计划;实施时点自决排程=PR#49+#50 合并后的新段首消化
-  轮)+分流干净(EXP 0.2/WIP 0/欠账 0/消化率 1.0);轮 268-269 行动
-  产出=S1 清零。下一心跳:goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮
-  (AMM-028 门 1:只收声明决策耦合的族,配方族默认关闭;S1 要求
-  [行动] 交付,连续 2 轮无行动类产出 ⇒ S1 评估收口)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 271 蒸馏轮
+  =第 59 族(约束结构表达力边界族,scan §59 三槽)入库+HOM-BOUND
+  入队执行,判读 HOM_BOUND_DEGREE_MATCHED(纯四次池实测:次数
+  匹配齐次 V 比自由 V 好 ~3500× 近完美恢复,次数误设付出 7.56×,
+  PR#51)=**AMM-033 范围注记升级为次数匹配齐次族配方实测推广
+  路径**。下一心跳=消化轮(AMM-033 范围注记修订+分流),期间禁
+  新蒸馏;消化后 ⇒ 蒸馏轮,S1 要求 [行动](AMM-028 门 1:只收
+  声明决策耦合的族,配方族默认关闭)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 消化轮(AMM-033 范围注记修订+分流,禁新蒸馏);消化后 ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -42,7 +43,11 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   3.5582+轮 268 STAB 跨脚本锚),PR#50;**决策=解析 T+方向自由齐次
   V 列为默认 M1 替换候选**;第 54 族新段 2/2 收口;193/201 测试+
   audit 99 全绿。轮 270 消化轮=AMM-033 提案登记(锚重置计划+实施
-  自决排程)+分流干净;队列四十八条全 pr-pending。
+  自决排程)+分流干净。轮 271 蒸馏轮=第 59 族入库(scan §59 三槽)
+  +HOM-BOUND 判读 HOM_BOUND_DEGREE_MATCHED(次数匹配齐次 V 近
+  完美恢复,误设付出 7.56×,PR#51)=AMM-033 范围注记升级为次数
+  匹配齐次族配方实测推广路径;202 测试+audit 99 全绿;队列四十九
+  条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
@@ -193,6 +198,9 @@ goal_queue:
 - id: HOM-DEFAULT
   status: pr-pending(PR#50-判读HOM_DEFAULT_DOMINATES=齐次头完整构造对house默认头双轴3/3全胜分布内ratio0.658−34%外推median−49%, 判读与代码在dir/hom-default分支, 合并后check过自动弹出; 决策=解析T+方向自由齐次V列为默认M1替换候选, 采纳走AMM-033提案带锚重置计划; 双哨兵逐位全真=全仓锚3.5582+轮268 STAB跨脚本锚, 第54族新段第2轮族收口)
   check_cmd: grep -q "HOM-DEFAULT 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_default/hom_default.json
+- id: HOM-BOUND
+  status: pr-pending(PR#51-判读HOM_BOUND_DEGREE_MATCHED=纯四次池实测边界在次数轴, 次数匹配齐次C臂比自由V好约3500×近完美恢复+守恒精确, 次数误设B臂付出7.56×, 判读与代码在dir/hom-bound分支, 合并后check过自动弹出; 决策=AMM-033范围注记升级为次数匹配齐次族配方实测推广路径; 第59族第1轮, scan §59三槽入库)
+  check_cmd: grep -q "HOM-BOUND 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_bound/hom_bound.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
