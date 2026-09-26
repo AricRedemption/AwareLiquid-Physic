@@ -3901,6 +3901,49 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
   设计:spread>10% ⇒ 增补精度变体轴,≤10% ⇒ 池组成轴足够)。
 - 【判定】有 [行动] ⇒ S1 重置;蒸馏第 61 次达标(坐标+行动级)。
 
+## 66. 经验蒸馏 62(轮 411,2026-09-27,QUEUE-EMPTY 蒸馏轮):长视距滚出稳定性度量/代理模型对照族([坐标] 轮,S1 累计 1/2)
+
+> 选族(轮 114 反向启发式):自家钩子=N1 头条指标辩护(长视距滚出
+> 误差+能量漂移双读数,§4/§5)⇒ 检索"长视距滚出稳定性度量"社区
+> 惯例。决策耦合(AMM-028 门 1)审计=**无 [行动]**:无近期决策
+> 改变(AMM-033 证据已闭合,N1 指标辩护不因外部惯例改变),本族
+> 仅为 N1 Related Work 外部佐证素材。撞车检查=§21/§23/§64=架构/
+> 发现族,§65=评估方差源轴,本族=长视距稳定性比较惯例,边界清晰。
+
+### 66.1 积分器式更新=稳定滚出的比较研究(Biswas 2026) [坐标]
+
+- 【出处】R. Biswas, "A comparative study of accuracy and rollout
+  stability of temporal surrogate models",arXiv:2605.24868,2026
+  (单作者;comments=投稿期刊中,venue 未定=如实注记,预印本未经
+  同行评审;题录当场核验)。
+- 【内容】共享训练协议下比较多种神经代理架构于混沌系统(双摆/
+  Kuramoto-Sivashinsky/Kolmogorov 流):**积分器式更新的模型偏差与
+  扰动放大更低,长视距滚出更稳定**——与本仓核心论点(哈密顿头
+  硬约束辛滚出)独立同向。
+- 【适用条件】N1 Related Work/答辩池:外部比较研究佐证"结构保持
+  ⇒滚出稳定"非孤例;AMM-033 答辩引用池。
+- 【验证状态】题录检索级核验(摘要页);全文未读。
+
+### 66.2 守恒约束下的学习型时间传播器(Shah & Cangi 2026) [坐标]
+
+- 【出处】K. Shah, A. Cangi, "Machine learning time propagators for
+  time-dependent density functional theory simulations",Machine
+  Learning: Science and Technology,Vol.7 No.3,2026(期刊已发表
+  2026-05-19;题录官网级核验)。
+- 【内容】自回归 FNO 学习电子密度时间传播器(物理守恒约束训练),
+  比粗数值求解器快 ~8×,泛化到更细网格与更长滚出。
+- 【适用条件】分工注记=他们学传播器(替代积分器),本仓硬约束辛
+  滚出(构造保证)——谱系上属"学习型传播器"对照面;N1 Related
+  Work 候选引用。
+- 【验证状态】题录官网级核验;全文未读。
+
+### 蒸馏结论
+
+- 【坐标】×2 入库(§66.1-66.2,N1/AMM-033 答辩素材,无 T1 新
+  方向故无 [行动];门 1 审计=无近期决策改变)。
+- 【判定】无 [行动] ⇒ S1 累计 1/2(v7 语义=模式切换信号非停止);
+  蒸馏第 62 次达标(坐标级)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
@@ -3963,3 +4006,5 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - [Bouthillier et al., Accounting for Variance in ML Benchmarks (MLSys 2021, arXiv:2103.03098)](https://arxiv.org/abs/2103.03098)——见 §65.1
 - [Yuan et al., Numerical Sources of Nondeterminism in LLM Inference (NeurIPS 2025 Oral)](https://neurips.cc/virtual/2025/poster/118169)——见 §65.2
 - [Nagarajan et al., Deterministic Implementations for Reproducibility in Deep RL (arXiv:1711.06780, ICLR 2018 ReproML workshop)](https://arxiv.org/abs/1711.06780)——见 §65.3
+- [Biswas, Accuracy and rollout stability of temporal surrogate models (arXiv:2605.24868, 2026 preprint)](https://arxiv.org/abs/2605.24868)——见 §66.1
+- [Shah & Cangi, ML time propagators for TDDFT (MLST 7(3) 2026)](https://iopscience.iop.org/article/10.1088/2632-2153/ae68d4/meta)——见 §66.2
