@@ -43,6 +43,14 @@ current_action: >-
   AMM-033 ⑤轴设计);S1 重置([行动]);蒸馏第 61 次达标(坐标+
   行动级)。下一心跳:goal_check ⇒ NOT-Achieved(ANCHOR-PRECISION)
   ⇒ 探针执行轮(dir/anchor-precision,PR 提交即终点)。
+  轮 406 探针执行轮(NOT-Achieved 路由,第 65 族第 1 轮):probe_run
+  T1 5 实跑(≈4min)⇒ 判读 **PRECISION_ANCHOR_ROBUST**(12 spread
+  全部 ≤2.29e-6,门 0.10 低约四个量级;双哨兵逐位真 A=3.5582/
+  B=2.0024)⇒ AMM-033 锚协议⑤维持现文本(不增补精度变体轴);
+  scan §65 文献 [坐标] 级佐证+适用条件边界如实注记;PR#57 在途
+  (dir/anchor-precision,堆叠自 dir/pool-bits 先例);PLAYBOOK 回写
+  测试环境依赖坑(仓外 tmp 隔离);下一心跳:goal_check ⇒ 消化轮
+  (轮 405 预注册闭环回填+分流)禁新蒸馏。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -158,6 +166,10 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   (评估方差/数值非确定性锚稳健族,scan §65 三槽三题录当场核验)
   +ANCHOR-PRECISION 预注册入队尾(精度轴 spread,AMM-033 ⑤轴设计
   决策耦合,判负门=POOL-BITS 1.10 同口径);S1 重置;队列 54→55。
+  轮 406:探针执行轮=ANCHOR-PRECISION 判读 PRECISION_ANCHOR_ROBUST
+  (精度轴稳健 ≤2.29e-6,AMM-033 ⑤维持现文本,PR#57 在途)+
+  PLAYBOOK 测试环境依赖坑;190+5 测试+audit 107+gate --check-round
+  406+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
@@ -327,7 +339,7 @@ goal_queue:
   status: pr-pending(PR#56-判读SPEC3_ORDER_TIED=修正截止下双臂low_band约0.998成分差0.02pp, r246谱增量系截止伪影且轮267排序对冲亦被推翻, 判读与代码在dir/residual-spec-3分支, 合并后check过自动弹出; 决策=AMM-031降级reference-only修正house值落账闭轮267待办, 标量双锚逐位真, RESIDUAL族口径修正闭账)
   check_cmd: grep -q "SPEC3 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_3/residual_spec_3.json
 - id: ANCHOR-PRECISION
-  status: queued(轮 405 蒸馏派生 T1 新方向=锚读数精度轴稳健性 fp32 现行 vs fp64 重算 spread, 预注册判负标准先行=PRD §19 轮 405(每锚读数 precision spread=|r_fp32−r_fp64|/|r_fp64| 取最大; >0.10 ⇒ AMM-033 锚协议⑤增补精度变体轴, ≤0.10 ⇒ 池组成 4 变体轴足够⑤维持现文本; 阈值=POOL-BITS 1.10 门同口径); 决策耦合=AMM-033 锚协议⑤轴设计; 文献佐证=scan §65(Bouthillier MLSys2021/Yuan NeurIPS2025 Oral/Nagarajan 2018); T1 本机 CPU ≤30min 权重固定单份无 seed 轴 meta 带 exec_tier; 下轮执行=dir/anchor-precision 分支, PR 提交即终点)
+  status: pr-pending(PR#57-判读PRECISION_ANCHOR_ROBUST=锚读数精度轴稳健, 12 spread全<=2.29e-6低于门0.10四个量级+双哨兵逐位真A=3.5582/B=2.0024, 判读与代码在dir/anchor-precision分支, 合并后check过自动弹出; 决策=AMM-033锚协议⑤维持现文本不增补精度变体轴, scan §65文献[坐标]级佐证)
   check_cmd: grep -q "ANCHOR-PRECISION 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/anchor_precision/anchor_precision.json
 ```
 
