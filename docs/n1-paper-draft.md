@@ -260,6 +260,50 @@ arm comparison (prefix vs all2all) is the in-family ablation axis.
 seed-ensembles are mini deep-ensembles, not posterior coverage. Claims
 capped at L2 (training-variance) tier.
 
+**Training-regime audit ladder.** A pre-registered single-axis ladder
+audits the default training configuration, one axis per probe, each with
+a mechanical gate (spread ≥ 1.05 for resolvability ladders; ratio gates
+for A/B probes); every number below is read off the result artifact
+[ B, screening tier — 1-seed unless marked 3-seed; unlocks routing and
+screening only, no terminal claims ]:
+
+| Axis | Verdict | Artifact-verified reading |
+|---|---|---|
+| gradient noise scale | GNS_RESOLVED_TREND | B_simple 11.9 → 83.1 (peak at 1k steps), max/min ≈ 7.0; noise-dominated regime at batch 64 |
+| sharpness | SHARP_BELOW | all λ_max·lr < 1.5 (classical stable regime throughout) |
+| window repetition | REP_UNRESOLVABLE | rollout metric \|diff\| 1.6% < 5% gate (observation-caliber caveat) |
+| dt curriculum | CURRICULUM_BENEFICIAL | curriculum better by 33.8% under constrained budget |
+| curriculum order | ORDER_MATTERS | positive 0.42 vs reverse 5.91 (reverse 93% worse) |
+| length extrapolation | LEN_ROBUST | rel. comp 0.88 beyond the training window; robust to 8–10× (0.78 extended) |
+| pool width | WIDTH_COST | wide pool same-distribution penalty ratio 37.5 (caliber split; cross-pool numbers not comparable) |
+| optimizer | OPT_SGD_BETTER | SGD-momentum generalizes 8.6% better; Adam's training advantage does not transfer |
+| weight decay | WD_RESOLVED | interior optimum wd = 1e-4 (spread 1.18; default 0 not optimal) |
+| depth | DEPTH_RESOLVED | monotonic to depth 4 (spread 1.94; default 2 not optimal) |
+| depth × width | MATRIX_RESOLVED | main effects additive in log space (interaction ln 0.011) |
+| training span | KSPAN_RESOLVED | interior best k_train = 4 (spread 1.9; default 8 not optimal) |
+| scale count | NSCALES_RESOLVED | interior best n_scales = 2 (spread 1.56; default 4 not optimal) |
+| lr schedule shape | LRDECAY_RESOLVED | interior best decay 0.999 (spread 1.18) |
+| batch × lr scaling | SCALING_BROKEN | both pre-registered rules broken (linear 33%, sqrt 21%) |
+| tail averaging | SWA_HARMFUL | tail average 8.0% worse (cross-basin averaging reading) |
+| lr warmup | WARMUP_3S_BENEFICIAL | 3-seed ratio 0.856 but 1/3 seed consistency (seed-0-driven; the 44.2% single-seed reading downgraded to directional) |
+| amplitude extrapolation | AMPEX_DEGRADES | rel. comp 4.08 ≥ 3 gate (linear invariance not inherited) |
+| observation window | DEC_TRAIN_HARMFUL | t8 training at fixed-t24 eval 5.6× worse, 0/3 (evaluation-caliber artifact, dissolved) |
+| context capacity | CTX2_REVERSED | ctx_dim = 1 ratio 1.11 at 3 seeds (reversal); axis stays at default 8 |
+| recipe composition | RECIPE_SYNERGIC | single-axis optima compose to −10.7%, 3/3 consistent |
+| trajectory length | GENLEN_RESOLVED | 7th recipe-axis candidate (2.96 → 2.70; per-seed direction mixed, seed-0-driven) |
+
+The ladder's decision logic is the point, not any single row: at least
+three axes judge the default configuration non-optimal, which under the
+value-exit rules forces a composition check rather than per-axis backfill
+— the composition probe returned −10.7% (3/3), and the head-structure
+axis (Sec. 6) then closed the question with an either-or result. Two
+honest notes: the artifact of the curriculum-order probe carries the
+mechanical branch label CURRICULUM_HARMFUL for the same data the
+judgment named ORDER_MATTERS (reverse arm 93% worse — two descriptions,
+one dataset); and warmup's 3-seed confirmation is consistency-1/3, so
+its recipe candidacy carries a confidence annotation rather than a clean
+win.
+
 ## 6 Mechanism Analysis
 
 **Inference gap (M1).** Why does the amortized context underuse the
@@ -496,4 +540,9 @@ draft coverage) is now part of the ladder's N1 line. Updated round 287:
 training-grid resolution clause added to Sec. 4 item 4 (SPECTRAL-DT,
 PRD §19 round 162, PR#17 pending merge; 2410% interaction excess
 re-verified against the artifact) — the write-in promised by that
-round's verdict row.*
+round's verdict row. Updated round 288: training-regime audit ladder
+added to Sec. 5 (22 axes, every reading extracted from its result
+artifact; label divergence on the curriculum-order probe recorded
+in-table); the ladder is the evidence base for the forced-composition
+rule (≥3 axes judge the default non-optimal → composition probe
+−10.7% → either-or head result).*
