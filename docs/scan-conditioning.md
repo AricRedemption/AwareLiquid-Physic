@@ -3944,6 +3944,47 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - 【判定】无 [行动] ⇒ S1 累计 1/2(v7 语义=模式切换信号非停止);
   蒸馏第 62 次达标(坐标级)。
 
+## 67. 经验蒸馏 63(轮 424,2026-09-27,用户指令研究轮):代理自进化架构/上下文工程社区实践族([坐标] 轮)
+
+> 选族(用户指令"搜索社区颗粒度要细"):治理体系自身的两条主线=Goal
+> prompt 瘦身与 RSI 架构定位。决策耦合=AMM-037(prompt 瘦身)依据与
+> RSI 三缺口评估;六路检索,题录当场核验。
+
+### 67.1 提示词短小准则与渐进披露 [坐标]
+
+- 【出处】① Anthropic,"Best practices for Claude Code"(官方文档:
+  CLAUDE.md "keep it short and human-readable",逐行逐轮吃上下文);
+  ② Manus,"Context Engineering for AI Agents: Lessons from Building
+  Manus"(manus.im 博客,2025-07:稳定前缀保 KV-cache/追加式上下文/
+  目标复述防 lost-in-middle/失败留上下文/文件系统为最终上下文);
+  ③ Agent Skills 渐进披露三级模式(元数据指针在提示词,正文按需加载)。
+- 【内容】社区共识=提示词是稀缺资源,"塞满"是可测反模式(context
+  rot/注意力稀释);正解=指针+铁律,细节按需读盘。
+- 【适用条件】AMM-037 v9.0 瘦身的直接依据;我们 GOALS.md 程序计数器
+  +逐轮 goal_check 输出=目标复述机制的既有实现(与 Manus 建议同构)。
+- 【验证状态】官方文档/一手博客核验;社区二 sources 检索级。
+
+### 67.2 自进化代理架构谱系(DGM/Voyager/AlphaEvolve/Reflexion) [坐标]
+
+- 【出处】① Darwin Gödel Machine(arXiv:2505.22954,2025,Sakana/UBC/
+  Vector:自改代理代码,SWE-bench 20%→50%,经验验证无形式证明,
+  archive 维护成本被 2026 文献点名);② Voyager(arXiv:2305.16291,
+  技能库=经验证代码技能累积);③ Reflexion(arXiv:2303.11366,失败后
+  反思=测试时自改进基线);④ AlphaEvolve(DeepMind 2025,进化搜索改
+  外部算法)。
+- 【内容】本仓对照=治理半环≈DGM 经验式自改(AMENDMENTS=archive,
+  36 条,维护成本批评与用户"大道至简"质询同源)+PLAYBOOK 坑条=
+  手工 Reflexion+rsi_night=sleep-time compute 同构(Letta);缺口=
+  反思与修正仍全人工驱动。
+- 【适用条件】RSI 三缺口评估(合并回路/回灌闭环/K 终判机械化)的
+  文献定位;AMM-037 后续提案的依据池。
+- 【验证状态】arXiv ID 检索级核验;全文未读。
+
+### 蒸馏结论
+
+- 【坐标】×2 入库(§67.1-67.2);无 T1 新方向(治理研究非探针向),
+  门 1 决策耦合=AMM-037 依据+RSI 迭代提案池。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
@@ -4008,3 +4049,8 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - [Nagarajan et al., Deterministic Implementations for Reproducibility in Deep RL (arXiv:1711.06780, ICLR 2018 ReproML workshop)](https://arxiv.org/abs/1711.06780)——见 §65.3
 - [Biswas, Accuracy and rollout stability of temporal surrogate models (arXiv:2605.24868, 2026 preprint)](https://arxiv.org/abs/2605.24868)——见 §66.1
 - [Shah & Cangi, ML time propagators for TDDFT (MLST 7(3) 2026)](https://iopscience.iop.org/article/10.1088/2632-2153/ae68d4/meta)——见 §66.2
+- [Anthropic, Best practices for Claude Code (official docs)](https://code.claude.com/docs/en/best-practices)——见 §67.1
+- [Manus, Context Engineering for AI Agents (2025-07 blog)](https://manus.im)——见 §67.1
+- [Darwin Gödel Machine (arXiv:2505.22954, 2025)](https://arxiv.org/abs/2505.22954)——见 §67.2
+- [Voyager (arXiv:2305.16291, 2023)](https://arxiv.org/abs/2305.16291)——见 §67.2
+- [Reflexion (arXiv:2303.11366, 2023)](https://arxiv.org/abs/2303.11366)——见 §67.2
