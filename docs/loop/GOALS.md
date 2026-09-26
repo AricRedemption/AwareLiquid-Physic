@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: IDLE               # RUNNING | BLOCKED-HUMAN | IDLE(轮 282 收口:S1 2/2 武装+池空+人决区三问全过=真收尾,见 updated)
+state: RUNNING            # RUNNING | BLOCKED-HUMAN | IDLE(轮 283 用户重入恢复:收口复盘=停车场含自主项未审计,解停重启,见 updated)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -234,6 +234,9 @@ goal_queue:
 - id: RECIPE-HEAD
   status: pr-pending(PR#55-判读COMPOSE_ABSORBED=次可加B0候选头单独1.949全场最优<B1组合2.241<A1配方2.645<A0默认2.961, 三哨兵逐位全真A0/A1轮252/B0轮269, 判读与代码在dir/recipe-head分支, 合并后check过自动弹出; 决策=either-or采纳选候选头单独配方与头不叠加回灌PR scope注记, 组合确认轮回灌门2精神)
   check_cmd: grep -q "RECIPE-HEAD 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_head/recipe_head.json
+- id: SPEC3
+  status: actionable(轮283停车场解停=轮267登记项, 残差谱修正口径重测: 镜像r246构造读house修正版low_band键, 判读三分支TIED/REPRODUCES/FLIPS预注册PRD §19轮283, 标量双锚逐位)
+  check_cmd: grep -q "SPEC3 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_3/residual_spec_3.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
