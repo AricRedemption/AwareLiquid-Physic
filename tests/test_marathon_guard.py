@@ -6,6 +6,7 @@
 锁龄 ≥1800s 且锁创建后零提交 ⇒ STALE-HINT;退出码语义不变。
 """
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -17,11 +18,6 @@ LOCK = os.path.join(ROOT, ".loop-lock")
 
 def _run():
     return subprocess.run([GUARD], capture_output=True, text=True).returncode
-
-
-def _run_out():
-    p = subprocess.run([GUARD], capture_output=True, text=True)
-    return p.returncode, p.stdout
 
 
 def test_no_lock_allows_start():
@@ -50,29 +46,37 @@ def test_stale_lock_allows_start():
         os.remove(LOCK)
 
 
-def test_busy_prints_diagnostics_without_stale_hint():
-    # 刚刷新的锁(<30min):诊断行必出,STALE-HINT 不出(轮 404)
+def test_busy_prints_diagnostics_without_stale_hint(tmp_path):
+    # 刚刷新的锁(<30min):诊断行必出,STALE-HINT 不出(轮 405 修正:
+    # 仓外临时目录运行,不碰真仓锁,git 失败⇒commit epoch=0)
+    scripts = tmp_path / "scripts"
+    scripts.mkdir()
+    guard = scripts / "marathon_guard"
+    shutil.copy2(GUARD, guard)  # copy2 保留可执行位
+    lock = tmp_path / ".loop-lock"
     now = int(time.time())
-    with open(LOCK, "w") as f:
-        f.write(str(now))
-    os.utime(LOCK, (now, now))
-    code, out = _run_out()
-    assert code == 1
-    assert "锁 mtime:" in out
-    assert "最后本地提交:" in out
-    assert "STALE-HINT" not in out
-    os.remove(LOCK)
+    lock.write_text(str(now))
+    os.utime(lock, (now, now))
+    p = subprocess.run([str(guard)], capture_output=True, text=True)
+    assert p.returncode == 1
+    assert "锁 mtime:" in p.stdout
+    assert "最后本地提交:" in p.stdout
+    assert "STALE-HINT" not in p.stdout
 
 
-def test_busy_dead_lock_residue_emits_stale_hint():
-    # 锁龄 35min(≥1800s 且 <6000s)+ 锁创建时间晚于最后本地提交
-    # (真仓最后提交早于现在,天然满足)⇒ STALE-HINT 必出,退出码仍 1
+def test_busy_dead_lock_residue_emits_stale_hint(tmp_path):
+    # 锁龄 35min(≥1800s 且 <6000s);仓外运行⇒git 取不到提交⇒
+    # commit epoch 0 ≤ 锁 epoch ⇒ "锁创建后零提交"条件确定性成立
+    # ⇒ STALE-HINT 必出,退出码仍 1(轮 405 修正:不依赖真仓提交时间)
+    scripts = tmp_path / "scripts"
+    scripts.mkdir()
+    guard = scripts / "marathon_guard"
+    shutil.copy2(GUARD, guard)  # copy2 保留可执行位
+    lock = tmp_path / ".loop-lock"
     lock_ts = int(time.time()) - 35 * 60
-    with open(LOCK, "w") as f:
-        f.write(str(lock_ts))
-    os.utime(LOCK, (lock_ts, lock_ts))
-    code, out = _run_out()
-    assert code == 1
-    assert "STALE-HINT" in out
-    assert "死锁残留" in out
-    os.remove(LOCK)
+    lock.write_text(str(lock_ts))
+    os.utime(lock, (lock_ts, lock_ts))
+    p = subprocess.run([str(guard)], capture_output=True, text=True)
+    assert p.returncode == 1
+    assert "STALE-HINT" in p.stdout
+    assert "死锁残留" in p.stdout

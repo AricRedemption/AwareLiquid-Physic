@@ -32,6 +32,17 @@ current_action: >-
   变,简报现行)。⇒ 本轮为产出心跳,挂起计数清零。190 测试+
   audit 107+gate --check-round 404+queue audit 54=54 四门全绿
   显式退出码。下一心跳:goal_check ⇒ 阶梯(蒸馏候选/硬化余量)。
+  轮 405 蒸馏轮(QUEUE-EMPTY,第 65 族=评估方差/数值非确定性锚稳健
+  族,坐标+行动轮):选族=POOL-BITS ANCHOR_BOTH_FRAGILE(轮 275)+
+  AMM-033 锚计划⑤ ⇒ 检索评估方差/数值非确定性文献面,三题录当场
+  核验入库 scan §65(Bouthillier MLSys 2021/Yuan et al. NeurIPS
+  2025 Oral=POOL-BITS 独立外部佐证/Nagarajan 2018),撞车检查零
+  重叠;派生 T1 新方向 ANCHOR-PRECISION 入队尾(锚读数 fp32 vs
+  fp64 精度轴 spread,预注册判负先行=PRD §19 轮 405,>0.10 ⇒
+  AMM-033 协议⑤增补精度变体轴/≤0.10 ⇒ 池组成轴足够;决策耦合=
+  AMM-033 ⑤轴设计);S1 重置([行动]);蒸馏第 61 次达标(坐标+
+  行动级)。下一心跳:goal_check ⇒ NOT-Achieved(ANCHOR-PRECISION)
+  ⇒ 探针执行轮(dir/anchor-precision,PR 提交即终点)。
 
 blocked_on: >-
   1) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)待用户指令;
@@ -143,7 +154,10 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   guard 误报 BUSY,人工证据链接管如实注记)→阶梯④工程硬化=
   guard BUSY 诊断输出+STALE-HINT(退出码语义不变)+PLAYBOOK 接
   管协议条+guard 测试 3→5;190 测试+audit 107+gate --check-round
-  404+queue audit 四门全绿显式退出码。
+  404+queue audit 四门全绿显式退出码。轮 405:蒸馏轮=第 65 族入库
+  (评估方差/数值非确定性锚稳健族,scan §65 三槽三题录当场核验)
+  +ANCHOR-PRECISION 预注册入队尾(精度轴 spread,AMM-033 ⑤轴设计
+  决策耦合,判负门=POOL-BITS 1.10 同口径);S1 重置;队列 54→55。
 
 
 ## goal_queue(顶部为当前目标)
@@ -312,6 +326,9 @@ goal_queue:
 - id: SPEC3
   status: pr-pending(PR#56-判读SPEC3_ORDER_TIED=修正截止下双臂low_band约0.998成分差0.02pp, r246谱增量系截止伪影且轮267排序对冲亦被推翻, 判读与代码在dir/residual-spec-3分支, 合并后check过自动弹出; 决策=AMM-031降级reference-only修正house值落账闭轮267待办, 标量双锚逐位真, RESIDUAL族口径修正闭账)
   check_cmd: grep -q "SPEC3 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_3/residual_spec_3.json
+- id: ANCHOR-PRECISION
+  status: queued(轮 405 蒸馏派生 T1 新方向=锚读数精度轴稳健性 fp32 现行 vs fp64 重算 spread, 预注册判负标准先行=PRD §19 轮 405(每锚读数 precision spread=|r_fp32−r_fp64|/|r_fp64| 取最大; >0.10 ⇒ AMM-033 锚协议⑤增补精度变体轴, ≤0.10 ⇒ 池组成 4 变体轴足够⑤维持现文本; 阈值=POOL-BITS 1.10 门同口径); 决策耦合=AMM-033 锚协议⑤轴设计; 文献佐证=scan §65(Bouthillier MLSys2021/Yuan NeurIPS2025 Oral/Nagarajan 2018); T1 本机 CPU ≤30min 权重固定单份无 seed 轴 meta 带 exec_tier; 下轮执行=dir/anchor-precision 分支, PR 提交即终点)
+  check_cmd: grep -q "ANCHOR-PRECISION 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/anchor_precision/anchor_precision.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。

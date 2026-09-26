@@ -3840,6 +3840,67 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - 【判定】无 [行动]:S1 累计 1/2(v7 语义=模式切换信号非停止,
   阶梯 ③④⑤ 均有候选)。蒸馏第 60 次达标(坐标级)。
 
+## 65. 经验蒸馏 61(轮 405,2026-09-27,QUEUE-EMPTY 蒸馏轮):评估方差/数值非确定性锚稳健族(坐标+行动轮)
+
+> 选族(轮 114 反向启发式):自家钩子=POOL-BITS ANCHOR_BOTH_FRAGILE
+> (轮 275:比特级池扰动下双头锚 spread 中位 1.86×/1.29× 双过 1.10 门)
+> +AMM-033 锚重置计划⑤多变体协议 ⇒ 检索"评估方差/数值非确定性"
+> 文献面。决策耦合(AMM-028 门 1):精度轴是否须入锚协议⑤=真实待决
+> 事项(派生 T1 探针 ANCHOR-PRECISION 入队尾,[行动]);文献坐标同时
+> 加固 N1 §5 审计梯的评估方差叙事。撞车检查=§58.3 rliable/IQM=
+> 聚合报告口径(非锚脆弱轴),§30.2 种子敏感=训练随机性轴(本族=
+> 实现层数值轴),零重叠。
+
+### 65.1 评估方差分解(Bouthillier et al. 2021) [坐标]
+
+- 【出处】X. Bouthillier, P. Delaunay, M. Bronzi, A. Trofimov,
+  B. Nichyporuk, J. Szeto, et al., "Accounting for Variance in
+  Machine Learning Benchmarks", Proceedings of Machine Learning and
+  Systems (MLSys) 2021,arXiv:2103.03098(题录当场核验:arXiv ID+
+  venue+作者群 Mila/Element AI)。
+- 【内容】系统分解 ML 基准比较的方差源:数据顺序/初始化等种子源
+  贡献的方差常大于算法/超参间差异;单点比较不可靠,应跨源报告。
+- 【适用条件】AMM-033 锚计划⑤(每锚多变体 spread 注记)的方法论
+  外部先例;N1 §5 训练体制审计梯的评估方差叙事引用池。
+- 【验证状态】题录检索级核验;全文未读=引用等级限 [坐标]。
+
+### 65.2 数值非确定性→评估读数脆弱(Yuan et al. NeurIPS 2025) [坐标]
+
+- 【出处】J. Yuan, H. Li, X. Ding, W. Xie, Y.-J. Li, W. Zhao,
+  K. Wan, J. Shi, X. Hu, Z. Liu, "Understanding and Mitigating
+  Numerical Sources of Nondeterminism in LLM Inference",
+  NeurIPS 2025(Oral Poster;题录官网级核验,标题/作者/venue 取自
+  neurips.cc/virtual/2025/poster/118169)。
+- 【内容】硬件/GPU 数/batch size/精度选择致非确定输出(推理模型
+  精度摆动可达 ~9%),根因=浮点非结合性;提出 LayerCast 缓解。
+- 【适用条件】POOL-BITS ANCHOR_BOTH_FRAGILE 的独立外部佐证——
+  比特级数值扰动翻转评估读数非孤例,是已被顶会记录的普遍现象;
+  ANCHOR-PRECISION 探针(精度轴 fp32/fp64)的动机文献。
+- 【验证状态】题录官网级核验;全文未读。
+
+### 65.3 实现层非确定性逐源控制先例(Nagarajan et al. 2018) [坐标]
+
+- 【出处】P. Nagarajan, G. Warnell, P. Stone, "Deterministic
+  Implementations for Reproducibility in Deep Reinforcement
+  Learning",arXiv:1711.06780(ICLR 2018 Reproducibility in ML
+  workshop;OpenReview 版本题名 "The Impact of Nondeterminism on
+  Reproducibility in Deep Reinforcement Learning",forum Hke5GBZAW
+  ——双题名如实注记)。
+- 【内容】识别并控制 deep RL 训练的全部非确定性源;单一源(如随机
+  初始化)即可显著改变性能读数。
+- 【适用条件】锚协议"逐源审计"先例;与 §30.2 分工=本条管实现层
+  非确定性,§30.2 管训练随机性。
+- 【验证状态】题录检索级核验(双源);全文未读。
+
+### 蒸馏结论
+
+- 【坐标】×3 入库(§65.1-65.3)+【行动】×1:派生 T1 新方向
+  **ANCHOR-PRECISION** 入队尾(锚读数精度轴 spread,fp32 现行 vs
+  fp64 重算;预注册判负标准先于执行落盘=PRD §19 轮 405 记录;
+  判定门沿用 POOL-BITS 1.10 口径;决策耦合=AMM-033 锚协议⑤轴
+  设计:spread>10% ⇒ 增补精度变体轴,≤10% ⇒ 池组成轴足够)。
+- 【判定】有 [行动] ⇒ S1 重置;蒸馏第 61 次达标(坐标+行动级)。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
@@ -3899,3 +3960,6 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - [Solver-in-the-Loop (Um et al., NeurIPS 2020)](https://proceedings.neurips.cc)——见 §22.1
 - [Physics-based Deep Learning (免费教材)](https://physicsbaseddeeplearning.org)——见 §22.1
 - [Symplectic Adjoint Method (Matsubara et al.)](https://arxiv.org)——见 §22.2
+- [Bouthillier et al., Accounting for Variance in ML Benchmarks (MLSys 2021, arXiv:2103.03098)](https://arxiv.org/abs/2103.03098)——见 §65.1
+- [Yuan et al., Numerical Sources of Nondeterminism in LLM Inference (NeurIPS 2025 Oral)](https://neurips.cc/virtual/2025/poster/118169)——见 §65.2
+- [Nagarajan et al., Deterministic Implementations for Reproducibility in Deep RL (arXiv:1711.06780, ICLR 2018 ReproML workshop)](https://arxiv.org/abs/1711.06780)——见 §65.3
