@@ -21,9 +21,9 @@ CONF=docs/loop/agent-cmd.conf
 if [[ -f .loop-lock ]] && [[ -n $(find .loop-lock -mmin -100 2>/dev/null) ]]; then
   exit 0
 fi
-# 停机条件:mode=OFF 或 state=IDLE/BLOCKED-HUMAN ⇒ 不点火(用户可随时停)
+# 停机条件:mode=OFF 或 state=PARKED/BLOCKED-HUMAN ⇒ 不点火(AMM-034 v7,轮 295 对齐;原 IDLE 已废除)
 grep -q "^mode: ON" docs/loop/GOALS.md || { echo "$(date '+%F %T') mode=OFF,不点火" >> $LOG; exit 0; }
-grep -qE "^state: (IDLE|BLOCKED-HUMAN)" docs/loop/GOALS.md && { echo "$(date '+%F %T') 已收口/等人,不点火" >> $LOG; exit 0; }
+grep -qE "^state: (PARKED|BLOCKED-HUMAN)" docs/loop/GOALS.md && { echo "$(date '+%F %T') 真停滞收束/等人,不点火" >> $LOG; exit 0; }
 
 CMD=$(head -1 "$CONF")
 PROMPT=$(sed -n '/^```text$/,/^```$/p' docs/loop/GOAL-PROMPT.md | sed '1d;$d')

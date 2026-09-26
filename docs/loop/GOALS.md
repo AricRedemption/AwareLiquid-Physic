@@ -20,8 +20,8 @@ current_action: >-
   逐文件冲突解法表(GOALS/判单取 ours 已核验、PLAYBOOK 联合、
   PRD 双侧保留、代码取 theirs),族分组八速览,逐 PR 详情唯一源
   =GOALS 队列;AMM-033 实施=合并后新段首消化轮。停车场审计无
-  变化。S1 重置。下一心跳:goal_check ⇒ 阶梯(工程硬化可续/
-  蒸馏轮亦可)。
+  变化。S1 重置。下一心跳:goal_check ⇒ 阶梯(轮 295 状态机
+  sweep 已扫尽;蒸馏轮为下一候选)。
 
 blocked_on: >-
   1) PR 合入=用户线下(操作手册=docs/loop/PR-BRIEFING.md);
@@ -110,7 +110,9 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   --check-round 293+queue audit 四门全绿显式退出码。轮 294:合并债
   治理 PR-BRIEFING.md 落地(56 PR 盘点+冲突解法表+族分组);187
   测试+audit 107+gate --check-round 294+queue audit 四门全绿显式
-  退出码。
+  退出码。轮 295:状态机读取方 sweep 扫尽(ignite.sh+headless_loop.sh
+  两沉睡脚本对齐 v7,PARKED 误点火风险消除);187 测试+audit 107+
+  gate --check-round 295+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)

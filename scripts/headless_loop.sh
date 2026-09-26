@@ -4,7 +4,7 @@
 # 模式:wake fresh + state file(aicell/极简循环派)。每个心跳检查
 # docs/loop/GOALS.md 的 state:RUNNING 则以 headless 方式重启一轮
 # (新会话,按 AGENTS.md 自动加载的规程继续 current_action,28 分钟盒),
-# 完成后冷却;IDLE/BLOCKED-HUMAN 退避;窗口外(23:00–09:00 之外)睡眠。
+# 完成后冷却;PARKED/BLOCKED-HUMAN 退避(AMM-034 v7,轮 295 对齐);窗口外(23:00–09:00 之外)睡眠。
 #
 # 启用(需先停用 cron 心跳避免双跑,见 AMM-002):
 #   ZCODE_CMD="<headless 调用,如: zcode -p>" \
@@ -41,7 +41,7 @@ while true; do
       echo "[$(date '+%F %T')] round exit=$?; cooldown 120s"
       sleep 120
       ;;
-    IDLE|BLOCKED-HUMAN)
+    PARKED|BLOCKED-HUMAN)
       echo "[$(date '+%F %T')] state=$st, backoff 1800s"
       sleep 1800
       ;;
