@@ -208,3 +208,40 @@ def test_all_pr_pending_falls_through_to_gauge(tmp_path):
     r = run(tmp_path)
     assert r.returncode == 2 and "QUEUE-EMPTY" in r.stdout
     assert r.stdout.count("[skip]") == 2
+
+
+# --- 轮 292 工程硬化:--audit 队列完整性审计(数数锚机械化) ---
+
+def run_audit(tmp):
+    return subprocess.run([str(tmp / "scripts" / "goal_check"), "--audit"],
+                          capture_output=True, text=True, cwd=tmp)
+
+
+def test_audit_healthy_queue_passes(tmp_path):
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_PENDING)
+    r = run_audit(tmp_path)
+    assert r.returncode == 0 and "AUDIT OK" in r.stdout
+    assert "尾条 P2" in r.stdout and "pr-pending 2" in r.stdout
+
+
+def test_audit_flags_swallowed_check_cmd(tmp_path):
+    """轮 136/138/142 吞行坑:check_cmd 整行被删 ⇒ 数数锚不平衡+缺字段,
+    手工数数锚机械化后由门禁抓,不再依赖每轮手工 grep。"""
+    swallowed = QUEUE_ALL_PENDING.replace('    check_cmd: "false"\n', "")
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, swallowed)
+    r = run_audit(tmp_path)
+    assert r.returncode == 1 and "AUDIT FAIL" in r.stdout
+    assert "数数锚不平衡" in r.stdout and "check_cmd 缺失/空" in r.stdout
+
+
+def test_audit_flags_folded_scalar(tmp_path):
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_FOLDED)
+    r = run_audit(tmp_path)
+    assert r.returncode == 1 and "折叠标量残留" in r.stdout
+
+
+def test_audit_flags_duplicate_id(tmp_path):
+    dup = QUEUE_ONE + QUEUE_ONE.replace("id: X", "id: X")  # 同 id 两条
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, dup)
+    r = run_audit(tmp_path)
+    assert r.returncode == 1 and "重复条目 id: X" in r.stdout

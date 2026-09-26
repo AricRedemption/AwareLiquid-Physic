@@ -13,10 +13,71 @@
 #      否则                 → VERDICT: QUEUE-EMPTY(退出码 2;蒸馏补池)
 #
 # 退出码:0=ACHIEVED 1=NOT-Achieved 2=QUEUE-EMPTY 3=MINING-FROZEN 4=DEBT-FIRST
+# --audit 模式(轮 292 工程硬化):队列完整性审计,只读不路由——
+#   数数锚(id 数=check_cmd 数)+空/折叠 check_cmd+重复 id+尾条 id 回显。
+#   轮 136/138/142 吞行、轮 62/108 空/折叠命令、轮 240 畸变等手工数数锚
+#   检查机械化;每轮提交前 `goal_check --audit`,exit 0 才许提交。0=健康 1=问题
 set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 GOALS="$REPO/docs/loop/GOALS.md"
 date +%s > "$REPO/.loop-lock"   # 马拉松存活心跳(供 marathon_guard 新鲜度检查)
+
+if [ "${1:-}" = "--audit" ]; then
+  python3 - "$GOALS" <<'EOF'
+import re, sys
+path = sys.argv[1]
+src = open(path).read()
+problems = []
+whole_ids = re.findall(r"(?m)^\s*- id: (\S+)", src)
+whole_cmds = re.findall(r"(?m)^\s*check_cmd: (.*)$", src)
+block_m = re.search(r"```yaml\ngoal_queue:\n(.*?)```", src, re.S)
+entries = []
+if not block_m:
+    problems.append("未找到 goal_queue YAML 块")
+else:
+    cur = None
+    for line in block_m.group(1).splitlines():
+        m = re.match(r"\s*- id: (\S+)", line)
+        if m:
+            cur = {"id": m.group(1), "check_cmd": "", "status": ""}
+            entries.append(cur); continue
+        if cur is not None:
+            mm = re.match(r"\s*check_cmd: (.*)", line)
+            if mm:
+                cur["check_cmd"] = mm.group(1).strip()
+            ms = re.match(r"\s*status: (.*)", line)
+            if ms:
+                cur["status"] = ms.group(1).strip()
+    seen = set()
+    for e in entries:
+        if e["id"] in seen:
+            problems.append(f"重复条目 id: {e['id']}(轮 240 畸变/误弹恢复面)")
+        seen.add(e["id"])
+        c = e["check_cmd"]
+        if not c:
+            problems.append(f"[{e['id']}] check_cmd 缺失/空(轮 136/138/142 "
+                            f"吞行或轮 62 空值:先 git log --all -S 取原文补回)")
+        elif c[0] in ">|":
+            problems.append(f"[{e['id']}] check_cmd 折叠标量残留 {c!r}(轮 108 变体)")
+if len(whole_ids) != len(whole_cmds):
+    problems.append(f"数数锚不平衡: '- id' ×{len(whole_ids)} vs 'check_cmd:' "
+                    f"×{len(whole_cmds)}(整文件口径;吞行/畸变时二者必分离)")
+pending = [e["id"] for e in entries if e["status"].startswith("pr-pending")]
+tail = entries[-1]["id"] if entries else "(空)"
+if problems:
+    print("AUDIT FAIL:队列完整性问题(禁提交):")
+    for p in problems:
+        print(f"  - {p}")
+    print(f"  [现状] 条目 {len(entries)}(整文件 id ×{len(whole_ids)}/"
+          f"check_cmd ×{len(whole_cmds)}),pr-pending {len(pending)},尾条 {tail}")
+    sys.exit(1)
+print(f"AUDIT OK: 条目 {len(whole_ids)}={len(whole_cmds)}(数数锚平衡),"
+      f"pr-pending {len(pending)},尾条 {tail};无空/折叠 check_cmd,无重复 id")
+sys.exit(0)
+EOF
+  exit $?
+fi
+
 
 python3 - "$GOALS" "$REPO" <<'EOF'
 import json, re, subprocess, sys

@@ -10,7 +10,7 @@
 | `tests/test_dissipation.py` | 耗散槽位探针组(轮 74):判据 A 默认关逐位等价 / B1 闭式阻尼振子解析对照(斜率−0.301 vs −0.3) / B2 头级严格单调+γ≈0 归因对照 | `.venv/bin/python -m pytest tests/test_dissipation.py`(秒级) |
 | `plot_profiles.py` | 论文主图:D1g 四剖面板(start-time × MSE,训练窗阴影) | `--sweep JSON --out PNG`;依赖 `plots` extras(`uv pip install -e ".[plots]"`) |
 | `field_identifiability_probe.py` | M2 场 c(x) 的谱域 Fisher(逐 cos 模式);轮 95 起 `--meanpool` 对照臂:空间均值池化的 Fisher 谱+逐模式保留率(聚合层信息湮灭实证,均值场恒等式:total retention 8.6e-11) | 即跑即出,秒级;测试 `tests/test_field_meanpool_probe.py` |
-| `goal_check` | **目标校验路由器**(每轮心跳第一步;AMM-013 起内置仪表闸):DEBT-FIRST/队列路由/MINING-FROZEN 自动裁决 | `./scripts/goal_check`;退出码 0=ACHIEVED 已弹出 / 1=NOT-Achieved / 2=QUEUE-EMPTY / 3=MINING-FROZEN 补证据轮 / 4=DEBT-FIRST 先清欠 |
+| `goal_check` | **目标校验路由器**(每轮心跳第一步;AMM-013 起内置仪表闸):DEBT-FIRST/队列路由/MINING-FROZEN 自动裁决;`--audit` 模式(轮 292 硬化)=队列完整性只读审计(数数锚 id=check_cmd+空/折叠 check_cmd+重复 id+尾条回显),轮 136/142/240/62/108 手工数数锚机械化,每轮提交前必跑 | `./scripts/goal_check`(路由);`./scripts/goal_check --audit`(提交前队列审计,exit 0 才许提交);测试 `tests/test_goal_check_router.py`(15 用例) |
 | `probe_run` | **本机探针训练资源护栏**(AMM-008+010 闸门 v3.1):档位/时长校验(上限数值以脚本内置为唯一执行点)+ 线程=⌊0.6×逻辑核⌋ + nice 15 + PROBE_TIER/EST 溯源透传(stderr 可抄进结果 meta) | `./scripts/probe_run T1\|T2 <est_min> -- <cmd>`;`--dry-run` 只打印不执行;测试 `tests/test_probe_run.py` |
 | `balance_gauge` | **平衡仪表计量器**(AMM-012/014):PRD §19 轮记录头自动分类(mining/evidence/t0)+GOALS 队列 WIP+台账欠账分账(L/C),算 EXP 占比与报警线;数值自动计算不手工维护 | `./scripts/balance_gauge [--window 10]`;测试 `tests/test_balance_gauge.py` |
 | `stop_gate.sh` | **Stop hook 会话连续性闸**(AMM-020,Desktop 主引擎):模型想结束时查 队列非空+mode=ON+锁新鲜+state≠IDLE 四闸 ⇒ exit 2 请求继续(ZCode 上限 3 次/会话);配置在 `.zcode/config.json` | 随会话自动触发;`bash scripts/stop_gate.sh` 可手动试闸(无马拉松时预期 exit 0) |
