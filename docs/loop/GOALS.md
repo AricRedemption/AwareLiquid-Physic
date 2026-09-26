@@ -14,15 +14,14 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v7(AMM-034 收口语义):IDLE 已废除,QUEUE-EMPTY=自主工作阶梯
-  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 292
-  工程硬化轮续(阶梯④):goal_check --audit 落地——数数锚机械化
-  (只读队列完整性审计:id=check_cmd 数+空/折叠 check_cmd+重复 id
-  +尾条回显,覆盖轮 136/142 吞行/轮 62 空值/轮 108 折叠/轮 240
-  畸变四类历史坑),真实台账 AUDIT OK 54=54 尾条 SPEC3;路由器
-  测试 11→15;与 direction_gate --check-round(轮 291)并列为提交
-  门前双机械锚,手工 grep 退役。停车场审计无变化。S1 重置。下一
-  心跳:goal_check ⇒ 阶梯(工程硬化可续:marathon_guard/stop_gate
-  同类盘点/蒸馏轮亦可)。
+  (判读池→停车场三问解停→N1 写作→工程硬化→合并债治理)。轮 293
+  工程硬化轮续(阶梯④):stop_gate v7 状态机对齐——v6 遗留正则
+  state:(IDLE|BLOCKED-HUMAN) 漏掉新 PARKED 态(叠加队列非空+锁
+  新鲜=合法自停收束被误拦最多 3 次),修正为仅 state=RUNNING 拦截
+  (PARKED/BLOCKED-HUMAN 放行);新建 tests/test_stop_gate.py 五用例
+  状态矩阵全绿;TOOLS/PLAYBOOK 回写(状态机修订必须扫尽读取方
+  工具条款)。停车场审计无变化。S1 重置。下一心跳:goal_check ⇒
+  阶梯(工程硬化可续/蒸馏轮亦可)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 终稿/T2/T3/Kaggle/隐藏卷)
@@ -105,7 +104,9 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   台账双路径实测);178 测试+audit 107+gate --check-round 291 全绿
   显式退出码。轮 292:goal_check --audit 落地(数数锚机械化,真实
   台账 54=54 尾条 SPEC3);182 测试+audit 107+gate --check-round
-  292+queue audit 四门全绿显式退出码。
+  292+queue audit 四门全绿显式退出码。轮 293:stop_gate v7 对齐
+  (PARKED 放行语义修复+五用例状态矩阵);187 测试+audit 107+gate
+  --check-round 293+queue audit 四门全绿显式退出码。
 
 
 ## goal_queue(顶部为当前目标)
