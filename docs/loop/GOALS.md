@@ -14,18 +14,19 @@ current_goal: >-
   唯一源=AMENDMENTS/goal_check/probe_run,本文件不复述)。
 current_action: >-
   v5.2(AMM-029 方向门禁生效):六门=AMM-028 五门+方向判单门,细则
-  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 274 消化轮
-  完成:AMM-033 锚重置计划增补第④条长视距维度(k400/k1000 双读
-  数入新锚集;跨脚本逐位锚仅限池构造完全同参调用)+分流干净
-  (EXP 0.2/WIP 0/欠账 0/消化率 1.0)。下一心跳:goal_check ⇒
-  QUEUE-EMPTY ⇒ 蒸馏轮(S1 要求 [行动];AMM-028 门 1:只收声明
-  决策耦合的族,配方族默认关闭;连续 2 轮无行动类产出 ⇒ S1 评估
-  收口)。
+  唯一源=AMENDMENTS+goal_check 输出(每心跳必见)。轮 275 蒸馏轮
+  =第 61 族(训练盆地稳定性族,scan §61 三槽)入库+POOL-BITS 入队
+  执行,判读 ANCHOR_BOTH_FRAGILE(比特级池扰动下双头锚均脆弱:
+  默认头 spread 中位 1.86/候选 1.29 稳 30% 但双过 1.10 门,
+  variant-160 双锚逐位真,PR#53)=**AMM-033 锚计划增补多变体
+  协议**。下一心跳=消化轮(AMM-033 锚计划多变体协议回填+分流),
+  期间禁新蒸馏;消化后 ⇒ 蒸馏轮,S1 要求 [行动](AMM-028 门 1:
+  只收声明决策耦合的族,配方族默认关闭)。
 
 blocked_on: >-
   1) PR 合入=用户线下;2) 停车场重启(N1 v1+/T2/T3/Kaggle/隐藏卷)
   待用户指令;3) Kaggle 凭证=激活材料不阻塞。
-next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
+next_trigger_hint: goal_check ⇒ QUEUE-EMPTY ⇒ 消化轮(AMM-033 锚计划多变体协议回填+分流,禁新蒸馏);消化后 ⇒ 蒸馏轮(新方向须声明决策耦合;配方族默认关闭;无 [行动] 则 S1 累计);用户指令 / 停车场重启 / PR 合并(合并落地触发 AMM-033 实施排程)随时重入
 
 pointer: docs/PRD.md §19(判读落点);docs/loop/{AMENDMENTS,
   DEBT-LEDGER,PLAYBOOK,TOOLS,RSI-INDEX}.md;docs/scan-conditioning.md
@@ -51,7 +52,11 @@ updated: 2026-09-26 (**轮 268-269:新马拉松段前两轮,齐次头线
   判读 HOM_DRIFT_ROBUST(候选头全视距双轴占优,PR#52;哨兵失配
   =超越函数池比特尺寸依赖如实诊断)=AMM-033 锚集计划纳入长视距
   锚;201 测试+audit 99 全绿。轮 274 消化轮=AMM-033 锚重置计划
-  增补长视距维度条款+分流干净;队列五十条全 pr-pending。
+  增补长视距维度条款+分流干净。轮 275 蒸馏轮=第 61 族入库(scan
+  §61 三槽)+POOL-BITS 判读 ANCHOR_BOTH_FRAGILE(默认头 spread
+  中位 1.86/候选 1.29 稳 30% 但双过门,PR#53;variant-160 双锚
+  逐位真)=AMM-033 锚计划增补多变体协议;200 测试+audit 99 全绿;
+  队列五十一条全 pr-pending。
 
 
 ## goal_queue(顶部为当前目标)
@@ -208,6 +213,9 @@ goal_queue:
 - id: HOM-DRIFT
   status: pr-pending(PR#52-判读HOM_DRIFT_ROBUST=候选头全视距双轴占优MSE比0.62-0.87漂移比0.16-0.30, 候选漂移稳定0.14不随视距增长而默认头k400漂1.63, 判读与代码在dir/hom-drift分支, 合并后check过自动弹出; 决策=AMM-033锚集计划纳入长视距锚; 哨兵失配=超越函数池比特尺寸依赖如实诊断(预注册非门条款兑现), 第60族第1轮, scan §60三槽入库)
   check_cmd: grep -q "HOM-DRIFT 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_drift/hom_drift.json
+- id: POOL-BITS
+  status: pr-pending(PR#53-判读ANCHOR_BOTH_FRAGILE=双头锚在比特级池扰动下均脆弱默认头spread中位1.86候选1.29稳30%但双过1.10门, 判读与代码在dir/pool-bits分支, 合并后check过自动弹出; 决策=AMM-033锚计划增补多变体协议每锚带spread注记; variant-160双锚逐位真=轮273同参锚教训实证, 第61族第1轮, scan §61三槽入库)
+  check_cmd: grep -q "POOL-BITS 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/pool_bits/pool_bits.json
 ```
 
 队列规则:goal_check 判 ACHIEVED 时弹出顶部并晋升下一位;新方向(文献扫描/用户指定)追加到队尾;队列空⇒按 goal_check 路由(先盘判读后续池)。
