@@ -35,3 +35,4 @@
 {"round": 278, "direction": "ALIGNED", "evidence": "消化轮: AMM-033 benefit-scope保守注记回填(优势限于house规模, 小样本不外推, P1协议面分立, 发散单元入锚集适用条件); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空(齐次头线T1六轴全测harvested)⇒下轮蒸馏轮S1要求[行动]"}
 {"round": 279, "direction": "ALIGNED", "evidence": "RECIPE-HEAD COMPOSE_ABSORBED: 四格均值 B0候选头单独1.949全场最优 < B1组合2.241 < A1配方2.645 < A0默认2.961=次可加, 配方吸收候选优势; 三哨兵逐位全真(A0/A1轮252/B0轮269); 决策=either-or采纳(选候选头单独, 回灌PR scope注记配方增益以默认头为参照系); 下轮=消化轮(AMM-033 either-or注记回填+分流)禁新蒸馏"}
 {"round": 280, "direction": "ALIGNED", "evidence": "消化轮: AMM-033 either-or采纳注记回填(默认替换选候选头单独, 回灌配方与头不叠加, 两PR互不阻塞互不预设, 排序证据链轮252+269+279); 分流=EXP0.2/WIP0/欠账0/消化率1.0无报警; 池盘点空⇒下轮蒸馏轮S1要求[行动]"}
+{"round": 281, "direction": "ALIGNED", "evidence": "蒸馏轮: ω推断机制钩子门1审计不合格(无近期决策改变EIG弱+CTX族相邻)⇒无行动, [坐标]×3入库scan§63(N1素材, 当场核验); S1累计1/2; 若下轮仍无行动⇒S1 2/2武装⇒收口评估"}
