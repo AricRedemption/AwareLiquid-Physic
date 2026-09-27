@@ -216,7 +216,7 @@ if not entries:
 # AMM-026(轮 119)+AMM-038(轮 431):任务级状态机——`status: pr-pending`
 # 或 `archived-pr` 条目=已完成待合并/已归档终态,**永不迭代**(防重跑探针):
 # pr-pending=躺在 PR 区零催促;archived-pr=开 PR 即终态(QUEUE-ARCHIVE.md)。
-# 全部跳过 ⇒ 按队列空走取活义务路由。恢复由状态驱动,不依赖散文注记。
+# 全部跳过 ⇒ 按队列空走供给故障路由(AMM-044 SUPPLY-EMPTY)。恢复由状态驱动,不依赖散文注记。
 chosen, skipped = None, []
 for e in entries:
     cmd = e["check_cmd"].strip()
