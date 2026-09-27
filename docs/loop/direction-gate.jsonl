@@ -143,3 +143,4 @@
 {"round": 494, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; push恢复确认(492/493落地); 详文窗口滚动492入摘要"}
 {"round": 495, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动493入摘要"}
 {"round": 496, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2); 周期监察=PR merged仍空(无简报触发); 剩余项=用户门控同前; 详文窗口滚动494入摘要"}
+{"round": 497, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动495入摘要"}
