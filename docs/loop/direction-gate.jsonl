@@ -124,3 +124,4 @@
 {"round": 475, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2); 周期监察=PR merged仍空(无简报触发); 剩余项=用户门控同前; 详文窗口滚动474入摘要"}
 {"round": 476, "direction": "ALIGNED", "evidence": "追记修复轮: 轮475坑=GOALS编辑assert失配(match=0)未落盘而提交链照常跑(换行分隔非&&链)=ad583f3仅含判单GOALS更新缺, 本轮补记475+476并硬化链规则=文件编辑/判单/门禁/提交一律单&&链编辑失败即中止(轮22/92/283管道吞退出码家族新形, PLAYBOOK新条); 463发现的GOALS无机械校验盲区再证=无门控时唯一防线是链纪律; 剩余项=用户门控同前"}
 {"round": 477, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动475入摘要(单&&链首证=编辑失败即中止规则生效面)"}
+{"round": 478, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动476入摘要"}
