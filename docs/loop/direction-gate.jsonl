@@ -116,3 +116,4 @@
 {"round": 467, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2); fork PR监察=merged列表空=无合并无简报触发(AMM-042条款1简报仅PR状态变化); 剩余项不变=用户门控(回灌PR线下/AMM-033/039/040/041裁定/T2-T3算力/N1标题venue/停车场五项重启); 详文窗口滚动464入摘要"}
 {"round": 468, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2); 无新钩子; 剩余项不变=用户门控(回灌PR线下/AMM-033/039/040/041裁定/T2-T3算力/N1标题venue/停车场五项重启); 详文窗口滚动465入摘要并修复编辑残留(悬空行清理)"}
 {"round": 469, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动466入摘要(一行式)"}
+{"round": 470, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动469入摘要"}
