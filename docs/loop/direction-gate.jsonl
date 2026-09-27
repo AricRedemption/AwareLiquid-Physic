@@ -133,3 +133,4 @@
 {"round": 484, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动482入摘要"}
 {"round": 485, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动483入摘要"}
 {"round": 486, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子; gauge周期核查=EXP0.2/WIP0/欠账0/无报警(距466核查19拍); 剩余项=用户门控同前; 详文窗口滚动484入摘要"}
+{"round": 487, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; push再阻断(间歇型)=后台重试挂起本地心跳继续(轮287处置); 详文窗口滚动485入摘要"}
