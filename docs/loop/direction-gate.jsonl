@@ -290,3 +290,4 @@
 {"round": 641, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑稳定锚"}
 {"round": 642, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑稳定锚"}
 {"round": 643, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; push再阻断=后台重试挂起本地心跳继续; 追加式编辑稳定锚"}
+{"round": 644, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; push恢复确认(642/643落地ahead0); 追加式编辑稳定锚"}
