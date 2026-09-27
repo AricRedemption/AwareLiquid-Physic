@@ -264,7 +264,8 @@ def main():
         "anchor": ("arm A seed 0 expected 3.5582 (house default, "
                    "rounds 175/191/223/226 sentinel); arm B 3 seeds "
                    "expected {3.3910, 2.3385, 2.2052} bit-for-bit "
-                   "(round 228 reproduction sentinel)")},
+                   "(round 228 reproduction sentinel)")
+    }
     print(f"\nRECIPE-LOO verdict {verdict} | "
           f"{detail.get('decision', detail.get('reason', ''))}",
           flush=True)
