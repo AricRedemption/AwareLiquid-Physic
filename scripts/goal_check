@@ -68,12 +68,32 @@ if len(whole_ids) != len(whole_cmds):
 pending = [e["id"] for e in entries if e["status"].startswith("pr-pending")]
 archived = [e["id"] for e in entries if e["status"].startswith("archived-pr")]
 tail = entries[-1]["id"] if entries else "(空)"
+archive_note = ""
+archive_path = path.rsplit("/", 1)[0] + "/QUEUE-ARCHIVE.md"
+archive_entries = []
+if os.path.exists(archive_path):
+    arch_src = open(archive_path, encoding="utf-8").read()
+    n_arch = len(re.findall(r"(?m)^\s*- id: (\S+)", arch_src))
+    archive_note = f",归档 {n_arch}(QUEUE-ARCHIVE.md)"
+    # 轮 450 硬化:队列清空后演练恒 0 条=空转化(静默失效家族潜在第五例)
+    # ⇒ 归档条 check_cmd(后台福利语义)并入演练面,恢复门禁咬合力。
+    cur = None
+    for line in arch_src.splitlines():
+        m = re.match(r"\s*- id: (\S+)", line)
+        if m:
+            cur = {"id": m.group(1), "check_cmd": ""}
+            archive_entries.append(cur); continue
+        if cur is not None:
+            mm = re.match(r"\s*check_cmd: (.*)", line)
+            if mm:
+                cur["check_cmd"] = mm.group(1).strip()
+
 # AMM-038 条款 5(轮 431):端到端弹出演练——check_cmd 逐条实跑并报告
 # 通过率,静态数数锚之外补动态验证(轮 428 实证:55 条死路无人察觉,
 # 工具静默失效家族第三例)。演练结果只报告不判死(未达成≠机制坏),
 # 但 check_cmd 命令本体不可执行(shell 语法/脚本缺失)判死。
 rehearsal, broken = [], []
-for e in entries:
+for e in entries + archive_entries:
     c = e["check_cmd"]
     if not c or c[0] in ">|":
         continue
@@ -84,12 +104,6 @@ for e in entries:
         rehearsal.append((e["id"], rc))
     except Exception as exc:
         broken.append(f"[{e['id']}] check_cmd 执行异常:{exc}")
-archive_note = ""
-archive_path = path.rsplit("/", 1)[0] + "/QUEUE-ARCHIVE.md"
-if os.path.exists(archive_path):
-    n_arch = len(re.findall(r"(?m)^\s*- id: (\S+)",
-                            open(archive_path).read()))
-    archive_note = f",归档 {n_arch}(QUEUE-ARCHIVE.md)"
 # AMM 状态行卫生检查(轮 445,轮 439 坑焊点):rsi_night A 维度按提案
 # "状态:**…**"行同一行内的"轮 N"归属立案轮——缺轮号=断喂 unattributed
 # (工具静默失效家族第四例)。只报告不判死(历史条目由补账轮消化)。
@@ -119,7 +133,8 @@ if problems or broken:
 passed = sum(1 for _, rc in rehearsal if rc == 0)
 print(f"AUDIT OK: 条目 {len(whole_ids)}={len(whole_cmds)}(数数锚平衡),"
       f"pr-pending {len(pending)},尾条 {tail};无空/折叠 check_cmd,无重复 id")
-print(f"  [端到端演练] check_cmd 实跑 {len(rehearsal)} 条,通过 {passed},"
+print(f"  [端到端演练] check_cmd 实跑 {len(rehearsal)} 条"
+      f"(队列 {len(entries)}+归档 {len(archive_entries)}),通过 {passed},"
       f"未达 {len(rehearsal)-passed}(未达成=状态事实非故障;机制异常才判死)"
       f"{archive_note}")
 if amm_hygiene:

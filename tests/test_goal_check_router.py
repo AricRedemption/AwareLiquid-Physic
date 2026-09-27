@@ -325,3 +325,32 @@ def test_amm_hygiene_absent_file_no_crash(tmp_path):
     make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
     out = run_audit(tmp_path).stdout
     assert "AUDIT OK" in out
+
+
+def test_audit_rehearses_archive_cmds(tmp_path):
+    """轮 450 硬化:队列清空后演练并归档条 check_cmd,防空转化
+    (队列 0 条时演练面=归档条;broken 命令体仍判死)。"""
+    make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    (tmp_path / "docs" / "loop" / "QUEUE-ARCHIVE.md").write_text(
+        "- id: GOOD\n"
+        "  status: pr-pending(PR#1)\n"
+        '  check_cmd: "true"\n'
+        "- id: UNMET2\n"
+        "  status: pr-pending(PR#2)\n"
+        "  check_cmd: \"grep -q X /nonexistent/&&\"\n",
+        encoding="utf-8")
+    r = run_audit(tmp_path)
+    assert r.returncode == 0  # 未达=状态事实,报告不判死
+    assert "(队列 0+归档 2)" in r.stdout and "通过 1,未达 1" in r.stdout
+
+
+def test_audit_archive_cmds_unmet_is_report_not_fail(tmp_path):
+    make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    (tmp_path / "docs" / "loop" / "QUEUE-ARCHIVE.md").write_text(
+        "- id: UNMET\n"
+        "  status: pr-pending(PR#1)\n"
+        '  check_cmd: "false"\n',
+        encoding="utf-8")
+    r = run_audit(tmp_path)
+    assert r.returncode == 0 and "AUDIT OK" in r.stdout
+    assert "通过 0,未达 1" in r.stdout
