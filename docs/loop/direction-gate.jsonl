@@ -82,3 +82,4 @@
 {"round": 429, "direction": "ALIGNED", "evidence": "对标杆轮: db+git还原sess_8166=轮283-298产出14轮+轮299-402空转100+拍零提交(宿主goal-continuation驱动, v7 PARKED条件会话内不可满足); AMM-035=治6.5h空转的过正修正=迭代一次就停的直接来源; AMM-038增补条款⑥=PARKED回归跨段S3+空拍轻量化+产出心跳才全门禁"}
 {"round": 430, "direction": "ALIGNED", "evidence": "定性轮(用户第十次质询): AMM-038增补条款⑦每拍必产=废除空审计类别+取活义务(积压优先级六源, 队列消化存量约100+轮真活)+无活声明须附逐项理由+门1重划界+只剩用户门控项才BLOCKED-HUMAN; 架构定性=质量门无恙, 坏在供给端三gate(弹出死路/取活清单漏在途存量/空审计合法化轮询)"}
 {"round": 431, "direction": "ALIGNED", "evidence": "实施与验收轮: AMM-038七条款全数落地(55条迁移QUEUE-ARCHIVE/开PR即终态/零催促清理/端到端演练上线/PARKED回归跨段S3/每拍必产+取活义务焊入goal_check); GOAL-PROMPT v9.1(27不变式全过); 193测试全绿(+3新增); 端到端验收=路由输出取活义务+audit 0=0+归档55回显exit0"}
+{"round": 432, "direction": "ALIGNED", "evidence": "RSI夜账轮(取活义务首拍, 积压②dir在途入账): 夜19行入账轮428-431段(AMM-038机制改造段收口, K0/E0/T+1/A=AMM-038 APPLIED); rsi_night v3全口径实跑exit0; PLAYBOOK新条=夜账覆盖完整性核对(git轮号grep防间隙静默)"}
