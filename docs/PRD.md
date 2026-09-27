@@ -1095,6 +1095,9 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
 - **路由**:轮 279 判读完成(dir/recipe-head 分支,COMPOSE_ABSORBED,PR#55 在途)⇒ 消化轮条款(回填→分流→禁新蒸馏)。
 - **消化三件套**:①回填=**AMM-033 either-or 采纳注记**(依据=轮 279 2×2 实测:配方与头次可加,四格均值 B0 候选头单独 1.949 全场最优<B1 组合 2.241<A1 配方 2.645<A0 默认 2.961;默认替换选候选头单独不叠加配方;RECIPE-SYNTHESIS 回灌 PR scope 注记=配方增益以默认头为参照系,头替换后配方重新评估留新段,两 PR 互不阻塞互不预设;排序证据链=轮 252+轮 269+轮 279);轮 279 判读行/TOOLS/PLAYBOOK 在 dir 分支随 PR#55 落地不重复写;②分流=balance_gauge EXP 0.2 达标/WIP 0/欠账 0/消化率 1.0/无报警;③池盘点=**空**(齐次头线 T1 级六轴全测 harvested+组合确认已闭;执行事故注记=dir/recipe-head 分支 GOALS 遭格式化器新袭已 checkout 还原未入提交)⇒ 下一心跳=蒸馏轮(S1 要求 [行动],AMM-028 门 1)。
 - **台账**:零算力轮;S1 未累计(消化轮;轮 279 行动产出);判单轮 280;队列五十三条全 pr-pending 不变;下一心跳=goal_check ⇒ QUEUE-EMPTY ⇒ 蒸馏轮。
+**轮 460 记录(RECIPE-BUDGET 判读 RECIPE_BUDGET_REVERSED=组合收益预算域反转,集成线短记录,全记录在 dir/recipe-budget)**:
+- **路由**:goal_check NOT-Achieved(RECIPE-BUDGET)=AMM-044 供给义务首批队列目标(轮 227 登记慢轴候选转正);预注册先于执行钉死(239c54b);probe_run T1 est12 实跑 ~8min(两臂×3-seed×8000 步 prefix)⇒ 判读 **RECIPE_BUDGET_REVERSED**(ratio=1.1157>1.05:2000 步的 10.7% 收益不迁移且反号,方向一致性 3/3→1/3,组合臂 spread 1.727)⇒ **回灌 PR scope 限定 2000 步训练域**+预算交互注记;RECIPE 家族第五条边界证据;8000 步无历史哨兵如实注记;PR#60 在途;T1 算力轮=RSI E=1/1+K 候选 1(边界发现级人裁)。
+
 **轮 440 记录(RECIPE-REDUCE 判读 RECIPE_REDUCE_WEAK=五轴回灌候选维持,集成线短记录,全记录在 dir/recipe-reduce)**:
 - **路由**:goal_check QUEUE-EMPTY ⇒ 取活义务积压⑤配方组合族续(轮 434 LOO NEUTRAL 弱证据"不据此精简"的 AMM-028 门 1 过门路径=直接 3-seed 对照);预注册先于执行钉死(f8afab9);probe_run T1 est8 实跑 ~3min(三臂×3-seed:全默认 A/五轴 B/双轴精简 B2=depth4+warmup200)⇒ 判读 **RECIPE_REDUCE_WEAK**(ratio_red=mean(B2)/mean(B)=1.0617,弱带 1.05-1.15 内)⇒ **五轴回灌候选维持**(精简未过门);NEUTRAL 三轴价值=训练稳定性非均值(B2 逐 seed={1.8811,3.3596,3.1837} spread 1.79 vs 五轴 1.54);**回灌候选五轴终判**(四探针证据链闭环:组合 3-seed 胜默认+视距稳健+LOO 无 harmful+精简未过门);双哨兵逐位真;PR#59 在途;T1 算力轮=RSI E=1/1+K 候选 1(过门判定级人裁)。
 **轮 434 记录(RECIPE-LOO 判读 RECIPE_LOO_PARTIAL=五轴回灌候选维持,集成线短记录,全记录在 dir/recipe-loo)**:

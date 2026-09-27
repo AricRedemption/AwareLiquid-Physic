@@ -185,3 +185,6 @@ archived_pr:
 - id: CTX-DIM-LADDER
   status: pr-pending(PR#37-判读CTXDIM_RESOLVED=容量单调有害, 最优ctx_dim=1(默认8差80%=最大配置误差), 轮226; 历史上经AMM-026 check_cmd流程弹出未入归档, 轮449 dir在途对账补录; 后续轮239 CTX-DIM-2 3-seed反转=CTX2_REVERSED见CTX-DIM族条目, ctx轴维持默认8已闭族)
   check_cmd: grep -q "CTX-DIM-LADDER" docs/PRD.md
+- id: RECIPE-BUDGET
+  status: pr-pending(PR#60-判读RECIPE_BUDGET_REVERSED=组合收益在8000步预算反转ratio1.1157>1.05, 2000步10.7%收益不迁移且反号方向一致性3/3=>1/3, 决策=回灌PR scope限定2000步训练域+预算交互注记, 判读与代码在dir/recipe-budget分支; 轮227登记慢轴候选AMM-044供给义务转正, 回灌候选五轴的预算域边界=RECIPE家族第五条边界证据)
+  check_cmd: grep -q "RECIPE-BUDGET 判读" docs/PRD.md

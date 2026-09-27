@@ -84,12 +84,7 @@ current_action: >-
 ## goal_queue(顶部为当前目标)
 
 ```yaml
-goal_queue:
-- id: RECIPE-BUDGET
-    track: engineering
-    goal: 组合配方预算轴稳健性(臂A默认vs臂B五轴组合各8000步训练预算x3-seed, 判读=预算轴上组合收益维持/反转; 轮227登记'双预算点(2000+8000)为慢轴候选'转正=AMM-044供给义务首批种子)
-    done_condition: 判读行入库 PRD(dir 分支全记录+主线短记录)
-    check_cmd: grep -q "RECIPE-BUDGET 判读" docs/PRD.md
+goal_queue: []
 ```
 
 队列规则(AMM-038 后):新方向(文献扫描/用户指定/判读派生)入队→预注册判负→probe_run→判读→dir/<slug> 开 PR 的**同一心跳内弹出并归档** QUEUE-ARCHIVE.md;队列空⇒取活义务路由(积压优先级见 goal_check 输出)。
