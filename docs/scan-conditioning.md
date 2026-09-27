@@ -4100,6 +4100,8 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - [Darwin Gödel Machine (arXiv:2505.22954, 2025)](https://arxiv.org/abs/2505.22954)——见 §67.2
 - [Voyager (arXiv:2305.16291, 2023)](https://arxiv.org/abs/2305.16291)——见 §67.2
 - [Reflexion (arXiv:2303.11366, 2023)](https://arxiv.org/abs/2303.11366)——见 §67.2
+- [Analyzing & Reducing the Need for Learning Rate Warmup in GPT Training (Kosson et al., NeurIPS 2024)](https://arxiv.org/abs/2410.23922)——见 §68.1
+- [Weight Decay may matter more than µP for Learning Rate Transfer in Practice (Kosson et al., ICLR 2026)](https://arxiv.org/abs/2510.19093)——见 §68.2
 
 ## 69. 蒸馏尝试拒绝记录+S1 池枯评估(轮 448,2026-09-27,QUEUE-EMPTY 蒸馏轮尝试)
 
