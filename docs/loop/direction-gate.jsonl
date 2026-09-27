@@ -162,3 +162,4 @@
 {"round": 513, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动510转一行式"}
 {"round": 514, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑"}
 {"round": 515, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2); 周期监察=PR merged仍空(无简报触发); 剩余项=用户门控同前; 追加式编辑"}
+{"round": 516, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 窗口滚动514/515转一行式+516追加(编辑锚修正后链过)"}
