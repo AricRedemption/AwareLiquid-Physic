@@ -49,3 +49,4 @@
 `d3_window/{tobs8,tobs24}` `d3_identifiability` `d3_field_identifiability`
 `tsfm_baseline`(轮 89,D-2)
 `physics_out_v02`(第九波 canonical,勿覆盖)
+- `benchmarks/recipe_loo_probe.py` — RECIPE-LOO 五轴组合留一法消融(轮 434):七臂×3-seed(A 锚/B 五轴/五 LOO 臂),逐轴 loo_ratio 分类 LOAD_BEARING/HARMFUL/NEUTRAL;classify_loo 纯函数测试钉死;双哨兵(臂 A seed0=3.5582+臂 B 轮 228 逐位复现)。

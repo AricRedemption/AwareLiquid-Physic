@@ -601,3 +601,12 @@
   的先例出处散在夜账行/判单 jsonl/scan 各处,回溯成本高且易漏。→
   登记提案的那一刻就把"依据指向哪个先例行(夜 N/轮 N/AMM-N)"写在
   登记行里,展开时零回溯。(出处:轮 433 AMM-039 展开实测。)
+- **dict 字面量行尾逗号把变量变 1-tuple,json.dump 静默序列化成 list**
+  (轮 434,RECIPE-LOO 实测):`results = {...},`(锚行手滑多一个逗号)
+  是合法赋值——results 变 (dict,),json.dump 把 tuple 写成 list,违反
+  audit schema 顶层 results 键为 dict,判读脚本/审计全部 KeyError 或
+  读错层。→ ①探针脚本落盘后先 `.venv/bin/python -c "import ast;ast.parse(...)"`+
+  **迷你跑(2 步训练)核对产物 JSON 顶层结构再上全量**;②症状=下游
+  `d['results']` 变 list;定位=插桩 print(type(results));修复=删尾逗号,
+  全量重跑出干净产物(首发数据作废不留档,meta git_sha=修复后提交)。
+  (出处:轮 434。)
