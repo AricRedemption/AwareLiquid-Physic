@@ -49,3 +49,4 @@
 `d3_window/{tobs8,tobs24}` `d3_identifiability` `d3_field_identifiability`
 `tsfm_baseline`(轮 89,D-2)
 `physics_out_v02`(第九波 canonical,勿覆盖)
+- `benchmarks/recipe_budget_probe.py` — RECIPE-BUDGET 预算轴对照(轮 460):两臂×3-seed×8000 步(默认 vs 五轴组合),classify_budget 纯函数测试钉死;8000 步无历史哨兵如实注记(臂值=新基线)。
