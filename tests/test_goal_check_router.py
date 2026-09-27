@@ -84,7 +84,7 @@ def test_mining_frozen_on_low_exp(tmp_path):
 def test_queue_empty_normal_when_exp_healthy(tmp_path):
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_EMPTY)
     r = run(tmp_path)
-    assert r.returncode == 2 and "QUEUE-EMPTY" in r.stdout
+    assert r.returncode == 2 and "SUPPLY-EMPTY" in r.stdout
 
 
 def test_queue_empty_carries_amm028_gates(tmp_path):
@@ -206,7 +206,7 @@ def test_all_pr_pending_falls_through_to_gauge(tmp_path):
     (EXP 健康时 QUEUE-EMPTY=蒸馏/证据,而非对已完目标空转迭代)。"""
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_PENDING)
     r = run(tmp_path)
-    assert r.returncode == 2 and "QUEUE-EMPTY" in r.stdout
+    assert r.returncode == 2 and "SUPPLY-EMPTY" in r.stdout
     assert r.stdout.count("[skip]") == 2
 
 
@@ -273,12 +273,14 @@ def test_archived_pr_skipped_routes_to_live(tmp_path):
     assert "对 [LIVE]" in r.stdout
 
 
-def test_queue_empty_carries_backlog_duty(tmp_path):
-    """QUEUE-EMPTY 必须带取活义务与积压优先级(AMM-038 ⑦ 每拍必产)。"""
+def test_queue_empty_carries_supply_fault_semantics(tmp_path):
+    """SUPPLY-EMPTY 必须带供给故障语义+停止权外置(AMM-044,轮 459)。"""
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_EMPTY)
     r = run(tmp_path)
-    assert r.returncode == 2 and "取活义务" in r.stdout
-    assert "积压优先级" in r.stdout and "BLOCKED-HUMAN" in r.stdout
+    assert r.returncode == 2 and "SUPPLY-EMPTY" in r.stdout
+    assert "供给故障信号" in r.stdout and "禁自造簿记" in r.stdout
+    assert "停止权" in r.stdout and "状态标注非收束理由" in r.stdout
+    assert "取活义务" not in r.stdout  # AMM-044 废除
 
 
 def test_audit_reports_end_to_end_rehearsal(tmp_path):
