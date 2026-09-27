@@ -601,3 +601,10 @@
   的先例出处散在夜账行/判单 jsonl/scan 各处,回溯成本高且易漏。→
   登记提案的那一刻就把"依据指向哪个先例行(夜 N/轮 N/AMM-N)"写在
   登记行里,展开时零回溯。(出处:轮 433 AMM-039 展开实测。)
+- **后台 push 重试的成功判定禁依赖"当前检出分支"(2026-09-27 轮 435,
+  轮 287 条目的勘误增补)**:轮 287 重试循环用 `git status -sb | grep ahead`
+  判落地——轮 433 实证:重试期间主循环切到 dir 分支后,status 首行是
+  dir 分支(无 upstream=无 ahead 字样)⇒ 循环误判 PUSH_LANDED,轮 433
+  实际漏推,轮 435 fetch 才发现。→ 成功判定必须锚定目标分支引用:
+  `git fetch fork <branch> && [ "$(git rev-parse fork/<branch>)" =
+  "$(git rev-parse <branch>)" ]`,禁用工作区 status。(出处:轮 433/435。)

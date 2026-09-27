@@ -173,3 +173,6 @@ archived_pr:
   status: pr-pending(PR#57-判读PRECISION_ANCHOR_ROBUST=锚读数精度轴稳健, 12 spread全<=2.29e-6低于门0.10四个量级+双哨兵逐位真A=3.5582/B=2.0024, 判读与代码在dir/anchor-precision分支, 合并后check过自动弹出; 决策=AMM-033锚协议⑤维持现文本不增补精度变体轴, scan §65文献[坐标]级佐证)
   check_cmd: grep -q "ANCHOR-PRECISION 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/anchor_precision/anchor_precision.json
 ```
+- id: RECIPE-LOO
+  status: pr-pending(PR#58-判读RECIPE_LOO_PARTIAL=五轴回灌候选维持无harmful轴, load-bearing=depth 1.189 3/3+warmup 1.092 2/3, NEUTRAL=lr_decay/wd/k_train弱证据不据此精简, 双哨兵逐位真含轮228复现首落地, 判读与代码在dir/recipe-loo分支; 轮228登记族后续兑现, 决策=回灌候选维持五轴, 回灌PR用户线下)
+  check_cmd: grep -q "RECIPE-LOO 判读" docs/PRD.md

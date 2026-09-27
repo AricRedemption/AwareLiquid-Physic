@@ -413,6 +413,28 @@ updated: 2026-09-27 (**轮 268-269:新马拉松段前两轮,齐次头线
   回溯先例出处成本高)。台账=零算力轮;判单轮 433;下一心跳:goal_check
   ⇒ 取活义务(积压⑤配方组合族=组合实验解锁可跑 T1 探针,或④提案①③
   继续展开)。
+  轮 434 探针执行轮(取活义务积压⑤配方组合族;T1 算力轮;dir/recipe-loo,
+  PR#58):选活=轮 228 登记族后续兑现("单轴贡献不可分离需 3-seed 单轴
+  消融")⇒ RECIPE-LOO 五轴组合留一法消融;预注册先于执行钉死(b2be0af,
+  判定=逐轴 loo_ratio>1.05 LOAD_BEARING/<0.95 HARMFUL/聚合 DIVERGED|
+  HARMFUL(精简)|ALL_LOAD(归因封闭)|PARTIAL(维持);决策耦合=回灌候选
+  定义);probe_run T1 est15 实跑 ~5min(七臂×3-seed×2000 步异频池 E1)
+  ⇒ 判读 **RECIPE_LOO_PARTIAL**:五轴回灌候选维持(无 harmful 轴),
+  load-bearing=depth 1.189(3/3 最强单轴)+warmup 1.092(2/3),
+  NEUTRAL=lr_decay/wd/k_train 弱证据不据此精简(AMM-028 门 1);双哨兵
+  逐位真(臂 A seed0=3.5582+臂 B 轮 228 复现首落地);执行事故=results
+  尾逗号 1-tuple 坑(迷你跑插桩定位)修复后全量重跑干净产物;全记录在
+  dir 分支 PRD;判单轮 434;dir 四门全绿。
+  轮 435 消化轮(判读后条款,禁新蒸馏;wave/loop 集成线收尾):①归档=
+  QUEUE-ARCHIVE 增 RECIPE-LOO 条(PR#58,开 PR 即终态,归档 56);②主线
+  短记录=PRD §19 轮 434 行(集成线短记录);③PLAYBOOK 新条=后台 push
+  重试成功判定禁依赖当前检出分支(轮 433 漏推实证:重试循环查
+  git status -sb 时已切 dir 分支无 ahead 字样=假 PUSH_LANDED,轮 435
+  fetch 核实补推);④分流=balance_gauge 无报警/EXP 达标(段内 E=1/1);
+  ⑤池盘点=空(判读行无明示迭代点;WARMUP 归因=协同内确证但单轴净贡献
+  不可分离,留族内弱耦合不阻塞)。台账=零算力轮;判单轮 435;下一心跳:
+  goal_check ⇒ 取活义务(积压④提案①③展开/③停车场弱耦合重准入/⑥新
+  蒸馏,按 goal_check 输出)。
 
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
