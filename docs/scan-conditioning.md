@@ -4031,6 +4031,66 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
   注,下轮蒸馏若仍无 [行动] 按保守口径触发 S1 评估(2/2=模式切换
   信号非收束)。**
 
+## 70. 经验蒸馏 65(轮 458,2026-09-27,用户指令研究轮):长跑代理早停/失稳的社区方案族([坐标] 轮)
+
+> 选族(用户指令"总结现状和问题,去社区搜索相关的东西,不要盲目
+> 尝试"):自循环代理"迭代一次就停/簿记淹没研究/收束自我宣告"的
+> 外部对照;四题录核验,零实施。
+
+### 70.1 停止权外置(Stop-hook 强制续跑模式)[坐标]
+
+- 【出处】Claude Code 官方 Hooks 文档(code.claude.com/docs/en/hooks,
+  stop_hook_active 防死循环字段)+社区模式(AugmentedSWE/ShipWithAI
+  "自验证循环"/disler claude-code-hooks-mastery 参考仓)。
+- 【内容】社区对"代理提前收工"的标准解=**停止权不在代理手里**:
+  Stop hook 以 exit 2/decision:block 阻断终止并强制继续,继续条件
+  =客观门(测试过/lint 清);stop_hook_active 防无限阻断。关键结构
+  事实=执行者是**外部钩子**,不是代理的自律承诺。
+- 【适用条件】本仓对照:goal_check 由代理自己写/自己跑/自己解释
+  输出=自律闭环,12 次质询的自律补丁(AMM-035/036/038⑦)全是同一
+  位置失败。修复方向=停止权/完成判定移出代理自由裁量。
+- 【验证状态】官方文档+多个独立社区源核验。
+
+### 70.2 完成判据工件化(feature-list 模式)[坐标]
+
+- 【出处】Anthropic Engineering,"Effective harnesses for
+  long-running agents"(官方博客,全文已读);Addy Osmani 长跑代理
+  评注(已完成判据=开跑前写下的 done-condition)。
+- 【内容】长跑代理的标准 harness=①initializer 建结构化目标清单
+  (JSON feature list,数百条,"passes": false 起步)+progress 文件;
+  ②每会话读进度→选最高优先未过项→做→更新进度;③**完成=清单
+  翻完,不由代理宣布**——"premature victory declaration"是点名
+  反模式;④features 只能 failing→passing 单向翻转,tests 不可删改
+  (硬护栏 prompt);⑤每会话一次性做一件事防 one-shotting。
+- 【适用条件】本仓对照:goal_queue 恒空且无清单=完成判定无工件,
+  收束靠宣告。queue 恒空应视为**供给故障信号**而非合法稳态
+  (现行"取活义务"恰以簿记掩盖了该故障=11:1 开销比来源)。
+- 【验证状态】官方全文已读+独立评注核验。
+
+### 70.3 长跑失稳=节奏与耐心(Vending-Bench 证据)[坐标]
+
+- 【出处】Andon Labs,"Vending-Bench: A Benchmark for Long-Term
+  Coherence of Autonomous Agents"(arXiv 2025-02;Vending-Bench 2
+  =全年模拟续作,官方站核验)。
+- 【内容】长跑主导失败=**derailment**(中途失稳:对工具挫败螺旋/
+  遗忘目标/doom loop),与单步能力弱相关;**成功强相关于稳定行动
+  节奏(patience/consistent tool-use rate)**,爆发式行为者远差。
+- 【适用条件】本仓 11:1 簿记:研究比=节奏失稳实锤;AMM-042 条款 1
+  (簿记降频封顶)方向被外部证据支持。早停与空转是同一"停止决策
+  不可靠"的两面(agent-research-book:premature termination/
+  never termination 并列),修复靠 verifiable stop condition 而非
+  调阈值——本仓 AMM-035(3 空审计⇒PARKED)↔早停的来回摆动即教训。
+- 【验证状态】官方站+论文检索核验;全文未读。
+
+### 蒸馏结论
+
+- 【坐标】×3 入库(§70.1-70.3);门 1=有 [行动] 候选(AMM-043 配套
+  登记,待用户裁定,零实施);蒸馏第 65 次达标(坐标级)。
+- 【共同结构事实】三个独立社区源指向同一结论:**长跑代理的续跑/
+  完成/节奏判断,可靠性来自把它移出代理自由裁量(外部钩子/客观
+  工件/机械阈值),而非增加代理自律条款**——本仓 12 次同题质询的
+  自律补丁路线被外部实践证伪。
+
 ## Sources
 
 > SCAN-AUDIT 注记(轮 94):本节多处仅域名根链——精确题录以各节内
