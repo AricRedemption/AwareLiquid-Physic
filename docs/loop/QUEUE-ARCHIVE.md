@@ -176,3 +176,6 @@ archived_pr:
 - id: RECIPE-LOO
   status: pr-pending(PR#58-判读RECIPE_LOO_PARTIAL=五轴回灌候选维持无harmful轴, load-bearing=depth 1.189 3/3+warmup 1.092 2/3, NEUTRAL=lr_decay/wd/k_train弱证据不据此精简, 双哨兵逐位真含轮228复现首落地, 判读与代码在dir/recipe-loo分支; 轮228登记族后续兑现, 决策=回灌候选维持五轴, 回灌PR用户线下)
   check_cmd: grep -q "RECIPE-LOO 判读" docs/PRD.md
+- id: RECIPE-REDUCE
+  status: pr-pending(PR#59-判读RECIPE_REDUCE_WEAK=五轴回灌候选维持, 双轴精简未过门ratio_red=1.0617弱带内, NEUTRAL三轴价值=训练稳定性非均值B2 spread1.79, 回灌候选五轴终判四探针证据链闭环, 判读与代码在dir/recipe-reduce分支; 轮434 LOO NEUTRAL弱证据的门1过门路径, 决策=回灌候选维持五轴, 回灌PR用户线下)
+  check_cmd: grep -q "RECIPE-REDUCE 判读" docs/PRD.md

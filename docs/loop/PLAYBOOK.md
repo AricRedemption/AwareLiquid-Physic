@@ -632,3 +632,9 @@
   状态行格式=`状态:**PROPOSED**(轮 N 登记,待用户;…)`,登记轮号
   与状态同线;补账时对 proposals=[] 与 unattributed 非空双查。
   (出处:轮 439;验证状态:补轮号复跑 proposals=[AMM-039,040,041]。)
+- **归档条 check_cmd 锚主线短记录(2026-09-27 轮 441)**:AMM-038 后
+  新归档条目的 check_cmd 写 `grep -q "<ID> 判读" docs/PRD.md`——主线
+  短记录行在消化轮同一 commit 落地,故 PR 合并瞬间端到端演练
+  (goal_check --audit 逐条实跑)即绿,无需等任何本机产物路径
+  (轮 428 死路教训:check_cmd 依赖 gitignored 产物=永假)。
+  (出处:轮 435/441 两例实操。)
