@@ -24,16 +24,19 @@ date +%s > "$REPO/.loop-lock"   # 马拉松存活心跳(供 marathon_guard 新�
 
 if [ "${1:-}" = "--audit" ]; then
   python3 - "$GOALS" <<'EOF'
-import re, sys
+import os, re, subprocess, sys
 path = sys.argv[1]
 src = open(path).read()
 problems = []
 whole_ids = re.findall(r"(?m)^\s*- id: (\S+)", src)
 whole_cmds = re.findall(r"(?m)^\s*check_cmd: (.*)$", src)
 block_m = re.search(r"```yaml\ngoal_queue:\n(.*?)```", src, re.S)
+empty_m = re.search(r"(?m)```yaml\ngoal_queue: \[\]\n```", src)
 entries = []
-if not block_m:
+if not block_m and not empty_m:
     problems.append("未找到 goal_queue YAML 块")
+elif not block_m:
+    block_m = empty_m  # goal_queue: [] 空队列形态,块内容按空处理
 else:
     cur = None
     for line in block_m.group(1).splitlines():
@@ -63,16 +66,43 @@ if len(whole_ids) != len(whole_cmds):
     problems.append(f"数数锚不平衡: '- id' ×{len(whole_ids)} vs 'check_cmd:' "
                     f"×{len(whole_cmds)}(整文件口径;吞行/畸变时二者必分离)")
 pending = [e["id"] for e in entries if e["status"].startswith("pr-pending")]
+archived = [e["id"] for e in entries if e["status"].startswith("archived-pr")]
 tail = entries[-1]["id"] if entries else "(空)"
-if problems:
+# AMM-038 条款 5(轮 431):端到端弹出演练——check_cmd 逐条实跑并报告
+# 通过率,静态数数锚之外补动态验证(轮 428 实证:55 条死路无人察觉,
+# 工具静默失效家族第三例)。演练结果只报告不判死(未达成≠机制坏),
+# 但 check_cmd 命令本体不可执行(shell 语法/脚本缺失)判死。
+rehearsal, broken = [], []
+for e in entries:
+    c = e["check_cmd"]
+    if not c or c[0] in ">|":
+        continue
+    try:
+        rc = subprocess.call(c, shell=True,
+                             stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL, timeout=30)
+        rehearsal.append((e["id"], rc))
+    except Exception as exc:
+        broken.append(f"[{e['id']}] check_cmd 执行异常:{exc}")
+archive_note = ""
+archive_path = path.rsplit("/", 1)[0] + "/QUEUE-ARCHIVE.md"
+if os.path.exists(archive_path):
+    n_arch = len(re.findall(r"(?m)^\s*- id: (\S+)",
+                            open(archive_path).read()))
+    archive_note = f",归档 {n_arch}(QUEUE-ARCHIVE.md)"
+if problems or broken:
     print("AUDIT FAIL:队列完整性问题(禁提交):")
-    for p in problems:
+    for p in problems + broken:
         print(f"  - {p}")
     print(f"  [现状] 条目 {len(entries)}(整文件 id ×{len(whole_ids)}/"
           f"check_cmd ×{len(whole_cmds)}),pr-pending {len(pending)},尾条 {tail}")
     sys.exit(1)
+passed = sum(1 for _, rc in rehearsal if rc == 0)
 print(f"AUDIT OK: 条目 {len(whole_ids)}={len(whole_cmds)}(数数锚平衡),"
       f"pr-pending {len(pending)},尾条 {tail};无空/折叠 check_cmd,无重复 id")
+print(f"  [端到端演练] check_cmd 实跑 {len(rehearsal)} 条,通过 {passed},"
+      f"未达 {len(rehearsal)-passed}(未达成=状态事实非故障;机制异常才判死)"
+      f"{archive_note}")
 sys.exit(0)
 EOF
   exit $?
@@ -111,13 +141,21 @@ def queue_empty_exit():
         print(f"VERDICT: MINING-FROZEN — EXP={gauge['exp_ratio']}<20%"
               f"(AMM-012):禁蒸馏,先补证据轮(T0 数字判读/T1 探针/台账消化)")
         sys.exit(3)
-    print("VERDICT: QUEUE-EMPTY")
+    print("VERDICT: QUEUE-EMPTY — 取活义务(AMM-038 ⑦ 每拍必产:无空转心跳,"
+          "本拍必须从积压取活转成产出心跳)")
+    print("  [积压优先级] ①队列弹出条目的消化回填(判读行/N1/派生下一轴)"
+          "②dir 在途 K 候选主线入账 ③停车场弱耦合项重准入 ④RSI 三提案"
+          "机制工程 ⑤配方组合族(RECIPE_SYNERGIC 已证,组合实验解锁)"
+          "⑥新蒸馏族")
+    print("  [无活声明] 五项阶梯+积压逐项盘点全空才可声明'无活',且必须附"
+          "每项为何此刻不可做的逐项理由;只剩用户门控项(T2/T3/合并/标题)"
+          "⇒BLOCKED-HUMAN(诚实等依赖),禁字面计数代替判断")
     # AMM-028(轮 227):价值出口门焊入路由器——蒸馏准入每心跳强制可见
     print("  [AMM-028 门] ①蒸馏准入:条目须带决策耦合声明(哪种结果⇒改变"
           "哪个决策),训练配方族默认关闭;②回灌门:累计≥3 族判『默认配置"
           "非最优』⇒禁开新族,强制组合配方对照(当前回灌候选 RECIPE-SYNTHESIS"
           " 已判 RECIPE_SYNERGIC,回灌 PR=用户线下);③对照类探针 3-seed;"
-          "④弱题录(带 ?)不得作 [行动] 唯一依据;⑤QUEUE-EMPTY 先盘判读后续池")
+          "④弱题录(带 ?)不得作 [行动] 唯一依据")
     sys.exit(2)
 
 if not block_m:
@@ -137,10 +175,10 @@ for line in block_m.group(1).splitlines():
 if not entries:
     queue_empty_exit()
 
-# AMM-026(轮 119):任务级状态机——`status: pr-pending` 条目=已完成待
-# 合并,**永不迭代**(防重跑探针):check_cmd 过(=合并后锚落地)⇒ 正常
-# 弹出;不过 ⇒ 机械跳过按次序找下一条可行动目标;全部跳过 ⇒ 按队列空走
-# 仪表路由。恢复由状态驱动,不再依赖 GOALS 散文注记。
+# AMM-026(轮 119)+AMM-038(轮 431):任务级状态机——`status: pr-pending`
+# 或 `archived-pr` 条目=已完成待合并/已归档终态,**永不迭代**(防重跑探针):
+# pr-pending=躺在 PR 区零催促;archived-pr=开 PR 即终态(QUEUE-ARCHIVE.md)。
+# 全部跳过 ⇒ 按队列空走取活义务路由。恢复由状态驱动,不依赖散文注记。
 chosen, skipped = None, []
 for e in entries:
     cmd = e["check_cmd"].strip()
@@ -160,16 +198,16 @@ for e in entries:
     if rc == 0:
         chosen = e
         break
-    if (e.get("status") or "").startswith("pr-pending"):
+    if ((e.get("status") or "").startswith("pr-pending")
+            or (e.get("status") or "").startswith("archived-pr")):
         skipped.append(e["id"])
+        print(f"  [skip] {e['id']}: 终态条目(pr-pending/archived-pr)零催促"
+              f"跳过(AMM-026/AMM-038)")
         continue
     print(f"VERDICT: NOT-Achieved — 对 [{e['id']}] {e['goal']} 迭代一步")
     print(f"  done_condition: {e['done_condition']}")
     sys.exit(1)
 if chosen is None:
-    for sid in skipped:
-        print(f"  [skip] {sid}: pr-pending 待合并(AMM-026 状态驱动跳过,"
-              f"合并后本路由自动弹出)")
     queue_empty_exit()
 
 rest = [e for e in entries if e is not chosen]

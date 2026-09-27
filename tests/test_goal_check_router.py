@@ -245,3 +245,45 @@ def test_audit_flags_duplicate_id(tmp_path):
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, dup)
     r = run_audit(tmp_path)
     assert r.returncode == 1 and "重复条目 id: X" in r.stdout
+
+
+# --- AMM-038(轮 431):开 PR 即终态+取活义务+端到端弹出演练 ---
+
+QUEUE_WITH_ARCHIVED = """goal_queue:
+- id: DONE1
+    track: engineering
+    goal: 已开 PR 归档条目
+    done_condition: 无
+    check_cmd: "false"
+    status: archived-pr(PR#99, 开PR即终态)
+- id: LIVE
+    track: engineering
+    goal: 活跃目标
+    done_condition: 某条件
+    check_cmd: "false"
+"""
+
+
+def test_archived_pr_skipped_routes_to_live(tmp_path):
+    """archived-pr 终态条目零催促跳过,路由到下一条可行动目标(AMM-038 ①)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_WITH_ARCHIVED)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "NOT-Achieved" in r.stdout
+    assert "[skip] DONE1" in r.stdout and "archived-pr" in r.stdout
+    assert "对 [LIVE]" in r.stdout
+
+
+def test_queue_empty_carries_backlog_duty(tmp_path):
+    """QUEUE-EMPTY 必须带取活义务与积压优先级(AMM-038 ⑦ 每拍必产)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    r = run(tmp_path)
+    assert r.returncode == 2 and "取活义务" in r.stdout
+    assert "积压优先级" in r.stdout and "BLOCKED-HUMAN" in r.stdout
+
+
+def test_audit_reports_end_to_end_rehearsal(tmp_path):
+    """--audit 端到端弹出演练:check_cmd 逐条实跑并报告通过率(AMM-038 ⑤)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_PENDING)
+    r = run_audit(tmp_path)
+    assert r.returncode == 0 and "端到端演练" in r.stdout
+    assert "通过 0,未达 2" in r.stdout  # false×2=未达但机制未坏,不判死
