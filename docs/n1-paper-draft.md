@@ -330,6 +330,23 @@ one dataset); and warmup's 3-seed confirmation is consistency-1/3, so
 its recipe candidacy carries a confidence annotation rather than a clean
 win.
 
+Axis-attribution follow-ups (rounds 434/440, PR#58/#59 pending merge)
+sharpen the composition row: leave-one-out at 3 seeds shows depth
+(removal degrades 18.9%, 3/3) and warmup (9.2%, 2/3) carry the composite,
+while lr-decay/weight-decay/k-train are individually neutral — yet a
+direct 3-seed comparison against a two-axis reduced composite fails the
+trimming gate (ratio 1.062), and the reduced arm's per-seed spread (1.79
+vs 1.54) indicates the neutral axes contribute training stability rather
+than mean improvement. External mechanism studies point the same way —
+warmup acts as implicit down-scaling of early updates (Kosson et al.,
+NeurIPS 2024) and weight decay as the actual cross-width stabilizer
+(Kosson et al., ICLR 2026) — though at GPT-pretraining scale, so we cite
+them as mechanism-level concordance, not transfer evidence. The five-axis
+composite therefore stands as the back-propagation candidate on a
+four-probe evidence chain (composition, horizon robustness, LOO,
+reduction), with the recipe-against-head interaction resolved separately
+by the either-or result above.
+
 Evaluation-protocol robustness (round 408 update): recomputing the same
 weights at fp64 instead of the fp32 house caliber — both heads, both
 anchor calibers (k=100 on the house pool, k=400 on the long-horizon
@@ -628,4 +645,9 @@ paragraph added from ANCHOR-PRECISION round 406 (precision axis
 <=2.3e-6 vs pool-composition axis 1.3-1.9x; both artifacts
 re-verified; scoped to single-machine deterministic CPU inference).
 Updated round 414: the Sec. 5 robustness paragraph gains the Biswas
-2026 comparative-study corroboration (scan §66.1, verified preprint).*
+2026 comparative-study corroboration (scan §66.1, verified preprint).
+Updated round 444: the Sec. 5 recipe-ladder paragraph gains the
+axis-attribution follow-ups (LOO rounds 434 + direct reduction
+comparison round 440, PRs #58/#59 pending merge; five-axis candidate
+upheld on a four-probe chain) and the Kosson et al. mechanism-level
+corroboration (scan §68, NeurIPS 2024 / ICLR 2026, scope-annotated).*

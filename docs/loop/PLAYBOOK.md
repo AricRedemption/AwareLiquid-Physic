@@ -650,3 +650,9 @@
   1=机制故障。读马拉松日志/脚本串联时勿把 2 当异常——先例:轮 433
   会话曾把 exit2 误判为异常当场排查(无代价但耗时)。
   (出处:scripts/goal_check sys.exit 段实读。)
+- **N1 增补句组的分级与在途标注模板(2026-09-27 轮 444)**:N1 入稿
+  引用 dir 在途判读时句尾固定带"(PRs #N/#M pending merge)",引用
+  外部文献带 scope 注记句("at GPT-pretraining scale… not transfer
+  evidence"),证据分级 [B]/T1 不升格——三件套齐才不给审稿留
+  "overclaim"把柄(先例:轮 414 Biswas 预印本如实标注)。
+  (出处:轮 444;模板化自轮 408/414 先例。)
