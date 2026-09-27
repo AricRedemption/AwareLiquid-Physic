@@ -179,3 +179,9 @@ archived_pr:
 - id: RECIPE-REDUCE
   status: pr-pending(PR#59-判读RECIPE_REDUCE_WEAK=五轴回灌候选维持, 双轴精简未过门ratio_red=1.0617弱带内, NEUTRAL三轴价值=训练稳定性非均值B2 spread1.79, 回灌候选五轴终判四探针证据链闭环, 判读与代码在dir/recipe-reduce分支; 轮434 LOO NEUTRAL弱证据的门1过门路径, 决策=回灌候选维持五轴, 回灌PR用户线下)
   check_cmd: grep -q "RECIPE-REDUCE 判读" docs/PRD.md
+- id: TOSA-LADDER
+  status: pr-pending(PR#36-判读TOSA_RESOLVED=观测窗长度可分辨非单调锯齿, 最优t_obs=8短窗有益(与D6对表), 轮223; 历史上经AMM-026 check_cmd流程弹出未入归档, 轮449 dir在途对账补录; 决策=t_obs维持默认24, t_obs=8不列回灌候选=评估口径歧义收口)
+  check_cmd: grep -q "TOSA-LADDER 判读" docs/PRD.md
+- id: CTX-DIM-LADDER
+  status: pr-pending(PR#37-判读CTXDIM_RESOLVED=容量单调有害, 最优ctx_dim=1(默认8差80%=最大配置误差), 轮226; 历史上经AMM-026 check_cmd流程弹出未入归档, 轮449 dir在途对账补录; 后续轮239 CTX-DIM-2 3-seed反转=CTX2_REVERSED见CTX-DIM族条目, ctx轴维持默认8已闭族)
+  check_cmd: grep -q "CTX-DIM-LADDER 判读" docs/PRD.md
