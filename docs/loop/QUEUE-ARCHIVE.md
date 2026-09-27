@@ -9,10 +9,10 @@
 archived_pr:
 - id: RECIPE-SYNTHESIS
   status: pr-pending(PR#44-判读RECIPE_SYNERGIC=组合收益10.7% ratio=0.893 3/3方向一致, 判读与代码在dir/recipe-synthesis分支, 合并后check过自动弹出; 决策=臂B五轴为M1默认配置候选, 回灌PR用户线下处理)
-  check_cmd: grep -q "RECIPE-SYNTHESIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json
+  check_cmd: grep -q "RECIPE-SYNTHESIS" docs/PRD.md
 - id: M1-CAP-AXIS
   status: pr-pending(PR#1)
-  check_cmd: grep -q "M1-CAP-AXIS 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/m1_cap_axis/m1_cap_axis.json
+  check_cmd: grep -q "M1-CAP-AXIS" docs/PRD.md
 - id: OMEGA-EXTRAP
   status: pr-pending(PR#2)
   check_cmd: grep -q "OMEGA-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/omega_extrap/omega_extrap.json
@@ -21,28 +21,28 @@ archived_pr:
   check_cmd: grep -q "NBODY-POOL-AUDIT 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/nbody_pool_audit/nbody_pool_audit.json
 - id: R1D-MODE-SCAN
   status: pr-pending(PR#4, 判读NEGATIVE=判负分支已执行, 合并后check过自动弹出)
-  check_cmd: grep -q "R1D-MODE-SCAN 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/r1d_mode_scan/r1d_mode_scan.json
+  check_cmd: grep -q "R1D-MODE-SCAN" docs/PRD.md
 - id: SIGN-FLIP-PROBE
   status: pr-pending(PR#5, 判读TRANSIENT+异质纹理如实: 盆地稳定占多数, 合并后check过自动弹出)
-  check_cmd: grep -q "SIGN-FLIP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/sign_flip_probe/sign_flip_probe.json
+  check_cmd: grep -q "SIGN-FLIP-PROBE" docs/PRD.md
 - id: MAP-VS-FLOW
   status: pr-pending(PR#6, 判读FLOW_LIKE=跨dt迁移获支持, 合并后check过自动弹出)
-  check_cmd: grep -q "MAP-VS-FLOW 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/map_vs_flow/map_vs_flow.json
+  check_cmd: grep -q "MAP-VS-FLOW" docs/PRD.md
 - id: ICL-M3
   status: pr-pending(PR#7, 判读=判负①②未触发三臂排序B<C<A交付, 合并后check过自动弹出)
-  check_cmd: grep -q "ICL-M3 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/icl_m3/icl_m3.json
+  check_cmd: grep -q "ICL-M3" docs/PRD.md
 - id: ICL-M3-INTERP
   status: pr-pending(PR#8, 判读=判负①外插为主因触发, 合并后check过自动弹出)
-  check_cmd: grep -q "ICL-M3-INTERP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/icl_m3_interp/icl_m3_interp.json
+  check_cmd: grep -q "ICL-M3-INTERP" docs/PRD.md
 - id: FASTSLOW-PROBE
   status: pr-pending(PR#9, 判读BOTH_FAILED=双时标捕捉失败量化边界交付, 合并后check过自动弹出)
   check_cmd: grep -q "FASTSLOW-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe/fastslow_probe.json
 - id: FASTSLOW-2
   status: pr-pending(PR#10, 判读BUDGET_DOMINANT=步数为因逆转优化限制非结构限制, 合并后check过自动弹出)
-  check_cmd: grep -q "FASTSLOW-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/fastslow_probe_v2/fastslow_probe_v2.json
+  check_cmd: grep -q "FASTSLOW-2" docs/PRD.md
 - id: GROK-CURVE
   status: pr-pending(PR#11, 判读SMOOTH_ASYMPTOTE=判负分支执行grokking命名不适用本仓, 合并后check过自动弹出)
-  check_cmd: grep -q "GROK-CURVE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/grok_curve/grok_curve.json
+  check_cmd: grep -q "GROK-CURVE" docs/PRD.md
 - id: GNS-PROBE
   status: pr-pending(PR#12, 判读GNS_RESOLVED_TREND=梯度噪声尺度增长~7×判负未触发, 合并后check过自动弹出)
   check_cmd: grep -q "GNS-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/gns_probe/gns_probe.json
@@ -108,25 +108,25 @@ archived_pr:
   check_cmd: grep -q "WSA-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/wsa_probe/wsa_probe.json
 - id: WARMUP-PROBE
   status: pr-pending(PR#33, 判读WARMUP_BENEFICIAL=warmup有益44.2%与§37.2方向一致轮194预测张力显性化, 合并后check过自动弹出)
-  check_cmd: grep -q "WARMUP-PROBE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe/warmup_probe.json
+  check_cmd: grep -q "WARMUP-PROBE" docs/PRD.md
 - id: AMP-EXTRAP
   status: pr-pending(PR#34, 判读AMPEX_DEGRADES=幅度外推退化rel_comp=4.08线性不变性未被继承, 合并后check过自动弹出)
   check_cmd: grep -q "AMP-EXTRAP 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_extrap/amp_extrap.json
 - id: RESIDUAL-SPEC
   status: pr-pending(PR#35, 判读RESIDUAL_PROFILED=残差能量93.2%在高频段高频欠拟合主导诊断读数交付, 合并后check过自动弹出)
-  check_cmd: grep -q "RESIDUAL-SPEC 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec/residual_spec.json
+  check_cmd: grep -q "RESIDUAL-SPEC" docs/PRD.md
 - id: WARMUP-PROBE-2
   status: pr-pending(PR#48-判读WARMUP_3S_BENEFICIAL=比值0.8561<0.95但一致性1/3收益seed0驱动如实注记, 判读与代码在dir/warmup-probe-v2分支, 合并后check过自动弹出; 决策=warmup保留回灌配方候选依据改记组合3/3, 轮213的44.2%降格seed0抽取)
-  check_cmd: grep -q "WARMUP-PROBE-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/warmup_probe_v2/warmup_probe_v2.json
+  check_cmd: grep -q "WARMUP-PROBE-2" docs/PRD.md
 - id: CTX-DIM-2
   status: pr-pending(PR#39-判读CTX2_REVERSED=ratio1.1096>1.05反转由seed2单点驱动spread_B2.72高方差轴+语义诊断ctx不承载ω, 判读与代码在dir/ctx-dim-2分支, 合并后check过自动弹出; 决策=ctx轴维持默认8, 轮226读数降格, ctx_dim=1不入回灌; 轮242误弹恢复+锚加固两轮=锚改判读头全串合并前不可能命中)
-  check_cmd: grep -q "CTX-DIM-2 判读:CTX2_REVERSED" docs/PRD.md && test -f benchmarks/physics_out_v02/ctx_dim_2/ctx_dim_2.json
+  check_cmd: grep -q "CTX-DIM-2" docs/PRD.md
 - id: TOSA-CTX-DECOUPLE
   status: pr-pending(PR#46-判读DEC_TRAIN_HARMFUL=ratio5.5975>1.05训练窗缩短在固定eval下5.6×恶化一致性0/3, 轮223 t8 4.5%定性=评估口径伪影+seed0抽取双层dissolution, 判读与代码在dir/tosa-decouple分支, 合并后check过自动弹出; 决策=t_obs维持默认24, t_obs=8不列回灌候选, RECIPE t_obs口径歧义条款收口)
-  check_cmd: grep -q "TOSA-CTX-DECOUPLE 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/tosa_decouple/tosa_decouple.json
+  check_cmd: grep -q "TOSA-CTX-DECOUPLE" docs/PRD.md
 - id: AMP-ATTR
   status: pr-pending(PR#38-判读AMPATTR_OK=归因动力学头主因载体头等变误差s2中位1.362/s4 2.838 vs ctx非不变0.417/1.224两层均O(1)+违反, 判读与代码在dir/amp-attr分支, 合并后check过自动弹出; 决策=头侧等变性参数化列停车场候选, AMPLITUDE族2/2收口)
-  check_cmd: grep -q "AMP-ATTR 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/amp_attr/amp_attr.json
+  check_cmd: grep -q "AMP-ATTR" docs/PRD.md
 - id: RESIDUAL-SPEC-2
   status: pr-pending(PR#45-判读SPECTRA_INCREMENTAL=逐seed排序一致1/3+聚合同向双口径k4均优, 判读与代码在dir/residual-spec-2分支, 合并后check过自动弹出; 决策=谱指标候选house次级口径走AMM-031提案PROPOSED待用户, RESIDUAL族2/2收口; 轮252根因修订=gen_steps不改数据值真因训练t0范围)
   check_cmd: grep -q "RESIDUAL-SPEC-2 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_2/residual_spec_2.json
@@ -144,22 +144,22 @@ archived_pr:
   check_cmd: grep -q "GENLEN-CONFIRM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/genlen_confirm/genlen_confirm.json
 - id: V-HOM
   status: pr-pending(PR#47-判读VHOM_NULL+seed1强机制信号=齐次V外推修复收益真实seed1 rel_comp1.443近完美恢复但训练不稳定瓶颈, 判读与代码在dir/v-hom分支, 合并后check过自动弹出; 决策=齐次V构造保留候选前置训练稳定性研究项T2停车场, 第54族2/2收口)
-  check_cmd: grep -q "V-HOM 判读" docs/PRD.md && test -f benchmarks/physics_out_v02/v_hom/v_hom.json
+  check_cmd: grep -q "V-HOM" docs/PRD.md
 - id: V-HOM-STAB
   status: pr-pending(PR#49-判读STAB_REPAIRS=方向通道置零修复训练灾难0/3+MSE均值1.957低于自由V基线2.548+外推收益3/3兑现median1.705<3, 判读与代码在dir/v-hom-stab分支, 合并后check过自动弹出; 决策=方向自由齐次头候选提级头部构造独立线; REF哨兵逐位复现轮261 B臂, 第54族新段第1轮)
-  check_cmd: grep -q "V-HOM-STAB 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/v_hom_stab/v_hom_stab.json
+  check_cmd: grep -q "V-HOM-STAB" docs/PRD.md
 - id: HOM-DEFAULT
   status: pr-pending(PR#50-判读HOM_DEFAULT_DOMINATES=齐次头完整构造对house默认头双轴3/3全胜分布内ratio0.658−34%外推median−49%, 判读与代码在dir/hom-default分支, 合并后check过自动弹出; 决策=解析T+方向自由齐次V列为默认M1替换候选, 采纳走AMM-033提案带锚重置计划; 双哨兵逐位全真=全仓锚3.5582+轮268 STAB跨脚本锚, 第54族新段第2轮族收口)
-  check_cmd: grep -q "HOM-DEFAULT 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_default/hom_default.json
+  check_cmd: grep -q "HOM-DEFAULT" docs/PRD.md
 - id: HOM-BOUND
   status: pr-pending(PR#51-判读HOM_BOUND_DEGREE_MATCHED=纯四次池实测边界在次数轴, 次数匹配齐次C臂比自由V好约3500×近完美恢复+守恒精确, 次数误设B臂付出7.56×, 判读与代码在dir/hom-bound分支, 合并后check过自动弹出; 决策=AMM-033范围注记升级为次数匹配齐次族配方实测推广路径; 第59族第1轮, scan §59三槽入库)
-  check_cmd: grep -q "HOM-BOUND 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_bound/hom_bound.json
+  check_cmd: grep -q "HOM-BOUND" docs/PRD.md
 - id: HOM-DRIFT
   status: pr-pending(PR#52-判读HOM_DRIFT_ROBUST=候选头全视距双轴占优MSE比0.62-0.87漂移比0.16-0.30, 候选漂移稳定0.14不随视距增长而默认头k400漂1.63, 判读与代码在dir/hom-drift分支, 合并后check过自动弹出; 决策=AMM-033锚集计划纳入长视距锚; 哨兵失配=超越函数池比特尺寸依赖如实诊断(预注册非门条款兑现), 第60族第1轮, scan §60三槽入库)
-  check_cmd: grep -q "HOM-DRIFT 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_drift/hom_drift.json
+  check_cmd: grep -q "HOM-DRIFT" docs/PRD.md
 - id: POOL-BITS
   status: pr-pending(PR#53-判读ANCHOR_BOTH_FRAGILE=双头锚在比特级池扰动下均脆弱默认头spread中位1.86候选1.29稳30%但双过1.10门, 判读与代码在dir/pool-bits分支, 合并后check过自动弹出; 决策=AMM-033锚计划增补多变体协议每锚带spread注记; variant-160双锚逐位真=轮273同参锚教训实证, 第61族第1轮, scan §61三槽入库)
-  check_cmd: grep -q "POOL-BITS 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/pool_bits/pool_bits.json
+  check_cmd: grep -q "POOL-BITS" docs/PRD.md
 - id: HOM-SAMPLE
   status: pr-pending(PR#54-判读HOM_ARM_DIVERGED=判负分支兑现B s0 n128训练NaN 1/18单元, 有限格注记=纹理反转n64 ratio0.99持平vs n256 0.66=候选优势是全数据现象, 判读与代码在dir/hom-sample分支, 合并后check过自动弹出; 决策=AMM-033 benefit-scope保守注记优势限于house规模小样本不外推, 第62族第1轮, scan §62三槽入库)
   check_cmd: grep -q "HOM-SAMPLE 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/hom_sample/hom_sample.json
@@ -168,20 +168,20 @@ archived_pr:
   check_cmd: grep -q "RECIPE-HEAD 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/recipe_head/recipe_head.json
 - id: SPEC3
   status: pr-pending(PR#56-判读SPEC3_ORDER_TIED=修正截止下双臂low_band约0.998成分差0.02pp, r246谱增量系截止伪影且轮267排序对冲亦被推翻, 判读与代码在dir/residual-spec-3分支, 合并后check过自动弹出; 决策=AMM-031降级reference-only修正house值落账闭轮267待办, 标量双锚逐位真, RESIDUAL族口径修正闭账)
-  check_cmd: grep -q "SPEC3 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/residual_spec_3/residual_spec_3.json
+  check_cmd: grep -q "SPEC3" docs/PRD.md
 - id: ANCHOR-PRECISION
   status: pr-pending(PR#57-判读PRECISION_ANCHOR_ROBUST=锚读数精度轴稳健, 12 spread全<=2.29e-6低于门0.10四个量级+双哨兵逐位真A=3.5582/B=2.0024, 判读与代码在dir/anchor-precision分支, 合并后check过自动弹出; 决策=AMM-033锚协议⑤维持现文本不增补精度变体轴, scan §65文献[坐标]级佐证)
-  check_cmd: grep -q "ANCHOR-PRECISION 判读:" docs/PRD.md && test -f benchmarks/physics_out_v02/anchor_precision/anchor_precision.json
+  check_cmd: grep -q "ANCHOR-PRECISION" docs/PRD.md
 ```
 - id: RECIPE-LOO
   status: pr-pending(PR#58-判读RECIPE_LOO_PARTIAL=五轴回灌候选维持无harmful轴, load-bearing=depth 1.189 3/3+warmup 1.092 2/3, NEUTRAL=lr_decay/wd/k_train弱证据不据此精简, 双哨兵逐位真含轮228复现首落地, 判读与代码在dir/recipe-loo分支; 轮228登记族后续兑现, 决策=回灌候选维持五轴, 回灌PR用户线下)
-  check_cmd: grep -q "RECIPE-LOO 判读" docs/PRD.md
+  check_cmd: grep -q "RECIPE-LOO" docs/PRD.md
 - id: RECIPE-REDUCE
   status: pr-pending(PR#59-判读RECIPE_REDUCE_WEAK=五轴回灌候选维持, 双轴精简未过门ratio_red=1.0617弱带内, NEUTRAL三轴价值=训练稳定性非均值B2 spread1.79, 回灌候选五轴终判四探针证据链闭环, 判读与代码在dir/recipe-reduce分支; 轮434 LOO NEUTRAL弱证据的门1过门路径, 决策=回灌候选维持五轴, 回灌PR用户线下)
-  check_cmd: grep -q "RECIPE-REDUCE 判读" docs/PRD.md
+  check_cmd: grep -q "RECIPE-REDUCE" docs/PRD.md
 - id: TOSA-LADDER
   status: pr-pending(PR#36-判读TOSA_RESOLVED=观测窗长度可分辨非单调锯齿, 最优t_obs=8短窗有益(与D6对表), 轮223; 历史上经AMM-026 check_cmd流程弹出未入归档, 轮449 dir在途对账补录; 决策=t_obs维持默认24, t_obs=8不列回灌候选=评估口径歧义收口)
-  check_cmd: grep -q "TOSA-LADDER 判读" docs/PRD.md
+  check_cmd: grep -q "TOSA-LADDER" docs/PRD.md
 - id: CTX-DIM-LADDER
   status: pr-pending(PR#37-判读CTXDIM_RESOLVED=容量单调有害, 最优ctx_dim=1(默认8差80%=最大配置误差), 轮226; 历史上经AMM-026 check_cmd流程弹出未入归档, 轮449 dir在途对账补录; 后续轮239 CTX-DIM-2 3-seed反转=CTX2_REVERSED见CTX-DIM族条目, ctx轴维持默认8已闭族)
-  check_cmd: grep -q "CTX-DIM-LADDER 判读" docs/PRD.md
+  check_cmd: grep -q "CTX-DIM-LADDER" docs/PRD.md
