@@ -316,6 +316,18 @@ static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍�
    17.5%),逐视距 3/3 一致**;回灌 PR scope 确认=k100-400 视距稳健
    且增强;附轮 246 根因修订(gen_steps 不改数据值,真因=训练 t0
    范围随轨迹长度,与 D1g 起点覆盖一致);第 55 族 1/2(段内)。
+   **轮 434 留一法消融(RECIPE-LOO,dir/recipe-loo PR#58 待合并)**:
+   五 LOO 臂×3-seed 逐轴 loo_ratio=mean(B\axis)/mean(B)——**depth=
+   1.189(移除降级 18.9%,3/3 方向一致=最强单轴)/warmup=1.092(降级
+   9.2%,2/3)承重;lr_decay=1.032/weight_decay=0.983/k_train=1.021
+   均 NEUTRAL(门 1.05 未达,精简候选弱证据)**;无 harmful 轴 ⇒
+   **RECIPE_LOO_PARTIAL:五轴回灌候选维持**(移除任一轴均不改善
+   ≥5%);组合 ratio_B/A=0.893 逐位复现;双哨兵真(臂 A seed0=
+   3.5582+臂 B 轮 228 逐位复现=同机确定性全链复现首落地);收益
+   结构读数=10.7% 集中于 depth+warmup 两轴,其余三轴近似中性但
+   次可加结构(轮 228"单轴百分比不可加")与 RECIPE-HEAD(轮 279)
+   同向;WARMUP 反预期归因未收口(组合内正贡献确证,单轴净贡献仍
+   不可分离)。
 23. **ctx 隐变量容量(轮 226 CTX-DIM-LADDER 1-seed + 轮 239
    CTX-DIM-2 3-seed 升级,dir/ctx-dim-ladder+dir/ctx-dim-2 待
    合并)**:阶梯 1-seed spread=1.80 判"单调有害 ctx_dim=1 最优

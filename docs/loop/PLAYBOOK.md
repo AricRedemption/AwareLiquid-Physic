@@ -608,3 +608,8 @@
   实际漏推,轮 435 fetch 才发现。→ 成功判定必须锚定目标分支引用:
   `git fetch fork <branch> && [ "$(git rev-parse fork/<branch>)" =
   "$(git rev-parse <branch>)" ]`,禁用工作区 status。(出处:轮 433/435。)
+- **资产索引条目=族不是轮(2026-09-27 轮 436)**:n1-asset-index 回填
+  判读读数时,同族后续判读(先例:第 22 条=RECIPE-SYNTHESIS+RECIPE-
+  HORIZON+RECIPE-LOO 三判读同居一条)append 进既有条目加粗小标题分隔,
+  不新开条目——条目按"资产族"聚合,新开条目会让同一资产散落多处,
+  N1 写作检索面碎裂。(出处:轮 407 第 26 条先例+轮 436 实操。)
