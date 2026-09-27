@@ -327,7 +327,12 @@ static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍�
    结构读数=10.7% 集中于 depth+warmup 两轴,其余三轴近似中性但
    次可加结构(轮 228"单轴百分比不可加")与 RECIPE-HEAD(轮 279)
    同向;WARMUP 反预期归因未收口(组合内正贡献确证,单轴净贡献仍
-   不可分离)。
+   不可分离)。**外部文献佐证(scan §68,轮 442)**:Kosson et al.
+   NeurIPS 2024(arXiv:2410.23922,warmup 机制=权重缩放隐式降更新)+
+   Kosson et al. ICLR 2026(arXiv:2510.19093,wd=跨宽度更新动态实际
+   稳定器,µP≈隐式 warmup)——均与"NEUTRAL 轴=稳定化价值形态"同向,
+   scope 注记=GPT 预训练规模 vs 本仓小模型;N1 §5/训练配置注记的
+   配方选择辩护素材。
 23. **ctx 隐变量容量(轮 226 CTX-DIM-LADDER 1-seed + 轮 239
    CTX-DIM-2 3-seed 升级,dir/ctx-dim-ladder+dir/ctx-dim-2 待
    合并)**:阶梯 1-seed spread=1.80 判"单调有害 ctx_dim=1 最优
