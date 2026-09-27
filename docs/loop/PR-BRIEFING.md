@@ -68,3 +68,16 @@
   缩减为本族两文件(probe+tests)+判读行;反之 PR#57 先合并亦无冲突
   (超集包含)。
 - 判读详情唯一源不变=GOALS 队列条目 status 字段(AMM-021)。
+
+## 7. 增量更新(轮 452,2026-09-27)
+
+- **PR#58 新开**(dir/recipe-loo → wave/loop):RECIPE-LOO 判读
+  RECIPE_LOO_PARTIAL(五轴组合留一法消融,depth/warmup 承重,
+  五轴回灌候选维持;轮 228 登记族后续兑现)。
+- **PR#59 新开**(dir/recipe-reduce → wave/loop):RECIPE-REDUCE 判读
+  RECIPE_REDUCE_WEAK(双轴精简直接对照未过门,五轴候选终判;回灌
+  候选四探针证据链闭环)。**在途 PR 总数 57→59**。
+- **AMM-038 后队列语义**:方向条目开 PR 即终态归档(QUEUE-ARCHIVE
+  59 条=开放 PR 59 全对齐,轮 449 三向对账);合并落地与否=用户门控
+  零催促,合并简报仅在 PR 状态变化时产出(本条)。
+- 判读详情唯一源不变=QUEUE-ARCHIVE status 字段+dir 分支 PRD(AMM-038)。
