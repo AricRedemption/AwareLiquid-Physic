@@ -90,6 +90,25 @@ if os.path.exists(archive_path):
     n_arch = len(re.findall(r"(?m)^\s*- id: (\S+)",
                             open(archive_path).read()))
     archive_note = f",归档 {n_arch}(QUEUE-ARCHIVE.md)"
+# AMM 状态行卫生检查(轮 445,轮 439 坑焊点):rsi_night A 维度按提案
+# "状态:**…**"行同一行内的"轮 N"归属立案轮——缺轮号=断喂 unattributed
+# (工具静默失效家族第四例)。只报告不判死(历史条目由补账轮消化)。
+amm_hygiene = ""
+amm_path = path.rsplit("/", 1)[0] + "/AMENDMENTS.md"
+if os.path.exists(amm_path):
+    amm_src = open(amm_path, encoding="utf-8").read()
+    amm_missing = []
+    for m in re.finditer(r"### (AMM-\d+):[^\n]*\n((?:(?!### ).*\n)*)",
+                         amm_src):
+        sm = re.search(r"状态:\*\*[^*]*\*\*([^\n]*)", m.group(2))
+        if not sm or not re.search(r"轮\s*\d+", sm.group(1)):
+            amm_missing.append(m.group(1))
+    if amm_missing:
+        shown = "/".join(amm_missing[:6]) + ("…" if len(amm_missing) > 6
+                                             else "")
+        amm_hygiene = (f";[AMM 卫生]{len(amm_missing)} 条提案状态行缺"
+                       f"登记轮号({shown})——rsi_night A 维度断喂面,"
+                       f"状态行补'轮 N 登记'")
 if problems or broken:
     print("AUDIT FAIL:队列完整性问题(禁提交):")
     for p in problems + broken:
@@ -103,6 +122,8 @@ print(f"AUDIT OK: 条目 {len(whole_ids)}={len(whole_cmds)}(数数锚平衡),"
 print(f"  [端到端演练] check_cmd 实跑 {len(rehearsal)} 条,通过 {passed},"
       f"未达 {len(rehearsal)-passed}(未达成=状态事实非故障;机制异常才判死)"
       f"{archive_note}")
+if amm_hygiene:
+    print(f"  {amm_hygiene}")
 sys.exit(0)
 EOF
   exit $?

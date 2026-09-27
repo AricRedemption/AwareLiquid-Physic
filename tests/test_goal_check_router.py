@@ -287,3 +287,41 @@ def test_audit_reports_end_to_end_rehearsal(tmp_path):
     r = run_audit(tmp_path)
     assert r.returncode == 0 and "端到端演练" in r.stdout
     assert "通过 0,未达 2" in r.stdout  # false×2=未达但机制未坏,不判死
+
+
+AMM_BAD = """### AMM-901: 测试提案甲(PROPOSED)
+- 动机:x
+- 状态:**PROPOSED**(待用户;无登记轮号)
+### AMM-902: 测试提案乙(PROPOSED)
+- 动机:y
+- 状态:**PROPOSED**(轮 900 登记,待用户)
+"""
+
+AMM_GOOD = """### AMM-901: 测试提案甲(PROPOSED)
+- 动机:x
+- 状态:**PROPOSED**(轮 900 登记,待用户)
+"""
+
+
+def test_amm_status_line_without_round_is_flagged(tmp_path):
+    make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    (tmp_path / "docs" / "loop" / "AMENDMENTS.md").write_text(AMM_BAD,
+                                                         encoding="utf-8")
+    out = run_audit(tmp_path).stdout
+    assert "AUDIT OK" in out
+    assert "[AMM 卫生]1 条提案状态行缺登记轮号(AMM-901)" in out
+
+
+def test_amm_status_line_with_round_passes_silent(tmp_path):
+    make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    (tmp_path / "docs" / "loop" / "AMENDMENTS.md").write_text(AMM_GOOD,
+                                                         encoding="utf-8")
+    out = run_audit(tmp_path).stdout
+    assert "AUDIT OK" in out
+    assert "AMM 卫生" not in out
+
+
+def test_amm_hygiene_absent_file_no_crash(tmp_path):
+    make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    out = run_audit(tmp_path).stdout
+    assert "AUDIT OK" in out
