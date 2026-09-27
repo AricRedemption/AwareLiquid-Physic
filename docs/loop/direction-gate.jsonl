@@ -159,3 +159,4 @@
 {"round": 510, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子; gauge周期核查=EXP0.2/WIP0/欠账0/无报警; 剩余项=用户门控同前; push全落定ahead0; 详文窗口滚动508入摘要"}
 {"round": 511, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口未满(仅510详文化)本轮直接追加无滚动"}
 {"round": 512, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑(窗口510/511/512满)"}
+{"round": 513, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动510转一行式"}
