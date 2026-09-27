@@ -49,3 +49,4 @@
 `d3_window/{tobs8,tobs24}` `d3_identifiability` `d3_field_identifiability`
 `tsfm_baseline`(轮 89,D-2)
 `physics_out_v02`(第九波 canonical,勿覆盖)
+- `benchmarks/recipe_reduce_probe.py` — RECIPE-REDUCE 双轴精简组合直接对照(轮 440):三臂×3-seed(A/B 五轴/B2 双轴 depth+warmup),ratio_red 弱带判定 OK/WEAK/NO;classify_reduce 纯函数测试钉死;双哨兵(A 历史哨兵+B 轮 228 复现)。
