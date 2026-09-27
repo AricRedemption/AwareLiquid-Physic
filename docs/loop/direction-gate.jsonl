@@ -153,3 +153,4 @@
 {"round": 504, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2); 周期监察=PR merged仍空(无简报触发); 剩余项=用户门控同前; 详文窗口滚动502入摘要"}
 {"round": 505, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 详文窗口滚动503入摘要"}
 {"round": 506, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; push再阻断=后台重试挂起本地心跳继续(轮287处置); 详文窗口滚动504入摘要"}
+{"round": 507, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 505已推落(后台第2试), 506待推=新一轮后台重试挂起; 详文窗口滚动505入摘要"}
