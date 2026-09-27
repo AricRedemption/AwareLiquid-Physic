@@ -239,3 +239,4 @@
 {"round": 590, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑稳定锚"}
 {"round": 591, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑稳定锚"}
 {"round": 592, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子; gauge周期核查=EXP0.2/WIP0/欠账0/无报警; 剩余项=用户门控同前; 追加式编辑稳定锚"}
+{"round": 593, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑稳定锚"}
