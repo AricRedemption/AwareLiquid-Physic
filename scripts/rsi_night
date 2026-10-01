@@ -205,7 +205,7 @@ def main():
 
     out = {
         "range": [args.lo, args.hi],
-        "caliber": "v3-full(dir 并入)" if args.include_dir else "v2-main-only",
+        "caliber": "v4-full(dir 并入,判读锚含标题)" if args.include_dir else "v2-main-only(body 锚)",
         "dir_branches": dir_branches,
         "dir_error": dir_err,
         "sources": {f"{r['source']}#{r['round']}": r["source"] for r in rounds},

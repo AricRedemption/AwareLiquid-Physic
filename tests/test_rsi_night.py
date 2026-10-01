@@ -81,7 +81,7 @@ def test_include_dir_real_repo_inflight_verdict(tmp_path):
         capture_output=True, text=True, cwd=REPO)
     assert r.returncode == 0, r.stderr
     out = json.loads(r.stdout.splitlines()[0])
-    assert out["caliber"] == "v3-full(dir 并入)"
+    assert out["caliber"] == "v4-full(dir 并入,判读锚含标题)"
     assert "dir/residual-spec-3" in out["dir_branches"]
     assert out["k_upper"] >= 1 and 283 in out["k_candidate_rounds"]
     # 无 --include-dir 时保持 v2 主线口径(向后兼容)
