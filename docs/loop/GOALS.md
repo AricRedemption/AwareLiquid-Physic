@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN  # 轮 822 段尾入账后置机械等待态(判据双留痕=goal_check exit 6 ALL-BLOCKED-HUMAN ∧ 轮 821 派生评估判否三族证据[强耦合候选 0/研究面闭族闭轴/算力面 rc=3])。等待≠收束:禁以心跳轮询当监听器(AMM-045);重入口=①用户一句话(最高优先, 先答质询再续跑同拍完成)②新欠账③停车场或算力重启④PR#49+#50 合并落地(触发 AMM-033 实施排程)⇒state 回 RUNNING, 达成检测恢复每轮实跑。队列现仅 T2T3-COMPUTE(用户门控, 零催促)
+state: BLOCKED-HUMAN  # 轮 822 段尾入账后置机械等待态(判据双留痕=goal_check exit 6 ALL-BLOCKED-HUMAN ∧ 轮 821 派生评估判否三族证据[强耦合候选 0/研究面闭族闭轴/算力面 rc=3])。等待≠收束:禁以心跳轮询当监听器(AMM-045);重入口=①用户一句话(最高优先, 先答质询再续跑同拍完成)②新欠账③停车场或算力重启④PR#49+#50 合并落地(触发 AMM-033 实施排程)⇒state 回 RUNNING, 达成检测恢复每轮实跑。队列现仅 T2T3-COMPUTE(用户门控, 零催促)。**入口待办**:补推 3 条本地提交至 fork(轮 822 push 债详见其记录; 核清=`git log fork/wave/loop..wave/loop` 零差)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -153,7 +153,10 @@ current_action: >-
   `轮\s*[≤<]?\s*\d+`, 属门禁工具增强⇒AMM-044 冻期禁自实施, 入停车场待用户
   裁。⑤**push 债如实登记**:轮 821/822 两次 `git push fork wave/loop` 遭
   GitHub 443 连接失败, 本地提交安全(先例轮 250/193/433-438), 提交信息不宣
-  称 push 成功。⇒依 goal_check ③/④ 置 **state: BLOCKED-HUMAN**(机械等待
+  称 push 成功。**追记(同拍)**:轮 822 提交 617c8d1 之 push 亦失败(curl
+  github.com 超时 exit 28=本机网络硬限), 待推清单=dc9dc8b(轮 821)+
+  617c8d1(轮 822)+本追记提交共 3 条, 恢复动作=任一后续入口首拍先补推并
+  以 `git log fork/wave/loop..wave/loop` 核清零差(不宣称成功除非实跑 exit 0)。⇒依 goal_check ③/④ 置 **state: BLOCKED-HUMAN**(机械等待
   态; 判据双留痕=exit 6 ALL-BLOCKED-HUMAN ∧ 轮 821 派生评估判否三族证据;
   禁以心跳轮询当监听器; 重入口=用户一句话[最高优先, 先答质询再续跑同拍完
   成]/新欠账/停车场与算力重启/PR#49+#50 合并落地触发 AMM-033 实施⇒回
