@@ -173,6 +173,23 @@ current_action: >-
   须含本段新鲜良信尝试)。台账=零算力轮无 PR;判单 829;段三数(新段起计)
   =队列迭代 0/研究拍 1/簿记拍 0。下一心跳=N1-PROXY-CORROB 首拍迭代(蒸
   馏门三步+预注册判负)。
+  轮 830 N1-PROXY-CORROB 执行轮(本段第 2 研究拍;蒸馏门三步齐产物前置入
+  PRD §19 轮 830 记录):①总结(§5 预算域段与 Limitation 4f 裸 house 声明
+  /引用吸收两错面=域限定丢失与字段不符)/②蒸馏=池内 4 条[轮 444/111/94/
+  814]/③定变量=单变量"印证吸收"+预注册判负三条(引用字段不符⇒停改/缺
+  域限定⇒判违/等效不删破⇒当轮修)。吸收实施=**2 处入稿+1 索引**:§5 预算
+  域段尾印证句(Goyal CVPR 2024+Wang arXiv:2512.24503 ICLR 2026,[B]+域
+  限定"analogous phenomenon class, not a direct replication")/Limitation
+  4f 尾印证句(同两引用+域限定)/asset-index §7 第 8 条(使用条款=引用必
+  带域限定+预算跨度 4× 注记+不构成 [行动])。三条判负均未触发(引用字段
+  与 §73 逐项一致/两处均带域限定/既有内容零删改)。效果=RECIPE_BUDGET/
+  MIGRATION_REVERSED 升级为有文档化现象类外部印证。完成条件双锚 grep 过
+  ⇒同心跳弹出归档(66 条, 队列余 T2T3)。台账=零算力写作轴无 PR;判单
+  830;段三数=队列迭代 1/研究拍 2/簿记拍 0。轮 829 push 债(9ec9ef3)后台
+  重试中。下一心跳=goal_check(预期 exit 6)→派生评估:①登记欠账=0
+  (印证已吸收)②段蒸馏义务=829 新鲜尝试已履行 ③闭族闭轴+本段新鲜证据
+  =829 检索留痕(轮 829 坑条款: 新鲜尝试本段已产)⇒若判否先核段尾入账
+  触发线(本段产出心跳计数)再置态。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -183,11 +200,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: N1-PROXY-CORROB
-    track: writing
-    goal: 吸收轮 829 蒸馏收获(小规模代理实验配方迁移可靠性族 [坐标]×2=Goyal Maini Lipton Raghunathan "Scaling Laws for Data Filtering—Data Curation cannot be Compute Agnostic" CVPR 2024 数据配方排序算力依赖 + Wang et al. "Can Small Training Runs Reliably Guide Data Curation?" arXiv:2512.24503 ICLR 2026 代理协议排序不可靠, scan §73)进 n1-paper-draft——§5 预算域行(RECIPE_BUDGET_REVERSED)与 Limitation 4f 的 house 发现升级为"有文档化现象类外部印证", 必带域限定注记(社区=LLM 预训练数据筛选域, 本仓=合成动力学配方域, 类比印证非直接复制)与引用分级 [B], 等效不删
-    done_condition: PRD §19 出现 N1-PROXY-CORROB 判读行(与 draft+asset-index 实改一致), n1-paper-draft 含 Goyal/Wang 引用及域限定句, asset-index 同心跳登记条目, 等效不删既有内容
-    check_cmd: grep -q "N1-PROXY-CORROB 判读" docs/PRD.md && grep -q "Goyal" docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

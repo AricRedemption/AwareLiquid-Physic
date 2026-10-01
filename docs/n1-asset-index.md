@@ -509,6 +509,15 @@ Lyapunov 边界声明(§18.3:守恒可积域,未验证混沌域)。
    成立;多 seed 终局=停车场。
 6. 闭式近似层未分离(§13.1);混沌域未验证(§18.3)。
 7. **弱耦合欠账终态分账(轮 827 N1-WEAKDEBT-ABS,零算力写作轴;WEAKDEBT 关账块)**:六条登记弱耦合欠账(轮 821/824 分账)逐条终态——**GENLEN_CONFIRMED=入稿**(§5 梯子行判词刷新,轮 258 出样 2/3 ratio 0.8738=−12.6%,seed4 微差 0.045 带注;数字回溯 dir/genlen-confirm PRD 判读行,本索引第 25 条轮 258 注记先行);**LOAD_BEARING=关账**(实质已入稿:草稿 §5 axis-attribution 段 depth 18.9% 3/3+warmup 9.2% 2/3=轮 228 loo_ratio 1.189/1.092);**PRECISION_ANCHOR_ROBUST=关账**(实质已入稿:ANCHOR-PRECISION 锚口径段,轮 406,协议设计输入非论文主张);**SHARP_EOS=关账**(预注册分支未走,实判 SHARP_BELOW 轮 154=λ_max·lr≪EOS 阈值训练不在 EOS,工具/训练动力学面);**SPECTRA_INCREMENTAL=关账**(谱口径未采纳为主判据,逐 seed 一致 1/3=增量证据弱,残差谱条目在档);**WINDOW_EDGE=关账**(预注册分支未走,实判 LEN_ROBUST 草稿已载)。判据=标签缺≠欠账(轮 817 双判);六条清零⇒写作轴登记欠账=0(AMM-047 条件①达成面)。
+8. **预算反转现象类外部印证(轮 830 N1-PROXY-CORROB,[B];scan §73)**:
+   Goyal, Maini, Lipton, Raghunathan, "Scaling Laws for Data Filtering —
+   Data Curation cannot be Compute Agnostic"(CVPR 2024)=数据配方排序随
+   算力反转;Wang et al.,"Can Small Training Runs Reliably Guide Data
+   Curation? Rethinking Proxy-Model Practice"(arXiv:2512.24503,ICLR
+   2026)=小规模代理协议排序对大算力不可靠。**使用条款:引用必带域限定**
+   (社区=LLM 预训练数据筛选域,本仓=合成动力学配方域,类比印证非直接
+   复制;本仓预算跨度仅 4×=2000→8000 步);落稿映射=§5 预算域段+
+   Limitation 4f 各一句印证;不构成 [行动](RECIPE 族六探针已闭族,轮 812)。
 
 ## 8. 守恒与结构哲学(Discussion)
 

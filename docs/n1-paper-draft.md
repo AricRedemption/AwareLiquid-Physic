@@ -422,7 +422,15 @@ rollout horizon is long**; outside that box it is not merely weaker but of
 opposite sign (budget) or opposite direction (held-out seed). Every recipe
 recommendation in this paper therefore ships with its domain, and the
 back-fill proposals built on the composite were scoped this way instead of
-adopted as defaults.
+adopted as defaults. The reversal itself is an instance of a documented
+phenomenon class rather than a house quirk: data-recipe rankings measured
+at small compute are known to flip at larger scales (Goyal, Maini, Lipton
+& Raghunathan, CVPR 2024 — data curation cannot be compute-agnostic), and
+small-proxy-protocol rankings are documented as unreliable guides for
+fully tuned large-scale runs (Wang et al., arXiv:2512.24503, ICLR 2026)
+[B; both are LLM pre-training data-curation results — an analogous
+phenomenon class for our synthetic-dynamics recipes, not a direct
+replication].
 
 Evaluation-protocol robustness (round 408 update): recomputing the same
 weights at fp64 instead of the fp32 house caliber — both heads, both
@@ -737,7 +745,12 @@ measured and reported in the same breath.
    and no historical bitwise sentinel at that budget — a within-run paired
    reading). The recipe claims in this paper are therefore a three-sided
    domain statement — 2000-step budget × visible seed set ×
-   horizon-robustness — not a default-configuration recommendation.
+   horizon-robustness — not a default-configuration recommendation. The
+   reversal phenomenon class itself is externally corroborated: recipe
+   rankings flipping across compute scales is documented in LLM
+   pre-training data curation (Goyal et al., CVPR 2024; Wang et al.,
+   arXiv:2512.24503, ICLR 2026) [B; analogous phenomenon class, different
+   domain — synthetic-dynamics recipes here, data curation there].
 4g. **Channel-attribution shares are report-only.** The Sec. 6 statement
    that the dynamics head carries the larger share of the amplitude
    extrapolation bias (1.362 / 2.838 vs context 0.417 / 1.224 at
