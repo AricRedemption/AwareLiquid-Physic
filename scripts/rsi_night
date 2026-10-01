@@ -42,6 +42,53 @@ VERDICT_PAT = re.compile(r"判读[()（）]")
 TOOL_ROW_PAT = re.compile(r"^\| `([^`]+)`")
 ROUND_IN_PAT = re.compile(r"轮\s*(\d+)")
 
+# AMM-039(轮 806):K 终判机械化规则表——全部源自既有夜账先例,不新增判断;
+# 冲突/未覆盖/dir 在途 ⇒ HUMAN-REVIEW 禁静默分类;终判权仍留人裁。
+K_RULES = [
+    # (rule_id, 草稿判定, 正则, 依据先例)
+    ("K-JUDGED-NEG", "K", r"判负",
+     "夜 5:判负级=有效结论(预注册判负标准先行由 §19 行自带)"),
+    ("K-MECHANISM", "K", r"机制级|恒等式|管线判定|机制归因|归因链|分离结论|信息湮灭",
+     "夜 1/3/6:机制级归因"),
+    ("K-PROTOCOL", "K-HUMAN-CANDIDATE", r"协议确认|锚协议|协议.{0,4}(维持|确认)",
+     "夜 16:协议确认级改变待决条款,计人裁候选仍复核"),
+    ("NO-PRESENTATION", "NOT-K", r"呈现层|呈现级",
+     "夜 6/夜 8:呈现层修复不计 K"),
+    ("NO-REFERENCE", "NOT-K", r"参考级|经典基线|参考基线",
+     "夜 5/6:参考级(TSFM 零样本参考基线等)不计 K"),
+    ("NO-BUGFIX", "NOT-K", r"bugfix|bug 修复|修复 bug|窗口 bug",
+     "夜 6:bugfix 不计(先例 T+,同源不计 K)"),
+]
+
+
+def k_classify(rec):
+    """判读候选 → (rule_id, k_draft, 依据)。K/NOT-K 冲突或未覆盖 ⇒ 人裁。"""
+    if rec.get("source", "main") != "main":
+        return ("HR-DIR-INFLIGHT", "HUMAN-REVIEW",
+                "v3 in-flight:dir 在途条目合并后补账转正,不机械分类")
+    # 判读锚行+其后 300 字=结论区;预注册协议区(含"判负标准"字样)不扫
+    # ——夜 5 回放实测:全段扫描把预注册判负误判为判负结论(轮 806 修正)
+    text = rec.get("header_full", rec["header"]) + "\n" + rec.get("body_text", "")
+    verdict_zone = [rec.get("header_full", rec["header"])]
+    for m in re.finditer(r"[^\n]*判读[()（][^\n]*", text):
+        verdict_zone.append(text[m.start():m.start() + 360])
+    zone = "\n".join(verdict_zone)
+    hits = [(rid, v, basis) for rid, v, pat, basis in K_RULES
+            if re.search(pat, zone)]
+    k = [h for h in hits if h[1] == "K"]
+    nk = [h for h in hits if h[1] == "NOT-K"]
+    if k and nk:
+        return ("HR-CONFLICT", "HUMAN-REVIEW",
+                f"规则冲突:{[h[0] for h in hits]}——判 K 与不计 K 同时命中")
+    if k:
+        verdict = ("K-HUMAN-CANDIDATE"
+                   if any(h[0] == "K-PROTOCOL" for h in k) else "K")
+        return (k[0][0], verdict, k[0][2])
+    if nk:
+        return (nk[0][0], "NOT-K", nk[0][2])
+    return ("HR-UNCOVERED", "HUMAN-REVIEW",
+            "规则表未覆盖的判读类型——禁静默分类,人裁")
+
 
 def classify(header: str) -> str:
     if "蒸馏补池" in header:
@@ -70,7 +117,13 @@ def parse_rounds(prd_text: str, lo: int, hi: int):
             body.append(nxt)
         hits.append({"round": rid, "class": classify(line.strip()),
                      "header": line.strip()[:60],
-                     "has_verdict": bool(VERDICT_PAT.search("\n".join(body)))})
+                     "header_full": line.strip(),
+                     "body_text": "\n".join(body)[:2000],
+                     "has_verdict": bool(VERDICT_PAT.search("\n".join(body))),
+                     # 旧段(73-298 era)判读锚在标题"轮 N 判读(…)"——k-rules
+                     # 候选集并入标题锚;默认 k_upper 口径不动(AMM-039 零默认
+                     # 行为变更条款,轮 806 回放实测发现)
+                     "has_verdict_hdr": bool(VERDICT_PAT.search(line))})
     return hits
 
 
@@ -111,6 +164,9 @@ def main():
     ap.add_argument("--amm", default="docs/loop/AMENDMENTS.md")
     ap.add_argument("--include-dir", dest="include_dir", action="store_true",
                     help="夜账 v3 全口径:并入本地 dir/* 在途分支的判读行")
+    ap.add_argument("--k-rules", dest="k_rules", action="store_true",
+                    help="AMM-039:判读候选逐条机械 K 分类草稿(默认关,"
+                         "行为不变;终判人裁,HUMAN-REVIEW 禁静默)")
     args = ap.parse_args()
 
     prd = Path(args.prd).read_text(encoding="utf-8")
@@ -167,6 +223,28 @@ def main():
         "proposals": props,
         "proposals_unattributed": unattr,
     }
+    if args.k_rules:
+        # 按轮号唯一(v3 同款口径):主线判读行 > dir 判读行 > 主线 > dir
+        by_round = {}
+        for r in rounds:
+            if not (r["has_verdict"] or r.get("has_verdict_hdr")):
+                continue
+            rank = ((r["source"] == "main") * 2
+                    + (r["has_verdict"] or r.get("has_verdict_hdr", False)))
+            cur = by_round.get(r["round"])
+            key = (r["source"] == "main", r["has_verdict"])
+            if cur is None or key > cur[0]:
+                by_round[r["round"]] = (key, r)
+        cands = [v[1][1] for v in sorted(by_round.items())]
+        klass = []
+        for r in cands:
+            rid, verdict, basis = k_classify(r)
+            klass.append({"round": r["round"], "source": r["source"],
+                          "rule_id": rid, "k_draft": verdict, "basis": basis})
+        out["k_rules"] = klass
+        out["k_rules_summary"] = {
+            v: sum(1 for x in klass if x["k_draft"] == v)
+            for v in ("K", "K-HUMAN-CANDIDATE", "NOT-K", "HUMAN-REVIEW")}
     print(json.dumps(out, ensure_ascii=False))
     print("\n# 逐夜账本草稿(T/Â/D 留空,由确认人终判后写入 RSI-INDEX)")
     print(f"| ? | 日期 | K≤{k_upper}(候选轮 {out['k_candidate_rounds']}) "

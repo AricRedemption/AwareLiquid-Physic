@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN  # 轮 805 机械等待态置态(AMM-045 首例:exit 6 全阻+派生评估判否[证据沿用轮 463/748/749];重入口=用户一句话/新欠账/算力与停车场重启⇒RUNNING)
+state: BLOCKED-HUMAN  # 轮 806 重入口轮 806 后回置(AMM-045:RSI 三提案已实施弹出,余 AMM-033 裁定+T2T3 算力两条用户门控;重入口=用户一句话/新欠账/算力与停车场重启⇒RUNNING)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -1160,9 +1160,22 @@ current_action: >-
   检测;夜账不触发(机械等待态非收束,段未终,本段产出心跳<15;夜 24+ 真段
   尾补);T2T3 check_cmd 增输出静默(路由面噪声修复);台账=零算力轮;判单
   轮 805;段三数=队列 0/研究拍 2/簿记拍 1/等门拍 341(末拍)。
-  下一心跳:机械等待态=无心跳;重入口触发(用户一句话/新欠账/算力与停车场
-  重启/新会话入口)⇒state 回 RUNNING⇒goal_check 达成检测(任一 check 过⇒
-  弹出按重入口行动)。
+  轮 806 用户重入口=RSI 体系优化轮(用户指令"先把 Goal Prompt 和 RSI 体系
+  优化好"=AMM-039/040/041 实现授权,冻期白名单):三提案全实施——①AMM-039
+  rsi_night --k-rules K 终判机械草稿(规则表=夜账先例;判读锚区扫描防预注册
+  误判+按轮去重;回放=夜 5/6/10/15/20/21 判负/机制零漏报,bugfix/参考基线
+  正确排除;终判人裁+HR 禁静默)②AMM-040 amm_refcount+HISTORY 首批归档
+  (=[AMM-042,043] 吸收对机械生成,守恒锚 46=46,042/043 转 SUPERSEDED 终态)
+  ③AMM-041 reflection_mine 四信号源复盘挖掘器(验收=覆盖缺口现行段实证+坑
+  复发 2 族);三目标 check_cmd 当轮达成机械弹出=AMM-045 供给到达检测首例
+  实战;RSI-INDEX v4 口径(唤醒段/置等待态前入账/T 激活协议+998 重 earmark
+  =RECIPE 五轴@2000 步待用户确认)+夜 24 补账(轮 457-806 跨态段,A=4/4+3,
+  T+=3)+GOAL-PROMPT v9.4(27 不变式全保)+TOOLS/PLAYBOOK 回写(awk 区间坑);
+  台账=零算力轮;判单轮 806;段三数=队列迭代 3/研究拍 2/簿记拍 2/等门拍
+  341(末拍 805);队列余量=AMM-033 裁定+T2T3 算力(用户门控)。
+  下一心跳:机械等待态=无心跳;重入口触发⇒RUNNING⇒goal_check 达成检测
+  (AMM-033 裁定/T2T3 凭证任一到达⇒弹出按重入口行动;998 终跑候选待用户
+  确认)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -1177,24 +1190,6 @@ goal_queue:
     goal: 用户裁定 AMM-033(house 默认 M1 头替换为解析 T+方向自由齐次 V 构造,七探针证据链已齐)
     done_condition: AMENDMENTS AMM-033 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
     check_cmd: awk '/^### AMM-033:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
-    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
-- id: AMM-039-RULING
-    track: governance
-    goal: 用户裁定 AMM-039(RSI 夜账 K 终判机械化)
-    done_condition: AMENDMENTS AMM-039 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
-    check_cmd: awk '/^### AMM-039:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
-    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
-- id: AMM-040-RULING
-    track: governance
-    goal: 用户裁定 AMM-040(AMENDMENTS 归档机制)
-    done_condition: AMENDMENTS AMM-040 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
-    check_cmd: awk '/^### AMM-040:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
-    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
-- id: AMM-041-RULING
-    track: governance
-    goal: 用户裁定 AMM-041(自动 Reflexion/复盘挖掘管道)
-    done_condition: AMENDMENTS AMM-041 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
-    check_cmd: awk '/^### AMM-041:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
     status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
 - id: T2T3-COMPUTE
     track: compute

@@ -3,9 +3,9 @@
 > **会话角色(AMM-011)**:粘贴本文件的是**执行会话**——按 GOALS.md 程序计数器
 > 迭代:清欠账→队列目标→(判据满足时)收口。体系设计/治理改动在**独立设计
 > 会话**进行(AMENDMENTS 提案制);设计会话不执行研究实验,执行会话不改机制。
-> **版本:v9.3(目标达成检测驱动:blocked-human 目标族每轮实跑 check_cmd
-> 做达成检测+全阻机械等待态 BLOCKED-HUMAN——等待=状态迁移非心跳轮询;
-> v9.2 长跑结构修复条款全部保留)**——
+> **版本:v9.4(RSI 体系对齐:夜账=置等待态前真段尾必入账+rsi_night
+> --k-rules 机械 K 草稿+每唤醒段收尾评估 T 触发条件+reflection_mine 收尾轮
+> 手动跑;v9.3 目标达成检测驱动条款全部保留)**——
 > 正文只写可执行动作与文件指针;立法史在 AMENDMENTS,路由细则在 goal_check,
 > 数值在 probe_run/balance_gauge。v8.x 系列交付副本全部作废,以本文件为唯一正本。
 
@@ -28,5 +28,5 @@
 ## 纪律(研究面细则唯一源=AGENTS.md/PLAYBOOK/AMENDMENTS,渐进披露按需读盘)
 算力四档以 scripts/probe_run 为唯一执行点,当前激活 T0/T1,T2/T3/隐藏卷停放待用户重启,Probe-First 保留;资源红线 CPU<80% 不可逾越;结论分级=T1/T2 只解锁路由与筛选,终局声明须 T3 或隐藏卷,meta 带 exec_tier,对照类探针 3-seed;预注册判负标准先行(PRD §19);每轮提交前 direction-gate 判单(round/direction/evidence)并过 --check,连续 2 条 DRIFT⇒BLOCKED-HUMAN;balance_gauge 报警即行动;S1/S2=模式切换非收束。
 每轮回写 PLAYBOOK≥1 条;新工具入 TOOLS;机制改动走 AMENDMENTS 提案,不自改本 prompt 与宪法;分支 wave/loop,方向切 dir/<slug>,不 push master/origin,不提交 .pt;隐藏集 hidden_check,seed 999 退役 998 递减一次性终跑;真相源=PRD/PRINCIPLES(研究)/GOALS(元状态)/DEBT-LEDGER(欠账)/RSI-INDEX(指数)。
-RSI:夜账入账=段尾或 ≥15 产出心跳(二者取晚),转 PARKED 前必入账,跑 ./scripts/rsi_night --from N --to M --include-dir,工具出草稿 K/T/D/Â 人裁终判;夜账 v3 全口径(dir 在途并入),主线口径 K 恒 0 禁作停滞依据;T 以一次性 seed 终跑为唯一信号不降格;EXP≥20% 由 balance_gauge 强制。
+RSI:夜账入账=段尾或 ≥15 产出心跳(二者取晚),**置 BLOCKED-HUMAN 休息前必入账(=真段尾)**,跑 ./scripts/rsi_night --from N --to M --include-dir --k-rules,工具出草稿(K 机械分类草稿/争议 HUMAN-REVIEW 人裁)/T/D/Â 人裁终判;夜账 v4 全口径(dir 在途并入,判读锚含标题),主线口径 K 恒 0 禁作停滞依据;T 以一次性 seed 终跑为唯一信号不降格,**每唤醒段收尾评估 T 触发条件(有人裁确认 K≥1 且可迁移⇒出 held-out 候选供用户决策)**;EXP≥20% 由 balance_gauge 强制;收尾/夜账轮手动跑 scripts/reflection_mine(复盘候选草稿,人裁门槛,工具不写文件)。
 ```

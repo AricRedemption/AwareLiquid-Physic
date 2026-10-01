@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+"""amm_refcount — AMENDMENTS 归档判据机械生成器(AMM-040,轮 806)。
+
+引用面=**现行机制面**(禁入条款 3 的判据意图;历史/台账/归档文件不算
+现行引用):scripts/ tests/ benchmarks/ docs/PRD.md docs/PRINCIPLES.md
+docs/loop/{GOAL-PROMPT,PLAYBOOK,TOOLS}.md(AMENDMENTS/RSI-INDEX/GOALS
+轮史/QUEUE-ARCHIVE=历史面,不计)。全为文本 grep,逐提案输出计数。
+
+可归档判定(满足任一,且现行引用计数=0,且非 PROPOSED):
+  ① 显式吸收对(标题已标"已并入 AMM-XXX"且状态=APPLIED/SUPERSEDED;
+     轮 806 实施注记:吸收对单案状态转 SUPERSEDED 终态后入判据);
+  ② 登记满 30 天(项目纪元 2026-09-16 起)且引用计数=0。
+禁入:PROPOSED 条目;焊在机制内的条目(引用计数>0 自然拦截,如
+AMM-026 被 goal_check 跳过语义引用、AMM-028 门)。
+**禁手挑:首批归档清单只认本脚本输出**(AMM-040 验收条款)。
+用法:./scripts/amm_refcount [--amm path] [--root repo] [--json]
+"""
+import argparse
+import datetime
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+PROJECT_EPOCH = datetime.date(2026, 9, 16)   # 项目纪元(夜 1 起算)
+ABSORBED_MARK = re.compile(r"已并入\s*(AMM-\d+)")
+SECTION_PAT = re.compile(r"### (AMM-\d+):([^\n]*)\n((?:(?!### ).*\n)*)")
+STATE_PAT = re.compile(r"状态:\*\*([^*]+)\*\*([^\n]*)")
+ROUND_PAT = re.compile(r"轮\s*(\d+)")
+
+# 现行机制面(相对 repo 根);历史面排除
+LIVING_SURFACES = [
+    "scripts", "tests", "benchmarks",
+    "docs/PRD.md", "docs/PRINCIPLES.md",
+    "docs/loop/GOAL-PROMPT.md", "docs/loop/PLAYBOOK.md",
+    "docs/loop/TOOLS.md",
+]
+
+
+def grep_count(root: Path, needle: str) -> int:
+    r = subprocess.run(
+        ["grep", "-r", "-c", needle, *[str(root / s) for s in LIVING_SURFACES]],
+        capture_output=True, text=True)
+    total = 0
+    for line in r.stdout.splitlines():
+        if ":" in line:
+            try:
+                total += int(line.rsplit(":", 1)[1])
+            except ValueError:
+                pass
+    return total
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--amm", default="docs/loop/AMENDMENTS.md")
+    ap.add_argument("--root", default=".")
+    ap.add_argument("--json", dest="as_json", action="store_true")
+    args = ap.parse_args()
+    root = Path(args.root).resolve()
+    amm_text = (root / args.amm).read_text(encoding="utf-8")
+
+    age_days = (datetime.date.today() - PROJECT_EPOCH).days
+    entries = []
+    for m in SECTION_PAT.finditer(amm_text):
+        amm_id, title, body = m.group(1), m.group(2), m.group(3)
+        if "HISTORY" in title:
+            continue
+        state = (STATE_PAT.search(body) or [None, "UNKNOWN", ""])[1].strip()
+        rounds = ROUND_PAT.findall((STATE_PAT.search(body) or [None, "",
+                                                               ""])[2])
+        absorbed = ABSORBED_MARK.search(title)
+        refs = grep_count(root, amm_id)
+        eligible_30d = age_days >= 30 and refs == 0
+        eligible_absorbed = (bool(absorbed)
+                             and state in ("APPLIED", "SUPERSEDED")
+                             and refs == 0)
+        reason = ""
+        if state == "PROPOSED":
+            verdict = "IN-PROPOSED"
+        elif refs > 0:
+            verdict = "IN-WELDED"          # 现行机制引用=禁入条款 3
+        elif eligible_absorbed:
+            verdict = "ARCHIVE-ELIGIBLE"
+            reason = f"吸收对 {absorbed.group(1)} + 现行引用 0"
+        elif eligible_30d:
+            verdict = "ARCHIVE-ELIGIBLE"
+            reason = f"登记满 30 天(项目龄 {age_days})+ 现行引用 0"
+        elif age_days < 30:
+            verdict = "HOLD-AGE"           # 项目龄未满 30 天,判据②空转
+            reason = f"项目龄 {age_days}<30"
+        else:
+            verdict = "HOLD"
+        entries.append({"id": amm_id, "state": state, "refs_living": refs,
+                        "verdict": verdict, "reason": reason,
+                        "registered_round": rounds[0] if rounds else None})
+
+    first_batch = [e["id"] for e in entries if e["verdict"] == "ARCHIVE-ELIGIBLE"]
+    out = {"project_age_days": age_days, "surfaces": LIVING_SURFACES,
+           "first_batch": first_batch, "entries": entries}
+    if args.as_json:
+        print(json.dumps(out, ensure_ascii=False))
+        return 0
+    print(f"[amm_refcount] 项目龄 {age_days} 天(纪元 {PROJECT_EPOCH});"
+          f"引用面=现行机制面 {LIVING_SURFACES}")
+    for e in entries:
+        print(f"  {e['id']:9s} {e['state']:10s} refs={e['refs_living']:2d} "
+              f"{e['verdict']:18s} {e['reason']}")
+    print(f"[first-batch] 首批可归档={first_batch or '(空)'}(禁手挑,只认本输出)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

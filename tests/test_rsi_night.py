@@ -105,3 +105,60 @@ def test_no_T_dimension_output(tmp_path):
     r = run(110, 113, tmp_path)
     out = json.loads(r.stdout.splitlines()[0])
     assert not any(k.lower() in ("t", "hidden_transfer") for k in out)
+
+
+# --- AMM-039(轮 806):--k-rules K 终判机械化草稿 ---
+
+K_PRD = """**轮 210 记录（某探针:验证;T1 算力轮）**:
+- **判读(D-3 判负)**:辅助辨识失效,预注册判负标准先行。
+
+**轮 211 记录（某复核:呈现层;T0 零算力）**:
+- **判读(呈现层修复)**:口径呈现修复,结论不变。
+
+**轮 212 记录（某探针:验证;T1 算力轮）**:
+- **判读(机制归因)**:聚合层信息湮灭恒等式,回溯解释三轮。
+
+**轮 213 记录（某探针:验证;T1 算力轮）**:
+- **判读(混合)**:判负结论,但呈现层修复同现。
+
+**轮 214 记录（某探针:验证;T1 算力轮）**:
+- **判读(未覆盖类型)**:某新型判读。
+"""
+
+
+def run_k(lo, hi, tmp):
+    prd = tmp / "PRD.md"
+    prd.write_text(K_PRD, encoding="utf-8")
+    return subprocess.run(
+        ["python3", SCRIPT, "--from", str(lo), "--to", str(hi),
+         "--k-rules", "--prd", str(prd), "--tools", str(tmp / "T.md"),
+         "--amm", str(tmp / "A.md")],
+        capture_output=True, text=True, cwd=REPO)
+
+
+def test_k_rules_classification_matrix(tmp_path):
+    """AMM-039 规则表:判负/机制=K,呈现层=NOT-K,冲突/未覆盖=HUMAN-REVIEW。"""
+    (tmp_path / "T.md").write_text("", encoding="utf-8")
+    (tmp_path / "A.md").write_text("", encoding="utf-8")
+    r = run_k(210, 214, tmp_path)
+    assert r.returncode == 0, r.stderr
+    out = json.loads(r.stdout.splitlines()[0])
+    kr = {x["round"]: x for x in out["k_rules"]}
+    assert kr[210]["k_draft"] == "K" and kr[210]["rule_id"] == "K-JUDGED-NEG"
+    assert kr[211]["k_draft"] == "NOT-K" and kr[211]["rule_id"] == "NO-PRESENTATION"
+    assert kr[212]["k_draft"] == "K" and kr[212]["rule_id"] == "K-MECHANISM"
+    assert kr[213]["k_draft"] == "HUMAN-REVIEW" and kr[213]["rule_id"] == "HR-CONFLICT"
+    assert kr[214]["k_draft"] == "HUMAN-REVIEW" and kr[214]["rule_id"] == "HR-UNCOVERED"
+    s = out["k_rules_summary"]
+    assert s == {"K": 2, "K-HUMAN-CANDIDATE": 0, "NOT-K": 1, "HUMAN-REVIEW": 2}
+
+
+def test_k_rules_off_by_default(tmp_path):
+    """默认关闭:不带 --k-rules 时输出无 k_rules 字段(零默认行为变更)。"""
+    prd = tmp_path / "PRD.md"
+    prd.write_text(K_PRD, encoding="utf-8")
+    (tmp_path / "T.md").write_text("", encoding="utf-8")
+    (tmp_path / "A.md").write_text("", encoding="utf-8")
+    r = run(210, 212, tmp_path)
+    out = json.loads(r.stdout.splitlines()[0])
+    assert "k_rules" not in out
