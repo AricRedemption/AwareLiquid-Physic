@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # 轮 464 马拉松重入段(段蒸馏义务已履行=464 拒绝留痕;剩余项=用户门控,机械等待态 AMM-045)
+state: BLOCKED-HUMAN  # 轮 805 机械等待态置态(AMM-045 首例:exit 6 全阻+派生评估判否[证据沿用轮 463/748/749];重入口=用户一句话/新欠账/算力与停车场重启⇒RUNNING)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -1152,10 +1152,17 @@ current_action: >-
   v9.3(27 不变式全保);headless_loop/ignite 定时驱动件弃用;轮 466-792
   等门拍坑入 PLAYBOOK;台账=零算力轮;判单轮 804;段三数=队列 0/研究拍 2/
   簿记拍 1/等门拍 341(等门拍自下拍止:全阻⇒机械等待态)。
-  下一心跳:goal_check ⇒ ALL-BLOCKED-HUMAN(exit 6)⇒派生评估(闭族/闭轴
-  证据沿用轮 463/748/749 判否)⇒置 state: BLOCKED-HUMAN+原子提交 push ⇒
-  会话休息(机械等待态);重入口=用户一句话/新欠账/算力与停车场重启 ⇒
-  state 回 RUNNING 续跑。
+  轮 805 机械等待态置态轮(AMM-045 首例):goal_check=ALL-BLOCKED-HUMAN
+  (exit 6,5 条用户门控目标逐条实跑 check_cmd 全未达成:AMM-033/039/040/041
+  裁定仍 PROPOSED+T2T3 KAGGLE_NO_CREDS);派生评估判否=闭族/闭轴证据沿用
+  轮 463/748/749;置 state: BLOCKED-HUMAN 会话休息——等门拍时代结束(轮
+  466-804 心跳轮询=PLAYBOOK 坑留痕),驱动唯一源=goal_check 逐轮目标达成
+  检测;夜账不触发(机械等待态非收束,段未终,本段产出心跳<15;夜 24+ 真段
+  尾补);T2T3 check_cmd 增输出静默(路由面噪声修复);台账=零算力轮;判单
+  轮 805;段三数=队列 0/研究拍 2/簿记拍 1/等门拍 341(末拍)。
+  下一心跳:机械等待态=无心跳;重入口触发(用户一句话/新欠账/算力与停车场
+  重启/新会话入口)⇒state 回 RUNNING⇒goal_check 达成检测(任一 check 过⇒
+  弹出按重入口行动)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -1193,7 +1200,7 @@ goal_queue:
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
     done_condition: kaggle_quota_check status=ok 或用户显式重启令落盘
-    check_cmd: .venv/bin/python scripts/kaggle_quota_check.py
+    check_cmd: .venv/bin/python scripts/kaggle_quota_check.py >/dev/null 2>&1
     status: blocked-human(用户资源门控,零催促;达成检测每轮实跑,AMM-045)
 ```
 
