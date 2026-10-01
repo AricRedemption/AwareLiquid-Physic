@@ -454,6 +454,30 @@ Lyapunov 边界声明(§18.3:守恒可积域,未验证混沌域)。
     限定、Limitations 4f 三重域声明。使用条款：配方主张一律带三重域
     [2000 步预算 × 可见 seed 集 × 视距稳健]，域外为**反号/反方向**而非
      merely 减弱；回灌 PR scope 按轮 460 判定限定 2000 步训练域。
+4f. **头结构两侧单独注入归因（轮 249 EQUIV-HEAD + 轮 261 V-HOM，[B]，
+    3-seed T1；dir/equiv-head PR#44 + dir/v-hom PR#48 待合并，PRD §19 轮
+    249/261）**：完整构造的"两侧都占优"主张需要 T 侧/V 侧各自的归因
+    边界，而两侧单独注入买的是**不同币种**——**T 侧**：产物
+    `benchmarks/physics_out_v02/equiv_head/equiv_head.json`（git_sha
+    11e32aa，exec_tier T1，seeds 0/1/2，train_steps 2000）verdict
+    EQUIV_TRADEOFF：分布内 ratio 0.8604152214（mean_A 2.9612487952 →
+    mean_B 2.5479035378，−14.0%，方向一致 3/3，哨兵 A_seed0
+    3.5581917763 逐位），但幅度外推逐 seed 全劣（rel_comp_B 5.607083149 /
+    9.071356650 / 11.128190930 vs rel_comp_A 3.334158179 / 2.523428448 /
+    3.489056819，中位 9.071 vs 3.334＝2.7×）⇒**外推缺口不在 T**（与轮
+    239/241 合流：非线性偏差由推断与势能通道共同承载）。**V 侧**：产物
+    `benchmarks/physics_out_v02/v_hom/v_hom.json`（git_sha 5215a97，双臂
+    同解析 T）verdict VHOM_NULL、consistent 0：齐次臂 seeds0/2 训练灾难
+    （2456.613037 / 701.840576），唯 seed1 rel_comp 1.442855937（同构造
+    非齐次臂同 seed 9.071356650）且分布内持平（2.384193897 vs
+    2.309062958）⇒机制句按当时登记修订为"齐次 V 收益真实、被参数化训练
+    稳定性阻塞"（方向归一输入病态候选，稳定性研究＝T2 停放场），哨兵
+    A_seed0_round249B 2.7786638737 逐位＝跨脚本确定性锚。落稿映射：Sec. 6
+    新段 "The two sides were paid for separately first" + **Limitations
+    4d 补记**（稳定性前置＝候选构造的活前提，非参数化细节）。使用条款：
+    单侧读数只作归因边界，**禁作单侧采纳主张**（默认头替换候选＝完整头，
+    AMM-033）；rel_comp 序列按 seed 索引 [0,1,2]，跨臂比较须固定评估
+    口径（轮 241 条款）。
 5. 硬约束失败模式与逃生门(§21.3+轮 86 文档):耗散槽位/Nonseparable
    头/MLP 平滑未解。**Nonseparable 门已本机实证(轮 110 ESC-DOOR-VAB,
    [B] 级,1-seed T1 筛查口径)**:磁族同池同预算 A/B——可分臂 k100

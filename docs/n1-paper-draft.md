@@ -504,6 +504,47 @@ deficit [B, round 134; PR#8 pending merge]: the out-of-distribution
 weakness that the band-shift paragraph shows at the ω level reappears
 at the task level.
 
+**The two sides were paid for separately first (rounds 249/261).** Before
+the chain that follows attributed the complete construction, two paired
+probes injected one side at a time on the same pool, budget and 3-seed
+protocol, and the two sides buy different things:
+
+- **Analytic T alone** (`T = ½Σp²` with `dT/dp = p`, V still free) beats
+  the free kinetic MLP in-distribution in 3/3 seeds — ratio 0.8604152214
+  (2.9612487952 → 2.5479035378, −14.0%) — and degrades amplitude
+  extrapolation at every seed (rel. comp 5.607083149 / 9.071356650 /
+  11.128190930 against the default's 3.334158179 / 2.523428448 /
+  3.489056819; medians 9.071 vs 3.334). On a task whose kinetic energy is
+  known analytically the free T-MLP is pure variance in-distribution,
+  while the analytic form delivers no extrapolation benefit: the
+  amplitude gap is not in T [B, PRD §19 round 249; artifact
+  `benchmarks/physics_out_v02/equiv_head/equiv_head.json`, git_sha
+  11e32aa, sentinel default-arm seed0 3.5581917763 bitwise].
+- **Homogeneous V alone** (both arms on the same analytic T; free V vs
+  strictly degree-2 `V = ‖q‖²·s_θ(q̂, ctx)`) returns the mechanical
+  verdict VHOM_NULL with 0/3 consistency, because the homogeneous arm is
+  training-catastrophic in 2/3 seeds (2456.613037 and 701.840576 against
+  2.778663874 / 2.555983782). The seed that does train carries the
+  mechanism signal: rel. comp 1.442855937 at in-distribution parity
+  (2.384193897 vs 2.309062958) — near-perfect scale-equivariant recovery
+  where the identical non-homogeneous construction reads 9.071356650 at
+  the same seed. The registered reading was revised from "V is not the
+  carrier" to "the V-side benefit is real and blocked by parameterization
+  training stability" (direction-normalized-input pathology, parked as a
+  stability study) [B, round 261; artifact
+  `benchmarks/physics_out_v02/v_hom/v_hom.json`, git_sha 5215a97,
+  sentinel = the round-249 analytic-T arm re-anchored bitwise at
+  2.7786638737].
+
+Read against each other, neither single side is the construction the chain
+measures. The T side buys in-distribution accuracy and costs
+extrapolation; the V side buys extrapolation recovery only when it
+survives training. The dominance reported next belongs to the conjunction
+— analytic T, homogeneous V, and the direction-channel repair that makes
+the latter trainable — which is why the replacement candidate is
+registered as the complete head (AMM-033) and no single-side adoption
+claim is made anywhere in this draft.
+
 **Head structure (M1) — what the free function form costs.** A
 seven-probe chain (same-pool paired arms, 3 seeds, every cell carrying a
 bitwise cross-run anchor) measures the structured head of Sec. 3 against
@@ -613,6 +654,15 @@ measured and reported in the same breath.
    default-head replacement itself is a registered proposal awaiting PR
    merge (AMM-033), not an applied change; multi-seed finals remain
    parked.
+   *Addendum (round 818, single-side attribution):* the two structural
+   sides were also measured separately (Sec. 6, rounds 249/261), and that
+   evidence tightens the scope rather than loosening it — analytic T alone
+   worsens amplitude extrapolation in 3/3 seeds, and homogeneous V alone
+   trains in only 1/3. The homogeneous-V stability blocker
+   (direction-normalized input, parked as a T2 stability study) is
+   therefore a live prerequisite of the candidate, not a cosmetic
+   parameterization detail; no single-side variant is proposed for
+   adoption.
 4e. **Band-limited context inference.** Context inference claims are
    in-band claims: trained on ω ∈ [0.7, 1.8], out-of-band rollout
    degrades up to 9.8× on the relative axis even though the structural
@@ -822,3 +872,20 @@ git_sha 1a4af63) and `benchmarks/physics_out_v02/recipe_budget/recipe_budget.jso
 mean_B 2.6649146080, direction_consistency 1/3, spread_B 1.7274477275,
 train_steps 8000, exec_tier T1, git_sha 239c54b); asset-index entry 4e
 registered in the same heartbeat per the round-814 rule; nothing removed.*
+
+*Updated round 818 (queue entry N1-HEAD-SIDES, third writing iteration of
+this segment; distillation gate cleared with pool items only — PLAYBOOK
+轮 111 artifact-field recompute + 轮 465 same-domain cross-check + scan
+§72.2): the two single-side head-structure injections are absorbed as
+attribution boundaries for the Sec. 6 dominance claim (new Sec. 6
+paragraph "The two sides were paid for separately first" + Limitations 4d
+addendum), readings taken from the artifacts —
+`benchmarks/physics_out_v02/equiv_head/equiv_head.json` (EQUIV_TRADEOFF,
+ratio 0.8604152214, mean_A 2.9612487952 / mean_B 2.5479035378,
+rel_comp_B 5.607083149 / 9.071356650 / 11.128190930 vs rel_comp_A
+3.334158179 / 2.523428448 / 3.489056819, consistent 3, git_sha 11e32aa)
+and `benchmarks/physics_out_v02/v_hom/v_hom.json` (VHOM_NULL, consistent
+0, mses_B 2456.613037 / 2.384193897 / 701.840576, rel_comp_B seed1
+1.442855937 against rel_comp_A seed1 9.071356650, sentinel
+A_seed0_round249B bitwise true at 2.7786638737, git_sha 5215a97);
+asset-index entry 4f registered in the same heartbeat. Nothing removed.*

@@ -214,6 +214,43 @@ current_action: >-
   弹出; 其后派生评估余候选 GENLEN_CONFIRMED/TOSA_RESOLVED 两条弱耦合+
   RESIDUAL-SPEC/AMPATTR/SPECTRA 口径族⇒若判全枯则置 BLOCKED-HUMAN 前
   必段尾 RSI 入账(本段 806-817 未入账=夜 25 行待补, v5 唤醒段+C 口径)。
+  轮 818 N1-HEAD-SIDES 执行轮(本段第 4 研究拍;蒸馏门三步齐):①总结=
+  现状(Sec.6 头结构链主张"完整构造[解析 T+齐次 V]在双轴 3/3 占优
+  ratio 0.658/外推 −49%",而两侧**单独**注入的轮 249/261 证据零覆盖=
+  asset-index 条目 24 已完整登记两臂读数与机制修订句,草稿未吸收)/
+  问题(轮 465"同域回查"坑的正例=两侧证据与链结论同属"结构注入何处
+  付费"一域,只报合成结论即高估单侧可采纳性;且草稿自缚"数字严格取自
+  n1-asset-index"⇒本轮须先做产物字段复算再落稿)/目标(决策耦合=两臂
+  读数入稿⇒Sec.6 主张获得 T 侧/V 侧归因边界且 Limitation 4d 把稳定性
+  前置写成候选的活前提[AMM-033 采纳主张范围随之收口=完整头,禁单侧];
+  不入稿⇒"完整构造占优"仍是无归因支撑的合成断言)。②蒸馏(池内三条
+  适用,未补池):PLAYBOOK 轮 111 产物字段复算条款+轮 465 同域回查+
+  轮 814"写作吸收数字同心跳入 asset-index"家规;scan §72.2 预注册
+  披露(bands/门禁先于执行)。③定变量=单变量"T/V 两侧归因边界"(两臂
+  读数属同一主张的两条边界,组合=单变量先例;零算力,无新读数)。
+  产物:n1-paper-draft.md §6 新段"The two sides were paid for separately
+  first"(T 侧 EQUIV_TRADEOFF 逐 seed 双轴读数+V 侧 VHOM_NULL/seed1
+  1.443+两侧合成边界句"单侧≠完整构造")+§7 Limitation 4d 补记(稳定性
+  前置=活前提,禁单侧采纳主张)+footer 轮 818 溯源块;等效不删(链正文与
+  4d 原文一字未动,补记式追加);n1-asset-index.md §7 新条目 4f(同心跳
+  登记,轮 814 家规第 3 次履行);PLAYBOOK +2 坑[Edit 追加吞闭合星号=
+  静默改坏结构家族新形;逐 seed 数组引用前须同构造跨产物等值对账]。
+  读数复算(取自 JSON 非散文)=equiv_head.json(EQUIV_TRADEOFF, ratio
+  0.8604152214, mean_A 2.9612487952/mean_B 2.5479035378, consistent 3,
+  rel_comp_B 5.607083149/9.071356650/11.128190930 vs rel_comp_A
+  3.334158179/2.523428448/3.489056819, 哨兵 A_seed0 3.5581917763 逐位,
+  git_sha 11e32aa, T1)/v_hom.json(VHOM_NULL, consistent 0, mses_B
+  2456.613037/2.384193897/701.840576, rel_comp_B seed1 1.442855937 vs
+  rel_comp_A seed1 9.071356650, 哨兵 A_seed0_round249B 2.7786638737
+  逐位=true, git_sha 5215a97, T1);索引语义对账=249 B 臂 rel_comp 列表与
+  261 A 臂逐位相同⇒数组按 seeds[0,1,2] 排序得证。完成条件 grep VHOM_NULL
+  过⇒N1-HEAD-SIDES 同心跳弹出归档 QUEUE-ARCHIVE.md(归档 63 条,队列余
+  T2T3)。台账=零算力研究拍(writing,无 PR);判单轮 818;段三数=队列迭代
+  7/研究拍 9/簿记拍 7/等门拍 341(末拍 805)。计数器簿记债(不本轮清偿):
+  家规=只保最近 3 轮详文, 现保 814-818⇒段尾瘦身拍压 814/815 入段史摘要。
+  下一心跳=派生评估第四拍(候选 GENLEN_CONFIRMED/TOSA_RESOLVED 弱耦合
+  复核+RESIDUAL-SPEC/SPECTRA_INCREMENTAL/AMPATTR 口径族标签×实质双判)
+  ⇒可派生则入队, 全枯则先段尾 RSI 入账(夜 25)再置 BLOCKED-HUMAN。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -224,11 +261,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: N1-HEAD-SIDES
-    track: writing
-    goal: N1 初稿吸收头结构族的两侧注入证据(EQUIV_TRADEOFF 轮 249 解析 T 单独臂: 分布内 −14.0% 3/3 全赢但外推 rel_comp 恶化 2.7× + VHOM_NULL 轮 261 齐次 V 单独臂: 分布内 null 带内而 seed1 rel_comp 1.443 近完美恢复=收益真实被训练稳定性阻塞, seeds0/2 灾难), 使 Sec.6 "完整构造占优"的主张带上 T 侧/V 侧归因边界
-    done_condition: n1-paper-draft.md §6 头结构小节含 T 侧与 V 侧两臂读数与"单侧≠完整构造"归因边界, Limitation 4d 带稳定性停放注记, 读数取自产物 JSON(equiv_head/v_hom), 等效不删既有内容
-    check_cmd: grep -q VHOM_NULL docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
