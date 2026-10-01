@@ -114,9 +114,17 @@ current_action: >-
   kaggle.json,研究闭族期非必需,停放零催促);台账=T1 算力轮(est5 实跑
   ~2min);判单轮 812;段三数=队列迭代 4/研究拍 4/簿记拍 6/等门拍 341
   (末拍 805)。
-  下一心跳:机械等待态=无心跳;重入口触发⇒RUNNING⇒goal_check 达成检测
-  (余 T2T3 凭证一条用户门控;PR#49+#50 合并⇒AMM-033 段首消化轮;下个
-  隐藏 seed=997)。
+  轮 813 派生评估转正轮(用户问"可否贴 prompt 迭代"):派生评估首次判
+  **可派生**——N1 修订轴=轮 812 隐藏迁移反转素材(AMM-022 写作自主权;
+  此前连续判否均因研究轴闭族/闭轴,写作轴不受其约束);入队 N1-HIDDEN-REV
+  (可行动条目,check_cmd=draft 含 RECIPE_MIGRATION_REVERSED;预注册完成
+  条件=写入带 0.893→1.438 读数+迁移判定语义[不调参归因],等效不删);新
+  迭代首拍须过蒸馏门三步(总结→蒸馏对表→定变量);AMM-033 用户裁"merge
+  不管"=批准维持 APPLIED 实施休眠(合并零催促);台账=零算力轮;判单轮
+  813;段三数=队列迭代 4/研究拍 4/簿记拍 7/等门拍 341(末拍 805)。
+  下一心跳:goal_check ⇒ NOT-Achieved ⇒ 对 [N1-HIDDEN-REV] 迭代一步
+  (首拍=蒸馏门三步→写作→判读行→四门→提交;完成即弹出回等待态,余
+  T2T3-COMPUTE 用户门控)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -127,6 +135,11 @@ current_action: >-
 
 ```yaml
 goal_queue:
+- id: N1-HIDDEN-REV
+    track: writing
+    goal: N1 初稿吸收轮 812 隐藏迁移反转(RECIPE_MIGRATION_REVERSED,0.893→1.438)
+    done_condition: n1-paper-draft.md 含反转读数与第二次隐藏反转表述(§5/§7/§8+Appendix A 声明账本同步),写作面等效不删既有内容
+    check_cmd: grep -q RECIPE_MIGRATION_REVERSED docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
