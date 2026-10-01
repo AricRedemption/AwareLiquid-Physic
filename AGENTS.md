@@ -32,4 +32,5 @@
 
 ## 度量
 
-收尾轮按 `docs/loop/RSI-INDEX.md` 计算当夜指数入账(K/E/T/D/T+/A)。
+收尾轮按 `docs/loop/RSI-INDEX.md` 计算当夜指数入账(K/E/T/D/T+/A/C;
+守望段 W 注记,细则唯一源=RSI-INDEX)。
