@@ -167,11 +167,33 @@ current_action: >-
   判;预注册完成条件=§5 配方段+ladder 行+Limitation 4f 三处带视距/预算域
   限定且读数取自产物 JSON,等效不删)。台账=零算力轮(清点+入队);判单
   轮 815;段三数=队列迭代 5/研究拍 6/簿记拍 7/等门拍 341(末拍 805)。
-  下一心跳=对 [N1-RECIPE-SCOPE] 迭代一步,首拍过蒸馏门三步(总结→池内
-  对表:PLAYBOOK 轮 465"判读新增证据族回查停车场同域"+轮 111 产物字段
-  复算+scan §72.5 held-out;定变量=组合=单变量)→写作→弹出;弹出后再
-  派生评估(余 VHOM/EQUIV 等四条候选可转正)⇒全枯才置 BLOCKED-HUMAN,
-  置态前先段尾 RSI 入账(本段 806-815 未入账=夜 25 行待补)。
+  轮 816 N1-RECIPE-SCOPE 执行轮(本段第 2 个研究拍;蒸馏门三步齐):
+  ①总结=现状(814 已把 seed 集范围入稿, 配方主张现缺另两条已登记边界;
+  ladder 22+1 行)/问题(轮 465 坑=判读新增证据族须回查同域条目: 视距域
+  轮 252 与预算域轮 460 同属"组合收益是 scope 内事实"同一主张; 且草稿
+  若只报 0.893 单点即高估普适性)/目标(决策耦合=三处上稿⇒论文配方主张
+  scope 与 PR#45/#60 正文一致[域外为反号非减弱]; 不上稿⇒草稿与已开 PR
+  的 scope 声明留悬)。②蒸馏=池内三条(PLAYBOOK 轮 111 产物字段复算+轮
+  465 同域回查+scan §72.2 预注册披露), 池未枯⇒未检索补池。③定变量=
+  组合=单变量(RECIPE 先例: 两读数服务同一域声明; 零算力)。
+  产物:n1-paper-draft.md 五处增量[Abstract 预算限定句/§5 ladder 第 24-25
+  行/§5 新段"Two more domain limits: horizon and budget"/§6 absorbed-
+  composition 预算限定/§7 Limitation 4f 三重域声明]+footer; asset-index
+  §7 条目 4e 同心跳登记(814 新家规首跑=数字先入索引再落稿); PLAYBOOK+1
+  (Edit 锚点两型失配升级家规: 短单行逐字节片段, 连续 2 次失配即 Read)。
+  读数复算=HORIZON ratios 0.8931607635/0.8339268819/0.8247211326 逐视距
+  3/3, spread_B 1.5377→1.1597→1.0346(git_sha 1a4af63); BUDGET ratio
+  1.1156959228, mean_A 2.3885671298, mean_B 2.6649146080, 方向一致 1/3,
+  spread_B 1.7274477275, train_steps 8000, exec_tier T1, git_sha 239c54b,
+  8000 步无历史逐位哨兵=如实注记入稿。完成条件 grep 过⇒N1-RECIPE-SCOPE
+  同心跳弹出归档。台账=零算力研究拍(writing, 无 PR);判单轮 816;段三数=
+  队列迭代 6/研究拍 7/簿记拍 7/等门拍 341(末拍 805)。
+  下一心跳=派生评估(第三拍, 每唤醒段重审+机械缺口清点复跑):候选余
+  VHOM(轮 261 齐次 V 注入 null+seed1 强信号)/EQUIV_TRADEOFF(轮 249 解析
+  T 权衡)/RESIDUAL-SPEC(轮 246 谱指标口径)/AMPATTR(轮 244 齐次性破坏归
+  因)/RECIPE_LOO 标签面⇒可派生则入队执行; 全枯(清点=0 且研究面闭族证据
+  复述)⇒置 state: BLOCKED-HUMAN, 置态前先段尾 RSI 入账(本段 806-816 未
+  入账=夜 25 行待补, RSI-INDEX v5 唤醒段+段成本 C 口径)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -182,11 +204,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: N1-RECIPE-SCOPE
-    track: writing
-    goal: N1 初稿吸收配方收益的两条域限定(RECIPE_HORIZON 轮 252 k{100,200,400} 随视距增强 + RECIPE_BUDGET_REVERSED 轮 460 8000 步反转 ratio1.1157 方向一致 3/3→1/3), 与轮 814 seed 集范围注记合成三重限定[视距×预算×seed集]
-    done_condition: n1-paper-draft.md 的 §5 配方段/§5 ladder 行/Limitation 4f 三处均带视距域与预算域限定且读数取自产物 JSON; 写作面等效不删既有内容
-    check_cmd: grep -q RECIPE_BUDGET_REVERSED docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

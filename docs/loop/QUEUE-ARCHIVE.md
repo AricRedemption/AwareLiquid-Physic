@@ -191,3 +191,6 @@ archived_pr:
 - id: N1-HIDDEN-REV
   status: done(轮 814 完成弹出:writing track, 轮 813 派生评估首次判可派生入队, 本拍蒸馏门三步齐后吸收轮 812 隐藏迁移反转进 n1-paper-draft——Abstract 诚实句/Sec.5 ladder 第 23 行+新段"Hidden-set migration check of the composite"/Sec.6 absorbed-composition 范围注/Limitations 4f/Sec.8 结论句+future-work 计算门控项/Appendix A [C] 行补记与隐藏集台账 998 消耗退役下一档 997; 数字全部对产物字段复算(可见 0.8931607635/A2.9612/B2.6449 3/3; 隐藏 A2.4269/B3.4910 ratio1.4384516685); asset-index 同心跳登记 4d 条目+§9 补记; 等效不删=两处陈旧指针以补记修正非删除; 零算力轮无 PR)
   check_cmd: grep -q RECIPE_MIGRATION_REVERSED docs/n1-paper-draft.md
+- id: N1-RECIPE-SCOPE
+  status: done(轮 816 完成弹出:writing track, 轮 815 机械缺口清点派生评估转正, 首拍蒸馏门三步齐后吸收配方收益两条域边界——Abstract 预算限定句/§5 ladder 第 24-25 行+新段"Two more domain limits: horizon and budget"/§6 absorbed-composition 预算限定/Limitation 4f 三重域声明[2000 步预算×可见 seed 集×视距稳健, 域外反号非减弱]/footer; 读数取自产物 JSON: HORIZON 0.8931607635/0.8339268819/0.8247211326 逐视距3/3 spread_B1.5377→1.0346 git_sha1a4af63 + BUDGET ratio1.1156959228 meanA2.3885671298 meanB2.6649146080 方向1/3 spread1.7274477275 train_steps8000 exec_tier T1 git_sha239c54b 含 8000 步无历史哨兵如实注记; asset-index 条目 4e 同心跳登记[轮 814 家规首跑]; 零算力轮无 PR)
+  check_cmd: grep -q RECIPE_BUDGET_REVERSED docs/n1-paper-draft.md

@@ -436,6 +436,24 @@ Lyapunov 边界声明(§18.3:守恒可积域,未验证混沌域)。
    标注，不作终局声明；第二次隐藏抓可见集过拟合（先例 999 H2 反转
    +29%），与 warmup 3-seed 一致性 1/3、CTX2_REVERSED、GENLEN 逐 seed
    混合同谱系=本尺度下"可见池内多种子一致=筛查证据，非迁移证据"。
+4e. **配方收益的域限定（轮 252 RECIPE-HORIZON + 轮 460 RECIPE-BUDGET，
+    [B]，3-seed T1；PR#45/#60 待合并，PRD §19 轮 252/460）**：五轴组合的
+    收益不是标量，两条域边界均已实测——**视距域=增强**：产物
+    `benchmarks/physics_out_v02/recipe_horizon/recipe_horizon.json`
+    （git_sha 1a4af63，双臂×3-seed×k{100,200,400}，双池设计 canonical
+    哨兵池+gen-450 视距池）ratios 0.8931607635 / 0.8339268819 /
+    0.8247211326，逐视距方向一致 3/3，组合臂 seed spread 1.5377→1.1597→
+    1.0346（收益随视距走阔且更稳）；**预算域=反转**：产物
+    `benchmarks/physics_out_v02/recipe_budget/recipe_budget.json`
+    （git_sha 239c54b，exec_tier T1，同双臂同池但 train_steps 8000、
+    eval_k 100）ratio 1.1156959228（mean_A 2.3885671298 vs mean_B
+    2.6649146080），direction_consistency 3/3→1/3，组合臂 spread
+    1.7274477275，**8000 步无历史逐位哨兵**（如实注记=同 run 配对比较
+    而非锚定比较）。落稿映射：Abstract 预算限定句、Sec. 5 ladder 第 24/25
+    行 + "Two more domain limits" 段、Sec. 6 absorbed-composition 预算
+    限定、Limitations 4f 三重域声明。使用条款：配方主张一律带三重域
+    [2000 步预算 × 可见 seed 集 × 视距稳健]，域外为**反号/反方向**而非
+     merely 减弱；回灌 PR scope 按轮 460 判定限定 2000 步训练域。
 5. 硬约束失败模式与逃生门(§21.3+轮 86 文档):耗散槽位/Nonseparable
    头/MLP 平滑未解。**Nonseparable 门已本机实证(轮 110 ESC-DOOR-VAB,
    [B] 级,1-seed T1 筛查口径)**:磁族同池同预算 A/B——可分臂 k100

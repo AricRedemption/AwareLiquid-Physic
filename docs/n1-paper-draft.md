@@ -69,7 +69,10 @@ degradation on unseen seed 998 (ratio 1.438), so the recipe benefit is
 declared visible-set-scoped and the composite is not promoted to the
 default configuration — the second time in this study that a one-shot
 hidden-set run caught a visible-set overfit (precedent: seed 999 flipped
-the prefix advantage by +29%).
+the prefix advantage by +29%). The same composite is also budget-limited:
+at 8000 training steps instead of 2000 its sign reverses as well (ratio
+1.116), so every recipe statement below carries its domain — training
+budget, rollout horizon, and seed set.
 
 [Resolved round 111 (digestion audit, PRD §19 "BASELINE-SCOPE 判读"):
 same-table presentation holds for the five M1 spring rows on the k=100
@@ -330,6 +333,8 @@ screening only, no terminal claims ]:
 | trajectory length | GENLEN_RESOLVED | 7th recipe-axis candidate (2.96 → 2.70; per-seed direction mixed, seed-0-driven) |
 | training-amount curve | SMOOTH_ASYMPTOTE (judged negative) | rollout-MSE curve smooth (max adjacent-step ratio 1.42 ≪ 3× gate); grokking naming not applicable in this regime |
 | recipe composition × held-out seed | RECIPE_MIGRATION_REVERSED | one-shot seed 998: default 2.4269 vs five-axis composite 3.4910, ratio 1.438 — the visible-set 0.893 direction flips (hidden-set tier, migration judgment only) |
+| recipe composition × horizon | HORIZON_ROBUST | ratio 0.893 / 0.834 / 0.825 at k = 100 / 200 / 400, direction-consistent 3/3 at each (the gain *grows* with horizon; composite arm's seed spread falls 1.54 → 1.03) |
+| recipe composition × training budget | RECIPE_BUDGET_REVERSED | same arms at 8000 steps, 3 seeds: ratio 1.1157 (mean_A 2.3886 vs mean_B 2.6649), direction consistency 3/3 → 1/3, composite spread 1.727; no 8000-step historical sentinel (caliber caveat, kept honest) |
 
 The ladder's decision logic is the point, not any single row: at least
 three axes judge the default configuration non-optimal, which under the
@@ -393,6 +398,31 @@ one visible pool is a screening result, not a transfer result. Honest
 boundary: a single hidden seed is one point, so the reading is used as a
 migration signal and a scope annotation only — never as a terminal
 headline, and never as evidence for a different recipe.
+
+**Two more domain limits: horizon and budget (rounds 252/460).** The
+composite's gain is not a scalar either. Same arms, three rollout
+horizons (k = 100 / 200 / 400, three seeds, a second pool for the long
+horizon): ratio 0.893 / 0.834 / 0.825 with direction consistency 3/3 at
+each horizon, and the composite arm's seed spread contracting 1.54 → 1.03
+— the benefit *grows* with horizon and buys stability as well as mean
+error at long rollout (HORIZON_ROBUST, PR#45 pending merge). Same arms,
+8000 training steps instead of 2000: ratio **1.1157** (mean_A 2.3886 vs
+mean_B 2.6649), direction consistency falls 3/3 → 1/3, composite spread
+1.727 — the gain reverses in the budget domain (RECIPE_BUDGET_REVERSED,
+PR#60 pending merge), because the per-axis optima that make up the
+composite were located at the 2000-step operating point and longer
+training walks past them. Two caveats stay attached to that reading: the
+8000-step regime has no historical bitwise sentinel of its own, so it is a
+within-run paired comparison rather than an anchored one; and it is a
+visible-seed-set measurement, so it carries the same seed-scope annotation
+as the migration check above. Read jointly, the three probes fence one
+claim from three sides: the five-axis composition is real **at a 2000-step
+training budget, on the visible seed set, and it helps most where the
+rollout horizon is long**; outside that box it is not merely weaker but of
+opposite sign (budget) or opposite direction (held-out seed). Every recipe
+recommendation in this paper therefore ships with its domain, and the
+back-fill proposals built on the composite were scoped this way instead of
+adopted as defaults.
 
 Evaluation-protocol robustness (round 408 update): recomputing the same
 weights at fp64 instead of the fp32 house caliber — both heads, both
@@ -509,7 +539,10 @@ re-verified against the result artifacts]:
   this grid is the visible-set five-axis composite, whose own gain does
   not migrate to held-out seed 998 (Sec. 5, Limitation 4f) — the grid is
   therefore a within-visible-pool interaction statement, not a claim
-  about the interaction under an unseen pool draw.
+  about the interaction under an unseen pool draw. The recipe arm is also
+  budget-scoped: the composite it uses reverses at 8000 training steps
+  (Sec. 5, Limitation 4f), so the "recipe off/on" axis of this grid is
+  defined at the 2000-step operating point.
 - **Negative results, kept.** At n = 64 training trajectories the
   advantage vanishes (ratio 0.99) and one grid unit diverges (candidate
   arm, n = 128, seed 0; 1/18 units) — the dominance is a full-data
@@ -614,7 +647,15 @@ measured and reported in the same breath.
    pool is screening evidence — a scope annotation this draft now carries
    on every recipe row. Multi-seed held-out replication of the migration
    check is a compute-gated direction (T2/T3, parked), not an assertion
-   here.
+   here. The same scope discipline now covers the other two domains of
+   that gain: it *grows* with rollout horizon (ratio 0.893 / 0.834 / 0.825
+   at k = 100 / 200 / 400, direction-consistent 3/3 at each) but reverses
+   in the training-budget domain (8000 steps instead of 2000: ratio
+   1.1157, direction consistency 3/3 → 1/3, composite seed spread 1.727,
+   and no historical bitwise sentinel at that budget — a within-run paired
+   reading). The recipe claims in this paper are therefore a three-sided
+   domain statement — 2000-step budget × visible seed set ×
+   horizon-robustness — not a default-configuration recommendation.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -765,4 +806,19 @@ visible set `benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json`
 RECIPE_ANTAGONISTIC, meta git_sha 354c134 / exec_tier T1); no existing
 draft content was removed — all additions are additive and the two
 now-stale pointers ("998 retained", the 998 [v0-TODO]) are corrected by
-appended addenda rather than deletion.*
+appended addenda rather than deletion. Updated round 816 (queue entry
+N1-RECIPE-SCOPE, second writing iteration of this segment; distillation
+gate cleared with pool items only — PLAYBOOK 轮 111 artifact-field
+recompute + 轮 465 same-domain cross-check + scan §72.2 pre-registration):
+the composite's two remaining domain limits are absorbed (Abstract budget
+clause, Sec. 5 two new ladder rows + a "Two more domain limits: horizon
+and budget" paragraph, Sec. 6 absorbed-composition budget qualifier,
+Limitation 4f three-sided domain statement), readings taken from the
+artifacts rather than the prose — `benchmarks/physics_out_v02/recipe_horizon/recipe_horizon.json`
+(HORIZON_ROBUST, ratios 0.8931607635 / 0.8339268819 / 0.8247211326 at
+k = 100/200/400, direction 3/3 per horizon, spread_B 1.5377 → 1.0346,
+git_sha 1a4af63) and `benchmarks/physics_out_v02/recipe_budget/recipe_budget.json`
+(RECIPE_BUDGET_REVERSED, ratio 1.1156959228, mean_A 2.3885671298,
+mean_B 2.6649146080, direction_consistency 1/3, spread_B 1.7274477275,
+train_steps 8000, exec_tier T1, git_sha 239c54b); asset-index entry 4e
+registered in the same heartbeat per the round-814 rule; nothing removed.*
