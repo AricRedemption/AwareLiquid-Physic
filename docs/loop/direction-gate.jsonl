@@ -458,3 +458,4 @@
 {"round": 808, "direction": "ALIGNED", "evidence": "追记修正轮: 轮807 pytest 管道吞退出码致 2 失败未拦提交, 修正 caliber else 标签后 6/6 恢复; 本轮四门 pipefail 显式退出码复验; 无研究面改动"}
 {"round": 809, "direction": "ALIGNED", "evidence": "用户双指令全量对齐: 蒸馏门三步入 GOAL-PROMPT v9.5 迭代前置节+大道至简三瘦(心跳节合并/RSI指针化/GOALS 1219→105行); 27不变式全过+audit数数锚平衡=语义等效; 无研究面改动"}
 {"round": 810, "direction": "ALIGNED", "evidence": "蒸馏门首跑全对齐: 总结→社区检索(三源题录全核)→分级入库 scan §72 七条+PLAYBOOK×1; 大道至简验收=核心达标/台账无界增长如实注记; 无机制实施(行动候选登停车场守冻期); 无研究面改动"}
+{"round": 811, "direction": "ALIGNED", "evidence": "用户批准 scan §72.4 候选⇒RSI v5 段成本 C 维度实施: rsi_night cost.commits_total 机械源+RSI-INDEX v5 节(观测指标不入复合, 同 B 先例)+GOAL-PROMPT 指针对齐; 首测定量暴露等门拍段 7/342; 7 用例全过; 无研究面改动"}

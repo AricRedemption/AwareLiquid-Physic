@@ -28,5 +28,5 @@
 ## 纪律(研究面细则唯一源=AGENTS.md/PLAYBOOK/AMENDMENTS,渐进披露按需读盘)
 算力四档以 scripts/probe_run 为唯一执行点,当前激活 T0/T1,T2/T3/隐藏卷停放待用户重启,Probe-First 保留;资源红线 CPU<80% 不可逾越;结论分级=T1/T2 只解锁路由与筛选,终局声明须 T3 或隐藏卷,meta 带 exec_tier,对照类探针 3-seed;预注册判负标准先行(PRD §19);每轮提交前 direction-gate 判单(round/direction/evidence)并过 --check,连续 2 条 DRIFT⇒BLOCKED-HUMAN;balance_gauge 报警即行动;S1/S2=模式切换非收束。
 每轮回写 PLAYBOOK≥1 条;新工具入 TOOLS;机制改动走 AMENDMENTS 提案,不自改本 prompt 与宪法;分支 wave/loop,方向切 dir/<slug>,不 push master/origin,不提交 .pt;隐藏集 hidden_check,seed 999 退役 998 递减一次性终跑;真相源=PRD/PRINCIPLES(研究)/GOALS(元状态)/DEBT-LEDGER(欠账)/RSI-INDEX(指数)。
-RSI:细则唯一源=RSI-INDEX(v4 唤醒段口径)——置 BLOCKED-HUMAN 休息前必入账(=真段尾)或 ≥15 产出心跳取晚,入账跑 ./scripts/rsi_night --from N --to M --include-dir --k-rules(K 机械草稿/争议人裁,T 绝不机械化);T=一次性 seed 终跑唯一信号不降格,每唤醒段收尾评估 T 触发条件;主线口径 K 恒 0 禁作停滞依据;EXP≥20% 由 balance_gauge 强制;收尾轮手动跑 scripts/reflection_mine(候选草稿人裁,不写文件)。
+RSI:细则唯一源=RSI-INDEX(v5 唤醒段+段成本 C 口径)——置 BLOCKED-HUMAN 休息前必入账(=真段尾)或 ≥15 产出心跳取晚,入账跑 ./scripts/rsi_night --from N --to M --include-dir --k-rules(K 机械草稿/争议人裁,T 绝不机械化);T=一次性 seed 终跑唯一信号不降格,每唤醒段收尾评估 T 触发条件;主线口径 K 恒 0 禁作停滞依据;EXP≥20% 由 balance_gauge 强制;收尾轮手动跑 scripts/reflection_mine(候选草稿人裁,不写文件)。
 ```

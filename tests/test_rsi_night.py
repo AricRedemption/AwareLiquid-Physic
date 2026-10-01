@@ -162,3 +162,17 @@ def test_k_rules_off_by_default(tmp_path):
     r = run(210, 212, tmp_path)
     out = json.loads(r.stdout.splitlines()[0])
     assert "k_rules" not in out
+
+
+def test_cost_commits_total_real_repo():
+    """RSI v5(轮 811):cost.commits_total=段内心跳提交数(C 维度分母),
+    真实仓库一致性——夜 24 段(457-806)机械复算与台账口径相符。"""
+    import subprocess as sp
+    r = sp.run([".venv/bin/python", SCRIPT, "--from", "457", "--to", "806"],
+               capture_output=True, text=True, cwd=REPO)
+    out = json.loads(r.stdout.splitlines()[0])
+    assert out["cost"]["commits_total"] == 349
+    # 空段=0 而非 None(git 在场)
+    r2 = sp.run([".venv/bin/python", SCRIPT, "--from", "99999", "--to", "99999"],
+                capture_output=True, text=True, cwd=REPO)
+    assert json.loads(r2.stdout.splitlines()[0])["cost"]["commits_total"] == 0

@@ -35,6 +35,21 @@ import subprocess
 import sys
 from pathlib import Path
 
+# RSI v5(轮 811):段成本 C 维度——分母=段内心跳提交数(机械);分子=产出
+# 心跳(研究拍+簿记拍,取自 GOALS 段三数,人裁面)。观测指标,不入复合公式。
+COMMIT_ROUND_PAT = re.compile(r"wave\d+-轮(\d+)")
+
+
+def commits_in_range(lo, hi):
+    """段内心跳提交数(C 维度分母;git 缺席时 None 如实降级)。"""
+    try:
+        r = subprocess.run(["git", "log", "--format=%s"],
+                           capture_output=True, text=True, check=True)
+    except Exception:
+        return None
+    return sum(1 for m in COMMIT_ROUND_PAT.findall(r.stdout)
+               if lo <= int(m) <= hi)
+
 # 轮 232 修复:括号兼容半/全角——主线 PRD 记录头为半角 (…),旧模式只认
 # 全角 （…） 导致轮 141-231 解析 0 轮、夜账 91 轮空白(AMM-029 验收发现)
 WIN_PAT = re.compile(r"^\*\*(?:轮\s*(\d+)|([A-Z][A-Za-z0-9-]*))[^*]*[（(][^）)]*[）)]\*\*")
@@ -222,6 +237,7 @@ def main():
         "tools_new": tools_new,
         "proposals": props,
         "proposals_unattributed": unattr,
+        "cost": {"commits_total": commits_in_range(args.lo, args.hi)},
     }
     if args.k_rules:
         # 按轮号唯一(v3 同款口径):主线判读行 > dir 判读行 > 主线 > dir
