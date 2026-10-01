@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN  # 轮 824 治理修复拍后置态(用户双令: 质询"达到目标才停下来想要一直循环的效果"+"继续,先修复治理的内容先不要继续迭代"=研究迭代显式暂停令[AMM-044 停止源①, 作用域=研究迭代]; 治理修复=AMM-047 判枯三条件已实施, GOAL-PROMPT v9.6)。机械面: goal_check exit 6 成立(队列仅 T2T3 rc=3); 派生评估按 AMM-047 新判据=可派生(六条弱耦合登记欠账在册)但被用户暂停令门控, 如实注记非判枯。重入口=用户放行令(一句话, 或直接粘贴 GOAL-PROMPT 开新会话执行=即放行⇒RUNNING 并入队 N1-WEAKDEBT-ABS[候选已登记未入队: 六条弱欠账吸收+段蒸馏义务])。push 债=零(fork 同步)
+state: RUNNING  # 轮 826 用户重入口(动作=直接粘贴 GOAL-PROMPT 开新会话执行, 命中轮 825 state 行重入口条款"即放行"⇒RUNNING, 研究迭代恢复)。判活留痕四条(轮 823 协议)=观察窗 75s 零新提交+锁与 .git/index mtime 均未前移+树 clean+锁-提交差 12s=对侧 BLOCKED-HUMAN 合法休息无心跳⇒接管。派生评估=可派生(AMM-047 判否三条件①不成立: 六条弱耦合登记欠账在册)⇒N1-WEAKDEBT-ABS 已入队(六条弱欠账吸收+段蒸馏义务), 下一心跳首拍过蒸馏门后执行。push 债=零(fork 同步)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -237,6 +237,25 @@ current_action: >-
   - 台账=零算力验收拍无 PR;PLAYBOOK +1 坑(机制修订版本指针扫描);判单
     轮 825;段三数=队列迭代 0/研究拍 1/簿记拍 2。计数器详文现保 820-825
     共 6 轮超"最近 3 轮"家规=债延续, 下一段尾簿记拍统一压缩。
+  轮 826 用户重入口拍=新段首拍(研究拍;用户动作=直接粘贴 GOAL-PROMPT 开新
+  会话执行, 命中轮 825 state 行重入口条款"即放行"⇒RUNNING, 研究迭代恢复):
+  判活留痕四条(轮 823 协议)=观察窗 75s 零新提交+锁与 .git/index mtime 均
+  未前移+树 clean+锁-提交差 12s(收束即最后动作)⇒对侧 BLOCKED-HUMAN 合法
+  休息无心跳⇒接管锁→goal_check **exit 6**(T2T3 达成检测 rc=3, 零催促)→
+  派生评估=**可派生**(AMM-047 判否三条件①不成立: 六条弱耦合登记欠账在册
+  [轮 824 立法口径: GENLEN_CONFIRMED/LOAD_BEARING/PRECISION_ANCHOR_
+  ROBUST/SHARP_EOS/SPECTRA_INCREMENTAL/WINDOW_EDGE]; ②段蒸馏义务=新段
+  自本轮起计待履行; ③闭族闭轴不封登记资产吸收义务[AMM-022])⇒本拍行动=
+  置 RUNNING+入队 N1-WEAKDEBT-ABS(track=writing 零算力; check_cmd 双锚=
+  PRD 判读行∧asset-index WEAKDEBT; 清单漂移如实注记: 轮 819 弱耦合清单含
+  TOSA 承 817 判定共 7 标签而自计 6, 轮 821/824 收敛六条不含 TOSA_RESOLVED
+  [该标签为窄池 asset-index 名, PRD 实标签=DEC_TRAIN_HARMFUL], 本入队按
+  最新分账六条; TOSA 草稿覆盖若执行拍发现新欠账⇒登记走下轮派生评估, 不
+  静默扩 scope)。台账=零算力重入口拍无 PR;判单轮 826;段三数(新段自本轮
+  起计)=队列迭代 0/研究拍 1/簿记拍 0。计数器详文 820-826 七轮债延续(不
+  自造簿记, 本段段尾簿记拍统一压缩)。下一心跳=N1-WEAKDEBT-ABS 首拍迭代
+  (蒸馏门三步前置: ①总结②蒸馏[本段义务同拍履行]③定变量+预注册判负先行,
+  三步产物前置写入轮记录, 缺任一步不开迭代)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -247,6 +266,11 @@ current_action: >-
 
 ```yaml
 goal_queue:
+- id: N1-WEAKDEBT-ABS
+    track: writing
+    goal: 六条弱耦合登记欠账(轮 821/824 最新分账)零算力写作轴吸收闭环——GENLEN_CONFIRMED(轮 258)/LOAD_BEARING(轮 228 逐轴 loo)/PRECISION_ANCHOR_ROBUST(轮 406)/SHARP_EOS(轮 153 族, 判读线 dir/sharp-probe)/SPECTRA_INCREMENTAL(轮 246, 口径族采纳属用户 AMM-031)/WINDOW_EDGE(轮 170/171 LEN 族), 逐条终态处置(读数吸收入稿带口径/限定注记/关账留痕三态), 读数按轮 111 条款回溯产物 JSON 复算, 数字先入 asset-index 再落稿(轮 814 家规), 等效不删; 同拍履行本唤醒段蒸馏义务(≥1 良信尝试留痕)
+    done_condition: PRD §19 出现 N1-WEAKDEBT-ABS 判读行(六标签逐条终态分账: 入稿/关账/用户门控注记计数齐, 与 draft+asset-index 实改一致), asset-index 出现 WEAKDEBT 登记或关账注记, 判读行附段蒸馏义务履行指针
+    check_cmd: grep -q "N1-WEAKDEBT-ABS 判读" docs/PRD.md && grep -q WEAKDEBT docs/n1-asset-index.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
