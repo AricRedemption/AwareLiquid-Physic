@@ -455,3 +455,4 @@
 {"round": 805, "direction": "ALIGNED", "evidence": "AMM-045 置态轮: goal_check exit 6 机械判据+派生评估判否(证据沿用轮 463/748/749)双留痕; 置态=AMM-045 条款②首例执行; 无研究面改动"}
 {"round": 806, "direction": "ALIGNED", "evidence": "用户指令(优化 Goal Prompt+RSI 体系)全量对齐: 三提案实施+三目标机械弹出(供给到达检测首例)+RSI v4/夜24 补账+GOAL-PROMPT v9.4; 13 新用例全绿; 无研究面改动"}
 {"round": 807, "direction": "ALIGNED", "evidence": "验收对齐轮: 四门复跑全绿+守恒锚46+跨文档扫描两处修正(TOOLS用例数/caliber标签)+AMM-039验收补齐夜1-4回放零误计; 无研究面改动"}
+{"round": 808, "direction": "ALIGNED", "evidence": "追记修正轮: 轮807 pytest 管道吞退出码致 2 失败未拦提交, 修正 caliber else 标签后 6/6 恢复; 本轮四门 pipefail 显式退出码复验; 无研究面改动"}
