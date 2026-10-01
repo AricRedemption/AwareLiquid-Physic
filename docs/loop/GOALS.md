@@ -148,10 +148,30 @@ current_action: >-
   判单轮 814;段三数=队列迭代 5/研究拍 5/簿记拍 7/等门拍 341(末拍 805)。
   簿记债注记(不本轮清偿,AMM-044 禁自造簿记):计数器现保 806-813 详文,
   家规=只保最近 3 轮⇒段尾瘦身拍将 806-811 压入段史摘要。
-  下一心跳:goal_check(队列顶=T2T3-COMPUTE,check_cmd 实跑)⇒预期
-  SUPPLY-EMPTY/exit 6⇒派生评估(池枯判定每唤醒重审;判"否"须引闭族/闭轴
-  证据=RECIPE 六探针全闭+研究轴闭族+写作面 812 素材已耗尽)⇒判否则置
-  state: BLOCKED-HUMAN+原子提交+会话休息,重入口恢复 RUNNING。
+  轮 815 派生评估转正轮(第二次判**可派生**;机械留痕=本会话对
+  goal_check exit 6 的响应):达成检测实跑⇒队列顶仅 T2T3-COMPUTE(rc=3
+  未达成, 用户资源门控零催促)⇒派生评估按每唤醒段重审口径跑**机械缺口
+  清点**(asset-index+PRD §19 判读标签 × 草稿覆盖 grep):draft=0 且已登记
+  的条目=RECIPE_BUDGET_REVERSED(PRD 2 处,asset 0)/HORIZON_ROBUST(asset
+  1)/VHOM(1)/EQUIV_TRADEOFF(1)/RESIDUAL-SPEC(3)/AMPATTR/SPECTRA_INCREMEN
+  TAL/RECIPE_LOO——研究面闭族证据(RECIPE 六探针全闭+齐次头六轴全测+ω
+  推断钩子门 1 不合格)只封**新读数**方向,不封写作面既有登记的吸收义务
+  (AMM-022 自主权+轮 286 起"asset-index vs 草稿覆盖缺口扫描=N1 线固定
+  动作")⇒供给成立。选轴=**配方收益的域限定**(组合=单变量先例:视距域
+  轮 252 HORIZON_ROBUST 0.893/0.834/0.825+预算域轮 460 BUDGET_REVERSED
+  8000 步 ratio1.1157 方向一致 3/3→1/3,两读数为同一主张"组合收益是
+  scope 内事实"的两条边界,且与轮 814 刚落稿的 seed 集范围注记合成三重
+  限定);其余四条缺口(VHOM/EQUIV_TRADEOFF/RESIDUAL-SPEC/AMPATTR=头结构与
+  口径族)如实登记为后续候选不并发入队(单变量纪律)。入队 N1-RECIPE-SCOPE
+  (check_cmd=draft 含 RECIPE_BUDGET_REVERSED,当前 0 命中=达成检测机械可
+  判;预注册完成条件=§5 配方段+ladder 行+Limitation 4f 三处带视距/预算域
+  限定且读数取自产物 JSON,等效不删)。台账=零算力轮(清点+入队);判单
+  轮 815;段三数=队列迭代 5/研究拍 6/簿记拍 7/等门拍 341(末拍 805)。
+  下一心跳=对 [N1-RECIPE-SCOPE] 迭代一步,首拍过蒸馏门三步(总结→池内
+  对表:PLAYBOOK 轮 465"判读新增证据族回查停车场同域"+轮 111 产物字段
+  复算+scan §72.5 held-out;定变量=组合=单变量)→写作→弹出;弹出后再
+  派生评估(余 VHOM/EQUIV 等四条候选可转正)⇒全枯才置 BLOCKED-HUMAN,
+  置态前先段尾 RSI 入账(本段 806-815 未入账=夜 25 行待补)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -162,6 +182,11 @@ current_action: >-
 
 ```yaml
 goal_queue:
+- id: N1-RECIPE-SCOPE
+    track: writing
+    goal: N1 初稿吸收配方收益的两条域限定(RECIPE_HORIZON 轮 252 k{100,200,400} 随视距增强 + RECIPE_BUDGET_REVERSED 轮 460 8000 步反转 ratio1.1157 方向一致 3/3→1/3), 与轮 814 seed 集范围注记合成三重限定[视距×预算×seed集]
+    done_condition: n1-paper-draft.md 的 §5 配方段/§5 ladder 行/Limitation 4f 三处均带视距域与预算域限定且读数取自产物 JSON; 写作面等效不删既有内容
+    check_cmd: grep -q RECIPE_BUDGET_REVERSED docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
