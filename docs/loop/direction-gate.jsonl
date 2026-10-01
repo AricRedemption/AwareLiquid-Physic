@@ -392,3 +392,4 @@
 {"round": 743, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子; gauge周期核查=EXP0.2/WIP0/欠账0/无报警; 剩余项=用户门控同前; 追加式编辑稳定锚"}
 {"round": 744, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 追加式编辑稳定锚"}
 {"round": 745, "direction": "ALIGNED", "evidence": "最小心跳(等门控+用户重入口续跑): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 先答用户质询(现状)再续跑同拍完成; 四门绿 pytest198/audit111/queue audit; 追加式编辑稳定锚"}
+{"round": 746, "direction": "ALIGNED", "evidence": "最小心跳(等门控+用户重入口续跑): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 用户重入口=RSI/GOAL-PROMPT 机制审查只读评估, 机制冻结期无改动; 四门绿 pytest198/audit111/queue audit; 追加式编辑稳定锚"}
