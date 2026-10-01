@@ -508,6 +508,7 @@ Lyapunov 边界声明(§18.3:守恒可积域,未验证混沌域)。
    2.388e-06,比值 60669×,双臂自身 H 漂移 ≤2e-06,"门该开时才开"
    成立;多 seed 终局=停车场。
 6. 闭式近似层未分离(§13.1);混沌域未验证(§18.3)。
+7. **弱耦合欠账终态分账(轮 827 N1-WEAKDEBT-ABS,零算力写作轴;WEAKDEBT 关账块)**:六条登记弱耦合欠账(轮 821/824 分账)逐条终态——**GENLEN_CONFIRMED=入稿**(§5 梯子行判词刷新,轮 258 出样 2/3 ratio 0.8738=−12.6%,seed4 微差 0.045 带注;数字回溯 dir/genlen-confirm PRD 判读行,本索引第 25 条轮 258 注记先行);**LOAD_BEARING=关账**(实质已入稿:草稿 §5 axis-attribution 段 depth 18.9% 3/3+warmup 9.2% 2/3=轮 228 loo_ratio 1.189/1.092);**PRECISION_ANCHOR_ROBUST=关账**(实质已入稿:ANCHOR-PRECISION 锚口径段,轮 406,协议设计输入非论文主张);**SHARP_EOS=关账**(预注册分支未走,实判 SHARP_BELOW 轮 154=λ_max·lr≪EOS 阈值训练不在 EOS,工具/训练动力学面);**SPECTRA_INCREMENTAL=关账**(谱口径未采纳为主判据,逐 seed 一致 1/3=增量证据弱,残差谱条目在档);**WINDOW_EDGE=关账**(预注册分支未走,实判 LEN_ROBUST 草稿已载)。判据=标签缺≠欠账(轮 817 双判);六条清零⇒写作轴登记欠账=0(AMM-047 条件①达成面)。
 
 ## 8. 守恒与结构哲学(Discussion)
 

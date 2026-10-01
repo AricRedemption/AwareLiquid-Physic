@@ -256,6 +256,30 @@ current_action: >-
   自造簿记, 本段段尾簿记拍统一压缩)。下一心跳=N1-WEAKDEBT-ABS 首拍迭代
   (蒸馏门三步前置: ①总结②蒸馏[本段义务同拍履行]③定变量+预注册判负先行,
   三步产物前置写入轮记录, 缺任一步不开迭代)。
+  轮 827 N1-WEAKDEBT-ABS 执行轮(本段第 2 研究拍;用户"继续"重入口续跑令
+  同拍生效=AMM-044 停止源解除确认;蒸馏门三步齐, 产物前置入 PRD §19 轮
+  827 记录):①总结(梯子 GENLEN 行停轮 255 判词/两标签疑似实质已入稿)/
+  ②蒸馏=池内 5 条[轮 111/814/817/819/820]未补池=**段蒸馏义务良信尝试
+  留痕(AMM-047 条件②履行)**/③定变量=单变量"六条弱欠账终态闭环"(组合
+  =单变量 RECIPE 先例)+预注册判负三条先行(数字不可回溯⇒关账-待核/需算
+  力或用户门控⇒等门控/等效不删破⇒当轮修否则轮判负)。六条终态分账=
+  **2 入稿+4 关账**:GENLEN_CONFIRMED 入稿(§5 梯子行 RESOLVED→CONFIRMED,
+  轮 258 出样 2/3 ratio 0.8738=−12.6% seed4 微差 0.045 如实带注, 数字
+  回溯 dir/genlen-confirm PRD 判读行+asset-index 第 25 条先行在档);
+  LOAD_BEARING+PRECISION_ANCHOR_ROBUST=关账(实质已入稿:§5 axis-
+  attribution 段 18.9%/9.2%+ANCHOR-PRECISION 锚口径段);SHARP_EOS+
+  WINDOW_EDGE=关账(预注册分支未走:实判 SHARP_BELOW 轮 154[λ_max·lr
+  ≪EOS 阈值 2]+LEN_ROBUST 轮 170/171);SPECTRA_INCREMENTAL=关账(谱口径
+  未采纳为主判据, 逐 seed 一致 1/3 弱增量)。TOSA 漂移注记履行=草稿已载
+  DEC_TRAIN_HARMFUL 无新欠账。asset-index §7 新增第 7 条 WEAKDEBT 关账
+  块;等效不删=草稿仅梯子单行判词刷新。完成条件双锚 grep 过⇒N1-WEAKDEBT-
+  ABS 同心跳弹出归档(65 条, 队列余 T2T3)。台账=零算力写作轴无 PR;判单
+  827;段三数=队列迭代 1/研究拍 2/簿记拍 0。计数器详文 820-827 八轮债
+  延续。下一心跳=goal_check(预期 exit 6, T2T3 rc=3)→派生评估(AMM-047
+  三条件:①六条弱欠账本轮清零=写作轴登记欠账 0 ②段蒸馏义务本轮已履行
+  ③闭族闭轴承轮 821/823 复核)⇒三条件齐判"否"⇒先段尾入账(行将静止;
+  夜 26 需覆盖 823-827, 夜 25 终点 822)再置 state: BLOCKED-HUMAN;exit 6
+  前有新供给(新欠账/用户门控达成)⇒按路由行动。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -266,11 +290,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: N1-WEAKDEBT-ABS
-    track: writing
-    goal: 六条弱耦合登记欠账(轮 821/824 最新分账)零算力写作轴吸收闭环——GENLEN_CONFIRMED(轮 258)/LOAD_BEARING(轮 228 逐轴 loo)/PRECISION_ANCHOR_ROBUST(轮 406)/SHARP_EOS(轮 153 族, 判读线 dir/sharp-probe)/SPECTRA_INCREMENTAL(轮 246, 口径族采纳属用户 AMM-031)/WINDOW_EDGE(轮 170/171 LEN 族), 逐条终态处置(读数吸收入稿带口径/限定注记/关账留痕三态), 读数按轮 111 条款回溯产物 JSON 复算, 数字先入 asset-index 再落稿(轮 814 家规), 等效不删; 同拍履行本唤醒段蒸馏义务(≥1 良信尝试留痕)
-    done_condition: PRD §19 出现 N1-WEAKDEBT-ABS 判读行(六标签逐条终态分账: 入稿/关账/用户门控注记计数齐, 与 draft+asset-index 实改一致), asset-index 出现 WEAKDEBT 登记或关账注记, 判读行附段蒸馏义务履行指针
-    check_cmd: grep -q "N1-WEAKDEBT-ABS 判读" docs/PRD.md && grep -q WEAKDEBT docs/n1-asset-index.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

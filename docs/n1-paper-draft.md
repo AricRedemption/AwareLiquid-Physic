@@ -330,7 +330,7 @@ screening only, no terminal claims ]:
 | observation window | DEC_TRAIN_HARMFUL | t8 training at fixed-t24 eval 5.6× worse, 0/3 (evaluation-caliber artifact, dissolved) |
 | context capacity | CTX2_REVERSED | ctx_dim = 1 ratio 1.11 at 3 seeds (reversal); axis stays at default 8 |
 | recipe composition | RECIPE_SYNERGIC | single-axis optima compose to −10.7%, 3/3 consistent |
-| trajectory length | GENLEN_RESOLVED | 7th recipe-axis candidate (2.96 → 2.70; per-seed direction mixed, seed-0-driven) |
+| trajectory length | GENLEN_CONFIRMED | 7th recipe-axis candidate upgraded to recommended, medium confidence (in-sample 2.96 → 2.70 seed-0-driven; out-of-sample new seeds {3,4,5}: direction 2/3, ratio 0.8738 = −12.6%, seed-4 split 0.045 marginal) |
 | training-amount curve | SMOOTH_ASYMPTOTE (judged negative) | rollout-MSE curve smooth (max adjacent-step ratio 1.42 ≪ 3× gate); grokking naming not applicable in this regime |
 | recipe composition × held-out seed | RECIPE_MIGRATION_REVERSED | one-shot seed 998: default 2.4269 vs five-axis composite 3.4910, ratio 1.438 — the visible-set 0.893 direction flips (hidden-set tier, migration judgment only) |
 | recipe composition × horizon | HORIZON_ROBUST | ratio 0.893 / 0.834 / 0.825 at k = 100 / 200 / 400, direction-consistent 3/3 at each (the gain *grows* with horizon; composite arm's seed spread falls 1.54 → 1.03) |
