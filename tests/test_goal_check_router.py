@@ -274,12 +274,14 @@ def test_archived_pr_skipped_routes_to_live(tmp_path):
 
 
 def test_queue_empty_carries_supply_fault_semantics(tmp_path):
-    """SUPPLY-EMPTY 必须带供给故障语义+停止权外置(AMM-044,轮 459)。"""
+    """SUPPLY-EMPTY 必须带供给故障语义+停止权外置(AMM-044,轮 459);
+    AMM-045(轮 793)后②改为登记 blocked-human+机械等待态,禁最小心跳轮询。"""
     make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_EMPTY)
     r = run(tmp_path)
     assert r.returncode == 2 and "SUPPLY-EMPTY" in r.stdout
     assert "供给故障信号" in r.stdout and "禁自造簿记" in r.stdout
-    assert "停止权" in r.stdout and "状态标注非收束理由" in r.stdout
+    assert "停止权" in r.stdout and "机械等待态" in r.stdout
+    assert "禁最小心跳轮询" in r.stdout
     assert "取活义务" not in r.stdout  # AMM-044 废除
 
 
@@ -356,3 +358,97 @@ def test_audit_archive_cmds_unmet_is_report_not_fail(tmp_path):
     r = run_audit(tmp_path)
     assert r.returncode == 0 and "AUDIT OK" in r.stdout
     assert "通过 0,未达 1" in r.stdout
+
+
+# --- AMM-045(轮 793):blocked-human 目标族+目标达成检测驱动+机械等待态 ---
+
+QUEUE_BLOCKED_MIXED = """goal_queue:
+- id: B1
+    track: governance
+  goal: 用户裁定目标
+    done_condition: 用户裁定落盘
+    check_cmd: "false"
+    status: blocked-human(用户裁定,零催促)
+- id: A2
+    track: engineering
+  goal: 可行动目标
+    done_condition: 某条件
+    check_cmd: "false"
+"""
+
+QUEUE_ALL_BLOCKED = """goal_queue:
+- id: B1
+    track: governance
+  goal: 用户裁定目标一
+    done_condition: 用户裁定一落盘
+    check_cmd: "false"
+    status: blocked-human(用户裁定,零催促)
+- id: B2
+    track: compute
+  goal: 算力凭证就位
+    done_condition: 配额检查 status=ok
+    check_cmd: "false"
+    status: blocked-human(用户资源门控,零催促)
+"""
+
+QUEUE_BLOCKED_PASS = """goal_queue:
+- id: B1
+    track: governance
+  goal: 用户已裁定目标
+    done_condition: 用户裁定落盘
+    check_cmd: "true"
+    status: blocked-human(用户裁定,零催促)
+- id: A2
+    track: engineering
+  goal: 可行动目标
+    done_condition: 某条件
+    check_cmd: "false"
+"""
+
+
+def test_blocked_human_skipped_routes_to_live(tmp_path):
+    """AMM-045:blocked-human 条目零催促跳过迭代(check_cmd 已实跑做达成
+    检测),路由到下一条可行动目标——用户门控目标永不自由迭代。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_BLOCKED_MIXED)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "NOT-Achieved" in r.stdout
+    assert "对 [A2]" in r.stdout and "[检测] B1" in r.stdout
+
+
+def test_all_blocked_human_issues_rest_license(tmp_path):
+    """AMM-045 核心:可行动 0+blocked-human 全部未达成 ⇒ exit 6
+    ALL-BLOCKED-HUMAN(机械等待态判据),不再是 exit 2 最小心跳轮询——
+    等待=状态迁移(BLOCKED-HUMAN),禁以心跳轮询当监听器。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_BLOCKED)
+    r = run(tmp_path)
+    assert r.returncode == 6 and "ALL-BLOCKED-HUMAN" in r.stdout
+    assert "机械等待态" in r.stdout and "BLOCKED-HUMAN" in r.stdout
+    assert "[未达成] B1" in r.stdout and "[未达成] B2" in r.stdout
+    assert "派生评估" in r.stdout and "禁以心跳轮询" in r.stdout
+
+
+def test_all_pr_pending_without_blocked_stays_supply_empty(tmp_path):
+    """边界:纯 pr-pending(无 blocked-human)不触发 exit 6——pr-pending=
+    循环侧工作已完成的终态,供给问题走 SUPPLY-EMPTY 派生评估,行为不变
+    (AMM-038 语义保持,exit 6 仅在存在用户门控决策目标时给出)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_PENDING)
+    r = run(tmp_path)
+    assert r.returncode == 2 and "SUPPLY-EMPTY" in r.stdout
+
+
+def test_blocked_human_passing_pops_as_supply_arrival(tmp_path):
+    """AMM-045:用户门控目标达成(裁定落盘/凭证就位 ⇒ check_cmd 过)⇒
+    照常弹出(exit 0)——供给到达由每轮达成检测机械发现,不依赖散文注记。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_BLOCKED_PASS)
+    r = run(tmp_path)
+    assert r.returncode == 0 and "ACHIEVED" in r.stdout and "B1" in r.stdout
+    goals = (tmp_path / "docs" / "loop" / "GOALS.md").read_text()
+    assert "id: A2" in goals and "blocked-human" not in goals
+
+
+def test_audit_counts_blocked_human(tmp_path):
+    """--audit 汇报 blocked-human 条数(数数锚含新目标族,提交门可见)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_ALL_BLOCKED)
+    r = run_audit(tmp_path)
+    assert r.returncode == 0 and "AUDIT OK" in r.stdout
+    assert "blocked-human 2" in r.stdout and "尾条 B2" in r.stdout

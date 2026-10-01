@@ -450,3 +450,5 @@
 {"round": 801, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 派生评估判否=闭族/闭轴证据沿用轮 463/748/749; 台账=零算力轮; 四门绿 pytest/audit/gate801/queue audit; 追加式编辑稳定锚"}
 {"round": 802, "direction": "ALIGNED", "evidence": "最小心跳(等门控)+gauge 周期核查: goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; gauge=EXP0.2/WIP0/欠账0/无报警(结果先见后记录); 派生评估判否=闭族/闭轴证据沿用轮 463/748/749; 台账=零算力轮; 四门绿 pytest/audit/gate802/queue audit; 追加式编辑稳定锚"}
 {"round": 803, "direction": "ALIGNED", "evidence": "最小心跳(等门控): goal_check=SUPPLY-EMPTY(exit2), 无新钩子, 剩余项=用户门控同前; 派生评估判否=闭族/闭轴证据沿用轮 463/748/749; 台账=零算力轮; 四门绿 pytest/audit/gate803/queue audit; 追加式编辑稳定锚"}
+{"round": 804, "direction": "ALIGNED", "evidence": "最小心跳(等门控)+周期监察: goal_check=SUPPLY-EMPTY(exit2), 无新钩子; PR 检查独立先行 GH-EXIT=0, merged 空=无简报触发(结果先见后记录); 剩余项=用户门控同前; 派生评估判否=闭族/闭轴证据沿用轮 463/748/749; 台账=零算力轮; 四门绿 pytest/audit/gate804/queue audit; 追加式编辑稳定锚"}
+{"round": 804, "direction": "ALIGNED", "evidence": "AMM-045 实施与用户指令逐字对齐: 定时/轮询监听→每轮 check_cmd 目标达成检测+exit6 机械等待态; 预演三连绿+31 用例; diff=机制面(goal_check/测试/文档), 无研究面改动"}

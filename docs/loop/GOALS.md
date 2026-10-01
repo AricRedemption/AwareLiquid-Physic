@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: RUNNING            # 轮 464 马拉松重入段(段蒸馏义务已履行=464 拒绝留痕;剩余项=用户门控,心跳等依赖)
+state: RUNNING            # 轮 464 马拉松重入段(段蒸馏义务已履行=464 拒绝留痕;剩余项=用户门控,机械等待态 AMM-045)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -1144,20 +1144,60 @@ current_action: >-
   轮 803 最小心跳(等门控):goal_check=SUPPLY-EMPTY(exit2),无新
   钩子,剩余项=用户门控同前;台账=零算力轮;判单轮 803;段三数=队列
   0/研究拍 2/簿记拍 1/等门拍 340。
-  下一心跳:goal_check ⇒ SUPPLY-EMPTY ⇒ 最小心跳(续,如实标注
-  剩余项=用户门控,禁簿记;新钩子出现[用户一句话/新欠账/新判读/
-  PR 状态变化]则按语义注记路由)。
+  轮 804 用户重入口+AMM-045 实施轮(用户指令"不要用定时任务监听,每轮构任务
+  检测目标达成,体系化驱动"=冻期白名单用户主动要求):goal_check 增
+  blocked-human 目标族(零催促跳过迭代+每轮实跑 check_cmd 达成检测,达成⇒
+  弹出按重入口行动)+ALL-BLOCKED-HUMAN exit 6 机械等待态;队列装入 5 条
+  用户门控目标(AMM-033/039/040/041 裁定+T2T3 算力凭证);GOAL-PROMPT
+  v9.3(27 不变式全保);headless_loop/ignite 定时驱动件弃用;轮 466-792
+  等门拍坑入 PLAYBOOK;台账=零算力轮;判单轮 804;段三数=队列 0/研究拍 2/
+  簿记拍 1/等门拍 341(等门拍自下拍止:全阻⇒机械等待态)。
+  下一心跳:goal_check ⇒ ALL-BLOCKED-HUMAN(exit 6)⇒派生评估(闭族/闭轴
+  证据沿用轮 463/748/749 判否)⇒置 state: BLOCKED-HUMAN+原子提交 push ⇒
+  会话休息(机械等待态);重入口=用户一句话/新欠账/算力与停车场重启 ⇒
+  state 回 RUNNING 续跑。
+
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
-**心跳**=goal_check→行动→四门禁→原子提交 push 的完整单元;**回合**=agent 一次连续执行期;**会话**=粘贴 GOAL-PROMPT 起至收束(正常=单回合)。**研究拍与簿记拍分离(AMM-044)**:研究心跳=队列弹出/判读行/写作/蒸馏 [行动];簿记心跳(夜账/对账/索引/瘦身/简报)仅段尾或 ≥15 产出心跳触发,禁自造簿记凑产出;段记录三数=队列迭代数/研究拍数/簿记拍数(每段必记,研究:簿记 >3:1 连续两段⇒簿记全延后)。**SUPPLY-EMPTY(队列空)=供给故障信号,非合法稳态**:唯一合法动作=①判读行派生评估(判"否"须引闭族/闭轴证据,池枯判定每段重审)②不可派生⇒最小心跳+如实标注剩余项=用户门控,保持心跳等依赖。**停止权外置(AMM-044)**:收束仅由①用户显式停止令②宿主硬限(截断/预算)触发,代理无自宣收束权;上下文将尽唯一合法动作=程序计数器瘦身快照后继续心跳直到宿主实际截断;PARKED=跨段 S3 判定与 BLOCKED-HUMAN 均为状态标注,非收束理由。**段**=两次收束间连续心跳序列(RSI 夜账与 S3-v2 计量单位)。**队列语义(AMM-038)**:方向条目**开 PR 即终态**=当心跳弹出归档 QUEUE-ARCHIVE.md(不占活性不进数数锚);blocked_on 禁列 PR 项;合并与算力=用户门控零催促;**重入口=用户一句话(优先级最高,先答质询再续跑同拍完成)/新欠账/停车场与算力重启**。
+**心跳**=goal_check→行动→四门禁→原子提交 push 的完整单元;**回合**=agent 一次连续执行期;**会话**=粘贴 GOAL-PROMPT 起至收束(正常=单回合)。**研究拍与簿记拍分离(AMM-044)**:研究心跳=队列弹出/判读行/写作/蒸馏 [行动];簿记心跳(夜账/对账/索引/瘦身/简报)仅段尾或 ≥15 产出心跳触发,禁自造簿记凑产出;段记录三数=队列迭代数/研究拍数/簿记拍数(每段必记,研究:簿记 >3:1 连续两段⇒簿记全延后)。**SUPPLY-EMPTY(队列空)=供给故障信号,非合法稳态**:唯一合法动作=①判读行派生评估(判"否"须引闭族/闭轴证据,池枯判定每段重审)②不可派生⇒逐目标达成检测处置(AMM-045:blocked-human 条目每轮实跑 check_cmd,达成⇒弹出按重入口行动;全阻 exit 6⇒派生评估判否后置 state: BLOCKED-HUMAN 休息=机械等待态,禁以心跳轮询当监听器,重入口恢复 RUNNING)。**停止权外置(AMM-044)**:收束仅由①用户显式停止令②宿主硬限(截断/预算)触发,代理无自宣收束权;上下文将尽唯一合法动作=程序计数器瘦身快照后继续心跳直到宿主实际截断;PARKED=跨段 S3 判定与 BLOCKED-HUMAN 均为状态标注,非收束理由。**段**=两次收束间连续心跳序列(RSI 夜账与 S3-v2 计量单位)。**队列语义(AMM-038)**:方向条目**开 PR 即终态**=当心跳弹出归档 QUEUE-ARCHIVE.md(不占活性不进数数锚);blocked_on 禁列 PR 项;合并与算力=用户门控零催促;**重入口=用户一句话(优先级最高,先答质询再续跑同拍完成)/新欠账/停车场与算力重启**。
 
 ## goal_queue(顶部为当前目标)
 
 ```yaml
-goal_queue: []
+goal_queue:
+- id: AMM-033-RULING
+    track: governance
+    goal: 用户裁定 AMM-033(house 默认 M1 头替换为解析 T+方向自由齐次 V 构造,七探针证据链已齐)
+    done_condition: AMENDMENTS AMM-033 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
+    check_cmd: awk '/^### AMM-033:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
+    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
+- id: AMM-039-RULING
+    track: governance
+    goal: 用户裁定 AMM-039(RSI 夜账 K 终判机械化)
+    done_condition: AMENDMENTS AMM-039 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
+    check_cmd: awk '/^### AMM-039:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
+    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
+- id: AMM-040-RULING
+    track: governance
+    goal: 用户裁定 AMM-040(AMENDMENTS 归档机制)
+    done_condition: AMENDMENTS AMM-040 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
+    check_cmd: awk '/^### AMM-040:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
+    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
+- id: AMM-041-RULING
+    track: governance
+    goal: 用户裁定 AMM-041(自动 Reflexion/复盘挖掘管道)
+    done_condition: AMENDMENTS AMM-041 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
+    check_cmd: awk '/^### AMM-041:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
+    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
+- id: T2T3-COMPUTE
+    track: compute
+    goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
+    done_condition: kaggle_quota_check status=ok 或用户显式重启令落盘
+    check_cmd: .venv/bin/python scripts/kaggle_quota_check.py
+    status: blocked-human(用户资源门控,零催促;达成检测每轮实跑,AMM-045)
 ```
 
-队列规则(AMM-038 后):新方向(文献扫描/用户指定/判读派生)入队→预注册判负→probe_run→判读→dir/<slug> 开 PR 的**同一心跳内弹出并归档** QUEUE-ARCHIVE.md;队列空⇒取活义务路由(积压优先级见 goal_check 输出)。
+队列规则(AMM-038 后):新方向(文献扫描/用户指定/判读派生)入队→预注册判负→probe_run→判读→dir/<slug> 开 PR 的**同一心跳内弹出并归档** QUEUE-ARCHIVE.md;队列空⇒SUPPLY-EMPTY 供给故障路由(派生评估);blocked-human 条目=用户门控决策目标(AMM-045):零催促跳过迭代但每轮实跑 check_cmd 达成检测,过⇒弹出按重入口行动;全阻⇒机械等待态。
 **归档指针(轮 431)**:55 条原 pr-pending 已整体迁移 docs/loop/QUEUE-ARCHIVE.md(开 PR 即终态;原 check_cmd 弃用=轮 428 实证死路;合并复核降级后台福利)。
 **PR 号勘误(轮 266)**:gh 裸命令默认查 origin(上游),fork 上 48 PR 全部真实 OPEN(轮 236-264 各 PR 实号已按 gh pr list 勘误;历史行不改);RECIPE-SYNTHESIS=PR#44。
 **价值出口六门**:细则唯一源=AMENDMENTS+goal_check 输出(每心跳必见),此处不复制——入队带决策耦合声明/配方族默认关闭/≥3 族判默认非最优⇒强制组合回灌/3-seed/弱题录禁 [行动]/判单+direction_gate 提交门。研究内容唯一源=PRD §19。

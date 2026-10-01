@@ -2,6 +2,9 @@
 # ignite — 跨 Agent 点火器(AMM-020;Ralph 式,机器级 cron/launchd 驱动,与具体
 # Agent 软件解耦)。语义: 锁新鲜(<100min)=马拉松活着 ⇒ 退出;否则用
 # docs/loop/agent-cmd.conf 里配置的命令把 GOAL-PROMPT 正文喂给任意 agent CLI。
+# [AMM-045 轮 793 弃用] cron/定时点火路径退役:驱动唯一源=goal_check 逐轮
+# 目标达成检测+stop_gate 状态闸;全阻=机械等待态(BLOCKED-HUMAN),重入口
+# =用户一句话/新欠账/新会话入口,非定时唤醒。保留为历史,勿再配置 crontab。
 #
 # agent-cmd.conf 格式(一行模板,{PROMPT} 占位符会被替换为 prompt 正文):
 #   zcode -p {PROMPT}

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # headless_loop.sh — AMM-002: GOALS.md 驱动的连续循环监督进程
+# [AMM-045 轮 793 弃用] sleep 轮询式监督已退役:驱动唯一源=goal_check 逐轮
+# 目标达成检测+stop_gate 状态闸(事件驱动);全阻机械等待态见 goal_check
+# exit 6。本文件保留为历史,勿再启用(启用即双跑+轮询坑复发)。
 #
 # 模式:wake fresh + state file(aicell/极简循环派)。每个心跳检查
 # docs/loop/GOALS.md 的 state:RUNNING 则以 headless 方式重启一轮

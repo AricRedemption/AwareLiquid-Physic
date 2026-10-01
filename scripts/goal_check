@@ -8,11 +8,18 @@
 #   1. 读 GOALS.md goal_queue 顶部 → 执行 check_cmd →
 #      通过   → VERDICT: ACHIEVED(弹出顶部并写回 GOALS.md,晋升下一位)
 #      不通过 → VERDICT: NOT-Achieved(对当前目标迭代一步,未达成不停)
+#   1b. status: blocked-human 条目(AMM-045,用户门控决策目标):零催促跳过
+#       迭代但每轮实跑 check_cmd 做目标达成检测——用户裁定落盘/凭证就位
+#       ⇒ check 通过 ⇒ 照常弹出按重入口行动(供给到达的机械检测面)。
 #   2. 队列空时:
 #      EXP<20%(窗口≥5)     → VERDICT: MINING-FROZEN(退出码 3;补证据轮,禁蒸馏)
 #      否则                 → VERDICT: QUEUE-EMPTY(退出码 2;蒸馏补池)
+#   2b. 可行动 0 且 blocked-human ≥1 且全部未通过
+#       → VERDICT: ALL-BLOCKED-HUMAN(退出码 6;机械等待态判据:派生评估
+#         判否后置 state: BLOCKED-HUMAN 休息,禁以心跳轮询当监听器,AMM-045)
 #
 # 退出码:0=ACHIEVED 1=NOT-Achieved 2=QUEUE-EMPTY 3=MINING-FROZEN 4=DEBT-FIRST
+#        6=ALL-BLOCKED-HUMAN(机械等待态;5 保留不用)
 # --audit 模式(轮 292 工程硬化):队列完整性审计,只读不路由——
 #   数数锚(id 数=check_cmd 数)+空/折叠 check_cmd+重复 id+尾条 id 回显。
 #   轮 136/138/142 吞行、轮 62/108 空/折叠命令、轮 240 畸变等手工数数锚
@@ -66,6 +73,7 @@ if len(whole_ids) != len(whole_cmds):
     problems.append(f"数数锚不平衡: '- id' ×{len(whole_ids)} vs 'check_cmd:' "
                     f"×{len(whole_cmds)}(整文件口径;吞行/畸变时二者必分离)")
 pending = [e["id"] for e in entries if e["status"].startswith("pr-pending")]
+blocked_human = [e["id"] for e in entries if e["status"].startswith("blocked-human")]
 archived = [e["id"] for e in entries if e["status"].startswith("archived-pr")]
 tail = entries[-1]["id"] if entries else "(空)"
 archive_note = ""
@@ -132,7 +140,8 @@ if problems or broken:
     sys.exit(1)
 passed = sum(1 for _, rc in rehearsal if rc == 0)
 print(f"AUDIT OK: 条目 {len(whole_ids)}={len(whole_cmds)}(数数锚平衡),"
-      f"pr-pending {len(pending)},尾条 {tail};无空/折叠 check_cmd,无重复 id")
+      f"pr-pending {len(pending)}, blocked-human {len(blocked_human)},"
+      f"尾条 {tail};无空/折叠 check_cmd,无重复 id")
 print(f"  [端到端演练] check_cmd 实跑 {len(rehearsal)} 条"
       f"(队列 {len(entries)}+归档 {len(archive_entries)}),通过 {passed},"
       f"未达 {len(rehearsal)-passed}(未达成=状态事实非故障;机制异常才判死)"
@@ -183,11 +192,14 @@ def queue_empty_exit():
     print("VERDICT: SUPPLY-EMPTY — 队列恒空=供给故障信号(AMM-044,"
           "队列健康度=可行动项数;非合法稳态,禁自造簿记)")
     print("  [唯一合法动作] ①检查最近判读行可否派生新轴(目标供给义务:"
-          "判'否'须引闭族/闭轴证据,池枯判定每段重审) ②不可派生⇒最小心跳"
-          "(如实标注剩余项=用户门控,保持心跳等依赖) ③禁自造簿记"
-          "(夜账/对账/索引/瘦身仅段尾或≥15产出心跳触发)")
+          "判'否'须引闭族/闭轴证据,池枯判定每段重审) ②不可派生⇒登记现行"
+          "用户门控项为 blocked-human 目标(每轮实跑 check_cmd 达成检测)后"
+          "按机械等待态处置;无门控项可登记⇒直接置 BLOCKED-HUMAN 休息"
+          "(禁最小心跳轮询当监听器,AMM-045) ③禁自造簿记(夜账/对账/索引/"
+          "瘦身仅段尾或≥15产出心跳触发)")
     print("  [停止权] 收束仅由用户显式停止令或宿主硬限触发;"
-          "BLOCKED-HUMAN=状态标注非收束理由")
+          "BLOCKED-HUMAN=机械等待态(AMM-045:置态判据=goal_check 全阻判据+"
+          "派生评估判否双机械留痕,非自由裁量收束理由)")
     # AMM-028(轮 227):价值出口门焊入路由器——蒸馏准入每心跳强制可见
     print("  [AMM-028 门] ①蒸馏准入:条目须带决策耦合声明(哪种结果⇒改变"
           "哪个决策),训练配方族默认关闭;②回灌门:累计≥3 族判『默认配置"
@@ -195,6 +207,27 @@ def queue_empty_exit():
           " 已判 RECIPE_SYNERGIC,回灌 PR=用户线下);③对照类探针 3-seed;"
           "④弱题录(带 ?)不得作 [行动] 唯一依据")
     sys.exit(2)
+
+def all_blocked_exit(blocked):
+    # AMM-045(轮 793):全部目标检测完毕——可行动 0,用户门控 N 条未达成。
+    # 每轮逐条实跑 check_cmd 的目标达成检测取代"最小心跳轮询等依赖"
+    # (轮 466-792 等门拍 329 = 用模型轮次当监听器的既成坑):等待≠收束,
+    # 等待=状态迁移;本 verdict=机械等待态判据,派生评估判否后生效。
+    print(f"VERDICT: ALL-BLOCKED-HUMAN — 目标达成检测完毕:可行动 0,"
+          f"用户门控未达成 {len(blocked)} 条(AMM-045 目标达成检测驱动)")
+    for e in blocked:
+        print(f"  [未达成] {e['id']}: {e['done_condition']}")
+    print("  [机械等待态] ①本唤醒段派生评估未做⇒先做(判'否'须引闭族/闭轴"
+          "证据留痕,池枯判定每唤醒重审;可派生⇒新轴入队执行,蒸馏轮可用)"
+          "②派生评估判'否'⇒置 GOALS state: BLOCKED-HUMAN 并原子提交 push,"
+          "会话休息——禁以心跳轮询当监听器(AMM-045:等待=机械等待态,"
+          "非自宣收束;判据=本 verdict+派生评估判否双留痕;与 AMM-044 停止权"
+          "外置的衔接=机械判据可证的等待条件,用户停止令/宿主硬限语义不变)"
+          "③置态前若夜账欠段(距上次入账 ≥15 产出心跳,或本段行将静止)"
+          "⇒先段尾入账再置态(簿记拍合法触发,P1-1)④重入口=用户一句话/"
+          "新欠账/停车场与算力重启/任意新会话入口⇒state 回 RUNNING 续跑,"
+          "达成检测恢复每轮实跑")
+    sys.exit(6)
 
 if not block_m:
     queue_empty_exit()
@@ -218,6 +251,7 @@ if not entries:
 # pr-pending=躺在 PR 区零催促;archived-pr=开 PR 即终态(QUEUE-ARCHIVE.md)。
 # 全部跳过 ⇒ 按队列空走供给故障路由(AMM-044 SUPPLY-EMPTY)。恢复由状态驱动,不依赖散文注记。
 chosen, skipped = None, []
+blocked = []
 for e in entries:
     cmd = e["check_cmd"].strip()
     if not cmd or cmd[0] in ">|":
@@ -236,16 +270,25 @@ for e in entries:
     if rc == 0:
         chosen = e
         break
-    if ((e.get("status") or "").startswith("pr-pending")
-            or (e.get("status") or "").startswith("archived-pr")):
+    status = (e.get("status") or "")
+    if status.startswith("pr-pending") or status.startswith("archived-pr"):
         skipped.append(e["id"])
         print(f"  [skip] {e['id']}: 终态条目(pr-pending/archived-pr)零催促"
               f"跳过(AMM-026/AMM-038)")
+        continue
+    if status.startswith("blocked-human"):
+        # AMM-045:用户门控决策目标——check_cmd 已实跑(达成检测本体),
+        # 未达成⇒零催促跳过迭代;达成(rc==0)⇒上方 chosen 弹出按重入口行动。
+        blocked.append(e)
+        print(f"  [检测] {e['id']}: check_cmd 实跑未达成(rc={rc})——"
+              f"用户门控目标零催促跳过迭代,达成检测每轮续跑(AMM-045)")
         continue
     print(f"VERDICT: NOT-Achieved — 对 [{e['id']}] {e['goal']} 迭代一步")
     print(f"  done_condition: {e['done_condition']}")
     sys.exit(1)
 if chosen is None:
+    if blocked:
+        all_blocked_exit(blocked)
     queue_empty_exit()
 
 rest = [e for e in entries if e is not chosen]
