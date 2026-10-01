@@ -310,6 +310,32 @@ current_action: >-
   判枯后按 goal_check ③先段尾 RSI 入账(夜 25, 本段 806-820=15 产出心跳
   达 P1-1 触发线)+计数器瘦身(现保 814-820 超最近 3 轮家规)+reflection_mine,
   再置 state: BLOCKED-HUMAN 机械等待态休息(禁心跳轮询当监听器)。
+  轮 821 派生评估第五拍(本段第 7 研究拍;exit 6 响应;判**否**=三族
+  机械留痕齐):①写作吸收面三判收敛——窄池 asset-index 28 标签(轮 820
+  补 4g 后 +1)/未覆盖 4(GENLEN_CONFIRMED、RECIPE_LOO_PARTIAL、
+  TOSA_RESOLVED、WARMUP_BENEFICIAL=轮 817 已判弱耦合 2+伪欠账 2, 本轮
+  实质复核无翻案)、宽池 PRD §19 59 标签/未覆盖 45→分支与基建过滤后
+  正向 12→伪欠账 6(AMPEX_ROBUST/COMPOSE_ABSORBED/CTX2_CONFIRM/
+  CTXDIM_RESOLVED/EQUIV_ATTRIB/EQUIV_RESOLVED=未走分支或实质已落稿)+
+  真欠账弱耦合 6(GENLEN/LOAD_BEARING/PRECISION_ANCHOR_ROBUST/SHARP_EOS/
+  SPECTRA_INCREMENTAL[采纳属用户 AMM-031]/WINDOW_EDGE)⇒**强耦合 0**,
+  且轮 814/816/818/820 四轮已把强耦合候选全部转正并弹出(队列迭代 8)。
+  ②研究面闭族闭轴(只约束新读数方向)=RECIPE 家族六探针全闭(SYNTHESIS/
+  HORIZON/LOO/REDUCE/BUDGET/MIGRATION)+头结构族六轴全测+ω 推断钩子门 1
+  不合格+V-HOM-STAB 修复探针=第 54 族段内超上限(轮 65 条件性登记⇒
+  下一段入口)+隐藏卷阶梯 999/998 已退役而下档 997 需预注册一次性预算
+  (无新预注册题目=不可动, 禁把隐藏卷当调参信号)。③算力/用户门控面=
+  T2T3-COMPUTE 实跑 rc=3(NO_CREDS), 停车场(AMM-041 挖掘器四信号源)
+  未有新解停条件⇒本轮不催办。附:本轮另核草稿内部台账=Appendix A 用
+  泛型 [B] 行("all tables/orders/drifts above")而非逐探针行, 故轮
+  818/820 新增两段不构成台账缺项;998/999 陈旧指针已由轮 814 补记修正。
+  ⇒路由=判枯, 依 goal_check ③ 先段尾入账再置态(本段 806-821 产出
+  心跳 16≥15 达 P1-1 线)⇒下一心跳=段尾簿记拍(rsi_night 夜 25 +
+  RSI-INDEX v5 唤醒段与段成本 C + 计数器瘦身[现保 814-821 超"最近 3 轮"
+  家规⇒压 814-818 入段史]+reflection_mine+AMM 状态行'轮 N 登记'卫生
+  注记[goal_check --audit 自 814 起持续报 31 条, 属文档卫生非机制改动]
+  )⇒其后置 state: BLOCKED-HUMAN。台账=零算力轮(三判复跑+判否留痕);
+  判单轮 821;段三数=队列迭代 8/研究拍 12/簿记拍 7/等门拍 341(末拍 805)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
