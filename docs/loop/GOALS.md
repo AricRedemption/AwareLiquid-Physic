@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN  # 轮 828 段尾簿记拍后置态(机械等待态; 双留痕=goal_check exit 6 @轮828 + 派生评估判否[AMM-047 三条件齐: ①六条弱欠账轮827全终态⇒写作轴登记欠账0且无新欠账 ②段蒸馏义务轮827池对表5条留痕 ③闭族闭轴承轮821/823复核且其后零新读数])。重入口=用户一句话(最高优先, 先答质询再续跑同拍完成)/新欠账/停车场与算力重启/粘贴 GOAL-PROMPT 开新会话执行=即放行⇒RUNNING。push 债=0(轮827/828 均已落地 fork: 轮827 债经后台退避重试 attempt1 落地+轮828 直推成功 2a32c09..f0932ac, git log fork/wave/loop..wave/loop 零差实跑 exit0 核清=轮 287+435 协议完整兑现)
+state: RUNNING  # 轮 829 用户质询重入口("为什么又停止了 看看是什么情况"=先答质询再续跑同拍)。828 停止依据=exit6+AMM-047 三条件(与轮 821/823 假枯不同: 六弱欠账 827 已真实终态); 质询暴露的弱面="池枯每唤醒重审"复用了前段证据⇒本拍补新鲜良信尝试(蒸馏轮 3 槽命中真家族 [坐标]×2 入库 scan §73)⇒[坐标]佐证构成写作轴新供给⇒N1-PROXY-CORROB 已入队, 循环续跑。盘面核查=树 clean/fork 同步/无 PR 过夜合并(60 open, PR#49+#50 未合)/T2T3 rc=3 仍用户门控。push 债=0(fork 同步零差)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -152,6 +152,27 @@ current_action: >-
   git log fork/wave/loop..wave/loop 零差实跑 exit0 核清;主提交信息与
   state 行的"待推"表述写于落地确认前=时序过时, 本追记修正(轮 462 程序
   计数器真实性家族, 先例轮 823 同型追记);轮 287+435 协议完整兑现。
+  轮 829 用户质询重入口=新鲜池枯重审轮(新段首拍/研究拍;用户质询"为什么
+  又停止了 看看是什么情况"=先答质询再续跑同拍;第四次同型质询, 按轮 457
+  条款给机械计数):**质询答复**=轮 828 置态依据机械留痕(exit6+AMM-047
+  三条件: 六弱欠账 827 已真实终态 2 入稿+4 关账/蒸馏义务 827 对表留痕/
+  闭族承 821-823)与轮 821/823 假枯的本质区别=本次供给确已清零, 且剩余
+  目标全部用户门控(T2T3 rc=3/PR 合并/投稿终稿);**但质询暴露 828 弱面**
+  ="池枯判定每唤醒重审"被读成"每唤醒复述"——判否证据链全部来自前段,
+  本唤醒段零新鲜尝试⇒本拍补做:盘面核查(树 clean/fork 同步零差/无 PR
+  过夜合并[60 open]/零新欠账)+蒸馏轮新鲜良信尝试(3 槽检索, 选族钩子=
+  自家 RECIPE_BUDGET/MIGRATION_REVERSED 的社区对应面, 机制核对=与 §37
+  μP 跨宽度轴分立)⇒**命中真家族**=小规模代理实验配方迁移可靠性族, 2 条
+  入库 [坐标](Goyal CVPR 2024+Wang arXiv:2512.24503 ICLR 2026, 题录当场
+  双源核验, scan §73+Sources 索引同拍);[行动] 拒绝留痕三条(闭族纪律/
+  数据筛选域不适用/997 禁造题)。**供给面判转**:[坐标] 佐证构成写作轴新
+  供给⇒按 AMM-047 弱耦合口径入队 N1-PROXY-CORROB(单变量=预算反转现象类
+  印证闭环;决策耦合=入稿⇒house 发现升级为有文档化现象类印证+预答审稿
+  人"是否个例"质疑;不入稿⇒Limitation 4f 维持裸 house 声明;check_cmd
+  双锚)。段蒸馏义务=本拍新鲜尝试即履行。PLAYBOOK +1 坑(判否的池枯重审
+  须含本段新鲜良信尝试)。台账=零算力轮无 PR;判单 829;段三数(新段起计)
+  =队列迭代 0/研究拍 1/簿记拍 0。下一心跳=N1-PROXY-CORROB 首拍迭代(蒸
+  馏门三步+预注册判负)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -162,6 +183,11 @@ current_action: >-
 
 ```yaml
 goal_queue:
+- id: N1-PROXY-CORROB
+    track: writing
+    goal: 吸收轮 829 蒸馏收获(小规模代理实验配方迁移可靠性族 [坐标]×2=Goyal Maini Lipton Raghunathan "Scaling Laws for Data Filtering—Data Curation cannot be Compute Agnostic" CVPR 2024 数据配方排序算力依赖 + Wang et al. "Can Small Training Runs Reliably Guide Data Curation?" arXiv:2512.24503 ICLR 2026 代理协议排序不可靠, scan §73)进 n1-paper-draft——§5 预算域行(RECIPE_BUDGET_REVERSED)与 Limitation 4f 的 house 发现升级为"有文档化现象类外部印证", 必带域限定注记(社区=LLM 预训练数据筛选域, 本仓=合成动力学配方域, 类比印证非直接复制)与引用分级 [B], 等效不删
+    done_condition: PRD §19 出现 N1-PROXY-CORROB 判读行(与 draft+asset-index 实改一致), n1-paper-draft 含 Goyal/Wang 引用及域限定句, asset-index 同心跳登记条目, 等效不删既有内容
+    check_cmd: grep -q "N1-PROXY-CORROB 判读" docs/PRD.md && grep -q "Goyal" docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

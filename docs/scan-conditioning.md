@@ -4184,6 +4184,8 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - [Reflexion (arXiv:2303.11366, 2023)](https://arxiv.org/abs/2303.11366)——见 §67.2
 - [Analyzing & Reducing the Need for Learning Rate Warmup in GPT Training (Kosson et al., NeurIPS 2024)](https://arxiv.org/abs/2410.23922)——见 §68.1
 - [Weight Decay may matter more than µP for Learning Rate Transfer in Practice (Kosson et al., ICLR 2026)](https://arxiv.org/abs/2510.19093)——见 §68.2
+- [Scaling Laws for Data Filtering — Data Curation cannot be Compute Agnostic (Goyal, Maini, Lipton, Raghunathan, CVPR 2024)]——见 §73.1
+- [Can Small Training Runs Reliably Guide Data Curation? Rethinking Proxy-Model Practice (Wang et al., arXiv:2512.24503, ICLR 2026)](https://arxiv.org/abs/2512.24503)——见 §73.2
 
 ## 69. 蒸馏尝试拒绝记录+S1 池枯评估(轮 448,2026-09-27,QUEUE-EMPTY 蒸馏轮尝试)
 
@@ -4310,3 +4312,57 @@ grep 零命中(D2/E4a=梯度流实验记录非族,族头声明分立)。选族�
 - **段蒸馏义务**:本唤醒段(轮 806 起)良信尝试 1 次=本条,7 题录全核,
   [行动]×1 落 PLAYBOOK(72.3),[行动]候选×2 登记停车场(72.1 重申/72.4);
   同 query 族换法计数=1/3(对标族首试)。
+
+## 73. 经验蒸馏 67(轮 829,2026-10-02,用户质询重入口=新鲜池枯重审):小规模代理实验的配方迁移可靠性族([坐标]×2;RECIPE_BUDGET/MIGRATION_REVERSED 现象类印证)
+
+> 选族钩子=自家 RECIPE_BUDGET_REVERSED(轮 460 预算反转)+RECIPE_MIGRATION_
+> REVERSED(轮 812 隐藏反转)的社区对应面:小规模代理实验测得的配方/数据
+> 配方排序在更大算力下反转或不可迁移。3 槽=①综述槽(命中 μP 迁移扩展族
+> =§37 既有,不重复收)②机制直击(小规模代理误导大配方,本族主命中)
+> ③对照/核验槽(题录当场核验)。机制核对 grep:§37 μP=跨**宽度**轴超参
+> 迁移,本族=跨**训练预算/规模**轴的配方排序稳定性——轴与机制核心不同,
+> 分立入库。
+
+### 73.1 数据配方排序的算力依赖 [坐标]
+
+- 【出处】Sachin Goyal, Pratyush Maini, Zachary C. Lipton, Aditi
+  Raghunathan, "Scaling Laws for Data Filtering — Data Curation cannot be
+  Compute Agnostic", CVPR 2024(会议+年份+作者题录,AMM-015 可定位形态;
+  当场核验=检索摘要给出四作者全名+venue+年份)。
+- 【内容】最优数据筛选配方随训练算力规模改变:小算力下选出的配方在大算
+  力下不再最优——数据筛选不能当作算力无关,排序随 compute 反转。
+- 【对我们的映射】RECIPE_BUDGET_REVERSED(五轴组合收益 2000 步 +10.7% →
+  8000 步 ratio 1.1157 反转,方向一致性 3/3→1/3)是同一现象类在"训练配
+  方组合×预算轴"上的实例;社区证据域=LLM 预训练数据筛选,本仓=合成动力
+  学配方域——**类比印证非直接复制,引用必带域限定**。
+- 【适用条件】预训练/数据筛选场景、算力跨数量级;本仓预算跨度仅 4×
+  (2000→8000 步),映射时注明跨度差异。
+- 【验证状态】坐标级。
+
+### 73.2 小规模代理实验协议的排序不可靠性 [坐标]
+
+- 【出处】Jiachen T. Wang, Tong Wu, Kaifeng Lyu, James Zou, Dawn Song,
+  Ruoxi Jia, Prateek Mittal, "Can Small Training Runs Reliably Guide Data
+  Curation? Rethinking Proxy-Model Practice", arXiv:2512.24503, ICLR 2026
+  (arXiv ID+七作者+接收 venue 三要素当场核验=dblp CoRR 条目+arXiv listing
+  双源一致)。
+- 【内容】标准协议用"同一小规模代理配置"评估数据配方,其排序对大规模
+  全量调优不可靠;修正后的代理协议(代理多样性)与大规模实测强相关。
+- 【对我们的映射】轮 812 隐藏集 RECIPE_MIGRATION_REVERSED(可见 3-seed
+  收益在未见 seed 上方向完全反转)同属"代理实验排序不可靠"证据类;方法
+  论启示=未来隐藏卷 997 预注册若设计代理协议,代理多样性是候选设计维度
+  (登记于此,不构成当前 [行动]:RECIPE 族已闭族,997 需新决策耦合题目)。
+- 【适用条件】代理实验→大算力迁移的协议设计面;对本仓写作面=§5 预算域
+  行与 Limitation 4f 的外部印证引用。
+- 【验证状态】坐标级。
+
+- **[行动] 拒绝留痕**(轮 448 条款):两条均不转 [行动]——①RECIPE 族
+  六探针终局闭族(轮 812),新预算探针=复活闭族,禁;②本仓数据为合成池,
+  数据筛选场景不适用;③997 隐藏卷无新预注册题目,禁为消费而造题(隐藏集
+  规约)。未入库线索(带 ? 不入库)=Small-Scale Proxies for Large-Scale
+  Transformer Training Instabilities(ICLR 2024,训练失稳预测子域,作者
+  未核,相邻不入)。
+- **段蒸馏义务**:本唤醒段(轮 829 起)良信尝试 1 次=本条(检索 3 槽+
+  2 题录双源核验+[行动] 拒绝留痕)。**供给面注记**:本族 [坐标] 佐证
+  构成写作轴新供给⇒按 AMM-047 弱耦合口径入队 N1-PROXY-CORROB(writing
+  track 零算力,吸收进 §5 预算域行+Limitation 4f)。
