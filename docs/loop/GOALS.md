@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN  # 轮 806 重入口轮 806 后回置(AMM-045:RSI 三提案已实施弹出,余 AMM-033 裁定+T2T3 算力两条用户门控;重入口=用户一句话/新欠账/算力与停车场重启⇒RUNNING)
+state: RUNNING  # 轮 813 派生评估入队 N1-HIDDEN-REV ⇒ 本马拉松会话轮 814 执行并弹出(队列现仅 T2T3-COMPUTE 用户门控);归置由下一心跳派生评估机械判定:判否⇒BLOCKED-HUMAN 休息,重入口(用户一句话/新欠账/算力与停车场重启)⇒RUNNING
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -125,6 +125,33 @@ current_action: >-
   下一心跳:goal_check ⇒ NOT-Achieved ⇒ 对 [N1-HIDDEN-REV] 迭代一步
   (首拍=蒸馏门三步→写作→判读行→四门→提交;完成即弹出回等待态,余
   T2T3-COMPUTE 用户门控)。
+  轮 814 N1-HIDDEN-REV 执行轮(本马拉松会话首个研究拍;蒸馏门三步齐):
+  ①总结=现状(队列顶 N1-HIDDEN-REV 可行动+812 素材在 PRD 判读行,草稿零
+  覆盖;隐藏集纪律条款已写死"一次性递减")/问题(草稿自缚"数字严格取自
+  n1-asset-index",而 812 读数未入索引=若只改稿即溯源链断裂;另隐藏消耗后
+  两处"998 retained/998 起一次性"措辞将陈旧)/目标(决策耦合=反转读数入稿
+  ⇒五轴组合默认回灌主张在论文表述面收口+配方行全部改带 seed 集范围;
+  不入稿⇒N1 与台账不一致留悬)。②蒸馏对表(池内三条适用):scan §72.5
+  held-out 底座[本仓 999/998 一次性递减更严]、§72.2 预注册反 p-hacking
+  [bands 先于执行钉死=本判读行的合法表述基础]、PLAYBOOK 轮 111 产物字段
+  复算条款+轮 285 散文与产物不符以产物为准[故本轮所有读数取自 JSON];
+  池未枯⇒未检索补池。③定变量=单因子"写作吸收"(零算力,无新读数)。
+  产物:n1-paper-draft.md 六处增量(Abstract/§5 ladder 第 23 行+新段/§6
+  范围注/§7 Limitation 4f/§8 结论+future work/附录 A [C] 补记+隐藏台账
+  998→997),等效不删(陈旧指针以补记修正);n1-asset-index.md §7 新条目 4d
+  +§9 轮 812 补记(同心跳登记,见 PLAYBOOK 新坑);PLAYBOOK +2 坑。
+  读数复算=可见 ratio 0.8931607635(mean_A 2.9612487952/mean_B
+  2.6448712349,3/3,A s0 3.5581917762 哨兵)/隐藏 A 2.4269325733、B
+  3.4910252094、ratio 1.4384516685、机械判词 RECIPE_ANTAGONISTIC、meta
+  git_sha 354c134/exec_tier T1;完成条件 grep 过⇒N1-HIDDEN-REV 同心跳弹出
+  归档 QUEUE-ARCHIVE.md。台账=零算力研究拍(writing track,无 PR);
+  判单轮 814;段三数=队列迭代 5/研究拍 5/簿记拍 7/等门拍 341(末拍 805)。
+  簿记债注记(不本轮清偿,AMM-044 禁自造簿记):计数器现保 806-813 详文,
+  家规=只保最近 3 轮⇒段尾瘦身拍将 806-811 压入段史摘要。
+  下一心跳:goal_check(队列顶=T2T3-COMPUTE,check_cmd 实跑)⇒预期
+  SUPPLY-EMPTY/exit 6⇒派生评估(池枯判定每唤醒重审;判"否"须引闭族/闭轴
+  证据=RECIPE 六探针全闭+研究轴闭族+写作面 812 素材已耗尽)⇒判否则置
+  state: BLOCKED-HUMAN+原子提交+会话休息,重入口恢复 RUNNING。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -135,11 +162,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: N1-HIDDEN-REV
-    track: writing
-    goal: N1 初稿吸收轮 812 隐藏迁移反转(RECIPE_MIGRATION_REVERSED,0.893→1.438)
-    done_condition: n1-paper-draft.md 含反转读数与第二次隐藏反转表述(§5/§7/§8+Appendix A 声明账本同步),写作面等效不删既有内容
-    check_cmd: grep -q RECIPE_MIGRATION_REVERSED docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

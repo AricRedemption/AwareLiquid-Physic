@@ -417,6 +417,25 @@ Lyapunov 边界声明(§18.3:守恒可积域,未验证混沌域)。
    与轮 143 BUDGET_DOMINANT(弹性摆 1-step 体制)分属不同训练体制
    不互相外推;scan §35 三坐标(Nanda/Davies/Humayun)保留为通用
    训练动力学文献背景。
+4d. **配方组合收益限可见集（轮 812 RECIPE-MIGRATION 隐藏终跑，[B] 读数
+   + 隐藏集迁移判定；PRD §19 轮 812）**：五轴组合的可见集收益 3-seed
+   ratio 0.8931607635（mean_A 2.9612487952 / mean_B 2.6448712349，方向
+   一致 3/3，产物 `benchmarks/physics_out_v02/recipe_synthesis/`）在
+   一次性未见 seed 998 上**方向完全反转**：A 默认 2.4269325733 vs B
+   组合 3.4910252094，ratio 1.4384516685（机械判词 RECIPE_ANTAGONISTIC，
+   判读名 RECIPE_MIGRATION_REVERSED，产物
+   `benchmarks/physics_out_v02/hidden_final/recipe_synthesis.json`，
+   meta git_sha 354c134 / exec_tier T1）。预注册 bands 先于执行钉死
+   （<0.95 迁移保持 / 0.95–1.0 方向保持量级衰减 / ≥1.05 反转），冒烟
+   seed0 逐位对锚 A=3.5582/B=3.3910 通过后才跑。落稿映射：Abstract
+   诚实句、Sec. 5 ladder 第 23 行 + "Hidden-set migration check of the
+   composite" 段、Sec. 6 absorbed-composition 范围注、**Limitations 4f**、
+   Sec. 8 结论句 + future-work 计算门控项、Appendix A [C] 行补记与隐藏
+   集台账。使用条款（隐藏集规约）：只做迁移判定，**禁调参归因**（轴冲突
+   归因停放）；五轴组合不列默认回灌；单 seed=单点，只作迁移信号与范围
+   标注，不作终局声明；第二次隐藏抓可见集过拟合（先例 999 H2 反转
+   +29%），与 warmup 3-seed 一致性 1/3、CTX2_REVERSED、GENLEN 逐 seed
+   混合同谱系=本尺度下"可见池内多种子一致=筛查证据，非迁移证据"。
 5. 硬约束失败模式与逃生门(§21.3+轮 86 文档):耗散槽位/Nonseparable
    头/MLP 平滑未解。**Nonseparable 门已本机实证(轮 110 ESC-DOOR-VAB,
    [B] 级,1-seed T1 筛查口径)**:磁族同池同预算 A/B——可分臂 k100
@@ -436,6 +455,11 @@ AI Poincaré §21.1)/"注入是可撤销赌注清单"表述。
 RSI-Exam 哲学(§7,降档口径)+隐藏集实践(轮 44 反转抓取,seed 999
 退役/998 递减)+跨 pool 几何均值(G2)+校准判据(§20.3:有 spread
 ≠ 校准)。
+**轮 812 补记（轮 814 入账）**：递减序列已推进两次——999（H2 反转）
+与 998（RECIPE-MIGRATION 反转 0.893→1.438）均已一次性消耗并退役，
+**下一档=997**；两次消耗抓到同一类失效（可见集比较不跨 seed 迁移），
+故本索引与草稿的一切配方/对照类条目均须**行内带 seed 集范围标注**，
+终局级 [C] 声明若需另起，须对 997+ 重新预注册一次性预算。
 
 ## 10. future work 菜单(Discussion 结尾)
 

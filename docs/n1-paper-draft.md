@@ -7,7 +7,8 @@
 > 留缺,不编造。轮 285 起每个引用数字回溯**产物 JSON 字段**复算一次
 > (轮 111 条款);判读行散文聚合值与产物字段不符时以产物为准(轮 285
 > 对账抓出两处,见溯源 footer 注记),历史判定行不改。证据分级见附录 A:`[A]`=构造保证(闭式)、`[B]`=本机
-> T1/T2 实测(确定性可复现)、`[C]`=终局声明待 T3 或隐藏卷(998 起一次性)。
+> T1/T2 实测(确定性可复现)、`[C]`=终局声明待 T3 或隐藏卷(998 起一次性;
+> 轮 812 已按预注册把 998 一次性消耗并退役，下一档 997，见附录 A 台账)。
 > 本稿**不含任何 [C] 级终局断言**——按结论分级纪律,T1/T2 只解锁路由
 > 与筛选。
 
@@ -60,7 +61,15 @@ n=64), and it does not stack with training-recipe gains [B]. We position
 the contribution on the structure-property axis with
 explicit hard-constraint boundary declarations, and we catalogue failure
 modes with pre-registered escape hatches (dissipation slot, T-even
-relaxation, nonseparable head).
+relaxation, nonseparable head). Finally we report what our own
+pre-registered one-shot held-out protocol does to our strongest
+training-recipe result: the five-axis composite gain of 10.7% (ratio 0.893,
+direction-consistent on all three visible seeds) reverses to a 43.8%
+degradation on unseen seed 998 (ratio 1.438), so the recipe benefit is
+declared visible-set-scoped and the composite is not promoted to the
+default configuration — the second time in this study that a one-shot
+hidden-set run caught a visible-set overfit (precedent: seed 999 flipped
+the prefix advantage by +29%).
 
 [Resolved round 111 (digestion audit, PRD §19 "BASELINE-SCOPE 判读"):
 same-table presentation holds for the five M1 spring rows on the k=100
@@ -252,7 +261,10 @@ simulation throughout (scope declaration, limitation 1). Hidden-set
 discipline: seed 999 retired after it caught a visible-set reversal
 (prefix advantage flipped +29% on held-out); consumption is one-shot per
 seed, descending from 998 — **no [C]-tier terminal claims are made in this
-draft**.
+draft**. (Round 812 update: 998 has since been consumed by a pre-registered
+one-shot migration check of the recipe-composition result and is retired —
+ladder descends to 997; the reversal that check returned is reported in
+Sec. 5 and Limitation 4f, and the draft still asserts no [C]-tier headline.)
 
 | Row | Result (k=100 rollout MSE) | Metric | Uncertainty | Tier | Protocol / pointer |
 |---|---|---|---|---|---|
@@ -317,6 +329,7 @@ screening only, no terminal claims ]:
 | recipe composition | RECIPE_SYNERGIC | single-axis optima compose to −10.7%, 3/3 consistent |
 | trajectory length | GENLEN_RESOLVED | 7th recipe-axis candidate (2.96 → 2.70; per-seed direction mixed, seed-0-driven) |
 | training-amount curve | SMOOTH_ASYMPTOTE (judged negative) | rollout-MSE curve smooth (max adjacent-step ratio 1.42 ≪ 3× gate); grokking naming not applicable in this regime |
+| recipe composition × held-out seed | RECIPE_MIGRATION_REVERSED | one-shot seed 998: default 2.4269 vs five-axis composite 3.4910, ratio 1.438 — the visible-set 0.893 direction flips (hidden-set tier, migration judgment only) |
 
 The ladder's decision logic is the point, not any single row: at least
 three axes judge the default configuration non-optimal, which under the
@@ -346,6 +359,40 @@ composite therefore stands as the back-propagation candidate on a
 four-probe evidence chain (composition, horizon robustness, LOO,
 reduction), with the recipe-against-head interaction resolved separately
 by the either-or result above.
+
+**Hidden-set migration check of the composite (seed 998, one-shot;
+round 812).** That candidate was then submitted to a pre-registered
+held-out test before any further use: same probe, same pool and budget
+(gen_spring, n_train 256 / n_eval 128, gen_steps 160, eval_k 100, dt 0.1,
+ω ∈ [0.7, 1.8], t_obs 24, 2000 training steps), A = house default vs B =
+the five-axis composite, run at unseen seed 998 exactly once. Decision
+bands were frozen before execution (ratio < 0.95 = migration holds;
+0.95–1.0 = direction kept, magnitude decays; ≥ 1.05 = reversal), and the
+environment was anchored first by re-running seed 0 bitwise (A = 3.5582,
+B = 3.3910 — identical to the visible-set run). The artifact fields read
+A = 2.4269, B = 3.4910 → **ratio 1.438, RECIPE_MIGRATION_REVERSED** (the
+probe's mechanical branch label is RECIPE_ANTAGONISTIC): the 10.7%
+visible-set gain does not migrate, it inverts into a 43.8% degradation.
+Both arms move relative to their visible-set means (default 2.43 below
+2.96, composite 3.49 above 2.64), so the flip is not a common-mode shift
+of the pool. Consequences, in the order the pre-registration permits: (i)
+the five-axis composite is **not** promoted to the default configuration —
+the recipe claim is scoped to "gain real on the visible seed set", and the
+back-fill proposals built on it are closed out on this migration result;
+(ii) no axis is blamed — attributing the reversal to a specific axis would
+use a consumed held-out seed as a tuning signal, which the hidden-set
+protocol forbids, so the conflict attribution is parked; (iii) with the
+budget probe this closes the recipe family at six probes (composition,
+horizon, leave-one-out, reduction, budget, migration). Methodologically
+this is the second time a one-shot held-out run caught a visible-set
+overfit in this study (seed 999 flipped the prefix advantage by +29%), and
+it sits in the same lineage as the seed-0-driven dissolutions above
+(warmup's 3-seed consistency of 1/3, the ctx-capacity reversal, the mixed
+trajectory-length direction): at this scale, multi-seed agreement inside
+one visible pool is a screening result, not a transfer result. Honest
+boundary: a single hidden seed is one point, so the reading is used as a
+migration signal and a scope annotation only — never as a terminal
+headline, and never as evidence for a different recipe.
 
 Evaluation-protocol robustness (round 408 update): recomputing the same
 weights at fp64 instead of the fp32 house caliber — both heads, both
@@ -458,7 +505,11 @@ re-verified against the result artifacts]:
   head {default, candidate}; three cells anchored bitwise to historical
   runs) is sub-additive: candidate head alone 1.949 < +recipe 2.241 <
   recipe alone 2.645 < default 2.961. The recipe absorbs the head's
-  gain; adoption is either-or, not stacked.
+  gain; adoption is either-or, not stacked. Scope note: the recipe arm in
+  this grid is the visible-set five-axis composite, whose own gain does
+  not migrate to held-out seed 998 (Sec. 5, Limitation 4f) — the grid is
+  therefore a within-visible-pool interaction statement, not a claim
+  about the interaction under an unseen pool draw.
 - **Negative results, kept.** At n = 64 training trajectories the
   advantage vanishes (ratio 0.99) and one grid unit diverges (candidate
   arm, n = 128, seed 0; 1/18 units) — the dominance is a full-data
@@ -539,6 +590,31 @@ measured and reported in the same breath.
    of ω from the context code is noise-level out-of-band [B, PRD §19
    round 115; PR#2 pending merge]. No out-of-band inference claim is
    made.
+4f. **Recipe-composition gain is visible-set-scoped (held-out reversal
+   measured).** The strongest training-recipe result in this paper — the
+   five-axis composite, −10.7% rollout MSE with all three visible seeds
+   agreeing (ratio 0.893) — was submitted to a pre-registered one-shot
+   held-out run at unseen seed 998 and reversed: default 2.4269 vs
+   composite 3.4910, ratio 1.438 (RECIPE_MIGRATION_REVERSED; probe's
+   mechanical label RECIPE_ANTAGONISTIC). Consequences as registered: the
+   composite is not promoted to the default configuration; the reversal
+   is reported as a migration judgment only, with axis-level conflict
+   attribution deliberately parked, because tuning on a consumed hidden
+   seed would destroy the very held-out that made the check meaningful;
+   and the recipe evidence family is closed at six probes. What this
+   limitation does *not* say: it does not retract the per-axis
+   measurements (depth, warmup, weight decay, lr-decay, k_train all keep
+   their own artifact-verified verdicts) and it does not touch the
+   head-structure result, whose dominance is a different axis and was
+   measured at 3 seeds against a different baseline [B, PRD §19 rounds
+   268–279]. Read together with the seed-999 prefix reversal (Limitation
+   4b), the honest generalization is structural: at house scale, seed-axis
+   transfer is the dominant unmodeled variance source for *training-recipe
+   and comparison* claims, and cross-seed agreement within one visible
+   pool is screening evidence — a scope annotation this draft now carries
+   on every recipe row. Multi-seed held-out replication of the migration
+   check is a compute-gated direction (T2/T3, parked), not an assertion
+   here.
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -559,12 +635,20 @@ We argued for structure by construction at the conservation-law layer with
 free function forms, delivered the integrator accountability that makes
 the hard constraint auditable, closed the field-reconstruction headroom
 with an identity rather than an excuse, and catalogued what the
-architecture cannot do. Future work menu: discovery-lineage upstream
+architecture cannot do. We also let the held-out protocol judge our own
+strongest training-recipe result and printed the answer rather than the
+wish: the five-axis composite's 10.7% gain reversed on unseen seed 998
+(ratio 0.893 → 1.438), so the recipe stays scoped to the visible seed set
+and the default configuration is not changed on its behalf. That check is
+the third piece of audit apparatus in this paper, after pre-registered
+gates and artifact-level re-verification of every quoted number. Future
+work menu: discovery-lineage upstream
 (SINDy / AI Poincaré / LieGAN) to propose the injected structure;
 noise-injection line; SSM control baselines (pre-registered per the TSFM
 precedent when scheduled); shadow-Hamiltonian monitoring upgrade (Skeel
 reading); post-hoc symbolization; P-CfC gating; higher-order composition
-for long horizons.
+for long horizons; multi-seed held-out replication of the recipe-family
+migration check (compute-gated, T2/T3).
 
 ## Appendix A: Claim Tier Ledger
 
@@ -572,11 +656,24 @@ for long horizons.
 |---|---|---|
 | [A] | By construction (closed form) | conservation at integrator level; mean-field identity (algebraic) |
 | [B] | Local T1/T2 measurement, deterministic CPU, reproducible | all tables/orders/drifts above |
-| [C] | Terminal claim — requires T3 or hidden-set (998, one-shot) | **none asserted**; required for: any noisy-domain claim, chaos-domain conservation, cross-domain transfer, final headline numbers |
+| [C] | Terminal claim — requires T3 or hidden-set (998, one-shot) | **none asserted**; required for: any noisy-domain claim, chaos-domain conservation, cross-domain transfer, final headline numbers. Addendum (round 812): the recipe-composition migration check was run one-shot at 998 and returned *negative on transfer* (0.893 → 1.438); the draft uses it as a scope annotation on the recipe rows, not as an asserted [C]-tier headline |
 
 Hidden-set ledger: 999 consumed (round 44; H1 ✓ mechanism migrated / H2 ✗
 advantage reversed — the reversal that anchored the discipline), 998
 retained. [v0-TODO: 终稿前如需 [C] 级声明,预注册 998 一次性终跑清单。]
+*Ledger updated round 814:* 998 is no longer retained — it was consumed as
+scheduled by RECIPE-MIGRATION (pre-registered bands frozen before
+execution, seed-0 bitwise re-anchor first, one-shot by construction;
+artifact `benchmarks/physics_out_v02/hidden_final/recipe_synthesis.json`,
+meta `exec_tier=T1`, `git_sha=354c134`) and 998 is retired; the descending
+held-out ladder now starts at **997**. Both consumed seeds produced the
+same class of finding — a visible-set comparison failing to migrate (999:
+prefix advantage +29% reversed; 998: recipe composite −10.7% reversed to
++43.8%) — which is why every recipe/comparison row above carries its
+seed-set scope inline. The outstanding [v0-TODO] is narrowed accordingly:
+if a [C]-tier claim is ever wanted, it must be pre-registered against 997
+or later with a fresh one-shot budget, and the recipe-composition line is
+closed without such a claim.
 
 ---
 
@@ -650,4 +747,22 @@ Updated round 444: the Sec. 5 recipe-ladder paragraph gains the
 axis-attribution follow-ups (LOO rounds 434 + direct reduction
 comparison round 440, PRs #58/#59 pending merge; five-axis candidate
 upheld on a four-probe chain) and the Kosson et al. mechanism-level
-corroboration (scan §68, NeurIPS 2024 / ICLR 2026, scope-annotated).*
+corroboration (scan §68, NeurIPS 2024 / ICLR 2026, scope-annotated).
+Updated round 814 (queue entry N1-HIDDEN-REV; first beat of a new
+iteration, distillation gate cleared): the seed-998 hidden migration check
+is absorbed into the Abstract, Sec. 5 (ladder row + a "Hidden-set
+migration check of the composite" paragraph), Sec. 6 (scope note on the
+absorbed-composition bullet), Limitation 4f, Sec. 8 (conclusion sentence +
+a compute-gated future-work item) and Appendix A ([C] row addendum +
+hidden-set ledger: 998 consumed and retired, next held-out seed 997) —
+source = PRD §19 round 812; per the round-111 rule every quoted reading
+was re-verified against the result artifacts rather than the prose, i.e.
+visible set `benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json`
+(ratio 0.8931607635, mean_A 2.9612487952, mean_B 2.6448712349, direction
+3/3, A seed0 3.5581917762 = house sentinel) and hidden set
+`benchmarks/physics_out_v02/hidden_final/recipe_synthesis.json` (A
+2.4269325733, B 3.4910252094, ratio 1.4384516685, mechanical verdict
+RECIPE_ANTAGONISTIC, meta git_sha 354c134 / exec_tier T1); no existing
+draft content was removed — all additions are additive and the two
+now-stale pointers ("998 retained", the 998 [v0-TODO]) are corrected by
+appended addenda rather than deletion.*

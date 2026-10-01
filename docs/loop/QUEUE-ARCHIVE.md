@@ -188,3 +188,6 @@ archived_pr:
 - id: RECIPE-BUDGET
   status: pr-pending(PR#60-判读RECIPE_BUDGET_REVERSED=组合收益在8000步预算反转ratio1.1157>1.05, 2000步10.7%收益不迁移且反号方向一致性3/3=>1/3, 决策=回灌PR scope限定2000步训练域+预算交互注记, 判读与代码在dir/recipe-budget分支; 轮227登记慢轴候选AMM-044供给义务转正, 回灌候选五轴的预算域边界=RECIPE家族第五条边界证据)
   check_cmd: grep -q "RECIPE-BUDGET 判读" docs/PRD.md
+- id: N1-HIDDEN-REV
+  status: done(轮 814 完成弹出:writing track, 轮 813 派生评估首次判可派生入队, 本拍蒸馏门三步齐后吸收轮 812 隐藏迁移反转进 n1-paper-draft——Abstract 诚实句/Sec.5 ladder 第 23 行+新段"Hidden-set migration check of the composite"/Sec.6 absorbed-composition 范围注/Limitations 4f/Sec.8 结论句+future-work 计算门控项/Appendix A [C] 行补记与隐藏集台账 998 消耗退役下一档 997; 数字全部对产物字段复算(可见 0.8931607635/A2.9612/B2.6449 3/3; 隐藏 A2.4269/B3.4910 ratio1.4384516685); asset-index 同心跳登记 4d 条目+§9 补记; 等效不删=两处陈旧指针以补记修正非删除; 零算力轮无 PR)
+  check_cmd: grep -q RECIPE_MIGRATION_REVERSED docs/n1-paper-draft.md
