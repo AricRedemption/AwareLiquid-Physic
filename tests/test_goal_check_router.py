@@ -452,3 +452,84 @@ def test_audit_counts_blocked_human(tmp_path):
     r = run_audit(tmp_path)
     assert r.returncode == 0 and "AUDIT OK" in r.stdout
     assert "blocked-human 2" in r.stdout and "尾条 B2" in r.stdout
+
+
+# --- AMM-048(轮 832):doing 在途腿+WATCH 路由(exit 7,训练在途≠阻塞) ---
+QUEUE_DOING_ONLY = """goal_queue:
+- id: L1
+    track: engineering
+    goal: 长训练腿
+    done_condition: 判决文件存在
+    check_cmd: "false"
+    status: doing(在途腿,训练在途≠阻塞)
+"""
+
+QUEUE_DOING_MIXED = """goal_queue:
+- id: L1
+    track: engineering
+    goal: 长训练腿
+    done_condition: 判决文件存在
+    check_cmd: "false"
+    status: doing(在途腿)
+- id: T1
+    track: compute
+    goal: 用户门控算力
+    done_condition: 凭证就位
+    check_cmd: "false"
+    status: blocked-human(用户门控,零催促)
+"""
+
+QUEUE_DOING_LIVE_FIRST = """goal_queue:
+- id: A1
+    track: engineering
+    goal: 可行动目标
+    done_condition: 某条件
+    check_cmd: "false"
+- id: L1
+    track: engineering
+    goal: 长训练腿
+    done_condition: 判决文件存在
+    check_cmd: "false"
+    status: doing(在途腿)
+"""
+
+QUEUE_DOING_ACHIEVED = """goal_queue:
+- id: L1
+    track: engineering
+    goal: 长训练腿
+    done_condition: 判决文件存在
+    check_cmd: "true"
+    status: doing(在途腿)
+"""
+
+
+def test_doing_routes_watch_exit7(tmp_path):
+    """AMM-048:doing 条目 check_cmd 未达成⇒WATCH 路由(exit 7,训练在途
+    ≠阻塞)——不触发迭代一步也不触发 exit 6 全阻。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_DOING_ONLY)
+    r = run(tmp_path)
+    assert r.returncode == 7 and "VERDICT: WATCH" in r.stdout
+    assert "[守望] L1" in r.stdout and "在途跟进拍协议" in r.stdout
+
+
+def test_doing_with_blocked_still_watch_not_exit6(tmp_path):
+    """AMM-048:doing 与 blocked-human 并存⇒exit 7(腿在途≠全阻,
+    机械等待的"全阻"前提不成立)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_DOING_MIXED)
+    r = run(tmp_path)
+    assert r.returncode == 7 and "VERDICT: WATCH" in r.stdout
+    assert "[检测] T1" in r.stdout
+
+
+def test_doing_does_not_shadow_live_entry(tmp_path):
+    """AMM-048:可行动条目在前照常 exit 1 迭代——守望不遮蔽活供给。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_DOING_LIVE_FIRST)
+    r = run(tmp_path)
+    assert r.returncode == 1 and "对 [A1]" in r.stdout
+
+
+def test_doing_achieved_pops(tmp_path):
+    """AMM-048:doing 条目达成(rc=0)⇒照常弹出(腿完成=供给到达机械检测面)。"""
+    make_repo(tmp_path, EVIDENCE6, LEDGER_ALL_CLOSED, QUEUE_DOING_ACHIEVED)
+    r = run(tmp_path)
+    assert r.returncode == 0 and "ACHIEVED" in r.stdout

@@ -254,6 +254,7 @@ if not entries:
 # 全部跳过 ⇒ 按队列空走供给故障路由(AMM-044 SUPPLY-EMPTY)。恢复由状态驱动,不依赖散文注记。
 chosen, skipped = None, []
 blocked = []
+watching = []
 for e in entries:
     cmd = e["check_cmd"].strip()
     if not cmd or cmd[0] in ">|":
@@ -285,9 +286,34 @@ for e in entries:
         print(f"  [检测] {e['id']}: check_cmd 实跑未达成(rc={rc})——"
               f"用户门控目标零催促跳过迭代,达成检测每轮续跑(AMM-045)")
         continue
+    if status.startswith("doing"):
+        # AMM-048(轮 832):在途腿(小时级训练/评估)——训练在途≠阻塞。
+        # check_cmd 已实跑(达成检测本体);未达成⇒守望路由而非迭代一步:
+        # 腿进程判活属执行会话三查(pid 文件+ps+日志尾+产物指纹),路由器只给协议。
+        watching.append(e)
+        print(f"  [守望] {e['id']}: check_cmd 实跑未达成(rc={rc})——"
+              f"doing 条目在途跟进(训练在途≠阻塞),达成检测每轮续跑")
+        continue
     print(f"VERDICT: NOT-Achieved — 对 [{e['id']}] {e['goal']} 迭代一步")
     print(f"  done_condition: {e['done_condition']}")
     sys.exit(1)
+if chosen is None and watching:
+    # AMM-048:腿在途≠全阻——doing 存在时优先 WATCH 路由(exit 7),
+    # blocked-human 同场共现不触发 exit 6(守望段目标未死,等待不成立)。
+    print(f"VERDICT: WATCH — 在途(doing){len(watching)} 条+用户门控未达成 "
+          f"{len(blocked)} 条(训练在途≠阻塞)")
+    for e in watching:
+        print(f"  [在途] {e['id']}: {e['done_condition']}")
+    print("  [在途跟进拍协议] ①三查=腿进程(pid 文件+ps)/日志尾/产物指纹"
+          "(size+mtime_ns),腿死(pid 无+check_cmd 未达)=供给故障信号按"
+          " SUPPLY-EMPTY 处置,禁续守望 ②核对窗+预测证伪面:实质点 ETA 前立"
+          "预测(文件/行/时刻任一),下拍核对 ③禁中途判(预注册判读点外不下"
+          "判) ④节流=事件时钟:间隔按核对窗 ETA(默认 ≥15min,ETA 前 30min "
+          "加密),禁分钟级固定拍 ⑤方向义务:连续 10 拍守望无并行动作⇒下一拍"
+          "必做一次决策耦合并行动作(检索/预注册分叉设计/停车场审计/写作轴)"
+          "或留痕无可耦合 ⑥守望连击 ≥15 拍⇒强制节拍检查(夜账断喂+scan 复检+"
+          "方向义务审计,簿记拍合法触发第三支)")
+    sys.exit(7)
 if chosen is None:
     if blocked:
         all_blocked_exit(blocked)
