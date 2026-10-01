@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+"""scripts/loop_closer — 合轮收尾器(四门链式门禁,红即 ABORT)。
+
+轮 838 移植自 M2 loop_closer(其轮 98 落地,实战拦红 4 次),适配本仓四门:
+  ① direction_gate --check-round N --check   判单门在前(便宜先拦,防漏判单)
+  ② pytest 全绿
+  ③ benchmarks/audit_results.py --check
+  ④ goal_check --audit(队列+归档数数锚)
+每门 subprocess 显式退出码,零管道——轮 807/829/836 管道尾吞退出码家族的
+机械消灭形态。首红即 ABORT 并指名红门+输出尾行;全绿输出四码摘要供提交
+信息引用。本工具不提交不推送:合轮的原子提交与 push fork 仍由执行会话完成
+(门禁与提交分离,判官=执行会话自评的诚实边界不变,AMM-029)。
+
+用法: ./scripts/loop_closer --round 838
+退出码: 0=四门全绿 1=首红门 ABORT 2=用法错误
+"""
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def _py() -> str:
+    venv = ROOT / ".venv" / "bin" / "python"
+    return str(venv) if venv.exists() else sys.executable
+
+
+def build_gates(round_no: int):
+    """返回 [(门名, argv), ...];顺序=判单→pytest→audit→队列审计。"""
+    return [
+        ("direction_gate", [str(ROOT / "scripts" / "direction_gate"),
+                            "--check-round", str(round_no), "--check"]),
+        ("pytest", [_py(), "-m", "pytest", "-q"]),
+        ("audit_results", [_py(), str(ROOT / "benchmarks" / "audit_results.py"),
+                           "--check"]),
+        ("goal_check_audit", [str(ROOT / "scripts" / "goal_check"), "--audit"]),
+    ]
+
+
+def _run(argv):
+    r = subprocess.run(argv, cwd=str(ROOT), capture_output=True, text=True)
+    return r.returncode, (r.stdout or "") + (r.stderr or "")
+
+
+def run_gates(round_no: int, runner=None):
+    """链式跑四门。返回 (overall_rc, results=[(门名, rc), ...])。
+
+    首红即中止(后续门不再跑);runner 注入点供测试假跑。
+    """
+    if runner is None:
+        runner = _run
+    results = []
+    for name, argv in build_gates(round_no):
+        rc, out = runner(argv)
+        results.append((name, rc))
+        if rc != 0:
+            tail = next((l for l in reversed(out.strip().splitlines()) if l.strip()), "")
+            print(f"CLOSER-ABORT: 门[{name}] 红(rc={rc})——禁提交,先修复再重跑本收尾器")
+            if tail:
+                print(f"  红门尾行: {tail}")
+            return 1, results
+    summary = " ".join(f"{n}={rc}" for n, rc in results)
+    print(f"CLOSER-GREEN: {summary} (round={round_no}) ——四门显式退出码全绿,可原子提交")
+    return 0, results
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="四门链式合轮收尾器(红即 ABORT)")
+    ap.add_argument("--round", type=int, required=True, help="本轮轮号(判单锚)")
+    args = ap.parse_args()
+    rc, _ = run_gates(args.round)
+    return rc
+
+
+if __name__ == "__main__":
+    sys.exit(main())
