@@ -1541,6 +1541,13 @@ v0.1 验证了核心命题：**物理写进架构（硬约束）优于物理写�
   - **制度产出**：P2/P3 两条待消不确定性闭合（附证据链）；论文骨架 `docs/d1-start-state-mismatch.md`（§7 含被证实的预言与判定行）；工程清偿 field_eval per-seed 溯源键；新增诊断工具 4 件（probe/eval_ks/start_probe/start_time_sweep）+ 测试 81/81。
 - **欠账台账**：N2 设计轮（代理定义+闸门+时长）；CfC 方程级解析推导（N3 深化）；两阶段 frac 扫描（降权不排队）；M2 c(x) 场可辨识度外推；D1g 模型仅在 /tmp（重跑即可复现，CPU 确定性）。
 - **需 AricRedemption 人工判定**：① **D4（GPU 方向）去向**——PAUSED 中，需裁定算力通道（配 Kaggle / 保持搁置）；② **定时器投递机制**——会话不活跃时触发只排队不执行（首夜曾积压 118 发），白天不跑即此故，是否调整待定；③ **N1 论文骨架**（`docs/d1-start-state-mismatch.md`）是否启动正式写作；④ `origin/master` 落后开发线 9+ 提交，`feat/m1-governance-migration` 与 `wave/loop` 是否择机合入由你裁定。
+**轮 812 记录(隐藏卷终跑:RECIPE 五轴组合迁移检验;T1 算力轮;用户委托代决策)**:
+- **预注册(先于执行钉死)**:对象=RECIPE_SYNERGIC 可见集结论(3-seed ratio=0.893,收益 10.7%,方向一致 3/3,轮 228);seed=998 一次性(跑后退役);协议=dir/recipe-synthesis 探针原参数(gen_spring 池 n_train 256/n_eval 128/gen_steps 160/eval_k 100/dt 0.1/ω[0.7,1.8]/t_obs 24/train_steps 2000,A=全默认 vs B=五轴组合{depth4,lr_decay 0.999,wd 1e-4,warmup 200,k_train 4});判据(轮 812 预注册+探针代码内置双锚):ratio<0.95 迁移保持 / 0.95-1.0 方向保持量级衰减 / ≥1.05 反转(RECIPE_ANTAGONISTIC)/任意臂非有限判负;冒烟前置=seed 0 重跑逐位对锚(A=3.5582/B=3.3910 与轮 228 逐位一致=环境确定性验证过);单 seed 噪声边界如实注记(可见集逐 seed 混合先例⇒单点只做迁移信号,不作配方终局或调参依据——隐藏集规约)。
+- **执行**:worktree(dir/recipe-synthesis@354c134)隔离跑,probe_run T1 est5 实跑 <1min×2;产物 benchmarks/physics_out_v02/hidden_final/recipe_synthesis.json(meta:git_sha/device/ts/exec_tier 溯源全)+smoke_s0/(逐位锚件)。
+- **判读 RECIPE_MIGRATION_REVERSED(探针机械判 RECIPE_ANTAGONISTIC)**:A(默认)seed 998 MSE=**2.4269** vs B(五轴组合)=**3.4910**,ratio=**1.438**——可见集 3-seed 的 10.7% 收益在未见 seed 上**方向完全反转**(恶化 43.8%);且双臂同 flip(默认臂 2.43 优于可见均值 2.96,组合臂 3.49 劣于可见均值 2.64)。第二次隐藏集抓可见集过拟合(先例=seed 999 H2 反转 29%)。
+- **决策(迁移判定 ONLY,禁调参归因)**:①五轴组合**不列默认回灌**(PR#44/#58/#59/#60 的回灌候选主张按迁移结果收口=收益限可见集 3-seed,表述如实带隐藏反转);②轴冲突归因停放(探针判词 parked 同款,不用隐藏读数找哪根轴背锅=隐藏集规约);③N1 表述=组合收益可见集真实+隐藏反转=1/3-seed 筛查极限的实证素材(与 3-seed 溶解系列同谱系);④RECIPE 家族六探针终局(SYNTHESIS/HORIZON/LOO/REDUCE/BUDGET/MIGRATION)=全族闭。
+- **台账**:998 退役登记 RSI-INDEX 消耗表;T 维度触发(v4 T 激活协议首例);AMM-033 用户委托裁定=批准(状态 APPLIED,实施时点不变=PR#49+#50 合并后段首消化轮);本轮判单 812,四门显式退出码。
+
 - **下一窗口起点**：N2 设计轮 或 N3 CfC 推导（方向池有序，非穷尽）。09:00 后定时器自然静默，今晚 23:00 恢复。最近一轮已原子提交，晨读从本节开始。
 
 ---

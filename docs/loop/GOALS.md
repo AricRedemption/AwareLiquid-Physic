@@ -103,8 +103,20 @@ current_action: >-
   5/5=1.0)+指标定义表 C 行+夜 24 行补记;GOAL-PROMPT RSI 指针 v4→v5
   (27 不变式全过);scan §72.4 后记;测试 +1(6→7);台账=零算力轮;
   判单轮 811;段三数=队列迭代 3/研究拍 3/簿记拍 6/等门拍 341(末拍 805)。
+  轮 812 用户委托代决策轮(用户指令"你来决策一下吧"):三事裁决——①998
+  隐藏卷=跑(v4 T 激活协议首例):RECIPE 五轴组合迁移检验,冒烟 seed0 逐位
+  对锚(3.5582/3.3910)后一次性终跑,判读 RECIPE_MIGRATION_REVERSED(ratio
+  =1.438,可见集 0.893 方向完全反转;探针机械判 RECIPE_ANTAGONISTIC)⇒
+  五轴不列默认回灌,998 退役,RECIPE 家族六探针全闭,PRD §19 判读行+RSI
+  种子表落账;②AMM-033=批准(APPLIED,either-or=候选头单独;实施时点不变
+  =PR#49+#50 合并后段首消化轮,合并=用户手动零催促)⇒AMM-033-RULING 目标
+  机械弹出;③T2/T3 算力=不可代理项(需用户 Kaggle 账号令牌 ~/.kaggle/
+  kaggle.json,研究闭族期非必需,停放零催促);台账=T1 算力轮(est5 实跑
+  ~2min);判单轮 812;段三数=队列迭代 4/研究拍 4/簿记拍 6/等门拍 341
+  (末拍 805)。
   下一心跳:机械等待态=无心跳;重入口触发⇒RUNNING⇒goal_check 达成检测
-  (AMM-033 裁定/T2T3 凭证任一到达⇒弹出行动;998 终跑候选待用户确认)。
+  (余 T2T3 凭证一条用户门控;PR#49+#50 合并⇒AMM-033 段首消化轮;下个
+  隐藏 seed=997)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -115,12 +127,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: AMM-033-RULING
-    track: governance
-    goal: 用户裁定 AMM-033(house 默认 M1 头替换为解析 T+方向自由齐次 V 构造,七探针证据链已齐)
-    done_condition: AMENDMENTS AMM-033 状态行离开 PROPOSED(=APPLIED 或 REJECTED)
-    check_cmd: awk '/^### AMM-033:/{f=1;next} /^### /{f=0} f' docs/loop/AMENDMENTS.md | grep -qE '状态:\*\*(APPLIED|REJECTED)'
-    status: blocked-human(用户裁定,零催促;达成检测每轮实跑,AMM-045)
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
