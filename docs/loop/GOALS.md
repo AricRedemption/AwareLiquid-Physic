@@ -188,12 +188,32 @@ current_action: >-
   8000 步无历史逐位哨兵=如实注记入稿。完成条件 grep 过⇒N1-RECIPE-SCOPE
   同心跳弹出归档。台账=零算力研究拍(writing, 无 PR);判单轮 816;段三数=
   队列迭代 6/研究拍 7/簿记拍 7/等门拍 341(末拍 805)。
-  下一心跳=派生评估(第三拍, 每唤醒段重审+机械缺口清点复跑):候选余
-  VHOM(轮 261 齐次 V 注入 null+seed1 强信号)/EQUIV_TRADEOFF(轮 249 解析
-  T 权衡)/RESIDUAL-SPEC(轮 246 谱指标口径)/AMPATTR(轮 244 齐次性破坏归
-  因)/RECIPE_LOO 标签面⇒可派生则入队执行; 全枯(清点=0 且研究面闭族证据
-  复述)⇒置 state: BLOCKED-HUMAN, 置态前先段尾 RSI 入账(本段 806-816 未
-  入账=夜 25 行待补, RSI-INDEX v5 唤醒段+段成本 C 口径)。
+  轮 817 派生评估转正轮第二次(本段第 3 研究拍;exit 6 响应):清点升级为
+  **标签×实质双判**——命令级对账 asset-index 判读标签(27 条)vs 草稿覆盖:
+  已覆盖 21/未覆盖 6(EQUIV_TRADEOFF/GENLEN_CONFIRMED/RECIPE_LOO_PARTIAL/
+  TOSA_RESOLVED/VHOM_NULL/WARMUP_BENEFICIAL);逐条实质复核(标签缺≠欠账,
+  须标签缺∧实质缺)⇒RECIPE_LOO_PARTIAL=实质已覆盖(§5 axis-attribution 段
+  报 loo 读数未带标签)、WARMUP_BENEFICIAL=被 3-seed 标签取代无实质、
+  GENLEN_CONFIRMED=出样方向 2/3 与 TOSA_RESOLVED=t_obs 阶梯最优 8 属真
+  欠账但决策耦合弱(前者已以"per-seed direction mixed"入稿, 后者涉及
+  t_obs 轴而该轴已被 DEC_TRAIN_HARMFUL 口径收口)⇒登记为后续候选;
+  **EQUIV_TRADEOFF+VHOM_NULL=实质缺且耦合强**(Sec.6 主张"完整构造
+  [解析 T+齐次 V]占优", 而两侧单独注入证据零覆盖: 轮 249 解析 T 单独臂
+  分布内 3/3 全赢 −14.0% 但外推 rel_comp 恶化 2.7×=EQUIV_TRADEOFF; 轮
+  261 齐次 V 单独臂 VHOM_NULL 带内而 seed1 rel_comp 1.443 近完美恢复=
+  收益真实被训练稳定性阻塞, seeds0/2 灾难)⇒入队 N1-HEAD-SIDES(单变量=
+  头结构族 T/V 两侧归因边界, 组合=单变量先例; check_cmd=draft 含
+  VHOM_NULL[现 0 命中]; 预注册完成条件=§6 两臂读数+单侧≠完整构造边界+
+  Limitation 4d 稳定性停放注记+读数取自 equiv_head/v_hom 产物 JSON)。
+  研究面闭族证据复述(不作全枯判据, 仅约束新读数方向):RECIPE 六探针全闭
+  +齐次头线六轴全测+ω 推断钩子门 1 不合格+V-HOM-STAB 修复探针=第 54 族
+  段内超上限已按轮 65 条件性登记为下一段入口。PLAYBOOK+1(缺口清点须
+  标签∧实质双判, 单判会虚报欠账)。台账=零算力轮;判单轮 817;段三数=
+  队列迭代 6/研究拍 8/簿记拍 7/等门拍 341(末拍 805)。
+  下一心跳=对 [N1-HEAD-SIDES] 迭代一步, 首拍过蒸馏门三步→§6/§7 写作→
+  弹出; 其后派生评估余候选 GENLEN_CONFIRMED/TOSA_RESOLVED 两条弱耦合+
+  RESIDUAL-SPEC/AMPATTR/SPECTRA 口径族⇒若判全枯则置 BLOCKED-HUMAN 前
+  必段尾 RSI 入账(本段 806-817 未入账=夜 25 行待补, v5 唤醒段+C 口径)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -204,6 +224,11 @@ current_action: >-
 
 ```yaml
 goal_queue:
+- id: N1-HEAD-SIDES
+    track: writing
+    goal: N1 初稿吸收头结构族的两侧注入证据(EQUIV_TRADEOFF 轮 249 解析 T 单独臂: 分布内 −14.0% 3/3 全赢但外推 rel_comp 恶化 2.7× + VHOM_NULL 轮 261 齐次 V 单独臂: 分布内 null 带内而 seed1 rel_comp 1.443 近完美恢复=收益真实被训练稳定性阻塞, seeds0/2 灾难), 使 Sec.6 "完整构造占优"的主张带上 T 侧/V 侧归因边界
+    done_condition: n1-paper-draft.md §6 头结构小节含 T 侧与 V 侧两臂读数与"单侧≠完整构造"归因边界, Limitation 4d 带稳定性停放注记, 读数取自产物 JSON(equiv_head/v_hom), 等效不删既有内容
+    check_cmd: grep -q VHOM_NULL docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
