@@ -478,6 +478,29 @@ Lyapunov 边界声明(§18.3:守恒可积域,未验证混沌域)。
     单侧读数只作归因边界，**禁作单侧采纳主张**（默认头替换候选＝完整头，
     AMM-033）；rel_comp 序列按 seed 索引 [0,1,2]，跨臂比较须固定评估
     口径（轮 241 条款）。
+4g. **幅度外推偏差的通道份额实测（轮 244 AMP-ATTR，[B]，report-type，
+    3-seed T1；dir/amp-attr PR#42 待合并，PRD §19 轮 242 预注册/244 判读
+    /245 回填）**：AMP 族第三问（T 排除、V 被稳定性阻塞之后，剩余份额由
+    谁承载）的实测答案=**动力学头为较大载体**——产物
+    `benchmarks/physics_out_v02/amp_attr/amp_attr.json`（git_sha b1fd910，
+    exec_tier T1）verdict AMPATTR_OK、primary_carrier=head，
+    head_equivariance 中位 1.3622821050（s=2）/2.8378283895（s=4）vs
+    ctx_invariance 中位 0.4166634232/1.2239125967，**逐 seed 主次次序在
+    两档尺度上均 3/3 成立**（头逐 seed 值 s=2：1.3622821050/1.6007063861/
+    1.0203475843，ctx 逐 seed 中位 s=2：0.4166634232/0.3900730759/
+    0.5502080023；s=4 最窄组合=seed2 的 2.9164962155 vs 1.8711150885）。
+    三条口径随读数同迁：①份额≠独占（两通道相对理想值 0 均 O(1)，故
+    禁"ctx 干净"表述）；②**report-type 无判负门**（相对 RMS 口径，主次
+    由大小定，RESIDUAL-SPEC 先例=轮 246 报告型判读）；③随尺度收窄
+    （ctx ×2.94 vs 头 ×2.08 从 s=2 到 s=4）⇒份额按尺度并列报，不折成
+    单一比值。跨构造锚=本探针训练臂逐 seed rollout MSE
+    3.5581917763/2.6058924198/2.7196621895 与轮 249 默认臂**逐位相同**
+    ⇒该归因读作"被轮 268–279 修复的那颗默认头的性质"合法。落稿映射：
+    Sec. 6 新段 "Closing the third question: which channel carries the
+    rest" + **Limitations 4g**（report-only 声明+不外推到已修复候选头）。
+    使用条款：多 seed 隐藏复现=计算门控停放（T2/T3），本轮不作声明；
+    ctx 侧语义读数另见轮 239（ctx 不承载 ω），与本轮"ctx 承载幅度非线性
+    但份额次之"分属两问不互相覆盖。
 5. 硬约束失败模式与逃生门(§21.3+轮 86 文档):耗散槽位/Nonseparable
    头/MLP 平滑未解。**Nonseparable 门已本机实证(轮 110 ESC-DOOR-VAB,
    [B] 级,1-seed T1 筛查口径)**:磁族同池同预算 A/B——可分臂 k100

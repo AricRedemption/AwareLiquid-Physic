@@ -545,6 +545,38 @@ the latter trainable — which is why the replacement candidate is
 registered as the complete head (AMM-033) and no single-side adoption
 claim is made anywhere in this draft.
 
+**Closing the third question: which channel carries the rest (round 244).**
+With T ruled out as the extrapolation carrier and V's homogeneity shown
+to be the right-but-unstable lever, the pre-registered AMP-ATTR
+decomposition asked where the amplitude bias actually sits on the *house
+default* head. Two channels are separated by construction: holding the
+context fixed and comparing `rollout(s·s₀)` against `s·rollout(s₀)`
+isolates the dynamics head's scale-equivariance violation, while
+`ctx(s·prefix)` against `ctx(prefix)` isolates the inference channel's
+non-invariance; for a linear system both ideals are zero. The head
+channel is the larger carrier — median relative equivariance error
+1.3622821050 at s = 2 and 2.8378283895 at s = 4, against context
+non-invariance 0.4166634232 and 1.2239125967 — and the ordering holds in
+3/3 seeds at both scale factors. This upgrades the mechanism sentence
+from "the inference and potential channels jointly carry the nonlinear
+bias" to a measured share: the head carries the larger part, the context
+a smaller but not negligible one. Three qualifications travel with the
+number. It is a *share*, not an exclusivity claim — both channels are
+O(1) against the ideal zero, so neither is exempt; the probe is
+report-type by pre-registration (relative RMS calibers, no fail gate, the
+residual-spectral precedent), so no threshold was crossed to call the head
+primary; and the gap narrows with scale (the context channel grows ×2.94
+from s = 2 to s = 4 against the head's ×2.08; at the largest seed/scale
+combination they read 1.8711150885 and 2.9164962155), so the shares are
+quoted per scale factor rather than collapsed into one ratio. The
+attribution is also anchored to the construction it describes: this
+probe's training arm reproduces the default head's per-seed rollout MSEs
+bitwise — 3.5581917763, 2.6058924198, 2.7196621895, the same three values
+as round 249's default arm — which is what licenses reading it as a
+property of the head that the chain below then repairs [B, PRD §19 round
+244; artifact `benchmarks/physics_out_v02/amp_attr/amp_attr.json`, git_sha
+b1fd910, exec_tier T1].
+
 **Head structure (M1) — what the free function form costs.** A
 seven-probe chain (same-pool paired arms, 3 seeds, every cell carrying a
 bitwise cross-run anchor) measures the structured head of Sec. 3 against
@@ -706,6 +738,21 @@ measured and reported in the same breath.
    reading). The recipe claims in this paper are therefore a three-sided
    domain statement — 2000-step budget × visible seed set ×
    horizon-robustness — not a default-configuration recommendation.
+4g. **Channel-attribution shares are report-only.** The Sec. 6 statement
+   that the dynamics head carries the larger share of the amplitude
+   extrapolation bias (1.362 / 2.838 vs context 0.417 / 1.224 at
+   s = 2 / 4) comes from a probe pre-registered as *report-type*: the
+   calibers are relative RMS values with no pass/fail gate, the primary
+   carrier is decided by which channel is larger, and both channels sit
+   at O(1) against the ideal of zero. So the reading licenses
+   "head-first, context-secondary" and forbids "the context channel is
+   clean" — and it is a 3-seed T1 measurement on the house default head
+   at house scale, not a decomposition of the repaired candidate head
+   (whose scale covariance is by construction enforced on the V side and
+   was measured only through the outcome axis, rel. comp). Multi-seed
+   held-out replication of the decomposition is compute-gated and parked
+   with the other T2/T3 directions [B, PRD §19 round 244; artifact
+   `benchmarks/physics_out_v02/amp_attr/amp_attr.json`].
 5. **Hard-constraint failure modes** carry registered escape hatches
    (dissipation slot / nonseparable head / T-even relaxation); MLP
    smoothness failure mode remains unsolved and is recorded as such —
@@ -889,3 +936,21 @@ and `benchmarks/physics_out_v02/v_hom/v_hom.json` (VHOM_NULL, consistent
 1.442855937 against rel_comp_A seed1 9.071356650, sentinel
 A_seed0_round249B bitwise true at 2.7786638737, git_sha 5215a97);
 asset-index entry 4f registered in the same heartbeat. Nothing removed.*
+
+*Updated round 820 (queue entry N1-AMPATTR-SHARE, fourth writing
+iteration of this segment; distillation gate cleared with pool items only
+— PLAYBOOK 轮 111 artifact-field recompute + 轮 819 三判口径[该读数即由
+宽池清点浮出] + scan §72.2 report-type 预注册披露): the third attribution
+question is closed with measured shares (new Sec. 6 paragraph "Closing the
+third question: which channel carries the rest" + new Limitations 4g),
+readings taken from the artifact —
+`benchmarks/physics_out_v02/amp_attr/amp_attr.json` (AMPATTR_OK,
+primary_carrier head, head-equivariance medians 1.3622821050 /
+2.8378283895 at s = 2/4 vs context non-invariance 0.4166634232 /
+1.2239125967, ordering 3/3 seeds at both scales, per-seed head values
+1.3622821050 / 1.6007063861 / 1.0203475843 and context medians
+0.4166634232 / 0.3900730759 / 0.5502080023 at s = 2, training-arm per-seed
+rollout MSE 3.5581917763 / 2.6058924198 / 2.7196621895 bitwise equal to
+round 249's default arm, caliber "relative RMS, report-only", git_sha
+b1fd910, exec_tier T1); asset-index entry 4g registered in the same
+heartbeat. Nothing removed.*

@@ -276,6 +276,40 @@ current_action: >-
   下一心跳=对 [N1-AMPATTR-SHARE] 迭代一步(首拍蒸馏门三步⇒§6/§7 写作
   ⇒弹出);其后派生评估按三判口径复核余池, 全枯则段尾 RSI 入账(夜 25)
   后置 BLOCKED-HUMAN。
+  轮 820 N1-AMPATTR-SHARE 执行轮(本段第 6 研究拍;蒸馏门三步齐):①总结=
+  现状(轮 818 新段写下"T 侧排除/V 侧被稳定性阻塞"后, 第三问"剩余份额由
+  谁承载"在草稿只有定性合流句;轮 244 AMPATTR_OK 的实测份额在 PRD 有
+  判读行而 asset-index 零条目=按草稿自缚条款不可直接引)/问题(报告型
+  读数最易在写作侧退化成因果断言, 且"该归因属于哪颗头"须先有跨构造
+  证据;另本轮实测口径随尺度收窄 ctx×2.94 vs 头×2.08, 折成单一比值即
+  失真)/目标(决策耦合=份额读数入稿⇒机制句升级为"头为主、ctx 次之但不
+  可忽略"并带 report-only 三口径, 且不越界到已修复候选头;不入稿⇒刚
+  闭合的 T/V 两问留下无测量的第三问, 且 §3 的"头是偏差载体"式表述悬空)。
+  ②蒸馏(池内三条, 未补池):PLAYBOOK 轮 111 产物字段复算+轮 820 新坑
+  "报告型三口径同迁"(本轮自抓并同轮落实)+轮 819 三判口径[该候选正由
+  宽池清点浮出]+scan §72.2 预注册披露(report-type=预注册明示无判负门)。
+  ③定变量=单变量"三通道归因闭合"(T/V/头+ctx 份额属同一主张, 零算力)。
+  产物:n1-paper-draft.md §6 新段"Closing the third question: which channel
+  carries the rest"(两通道分离构造+聚合中位+逐 seed 3/3 次序+份额非独占
+  +无阈值声明+尺度并列+跨构造逐位锚)+§7 新 Limitation **4g**(report-only
+  与"不外推到已修复候选头"边界)+footer 轮 820 溯源块;等效不删=§6/§7 既
+  有段一字未动, 4g 为新条不挤压 4a-4f;asset-index §7 新条目 4g(同心跳
+  登记, 补 PRD-only 读数的索引缺口=轮 814 家规第 4 次履行);PLAYBOOK +1 坑。
+  读数复算(取自 amp_attr.json 字段非散文, git_sha b1fd910/exec_tier T1)=
+  verdict AMPATTR_OK, primary_carrier head; head_equivariance 中位
+  1.3622821050(s2)/2.8378283895(s4) vs ctx_invariance 0.4166634232/
+  1.2239125967; 逐 seed 头值 s2=1.3622821050/1.6007063861/1.0203475843,
+  ctx s2=0.4166634232/0.3900730759/0.5502080023, s4 最窄组合 seed2
+  2.9164962155 vs 1.8711150885; 训练臂逐 seed rollout MSE 3.5581917763/
+  2.6058924198/2.7196621895 **与轮 249 默认臂逐位相同**(跨构造锚, 索引
+  语义按 818 家规先对账后引用)。完成条件 grep AMPATTR 过⇒N1-AMPATTR-
+  SHARE 同心跳弹出归档(64 条, 队列余 T2T3 blocked-human)。台账=零算力
+  研究拍(writing, 无 PR);判单轮 820;段三数=队列迭代 8/研究拍 11/簿记拍
+  7/等门拍 341(末拍 805)。下一心跳=派生评估第五拍(三判口径复核: 窄池
+  枯+宽池正向 13 条已三判分账⇒若无新转正即判全枯, 判否须双族证据),
+  判枯后按 goal_check ③先段尾 RSI 入账(夜 25, 本段 806-820=15 产出心跳
+  达 P1-1 触发线)+计数器瘦身(现保 814-820 超最近 3 轮家规)+reflection_mine,
+  再置 state: BLOCKED-HUMAN 机械等待态休息(禁心跳轮询当监听器)。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -286,11 +320,6 @@ current_action: >-
 
 ```yaml
 goal_queue:
-- id: N1-AMPATTR-SHARE
-    track: writing
-    goal: N1 初稿吸收轮 244 AMP-ATTR 的三通道归因闭合读数(非线性幅度偏差的主导载体=动力学头标度等变性破坏 head_equivariance 中位 1.3622821050(scale2)/2.8378283895(scale4), ctx 非不变性次之 0.4166634232/1.2239125967, primary_carrier=head), 使轮 818 刚写下的 T 侧排除/V 侧稳定性阻塞之后, 第三问(剩余份额由谁承载)从定性合流句升级为实测份额声明
-    done_condition: n1-paper-draft.md §6 或 §7 含两通道实测中位份额+primary_carrier=head+report-only 口径注记(相对 RMS 口径, 无门禁判据)+seed0 rollout MSE 3.5581917763 逐位哨兵锚, 读数取自 benchmarks/physics_out_v02/amp_attr/amp_attr.json 产物字段, asset-index 同心跳登记条目, 等效不删既有内容
-    check_cmd: grep -q AMPATTR docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
