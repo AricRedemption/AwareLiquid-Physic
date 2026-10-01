@@ -251,6 +251,31 @@ current_action: >-
   下一心跳=派生评估第四拍(候选 GENLEN_CONFIRMED/TOSA_RESOLVED 弱耦合
   复核+RESIDUAL-SPEC/SPECTRA_INCREMENTAL/AMPATTR 口径族标签×实质双判)
   ⇒可派生则入队, 全枯则先段尾 RSI 入账(夜 25)再置 BLOCKED-HUMAN。
+  轮 819 派生评估转正轮第三次(本段第 5 研究拍;exit 6 响应):清点池从
+  asset-index 标签(27 条, 覆盖 23/未覆盖 4=轮 817 已判弱耦合 GENLEN/
+  TOSA + 伪欠账 RECIPE_LOO/WARMUP⇒**标签面枯**)扩到 **PRD §19 判读标签
+  宽池**(59 条, 未覆盖 46), 并按新家规先做分支名机械过滤(46=未走分支/
+  基建 token 33 + 正向读数 13)⇒正向 13 条逐判: 伪欠账 6(AMPEX_ROBUST/
+  EQUIV_RESOLVED/EQUIV_ATTRIB/WARMUP_BENEFICIAL=预注册未走分支;
+  COMPOSE_ABSORBED/CTXDIM_RESOLVED=实质已以 §6 absorbed 段与 ladder
+  第 19 行落稿未带标签), 真欠账弱耦合 6(GENLEN/TOSA 承 817 判定+
+  SPECTRA_INCREMENTAL=口径族采纳属用户 AMM-031/LOAD_BEARING 已入
+  §5 axis-attribution 段/PRECISION_ANCHOR_ROBUST、SHARP_EOS、WINDOW_EDGE
+  =工具与训练动力学面非论文主张), **真欠账强耦合 1=AMPATTR_OK(轮 244)**
+  ——草稿 grep equivariance=0/invariance 仅 1 处, 即"非线性幅度偏差由哪
+  一通道承载"的**实测份额**零覆盖, 而 §6 新段(轮 818)刚写下"T 侧排除、
+  V 侧被稳定性阻塞", 剩下的 ctx/头份额断言只有定性合流句(轮 239/241)。
+  入队 **N1-AMPATTR-SHARE**(单变量=三通道归因闭合[T 排除/V 阻塞/头和
+  大于 ctx];决策耦合=读数入稿⇒§6 机制句从"共同承载"升级为"主导载体
+  =动力学头标度等变性破坏, ctx 次之"且带 report-only 口径声明, 不入稿
+  ⇒刚开的 T/V 边界留下无测量的第三问;check_cmd=draft 含 AMPATTR[现 0
+  命中];预注册完成条件=§6 或 §7 载两通道实测中位份额+primary_carrier=
+  head+report-only 口径注记+asset-index 同心跳登记+读数取
+  amp_attr.json+等效不删)。台账=零算力轮(三判清点+入队);判单轮 819;
+  段三数=队列迭代 7/研究拍 10/簿记拍 7/等门拍 341(末拍 805)。
+  下一心跳=对 [N1-AMPATTR-SHARE] 迭代一步(首拍蒸馏门三步⇒§6/§7 写作
+  ⇒弹出);其后派生评估按三判口径复核余池, 全枯则段尾 RSI 入账(夜 25)
+  后置 BLOCKED-HUMAN。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -261,6 +286,11 @@ current_action: >-
 
 ```yaml
 goal_queue:
+- id: N1-AMPATTR-SHARE
+    track: writing
+    goal: N1 初稿吸收轮 244 AMP-ATTR 的三通道归因闭合读数(非线性幅度偏差的主导载体=动力学头标度等变性破坏 head_equivariance 中位 1.3622821050(scale2)/2.8378283895(scale4), ctx 非不变性次之 0.4166634232/1.2239125967, primary_carrier=head), 使轮 818 刚写下的 T 侧排除/V 侧稳定性阻塞之后, 第三问(剩余份额由谁承载)从定性合流句升级为实测份额声明
+    done_condition: n1-paper-draft.md §6 或 §7 含两通道实测中位份额+primary_carrier=head+report-only 口径注记(相对 RMS 口径, 无门禁判据)+seed0 rollout MSE 3.5581917763 逐位哨兵锚, 读数取自 benchmarks/physics_out_v02/amp_attr/amp_attr.json 产物字段, asset-index 同心跳登记条目, 等效不删既有内容
+    check_cmd: grep -q AMPATTR docs/n1-paper-draft.md
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
