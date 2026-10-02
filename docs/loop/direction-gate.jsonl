@@ -518,3 +518,4 @@
 {"round": 867, "direction": "ALIGNED", "evidence": "验收拍=AMM-052 优化验收电池八面回显: 版本 v10.1/pytest 240 全绿含承重句 33+thin/单源链四载体一致/队列 1+归档 73 平衡/REGISTRY wish 在位/注入退化实测零命中退化 2 条 RC=1 显式复验(首测被管道吞=坑再证)/判单链尾 866+工作区干净/冷启动 exit 6 含新语义; 粘贴块 16 行 2769 字; 结论=通过零新缺口, v10.1 粘贴单元交付用户; 零算力验收拍无 PR"}
 {"round": 868, "direction": "ALIGNED", "evidence": "L5 蒸馏找方向产出候选入队 N1-REPRO-AUDIT(AAAI-26 复现清单披露面审计)+CONS-Q-EVAL/LTSF-TAXONOMY-EVAL 双题录扩池; 接管依据与派生评估判否三条件留痕 GOALS 轮 868"}
 {"round": 869, "direction": "ALIGNED", "evidence": "N1-REPRO-AUDIT 执行拍: AAAI-26 六面审计+LTSF 对表, G2 修入稿/G1 注记用户门控, 判负标准未触发 goal_check ACHIEVED 弹出归档; 证据=docs/n1-repro-audit.md 审计结论行"}
+{"round": 870, "direction": "ALIGNED", "evidence": "段尾簿记拍: 夜账 859-869 入账 RSI-INDEX 夜 39+reflection_mine 7 候选人裁注记+ladder 复扫五级判定留痕+置 BLOCKED-HUMAN 判据双留痕(exit6 verdict+派生评估判否轮 868/870)"}
