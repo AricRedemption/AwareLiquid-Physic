@@ -237,7 +237,13 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   candidate=0∧L2 gated=6=与轮 846 逐行核真机械一致(REGISTRY 化首次兑现:
   判"全空"从散文推理变机械读数) ④check_cmd rc0=达成⇒同心跳弹出归档。
   台账=零算力硬化拍无 PR; 判单 853; 段三数(852 段累计)=队列迭代 1/研究
-  拍 2/簿记拍 0; 四门经 closer 全绿。
+  拍 2/簿记拍 0; 四门经 closer 全绿。  轮 854 取活拍=对话面扫描首次生效(852 段第 3 拍/研究拍; exit 6 @854
+  显式码⇒阶梯结构化判定 L1 candidate=0/L2 gated=6/L3=0/L4 龄 0=盘面真
+  全空[REGISTRY 机械读数首次用于置态判据]⇒按轮 852 块②扫当段对话内交
+  付清单未入队者⇒P4 蒸馏补池节拍化未入队=取活)⇒入队 DISTILL-BEAT(todo,
+  L4 升级输出节拍距 N=M2 AMM-011 十轮节拍本仓化)。台账=零算力取活拍无
+  PR; 判单 854; 段三数(852 段累计)=队列迭代 1/研究拍 3/簿记拍 0; 四门经
+  closer 全绿。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -248,6 +254,12 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
+- id: DISTILL-BEAT
+    track: engineering
+    goal: 蒸馏补池节拍化(轮 842 清单 P4, 轮 854 取活入队; M2 AMM-011 十轮节拍本仓化): ladder_scan L4 升级输出节拍距 N=当前判单链尾轮−RSI-INDEX 最近夜账入账轮, N≥10⇒提示强制节拍检查(夜账断喂/scan 复检/蒸馏补池); +测试
+    done_condition: ladder_scan L4 输出含"节拍距 N="数值+测试过
+    check_cmd: ./scripts/ladder_scan | grep -q "节拍距"
+    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
