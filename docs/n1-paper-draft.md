@@ -260,7 +260,11 @@ Three-piece defense for the methods section:
 geometric means [G2]. Rollout error at the eval_ks ladder (composite-error
 backing); VPT as a supplementary lens only (separation holds in a narrow
 θ-window — downgraded to presentation norm, not a new verdict). Noise-free
-simulation throughout (scope declaration, limitation 1). Hidden-set
+simulation throughout (scope declaration, limitation 1). Infrastructure
+disclosure: every experiment is a single-machine deterministic CPU run
+(Apple M2 Max, macOS; per-experiment wall-clock in the minutes range), and
+each archived result JSON carries meta(git_sha, device, timestamp)
+provenance. Hidden-set
 discipline: seed 999 retired after it caught a visible-set reversal
 (prefix advantage flipped +29% on held-out); consumption is one-shot per
 seed, descending from 998 — **no [C]-tier terminal claims are made in this

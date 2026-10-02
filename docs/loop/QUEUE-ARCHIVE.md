@@ -227,3 +227,6 @@ archived_pr:
 - id: DISTILL-INJECT
   status: done(轮 864 完成弹出:engineering track, 轮 863 用户立项令入队["后面一项肯定要做,这个很重要"], 执行拍 scripts/distill_inject 落地[PLAYBOOK+REGISTRY 双源检索 top-N 注入, 零命中如实退出 1]+ASK-TABLE.md 四栏问表(含轮 859/840 两条已用记录回填)+4 用例[235→239 实测]+TOOLS 条目; 真面狗粮首跑=按队列首条 goal 检索命中 49 条 top-3 高相关[859 L5 三态/61 最小闭环/75 对照式第三槽])
   check_cmd: test -f scripts/distill_inject && test -f docs/loop/ASK-TABLE.md && .venv/bin/python -m pytest tests/test_distill_inject.py -q >/dev/null 2>&1
+- id: N1-REPRO-AUDIT
+  status: done(轮 869 完成弹出:writing track, 轮 868 L5 蒸馏找方向派生入队[T1 零算力本机≤1h; 决策耦合=披露缺口⇒改稿/零缺口⇒投稿就绪确认, venue 人决不阻塞], 执行拍=迭代前置蒸馏门三步齐[distill_inject 命中 68 条 top-3, 适用=产物数字自洽入文档+口径偏离如实注记]+AAAI-26 复现清单六面审计+LTSF taxonomy 对表⇒docs/n1-repro-audit.md 审计结论=2 缺口[G2 算力基础设施披露本拍修入稿 §5 Protocol=Apple M2 Max CPU-only/macOS/单实验分钟级 wall-clock/meta(git_sha,device,timestamp) 溯源; G1 代码可用性声明=用户门控注记, 合并入 AMM-034-N1-TODO venue/发布人决, 代理禁代决发布承诺]+四达标面[seed 3-seed±stderr 行内/数据统计 768-traj n∈{64,128,256}/预注册判负纪律/评估口径 q-only vs q+p 分列]+LTSF 对表零冲突[引文决策=venue 人决后, REGISTRY 题录在案]; 判负标准未触发=达成, goal_check ACHIEVED 弹出; 零算力写作拍无 PR)
+  check_cmd: test -s docs/n1-repro-audit.md && grep -q "审计结论:" docs/n1-repro-audit.md
