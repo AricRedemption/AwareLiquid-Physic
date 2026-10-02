@@ -236,3 +236,6 @@ archived_pr:
 - id: N1-MAIN-FIGURE
   status: done(轮 872 完成弹出:writing track, 轮 872 消化轮派生评估判可派生入队[PRD 轮 18"D1g 四剖面板=论文主图候选"素材在库而草稿零图=已归档读数呈现面非新读数], 执行拍=①scripts/n1_fig_d1g.py 可复现出图[2×2 四板 prefix/all2all×n32/n64 归一化剖面+3-seed range 带, Agg 200dpi, docs/n1-figs/fig1_d1g_profile.png]②数字核对留痕=四臂 bin-2/mean 逐位(0.368/0.373/0.851/0.926, PRD"0.37x 凹陷"吻合; **诚实留痕=PRD 剖面平坦度 std/mean 口径 0.22-0.23/0.08-0.10 以 3-seed 离散复算 0.278/0.182/0.569/0.369 未吻合, 口径待考, 图未含该读数**[轮 111 图形面延伸])③轮 111 条款链=asset-index §4 新增 D1g 条目(数字先入索引)→草稿 §6 新段 Training-distribution coverage+Fig.1 引用④TOOLS+draft_hygiene 复检 CLEAN; 自抓 1=脚本无可执行位 check_cmd 红当拍 chmod; 测试 247 全绿; 零算力写作拍无 PR)
   check_cmd: test -x scripts/n1_fig_d1g.py && test -s docs/n1-figs/fig1_d1g_profile.png && grep -q "Fig. 1" docs/n1-paper-draft.md
+- id: HARDEN-N1-FIG-TEST
+  status: done(轮 873 完成弹出:engineering track, 轮 873 ladder_scan L3 自扫出盲区取活入队[n1_fig_d1g.py 轮 872 新增缺测试, scan 正常工作自抓], 执行拍=tests/test_n1_fig_d1g.py 3 用例[tmp_path 假 JSON 仓外=轮 405 条款: 缺臂断言/bin-2/mean 核对计算 0.416 与 1.000 双锚/min_bin 字段], L3 复扫归 0, 测试 247→250; 零算力硬化拍无 PR)
+  check_cmd: .venv/bin/python -m pytest tests/test_n1_fig_d1g.py -q >/dev/null 2>&1 && test "$(./scripts/ladder_scan | grep -c '硬化盲区候选' || true)" = 0
