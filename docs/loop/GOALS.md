@@ -221,6 +221,7 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   轮 861 用户令细节同步拍=GOAL-PROMPT v9.9 逐节细节对齐(861 段第 1 拍/研究拍; 用户指令'再给我同步一下 Goal Prompt 的细节'; 纯对读零改动): **答复已交付用户**——正本两层结构(仓库说明头+text 粘贴块)+粘贴块五节逐节细节(/goal 总纲[心跳四步+停止权外置五级全空定义]/迭代前置蒸馏门三步/心跳分支[拍三分类+路由 0/1/2/3/4/6/7 全释]/状态与恢复[两级状态机+重入口四通道]/纪律[算力四档+读回环+RSI 指针])+v9.7→v9.9 演化 diff 表(v9.8=AMM-049 四级阶梯, v9.9=AMM-050 L5 增量引擎)+**v9.9 完整粘贴单元已回用户**(首行 /goal, 轮 848 边界条款履行)+配套机械面提醒(goal_check 文案/ladder_scan/REGISTRY/note_append/承重句 32)。台账=零算力对齐拍无 PR; 判单 861; 段三数(861 段)=队列迭代 0/研究拍 1/簿记拍 0; 四门经 closer 全绿。
   轮 862 用户令对齐+瘦身拍=M2 RSI×GoalPrompt 配合拆解+AMM-051 正本大道至简二瘦(862 段第 1 拍/研究拍; 用户指令'看看这个好的 RSI 架构和 Goal Prompt 之间怎么配合的? 我希望 Goal Prompt 可以大道至简一点'): **①M2 配合拆解**(对读 v4.5 正本+GOALS 细则区+DISTILL/HORIZON/INDEX+刷新增量[其轮 344 立法 AMM-014 续向蒸馏=方向由蒸馏推导人不参与! 与本仓 L5 同构; 其轮 346 用户也问了同款问题四体系交叉入账]): 四接口=每轮步骤 1 读回环+distill_inject 检索注入(ExpeL 式)/步骤 2 路由分支嵌续向蒸馏(exit 6 先蒸馏推导新方向不停)/步骤 3 收尾强制四栏记账+节拍距行/十轮节拍 N 机械触发[断喂 65 轮教训]; 分工三文件=INDEX 定量/DISTILL 定性/HORIZON 外部对标[社区问表四栏必填]; **其正本简的根因=只写三步协议+指针, 细则读盘不背[GOALS 细则区+IRON-LAWS]**。**②AMM-051 立法+实施**(同轮 APPLIED 用户令授权): 骨架与细则分离——正本 v10.0 粘贴块 ~9000→2644 字实测(压缩 ~70%: /goal 段五级细节压指针/分支 2 三条件细则指针化/心跳节骨架化'细则唯一源=GOALS 注记+goal_check 输出, 读盘不背'); 承重句 32/32 全过(措辞回归门禁); 单源链四载体=正本骨架/GOALS 注记细则/goal_check 文案/AMENDMENTS 立法史, 改细则正本免触(前缀缓存友好); M2 四接口对表=读回环✓/L5=路由嵌蒸馏✓(AMM-050)/段尾夜账✓, distill_inject 式注入与社区问表四栏=候选入停车场待用户令。**v10.0 粘贴单元已回用户**(首行 /goal)。台账=零算力立法拍无 PR; 判单 862; 段三数(862 段)=队列迭代 0/研究拍 1/簿记拍 0; 四门经 closer 全绿。
   轮 863 用户立项令拍=DISTILL-INJECT 入队(863 段第 1 拍/研究拍; 用户指令'后面一项肯定要做,这个很重要'=轮 862 交付末项 distill_inject 经验检索注入+社区蒸馏门四栏问表): 按轮 852 条款当拍入队(组合=单变量整体迭代, M2 AMM-006/008 先例): ①scripts/distill_inject(检索源=PLAYBOOK 坑条目+REGISTRY 题录/候选节, 按队列首条 goal 关键词命中组装注入块, 纯零算力文本检索) ②docs/loop/ASK-TABLE.md 四栏问表(检索前必填: 现状/问题[社区语言]/目标[可判定]/检索颗粒度, 缺栏不对齐)+L5 流程引用 ③TOOLS+测试。state⇒RUNNING(供给到达, goal_check exit 1 实证)。台账=零算力立项拍无 PR; 判单 863; 段三数(863 段)=队列迭代 0/研究拍 1/簿记拍 0; 四门经 closer 全绿。
+  轮 864 DISTILL-INJECT 执行拍=经验检索注入+社区问表落地(863 段第 2 拍/研究拍=工程硬化; exit 1 弹出, 轮 862 停车场候选项实施完成): ①scripts/distill_inject 落地(store→检索→组装: 检索源=PLAYBOOK 坑条目[331 条]+REGISTRY 题录/候选节, query 词频命中排序 top-N 注入块, 零命中如实退出 1 禁编造; =蒸馏门②蒸馏对表的机械化, 不替代读回环) ②docs/loop/ASK-TABLE.md 四栏问表(检索前必填: 现状/问题[社区语言]/目标[可判定]/检索颗粒度, 缺栏不对齐; 含轮 859 L5 首跑与轮 840 gate-chain 两条已用记录回填) ③测试 4 用例(命中双源/零命中诚实/top 限制/空池 rc2; 235→239 实测) ④TOOLS 条目 ⑤真面狗粮首跑=按队列首条 goal 检索命中 49 条 top-3 全高相关(859 L5 三态/61 蒸馏最小闭环/75 检索三连对照槽)=注入器价值首证⇒check_cmd rc0 同心跳弹出归档。台账=零算力硬化拍无 PR; 判单 864; 段三数(863 段累计)=队列迭代 1/研究拍 2/簿记拍 0; 四门经 closer 全绿。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -231,12 +232,6 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
-- id: DISTILL-INJECT
-    track: engineering
-    goal: 经验检索注入+社区问表落地(轮 863 用户立项令"后面一项肯定要做,这个很重要"=轮 862 停车场候选取活; M2 distill_inject(ExpeL 式 store→检索→组装)+RSI-HORIZON 社区蒸馏门四栏问表移植, 本仓面适配): ①scripts/distill_inject 落地(检索源=PLAYBOOK 坑条目+REGISTRY 题录/候选节, 按 current_variable/队列首条 goal 关键词命中组装注入块; 纯零算力文本检索) ②docs/loop/ASK-TABLE.md 四栏问表(检索前必填: 现状/问题[翻译成社区语言]/目标[可判定]/检索颗粒度, 缺栏不对齐)+L5 蒸馏找方向流程引用 ③两者入 TOOLS+测试
-    done_condition: 脚本+问表文件+测试落地 pytest 全绿+TOOLS 条目在位
-    check_cmd: test -f scripts/distill_inject && test -f docs/loop/ASK-TABLE.md && .venv/bin/python -m pytest tests/test_distill_inject.py -q >/dev/null 2>&1
-    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

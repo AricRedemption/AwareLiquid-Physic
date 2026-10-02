@@ -224,3 +224,6 @@ archived_pr:
 - id: NOTE-APPENDER
   status: done(轮 857 完成弹出:engineering track, 轮 856 取活入队[粘连四犯机械化], 执行拍 scripts/note_append 落地[换行另起行+缩进归一+计数打印家规超限退出 1]+4 用例[231→235 实测]; 狗粮首跑=本拍 857 详文即由该工具写入并正确拦截计数 4>3 提示折叠; 自抓=工具首版锚前无空行结构粘连 bug 测试首跑即拦+真仓三处历史粘连拆行+压 851-854 归家规)
   check_cmd: test -f scripts/note_append && .venv/bin/python -m pytest tests/test_note_append.py -q >/dev/null 2>&1
+- id: DISTILL-INJECT
+  status: done(轮 864 完成弹出:engineering track, 轮 863 用户立项令入队["后面一项肯定要做,这个很重要"], 执行拍 scripts/distill_inject 落地[PLAYBOOK+REGISTRY 双源检索 top-N 注入, 零命中如实退出 1]+ASK-TABLE.md 四栏问表(含轮 859/840 两条已用记录回填)+4 用例[235→239 实测]+TOOLS 条目; 真面狗粮首跑=按队列首条 goal 检索命中 49 条 top-3 高相关[859 L5 三态/61 最小闭环/75 对照式第三槽])
+  check_cmd: test -f scripts/distill_inject && test -f docs/loop/ASK-TABLE.md && .venv/bin/python -m pytest tests/test_distill_inject.py -q >/dev/null 2>&1

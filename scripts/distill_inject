@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""distill_inject — 经验检索注入器(轮 864;M2 AMM-006 ExpeL 式移植,本仓面适配)。
+
+检索源(零算力文本检索,store→检索→组装):
+  ①docs/loop/PLAYBOOK.md 坑条目(`- **` 起头,含出处轮/适用条件/验证状态)
+  ②docs/loop/REGISTRY.md 题录与候选(state=reference/candidate 行)
+查询词 = 调用方给的 query 关键词(典型=队列首条 goal/当前变量词);按命中
+词频排序取 top-N 组装注入块。输出纯文本注入块(stdout),由代理贴进当拍
+蒸馏对表(AMM-046 迭代前置②的机械化,不替代读回环)。
+退出码:0=有命中;1=零命中(如实报告,禁编造);2=缺源文件。
+"""
+import argparse
+import re
+import sys
+from pathlib import Path
+
+
+def _load_entries(root: Path):
+    entries = []  # (source, title, body, tokens_set)
+    pb = root / "docs/loop/PLAYBOOK.md"
+    if pb.exists():
+        text = pb.read_text(encoding="utf-8", errors="replace")
+        blocks = re.split(r"\n(?=- \*\*)", text)
+        for b in blocks:
+            m = re.match(r"- \*\*(.+?)\*\*", b)
+            if not m:
+                continue
+            title = m.group(1)
+            tokens = set(re.findall(r"[\w\u4e00-\u9fff]{2,}", title + b[:200]))
+            entries.append(("PLAYBOOK", title, b[:400], tokens))
+    reg = root / "docs/loop/REGISTRY.md"
+    if reg.exists():
+        for line in reg.read_text(encoding="utf-8", errors="replace").splitlines():
+            line = line.strip()
+            if line.startswith("- ") and ("state=reference" in line or "state=candidate" in line):
+                tokens = set(re.findall(r"[\w\u4e00-\u9fff]{2,}", line))
+                entries.append(("REGISTRY", line[:60], line[:400], tokens))
+    return entries
+
+
+def main():
+    ap = argparse.ArgumentParser(description="经验检索注入(蒸馏门②机械化)")
+    ap.add_argument("--root", default=".")
+    ap.add_argument("--query", required=True, help="检索关键词(空格分词)")
+    ap.add_argument("--top", type=int, default=3)
+    args = ap.parse_args()
+    root = Path(args.root).resolve()
+    entries = _load_entries(root)
+    if not entries:
+        print("distill_inject: 蒸馏池空(PLAYBOOK/REGISTRY 均无条目)", file=sys.stderr)
+        return 2
+    qtokens = [t for t in re.findall(r"[\w\u4e00-\u9fff]{2,}", args.query) if len(t) >= 2]
+    if not qtokens:
+        print("distill_inject: query 无有效词", file=sys.stderr)
+        return 2
+    scored = []
+    for src, title, body, tokens in entries:
+        score = sum(1 for t in qtokens if any(t in tok for tok in tokens))
+        if score:
+            scored.append((score, src, title, body))
+    scored.sort(key=lambda x: -x[0])
+    if not scored:
+        print(f"distill_inject: 零命中(query={args.query!r}; 如实报告,禁编造)")
+        return 1
+    print(f"DISTILL-INJECT(query={args.query!r}; 命中 {len(scored)} 条, 取 top-{min(args.top, len(scored))})")
+    for score, src, title, body in scored[: args.top]:
+        print(f"\n[{src} | 命中 {score}] {title}")
+        print(f"  {body.strip()[:280]}")
+    print("\n(注入块仅供蒸馏对表;适用性判定归代理+判单,AMM-046 ②)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
