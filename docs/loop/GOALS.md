@@ -252,7 +252,11 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   弹出归档。至此轮 842 清单 P0-P4 全部落地(P5=用户门控面维持零催促),
   代理侧供给余量按轮 852 条款持续登记 REGISTRY。台账=零算力硬化拍无 PR;
   判单 855; 段三数(852 段累计)=队列迭代 2/研究拍 4/簿记拍 0; 四门经
-  closer 全绿。
+  closer 全绿。  轮 856 取活拍(852 段第 5 拍/研究拍; exit 6 @856 显式码⇒阶梯结构化判
+  定四级全空[N=5]+按轮 852 块②扫对话面⇒轮 855 详文新登记候选"粘连修复
+  机械化"未入队=取活)⇒入队 NOTE-APPENDER(详文追加单命令, 消灭粘连五犯
+  风险)。台账=零算力取活拍无 PR; 判单 856; 段三数(852 段累计)=队列迭代
+  2/研究拍 5/簿记拍 0; 四门经 closer 全绿。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -263,6 +267,12 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
+- id: NOTE-APPENDER
+    track: engineering
+    goal: 详文追加机械化(轮 856 取活入队): scripts/note_append 落地——GOALS 轮详文追加单命令(自动换行另起行/行首两空格/计数器家规自检), 消灭粘连五犯风险(轮 846/851/852/854 四犯); +测试; TOOLS 条目
+    done_condition: 脚本+测试落地 pytest 全绿+TOOLS 条目在位
+    check_cmd: test -f scripts/note_append && .venv/bin/python -m pytest tests/test_note_append.py -q >/dev/null 2>&1
+    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

@@ -504,3 +504,4 @@
 {"round": 853, "direction": "ALIGNED", "evidence": "REGISTRY-STRUCT 执行拍: docs/loop/REGISTRY.md 机器可读镜像 14 条全量(state/gate 字段)+ladder_scan L1/L2 升级消费结构化面(+1 测试=7 用例 230 实测)+真面首判 L1 candidate=0∧L2 gated=6 与轮 846 逐行核真机械一致=判空从散文推理变机械读数; check_cmd rc0 达成同心跳弹出归档; 零算力硬化拍无 PR"}
 {"round": 854, "direction": "ALIGNED", "evidence": "取活拍: exit 6 @854 显式码⇒阶梯结构化判定四级全空(REGISTRY 机械读数首次用于置态判据: L1 candidate=0/L2 gated=6/L3=0/L4 龄 0)⇒按轮 852 块②扫当段对话内交付清单⇒P4 蒸馏补池节拍化未入队=取活入队 DISTILL-BEAT(L4 升级输出节拍距 N, M2 AMM-011 本仓化); 零算力取活拍无 PR"}
 {"round": 855, "direction": "ALIGNED", "evidence": "DISTILL-BEAT 执行拍: ladder_scan L4 升级输出节拍距 N=判单链尾轮−最近夜账入账轮(机械双源)+N≥10 强制节拍检查提示=M2 AMM-011 本仓化; +1 测试=8 用例 231 实测; 真面 N=4; check_cmd rc0 达成同心跳弹出归档; 轮 842 清单 P0-P4 全落地; 自抓 854 详文粘连四犯拆行; 零算力硬化拍无 PR"}
+{"round": 856, "direction": "ALIGNED", "evidence": "取活拍: exit 6 @856 显式码⇒阶梯结构化判定四级全空(节拍距 N=5)+轮 852 块②对话面扫描⇒轮 855 新登记候选粘连修复机械化未入队=取活入队 NOTE-APPENDER(详文追加单命令消灭粘连五犯风险); 零算力取活拍无 PR"}
