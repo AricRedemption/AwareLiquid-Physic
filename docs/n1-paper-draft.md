@@ -17,7 +17,7 @@
 # Structure by Construction: Liquid Context Inference with
 # Hamiltonian-Constrained Symplectic Rollout for Physical System Identification
 
-[v0-TODO: title alternatives; venue 未定(人决项)]
+[v0-TODO: title alternatives; venue TBD (human decision)]
 
 ## Abstract
 
@@ -74,7 +74,7 @@ at 8000 training steps instead of 2000 its sign reverses as well (ratio
 1.116), so every recipe statement below carries its domain — training
 budget, rollout horizon, and seed set.
 
-[Resolved round 111 (digestion audit, PRD §19 "BASELINE-SCOPE 判读"):
+[Resolved round 111 (digestion audit, PRD §19 "BASELINE-SCOPE"):
 same-table presentation holds for the five M1 spring rows on the k=100
 ladder, with the metric split made explicit per row (q-only vs q+p) and
 uncertainty added; the oracle row was mis-attributed to the spring
@@ -295,9 +295,10 @@ should win, and it bounds what any learned claim can mean here [three
 declarations]. TSFM zero-shot numbers are cross-category references under
 pretraining-breadth vs small-sample-structure disparity. The structural
 arm comparison (prefix vs all2all) is the in-family ablation axis.
-[Resolved round 111: 结构臂与 TSFM/oracle 同表复核完成——M1 五行同表成立
-(口径列+uncertainty 列已补);oracle 行经查属 M2 场任务,移出本表归 M2
-机制句;判读锚 PRD §19 "BASELINE-SCOPE 判读"。]
+[Resolved round 111: the structural-arm vs TSFM/oracle same-table review
+is complete — the M1 five-row table stands (metric and uncertainty columns
+added); the oracle row belongs to the M2 field task and has been moved to
+the M2 mechanism claim; judgment anchor PRD §19 "BASELINE-SCOPE".]
 
 **UQ.** Ensemble spread exists but is not calibration: coverage@95 measured
 1.6% / 0 / 0 across seeds (D-1 judged negative — overconfidence direction);
@@ -655,7 +656,7 @@ measured and reported in the same breath.
    conditional registration. The T-even hatch is locally validated
    [B, 1-seed screening; PRD §19 round 120]: on the spring family (equal
    budget, same pool) the free-T head's flip-and-retrace closure degrades
-   with horizon (5.6e-3 at k=200, q+p口径) while the T-even-parameterized
+   with horizon (5.6e-3 at k=200, q+p metric) while the T-even-parameterized
    head stays at the float floor (5.8e-12) REGARDLESS of fit quality — a
    9.7e8x gap; a single-frequency control puts both arms in the fit
    regime and shows the even constraint costs nothing in-distribution
@@ -814,8 +815,8 @@ migration check (compute-gated, T2/T3).
 | [C] | Terminal claim — requires T3 or hidden-set (998, one-shot) | **none asserted**; required for: any noisy-domain claim, chaos-domain conservation, cross-domain transfer, final headline numbers. Addendum (round 812): the recipe-composition migration check was run one-shot at 998 and returned *negative on transfer* (0.893 → 1.438); the draft uses it as a scope annotation on the recipe rows, not as an asserted [C]-tier headline |
 
 Hidden-set ledger: 999 consumed (round 44; H1 ✓ mechanism migrated / H2 ✗
-advantage reversed — the reversal that anchored the discipline), 998
-retained. [v0-TODO: 终稿前如需 [C] 级声明,预注册 998 一次性终跑清单。]
+advantage reversed — the reversal that anchored the discipline); the 998
+status line below is superseded by the round-814 addendum.
 *Ledger updated round 814:* 998 is no longer retained — it was consumed as
 scheduled by RECIPE-MIGRATION (pre-registered bands frozen before
 execution, seed-0 bitwise re-anchor first, one-shot by construction;
@@ -825,7 +826,7 @@ held-out ladder now starts at **997**. Both consumed seeds produced the
 same class of finding — a visible-set comparison failing to migrate (999:
 prefix advantage +29% reversed; 998: recipe composite −10.7% reversed to
 +43.8%) — which is why every recipe/comparison row above carries its
-seed-set scope inline. The outstanding [v0-TODO] is narrowed accordingly:
+seed-set scope inline. The outstanding terminal-run TODO is narrowed accordingly:
 if a [C]-tier claim is ever wanted, it must be pre-registered against 997
 or later with a fresh one-shot budget, and the recipe-composition line is
 closed without such a claim.
@@ -919,11 +920,11 @@ visible set `benchmarks/physics_out_v02/recipe_synthesis/recipe_synthesis.json`
 2.4269325733, B 3.4910252094, ratio 1.4384516685, mechanical verdict
 RECIPE_ANTAGONISTIC, meta git_sha 354c134 / exec_tier T1); no existing
 draft content was removed — all additions are additive and the two
-now-stale pointers ("998 retained", the 998 [v0-TODO]) are corrected by
+now-stale pointers ("998 retained", the 998 terminal-run TODO) are corrected by
 appended addenda rather than deletion. Updated round 816 (queue entry
 N1-RECIPE-SCOPE, second writing iteration of this segment; distillation
-gate cleared with pool items only — PLAYBOOK 轮 111 artifact-field
-recompute + 轮 465 same-domain cross-check + scan §72.2 pre-registration):
+gate cleared with pool items only — PLAYBOOK round-111 artifact-field
+recompute + round-465 same-domain cross-check + scan §72.2 pre-registration):
 the composite's two remaining domain limits are absorbed (Abstract budget
 clause, Sec. 5 two new ladder rows + a "Two more domain limits: horizon
 and budget" paragraph, Sec. 6 absorbed-composition budget qualifier,
@@ -939,7 +940,7 @@ registered in the same heartbeat per the round-814 rule; nothing removed.*
 
 *Updated round 818 (queue entry N1-HEAD-SIDES, third writing iteration of
 this segment; distillation gate cleared with pool items only — PLAYBOOK
-轮 111 artifact-field recompute + 轮 465 same-domain cross-check + scan
+round-111 artifact-field recompute + round-465 same-domain cross-check + scan
 §72.2): the two single-side head-structure injections are absorbed as
 attribution boundaries for the Sec. 6 dominance claim (new Sec. 6
 paragraph "The two sides were paid for separately first" + Limitations 4d
@@ -956,8 +957,9 @@ asset-index entry 4f registered in the same heartbeat. Nothing removed.*
 
 *Updated round 820 (queue entry N1-AMPATTR-SHARE, fourth writing
 iteration of this segment; distillation gate cleared with pool items only
-— PLAYBOOK 轮 111 artifact-field recompute + 轮 819 三判口径[该读数即由
-宽池清点浮出] + scan §72.2 report-type 预注册披露): the third attribution
+— PLAYBOOK round-111 artifact-field recompute + round-819 three-way
+triage caliber [that reading surfaced from the wide-pool sweep] + scan
+§72.2 report-type pre-registration disclosure): the third attribution
 question is closed with measured shares (new Sec. 6 paragraph "Closing the
 third question: which channel carries the rest" + new Limitations 4g),
 readings taken from the artifact —
@@ -971,3 +973,15 @@ rollout MSE 3.5581917763 / 2.6058924198 / 2.7196621895 bitwise equal to
 round 249's default arm, caliber "relative RMS, report-only", git_sha
 b1fd910, exec_tier T1); asset-index entry 4g registered in the same
 heartbeat. Nothing removed.*
+
+*Updated round 871 (queue entry N1-DRAFT-CLEANUP, final-presentation
+hygiene pass; distillation gate cleared with the AMM-021 simplification
+equivalence rule — equivalence inventory first, numbers untouched):
+presentation-only edits, zero numeric or verdict changes — in-body
+internal audit notes anglicized (metric wording, round-number pointers),
+the stale 998 terminal-run TODO collapsed into the round-814 addendum as
+the single source (the "998 retained" status phrase is corrected to point
+at that addendum), and the governance block at the top of the file is
+retained by design (self-declared "delete before submission"). Verified
+by scripts/draft_hygiene_check.py (in-body CJK residue = 0, stale
+v0-TODO markers = 0).*

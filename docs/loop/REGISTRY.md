@@ -17,6 +17,7 @@
 - RECIPE-WARMUP-FEED | state=closed | gate=none | src=docs/n1-asset-index.md:191 | RECIPE 六探针全闭(轮 812 隐藏卷终跑),五轴不列默认回灌
 - AMP-PARAM | state=gated | gate=compute | src=docs/n1-asset-index.md:206 | 参数化=停车场;AMPLITUDE 族 2/2 用尽收口
 - N1-REPRO-AUDIT | state=absorbed | gate=none | src=docs/n1-repro-audit.md | 轮 869 AAAI-26 复现清单六面审计完成(G2 算力披露修入稿/G1 代码可用性=用户门控注记), LTSF taxonomy 对表零冲突
+- N1-DRAFT-CLEANUP | state=absorbed | gate=none | src=scripts/draft_hygiene_check.py | 轮 871 草稿终稿卫生轴完成(10 处表述英文化+stale TODO 收口, AMM-021 等效铁律数字面零改动), 卫生检查器+7 用例留仓
 
 ## 停车场(L2)
 

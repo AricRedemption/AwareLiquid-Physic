@@ -6,7 +6,7 @@
 > PRD §19,不在本文件复制研究内容。更新本文件 = 推进程序计数器。
 
 ```yaml
-state: BLOCKED-HUMAN  # 轮 870 置态(机械等待态, 判据双留痕=goal_check exit6 verdict+派生评估判否[轮 868 本段留痕三条件齐+轮 870 复判: ①真欠账清零 DEBT-LEDGER D_count=0 ②蒸馏义务已履行=轮 868 L5 良信尝试 ③闭族闭轴留痕 RECIPE 六探针全闭+LOO 闭轴]; 五级全空=ladder 复扫轮 870 留痕 L1/L2/L3=0+L4 节拍距 N=11 强制节拍检查=本拍夜账履行; L5 本段已按本机约束跑过=轮 868 留痕含 CONS-Q-EVAL/LTSF-TAXONOMY-EVAL 双题录登记行, 候选 N1-REPRO-AUDIT 已轮 869 执行弹出归档; 用户门控目标全未达成, 资源项未达成非置态充分理由[AMM-052 愿望登记语义]; 段尾夜账已入账=RSI-INDEX 夜 39)。上置态史=轮 859 五级全空 L5 留痕。重入口=用户一句话/新欠账/停车场与算力重启/任意新会话入口⇒state 回 RUNNING 续跑, 达成检测恢复每轮实跑。剩余用户门控(零催促): T2/T3 算力(rc=3)/PR 合并(60 open)/投稿终稿+venue 人决+代码可用性声明裁(G1, 轮 869)/997 出题/AMM-026 待裁; cron 用户否决维持 PROPOSED。push: 本拍提交后即推 fork(债口径=push 成功+引用零差即核清[轮 833 条款]; 网络硬限按轮 287+435 后台退避重试+追记协议)
+state: RUNNING  # 轮 871 用户重入口令"继续"恢复(重入口条款=用户一句话优先级最高, state 回 RUNNING 续跑, 达成检测恢复每轮实跑; 上置态=轮 870 五级全空 L5 留痕)。剩余用户门控(零催促): T2/T3 算力(rc=3)/PR 合并(60 open)/投稿终稿+venue 人决+代码可用性声明裁(G1)/997 出题/AMM-026 待裁; cron 用户否决维持 PROPOSED。push: 本拍提交后即推 fork(债口径=push 成功+引用零差即核清[轮 833 条款]; 网络硬限按轮 287+435 后台退避重试+追记协议)
 mode: ON                  # AMM-003 迭代总开关(./scripts/iteration start|stop)
 iteration_window: 全天候(00:00-24:00 永动模式,2026-09-19 用户改定;总开关 mode=ON/OFF)
 current_goal: >-
@@ -241,9 +241,14 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   **段史摘要(轮 867;逐轮详文唯一源=git log)**:
   867=用户验收令拍(AMM-052 八面验收通过零新缺口, v10.1 粘贴单元交付
   用户; pytest 240 全绿承重句 33/33, 愿望登记四载体一致)。
-  轮 868 死锁接管拍+L5 蒸馏找方向(868 段第 1 拍/研究拍; 接管依据=用户重入口粘贴 v10.1 开新会话+接管清单②③④全满足[锁-最后提交差 15s/.git/index mtime 与提交逐秒吻合/ps 零心跳进程], ①锁龄 1494s<1800s 线判启发式非硬门[PLAYBOOK 本拍条], date>%s 接管后 goal_check 全链跑通): exit6 全阻⇒派生评估判否三条件留痕[①登记真欠账清零=DEBT-LEDGER D_count 0+ladder L1=0(PRD 轮40 夜账余项定性=CfC 轮41清偿/M2 轮42执行/P-CfC=future work 菜单登记不排队非预注册欠账, 散文残留禁当在册供给)②本段蒸馏义务=L5 良信尝试本拍履行③闭族闭轴证据=RECIPE 六探针全闭轮812+LOO 闭轴轮463]; ladder_scan 四级=L1 0/L2 0/L3 0/L4 双提示非触发(PLAYBOOK 尾条当日新鲜+节拍距 9<15); L5 蒸馏找方向=ASK-TABLE 四栏(现状=闭族闭轴+N1 草稿待人决/问题=成稿后本机≤1h 收尾级检验社区做法/目标=可判定候选或题录或拒绝/颗粒度=symplectic 廉价诊断+评估陷阱)+2 query 检索, 三态判定=候选入队 N1-REPRO-AUDIT(AAAI-26 复现清单披露面审计+LTSF taxonomy 评估批判对表, T1 零算力本机≤1h, 决策耦合=披露缺口⇒改稿/零缺口⇒投稿就绪确认, venue 人决不阻塞)+扩池登记 CONS-Q-EVAL/LTSF-TAXONOMY-EVAL 双题录 reference+无拒绝项; 台账=零算力蒸馏拍无 PR; 判单 868; 段三数(868 段)=队列迭代 0/研究拍 1/簿记拍 0
+  **段史摘要(轮 868;逐轮详文唯一源=git log)**:
+  868=死锁接管拍+L5 第二跑(接管清单②③④全满足提前接管, ①锁龄线判
+  启发式入 PLAYBOOK; 派生评估判否三条件留痕; L5 三态=N1-REPRO-AUDIT
+  入队+CONS-Q-EVAL/LTSF-TAXONOMY-EVAL 双题录扩池; 自抓=入队缺
+  check_cmd 被 audit 门红拦当拍补)。
   轮 869 N1-REPRO-AUDIT 执行拍=AAAI-26 复现清单六面审计+LTSF taxonomy 对表(869 段第 2 拍/队列迭代 1/研究拍; 轮 868 L5 派生入队): 迭代前置蒸馏门三步齐[①总结+决策耦合=披露缺口⇒改稿/零缺口⇒投稿就绪确认 ②distill_inject 命中 68 条 top-3, 适用=产物数字自洽入文档+口径偏离如实注记 ③定变量=单变量披露面审计零算力]; 执行=逐面实读草稿 969 行[seed 面=3-seed±stderr 行内+隐藏卷 999/998 一次性协议达标/数据面=768-traj n∈{64,128,256}+k=100+口径分列达标/预注册面=判负纪律+轮 111 审计注记达标/基础设施面=G2 缺口/代码可用性面=G1 缺口/LTSF 对表=零冲突]; 产出=docs/n1-repro-audit.md(审计结论=2 缺口 1 达标面集合)+草稿修入稿 G2(§5 Protocol 补 Apple M2 Max CPU-only/macOS/分钟级 wall-clock/meta 溯源一句, 事实性与 PRD 运行时记录 4.6min/3min/7min29s 一致)+G1 注记待用户门控(代码可用性声明=承诺类禁代理代决, 合并 AMM-034-N1-TODO venue/发布人决); 判负标准未触发=达成, goal_check ACHIEVED 弹出归档 QUEUE-ARCHIVE+REGISTRY state=absorbed; PLAYBOOK+1(披露缺口处置界线=事实性代补 vs 承诺代决); 自抓=0(轮 868 入队缺 check_cmd 的门红拦截在本拍前已修, 本拍四门首跑全绿); 台账=零算力写作拍无 PR; 判单 869; 段三数(869 段累计=868 段第 1 拍起)队列迭代 1/研究拍 2/簿记拍 0
   轮 870 段尾簿记拍=夜账入账+置 BLOCKED-HUMAN(868 段第 3 拍/簿记拍合法触发=本段行将静止; exit6 重现⇒派生评估复判三条件齐判否[轮 868 本段留痕+①DEBT-LEDGER D_count 0 ②蒸馏义务=轮 868 L5 良信 ③闭族闭轴留痕]): ladder 复扫留痕=L1/L2/L3 全 0+L4 节拍距 N=11≥10 强制节拍检查(本拍夜账即履行, PLAYBOOK 尾条当日新鲜); L5 本段已按本机约束跑过=轮 868 留痕(双题录登记行, 候选已轮 869 执行弹出), 消化轮禁新蒸馏不再硬造检索; 夜账=rsi_night 859-869 入账 RSI-INDEX 夜 39[K=0 机械 k_upper=0/E=0/T 0/0 未触发/D 0.9 草稿/工具+1 distill_inject/AMM 3 新立法/C 分母 12; rounds=[] 家族盲区如实注记]+reflection_mine 859-869 四源命中 drift 0/ledger-gap 1(设计内驳回同夜 31 家族)/pit-recurrence 6(人裁=轮号链既定演进非复发, 无机制修复案)/audit 0, 候选 7 条仅草稿未写文件; 置态=GOALS state→BLOCKED-HUMAN(判据双留痕=exit6 verdict+派生评估判否, 段尾夜账先入账, 重入口⇒RUNNING 续跑); 段三数(868-870 段)=队列迭代 1/研究拍 2/簿记拍 1; 台账=零算力簿记拍无 PR; 判单 870; 四门经 closer
+  轮 871 重入口拍+N1-DRAFT-CLEANUP 执行拍=草稿终稿卫生轴(871 段第 1 拍/队列迭代 1/研究拍; 用户令'继续'=重入口条款恢复 RUNNING 同拍; 上置态=轮 870): 接管=锁残留自上段(锁-提交差 14s)+宿主时钟回拨 5.5h(锁龄负数=非活跃信号, 接管清单②③④满足); 派生评估重审判可派生=机械清点草稿正文级中文/轮号注记 11 行+stale v0-TODO 3 处=登记资产吸收义务真供给(AMM-022); 迭代前置蒸馏门三步齐[distill_inject 命中 8 条 top-3 适用=AMM-021 简化等效铁律]; 执行=等效清点单先行+scripts/draft_hygiene_check.py 落地(治理区豁免+CJK+stale 方括号 v0-TODO, 7 用例 240→247)+草稿 10 处表述英文化(语义零改动, 数据读数 5.6e-3/200 ±成对, 新增 814/997=溯源指涉)+871 演化注记; **双坑自抓**(PLAYBOOK 轮 871 双条): 坑A=入队首版 check_cmd 带 || test -s 869 文件恒真兜底⇒全库 pytest 触发 test_gauge_real_repo 真仓 goal_check 实跑⇒假 ACHIEVED 测试驱动真弹出(条目被写回删除)+teardown 删真仓锁——三重异变现场勘验(锁消失/GOALS 外部修改/diff 只剩 state 行)后当拍去兜底恢复条目重验正式弹出, 禁将错就错只补归档; 坑B=该测试加行动条目 skip 守卫+锁状态恢复(还原内容非无条件删); 全程 loop_closer 四门前後双跑比对; 台账=零算力写作拍无 PR; 判单 871; 段三数(871 段)=队列迭代 1/研究拍 1/簿记拍 0
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 

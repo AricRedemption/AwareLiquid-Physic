@@ -128,6 +128,18 @@ def test_folded_scalar_check_cmd_never_executed(tmp_path):
 
 def test_gauge_real_repo_matches_ledger_state():
     """真实仓库一致性:路由裁决必须与台账实况相符(状态驱动,不钉死)。"""
+    goals = (REPO / "docs" / "loop" / "GOALS.md").read_text()
+    # 轮 871 坑守卫:队列含行动条目(status 非 blocked-human/pr-pending)时,
+    # 本用例的真仓 goal_check 会实跑其 check_cmd——达成即消费真供给(弹出)!
+    # 轮 405 条款:测试禁碰真仓可变状态;本用例只验 DEBT 路由,防误弹即跳。
+    queue_m = re.search(r"goal_queue:\n(.*?)```", goals, re.S)
+    if queue_m:
+        statuses = re.findall(r"(?m)^\s*status:\s*(.+)$", queue_m.group(1))
+        if any("blocked-human" not in s and "pr-pending" not in s for s in statuses):
+            pytest.skip("真仓队列含行动条目,防测试消费真供给(轮 871 坑)")
+    lock = REPO / ".loop-lock"
+    had_lock = lock.exists()
+    lock_body = lock.read_text() if had_lock else None
     ledger = (REPO / "docs" / "loop" / "DEBT-LEDGER.md").read_text()
     has_open_debt = bool(
         re.search(r"(?m)^\| *D-\d.*?\|\s*\*{0,2}open(?:\(|\s|\*|\|)", ledger))
@@ -136,7 +148,11 @@ def test_gauge_real_repo_matches_ledger_state():
         assert r.returncode == 4 and "DEBT-FIRST" in r.stdout
     else:
         assert r.returncode != 4 and "DEBT-FIRST" not in r.stdout
-    (REPO / ".loop-lock").unlink(missing_ok=True)  # 设计会话清理心跳,防阻塞下个马拉松
+    # 锁状态恢复(非无条件删):测试前无锁⇒清;有锁⇒还原内容,保活会话 guard 语义
+    if had_lock:
+        lock.write_text(lock_body)
+    else:
+        lock.unlink(missing_ok=True)
 
 
 QUEUE_PENDING_MIXED = """goal_queue:

@@ -4860,3 +4860,30 @@
   (出处:轮 869;适用条件:一切成稿审计/披露面补全/用户门控边界;验证
   状态:已验证=本拍 G2 修入稿+G1 注记门控,判负标准未触发 goal_check
   ACHIEVED 弹出。)
+
+- **check_cmd 禁带 || 存在性兜底=恒真假达成新形态(2026-10-03 轮 871,本轮
+  实证)**:队列条目 check_cmd 写成 `A || test -s <旧文件>`——A 失败时兜底
+  恒真(旧文件当然存在)⇒ goal_check 判 ACHIEVED 假弹出。goal_check 行 287
+  已防"空 cmd/`-` 重定向"两形态,未防 fallback 兜底。实锤链=入队首版带
+  兜底→全库 pytest 触发 test_gauge_real_repo_matches_ledger_state(该用例
+  对真仓 subprocess 跑 goal_check)→真仓队列顶部条目被实跑 check_cmd→
+  恒真判 ACHIEVED→**测试驱动真弹出**(条目被写回删除)→teardown 再删真仓
+  .loop-lock。→ ①check_cmd 禁带 `||` 兜底,done 必须由条目自身产物判(兜底
+  只许指向条目自己的交付物且须后置到交付拍);②测试禁消费真供给(见下条);
+  ③发现条目被意外弹出=恢复条目(去兜底)重验正式弹出+勘误注记,禁将错就错
+  只补归档。
+  (出处:轮 871;适用条件:一切入队 check_cmd 设计+全库 pytest 与真仓队列
+  并发;验证状态:已验证=本拍误弹出实锤+去兜底恢复重验正式 ACHIEVED。)
+
+- **真仓一致性测试须带供给消费守卫+锁状态恢复(2026-10-03 轮 871)**:
+  test_gauge_real_repo_matches_ledger_state 对真仓直接 subprocess 跑
+  goal_check(设计目的=DEBT 路由与台账一致性),副作用=①真仓队列顶部行动
+  条目被实跑 check_cmd(达成即被弹出=测试消费真供给)②goal_check 写锁+
+  teardown 无条件 unlink=活会话 guard 语义被破(并发 guard 误放行双马拉松)
+  ——轮 405"测试对真仓可变状态敏感"家族的破坏性写新形态(非断言敏感,
+  是真变更)。→ ①真仓 goal_check 用例加守卫:队列含行动条目(status 非
+  blocked-human/pr-pending)⇒pytest.skip;②锁=测试前无锁⇒清,有锁⇒还原
+  内容(非无条件删);③同类用例(真仓 subprocess 面)入队新条目前先跑一遍
+  确认守卫生效。
+  (出处:轮 871;适用条件:一切对真仓跑可变更脚本的测试;验证状态:已验证
+  =守卫落地 33 用例绿+锁恢复语义。)
