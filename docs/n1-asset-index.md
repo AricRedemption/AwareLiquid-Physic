@@ -61,6 +61,16 @@ Lubana ICML 2023)对稳定多数成立;N1 表述="prefix 优势对约 1/3 种子
 "结构保持、推断退化"分离——liquid 全三带绝对占优(0.767/7.53/2.65 vs
 static 2.33/9.76/5.90)而 ctx 线性解码带外 corr≈0(守恒结构带外仍在,
 退化的是 ctx 推断);N1 scope 声明升级为量化退化曲线。
+**D1g 起点覆盖剖面(轮 18 START-TIME-SWEEP,[B],3-seed,T1;产物
+start_time_sweep.json git_sha=a9be910 device=cpu;轮 872 入索引)**:
+prefix 在其唯一训练起点 bin2(t≈20-30,配置 t=23)呈深凹陷
+bin-2/mean=0.368(n32)/0.373(n64),all2all 平坦(0.851/0.926,n64
+min 在 bin4 非系统凹陷)⇒ 覆盖密度论证=力场在训练损失采样处准确
+(轮 18 机制判定行,P1 双形状预言命中);主图
+docs/n1-figs/fig1_d1g_profile.png(scripts/n1_fig_d1g.py 自归档产物
+可复现,轮 872 核对留痕=四臂 bin-2/mean 逐位);诚实留痕:PRD 轮 18
+的剖面平坦度 std/mean 口径(0.22-0.23 vs 0.08-0.10)以 3-seed 离散
+复算(0.278/0.182/0.569/0.369)未吻合,口径待考,图未含该读数。
 
 ## 5. Methods 三件套(Methods/实现辩护)
 

@@ -41,6 +41,7 @@
 | `ignite.sh` | **[已弃用,轮 793 AMM-045]** cron/launchd 定时点火路径退役(AMM-010 禁定时语义);保留历史**勿再配置 crontab**;无单测豁免=弃用件 | — |
 | `ladder_scan` | **取活阶梯四级扫描器**(轮 843,AMM-049 实施):exit 6 判否前的后备供给只读扫描——L1 写作轴(DEBT-LEDGER 弱耦合在册+n1-asset-index 未吸收资产)/L2 停车场(scan-*.md 条目行,人工复检解停)/L3 工程硬化(scripts 缺测试+未入 TOOLS 盲区)/L4 蒸馏池(PLAYBOOK 尾条目龄提示);只报数不判定(可行动与否归代理+判单),四级全 0 的本输出=判"全空"的留痕附件;轮 853 起 L1/L2 优先消费 `docs/loop/REGISTRY.md` 机器可读面[state/gate 字段逐条判定, candidate∧gate=none 才计可行动候选],无 REGISTRY 回退散文 grep | `./scripts/ladder_scan [--root DIR]`;测试 `tests/test_ladder_scan.py`(8 用例,含 REGISTRY 结构化+节拍距) |
 | `draft_hygiene_check.py` | **N1 草稿终稿卫生机械检查**(轮 871,N1-DRAFT-CLEANUP check_cmd):治理区(文件头至 `## Abstract` 前)豁免+正文级 CJK 残留检测+stale 方括号 `[v0-TODO` 检测(仅 "title alternatives" 人决项合法存活,纯词元叙述不违禁);rc0=卫生面干净 | `.venv/bin/python scripts/draft_hygiene_check.py [--draft PATH]`;测试 `tests/test_draft_hygiene_check.py`(7 用例,仓外 tmp_path=轮 405 条款) |
+| `n1_fig_d1g.py` | **N1 主图生成器**(轮 872,N1-MAIN-FIGURE):自归档产物 start_time_sweep.json 出 2×2 四板起点剖面(prefix/all2all×n32/n64,归一化+3-seed range 带),内置逐臂 bin-2/mean 核对打印+缺臂断言(禁硬造);Agg 200dpi | `.venv/bin/python scripts/n1_fig_d1g.py [--json PATH] [--out PATH]`;图=docs/n1-figs/fig1_d1g_profile.png(入库资产);核对留痕=轮 872 判单/QUEUE-ARCHIVE |
 | `audit_results.py` | 结果 JSON 溯源 schema 审计(--check 为提交门) | `--check [目录]` |
 | `m1_semigroup_eval.py` | 半群 vs prefix 主对照(gen_spring 出处) | — |
 | `energy_drift_eval.py` | P0-3 守恒漂移对照 | — |
