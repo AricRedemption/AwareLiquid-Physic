@@ -30,3 +30,5 @@
 - TSFM-POSTTRAIN-SURVEY | state=reference | gate=none | src=OpenReview "A Survey of Post-Training in Time Series Foundation Models"(含 DistilTS teacher-student 紧凑学生蒸馏) | 轮 859 L5 首跑入库; 与 N1 compact-student 对照坐标弱耦合, venue 人决后决定是否入 related work
 - EHR-KD-2026 | state=reference | gate=human | src=ResearchGate "Distilling Foundation Models for EHR"(2026-07) | 临床域蒸馏题录, 与本仓域弱耦合
 - REINFORCED-KD-TS | state=reference | gate=none | src=NTU "Reinforced Knowledge Distillation for Time Series" | 时序 KD 方法题录
+- CONS-Q-EVAL | state=reference | gate=none | src="Prediction Is Not Physics: Learning and Evaluating Conserved Quantities"(检索坐标级,轮 868 L5) | 预测精度≠守恒的评估陷阱命题, 与 N1 评估节弱耦合题录, venue 人决后决定是否入 related work
+- LTSF-TAXONOMY-EVAL | state=reference | gate=none | src=arXiv "Time-Series Forecasting Must Adopt Taxonomy-Specific Evaluation"(2026-08, 检索坐标级,轮 868 L5) | LTSF 评估方案批判, N1 评估节引用坐标
