@@ -149,33 +149,12 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   不同不吸收拒绝留痕三条含翻转条件+判否置 BLOCKED-HUMAN 维持[exit 6 @840]
   +夜 34 入账; PLAYBOOK+1 坑[gate-chain 对表法=先辨适用域写明翻转条件];
   段三数=队列迭代 0/研究拍 0/簿记拍 1)。
-  轮 841 用户质询重入口拍=跨仓停止行为复审+架构对齐(841 段第 1 拍/研究
-  拍;用户指令"帮看看为什么又停止了 你看看 M2/sess_96b9af24 为什么一直
-  能迭代不停止 对齐一下架构";轮 836 同型质询复审):**答复=停止语义两仓
-  同构,差别在供给面不在文本;且 M2 侧已三大增量**——①勘误=用户给路径
-  M2/sess_96b9af24.zcode-session 不存在(轮 836 同型), rollout 实文件=
-  ~/.zcode/cli/rollout/model-io-sess_96b9af24*.jsonl ②M2 现状三增量实取
-  (git log+正本+ps 三源): 旧循环轮 105@04:24 用户手动 MODE-OFF(VERDICT=5
-  =循环终止因②手动, M2 也停过!)/AMM-011+AMM-012 已 ADOPTED 落地 v4.3
-  (02:57 阶梯谓词改无可执行项+04:29 守望段方向距 D≥5=轮 837 双向清单
-  M2 侧由用户点火实施, 修改 loop_closer.sh+tests)/新循环轮 106@04:43
-  点火(=96b9af24)现轮 117 在途跟进守望 d16 腿(pid 40268 存活 ~8h,
-  18200/30000, mid_eval~06:15/终评~09:45)③不停机理=队首 doing 腿在途⇒
-  goal_check 每轮守望路由(训练在途≠阻塞), 其停止分支(达成/阶梯全空
-  exit 6/例外连击/空审计×3/MODE-OFF)零触发; 本仓停=供给真空(零 doing
-  腿+余项全门控)⇒exit 6⇒AMM-044/045 用户亲立三部法正确执行; 换装思想
-  实验轮 836 已实锤 ④架构对齐增量=同源同构承前(轮 837), M2 v4.3 新增
-  承重句 24 条测试守护+DISTILL 四栏+方向距行; **时间节流未采纳**(v4.3
-  无时间下限, 实测新循环 ~1min/拍=115→117, 较旧循环 ~3min/拍更快,
-  方向距 D≥5 为兜底)——用户范围裁剪如实注记非缺陷 ⑤本仓侧对应=AMM-048
-  五件协议全保持(v5.2 事件时钟+方向义务双兜底, 无缺口)。⇒本唤醒段蒸馏
-  义务=本拍复审即良信尝试(拒绝"本仓 prompt 多停缺陷"假说, 增量证据三
-  留痕)⇒AMM-047 三条件齐判否(goal_check exit 6 @841 显式码+欠账 0
-  fresh+闭族闭轴承前)⇒夜 35 覆 841 段尾入账⇒置 BLOCKED-HUMAN 维持。
-  PLAYBOOK+1 坑(同型质询重答须先取对端增量, 旧结论可能已过时); 计数器
-  838 压段史摘要(家规 3 轮=839/840/841); 台账=零算力审计拍无 PR; 判单
-  841; 段三数(841 段)=队列迭代 0/研究拍 1/簿记拍 0(夜 35=段尾合法触发);
-  四门经 closer 全绿。
+  **段史摘要(轮 841;逐轮详文唯一源=git log+RSI-INDEX 夜 35 行)**:
+  841=用户质询重入口拍=跨仓停止行为复审+架构对齐(答复=停止语义两仓同
+  构差别在供给面; M2 三大增量=旧循环 04:24 用户手动 MODE-OFF+AMM-011/
+  012 落地 v4.3+新循环 04:43 点火现轮 117 守望 d16 腿 8h+; 时间节流未
+  采纳如实注记, 方向距 D≥5 兜底; PLAYBOOK+1 坑[同型质询重答先取对端
+  增量]; 夜 35 入账; 段三数=队列迭代 0/研究拍 1/簿记拍 0)。
   轮 842 用户令重入口拍=AMM-049 取活阶梯立法实施轮(842 段第 1 拍/研究拍=
   工程硬化; 用户指令"先看一下怎么去改造成他的那种形式, 先让 goal 的目标
   不要停下来, 先做这个最小化的改造, 给出排出优先级清单"; **迭代前置蒸馏
@@ -217,6 +196,14 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   修补候选) ⑤同心跳弹出归档(工程条目 done_condition 达成, QUEUE-ARCHIVE
   +1)。台账=零算力硬化拍无 PR; 判单 843; 段三数(842 段累计)=队列迭代 1/
   研究拍 2/簿记拍 0; 四门经 closer 全绿。
+  轮 844 阶梯取活拍=AMM-049 首次实战生效(842 段第 3 拍/研究拍; goal_check
+  exit 6 @844 显式码⇒取活阶梯扫描 ladder_scan: L1=8/L2=6/L3=8/L4 龄 0⇒
+  可行动>0⇒判"否"不成立⇒取活续跑不出段——供给面改造直接效果, 同形态旧
+  体系本拍即置 BLOCKED-HUMAN): ①L3 真伪核实(grep TOOLS 四工具零提及=
+  ladder_scan 判定与人工核实一致非误报; ignite/stop_gate 有提及=零误报)
+  ②入队 HARDEN-TOOLS-GAPS(todo, check_cmd="未入"行归零; marathon_guard=
+  恢复入口最承重优先)。台账=零算力取活拍无 PR; 判单 844; 段三数(842 段
+  累计)=队列迭代 1/研究拍 3/簿记拍 0; 四门经 closer 全绿。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -227,6 +214,12 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
+- id: HARDEN-TOOLS-GAPS
+    track: engineering
+    goal: TOOLS 工具索引缺位修补(轮 844 ladder_scan L3 实证四缺位: marathon_guard[恢复入口/防双跑, 最承重]/hidden_check[隐藏卷纪律执行器]/iteration[总开关]/headless_loop.sh, 各补条目一行)+无测试四工具[headless_loop/hidden_check/ignite/iteration]补测试或逐项标注豁免理由
+    done_condition: ladder_scan "未入 TOOLS"行=0 且无测试行归零或逐项标注豁免
+    check_cmd: test "$(./scripts/ladder_scan | grep -c '未入' || true)" = 0
+    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)
