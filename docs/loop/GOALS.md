@@ -189,19 +189,10 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   849=新会话重入口取活拍(exit 6⇒ladder_scan⇒发现 goal_check --audit AMM
   卫生缺口与轮 453 裁决冲突⇒修=已知态单列+229 测试绿, 提交 5f5f65d;
   AMM-049 冷启动首取活实证)。
-  轮 850 置态拍=AMM-049"取尽方休"第二次实证(850 段第 1 拍/簿记拍[段尾夜账合法触发]):
-  exit 6 @850⇒派生评估判否(三条件齐: ①欠账 0 含弱耦合=DEBT-LEDGER
-  D_count=0+轮 827 六条清零后零新增 ②本段良信尝试=849 ladder 复扫+
-  L3 复检扩展面+850 AMM-034 停车场①核真=草稿 grep v0-TODO 仅 2 实体
-  [题目 venue 人决项/998 计算门控], '4 处 TODO'中 1 处已被轮 258 收窄
-  ③闭族闭轴 812/821/823+836/837)⇒取活阶梯四级全空逐行定性留痕[L1=8
-  全携 846 处置非 fresh/L2=6 全绑定 T2T3+AMM-034 停车场人决/算力门控/
-  L3 机械 0+登记轴 849 已闭/L4 龄 0-1 天<7]⇒夜 37 覆 847-850 段尾入账
-  (D=0.75 如实注 847 交付格式误系用户侧检出)⇒置 BLOCKED-HUMAN[剩余全
-  用户门控零催促: T2/T3 算力 rc=3/PR 合并 60 open/投稿终稿+venue 人决/
-  997 预注册题目/AMM-025③+AMM-026 待裁]。台账=零算力置态拍无 PR;
-  判单 850; 段三数(847-850 跨段)=队列迭代 1/研究拍 1/簿记拍 3(夜 37=
-  段尾合法触发); 四门经 closer 全绿。
+  **段史摘要(轮 850;逐轮详文唯一源=git log+RSI-INDEX 夜 37 行)**:
+  850=新会话置态拍(exit 6⇒派生评估判否三条件+阶梯四级全空逐行定性留痕
+  [盘面确实空, 漏在盘面外对话清单面=轮 852 修正]+夜 37 覆 847-850 入账
+  +提交 0fa3ef4; 宿主完成校验器判唯一合法终态达成收会话=设计内)。
   轮 851 用户质询重入口拍=新会话停机链审计(851 段第 1 拍/研究拍; 用户
   指令"sess_022b0990 执行一轮就停止了 看看这里为什么校验目标通过了";
   rollout 实文件 15.6MB 79 往返逐行解析[用户路径 Again 不存在, 轮 841 坑
@@ -236,7 +227,17 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   再推 ③PLAYBOOK+1 坑(清单交付必须同拍入队或登记, 禁只留对话散文; 判
   枯须扫当段对话内交付面) ④自抓=851 拍详文粘连(立坑者自违轮 846 条
   款), 本拍拆行修复。台账=零算力复审拍无 PR; 判单 852; 段三数(852 段)=
-  队列迭代 0/研究拍 1/簿记拍 0; 四门经 closer 全绿。
+  队列迭代 0/研究拍 1/簿记拍 0; 四门经 closer 全绿。  轮 853 REGISTRY-STRUCT 执行拍=登记面结构化落地(852 段第 2 拍/研究拍=
+  工程硬化; exit 1 弹出): ①docs/loop/REGISTRY.md 机器可读镜像 14 条全量
+  [写作轴 8+停车场 6; 每条 state=absorbed/closed/gated/candidate+gate=
+  none/compute/human+src 出处; 规则=新候选同拍登记(轮 852 条款)+state
+  迁移只增不改原判定行] ②ladder_scan L1/L2 升级消费结构化面(REGISTRY
+  在位⇒逐条 state 判定+counts 摘要, candidate∧gate=none 才计可行动候选;
+  缺位回退散文 grep; +1 测试=7 用例 229→230 实测) ③真面首判=L1
+  candidate=0∧L2 gated=6=与轮 846 逐行核真机械一致(REGISTRY 化首次兑现:
+  判"全空"从散文推理变机械读数) ④check_cmd rc0=达成⇒同心跳弹出归档。
+  台账=零算力硬化拍无 PR; 判单 853; 段三数(852 段累计)=队列迭代 1/研究
+  拍 2/簿记拍 0; 四门经 closer 全绿。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -247,12 +248,6 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
-- id: REGISTRY-STRUCT
-    track: engineering
-    goal: 供给登记面结构化(轮 842 清单 P2, 轮 852 取活入队): asset-index 各条目补机器可读状态行(吸收状态: absorbed/closed/gated/candidate+耦合面), 停车场登记节迁 docs/loop/REGISTRY.md(每条: id/解停条件/门控面), ladder_scan L1/L2 升级消费结构化面=精确判"未吸收/可解析解停"替代散文 grep 计数
-    done_condition: docs/loop/REGISTRY.md 在位+ladder_scan L1/L2 输出含结构化判定(非纯行计数)+测试过
-    check_cmd: test -f docs/loop/REGISTRY.md && ./scripts/ladder_scan | grep -q "REGISTRY"
-    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

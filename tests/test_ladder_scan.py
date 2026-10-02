@@ -95,3 +95,26 @@ def test_l3_exempt_marker_suppresses_untested_report(tmp_path):
     rows = ladder_scan.scan_l3_hardening(root)
     assert not any("waived_tool" in r and "无对应" in r for r in rows)
     assert not any("waived_tool" in r and "未入" in r for r in rows)
+
+
+def test_registry_structured_l1_l2(tmp_path):
+    root = _make_root(tmp_path)
+    (root / "docs/loop/REGISTRY.md").write_text(
+        dedent("""
+        # REGISTRY
+        ## 写作轴(L1)
+        - A1 | state=candidate | gate=none | src=x | 真候选
+        - A2 | state=gated | gate=compute | src=y | 算力门控
+        - A3 | state=closed | gate=none | src=z | 已处置
+        ## 停车场(L2)
+        - P1 | state=gated | gate=human | src=w | 人决项
+        """),
+        encoding="utf-8",
+    )
+    l1 = ladder_scan.scan_l1_writing(root)
+    l2 = ladder_scan.scan_l2_parking(root)
+    assert l1[0][0] == "REGISTRY" and l2[0][0] == "REGISTRY"
+    _, _, c1 = l1[0]
+    assert c1 == {"candidate": 1, "gated": 1, "closed": 1}
+    _, _, c2 = l2[0]
+    assert c2 == {"gated": 1}

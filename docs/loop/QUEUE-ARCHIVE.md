@@ -215,3 +215,6 @@ archived_pr:
 - id: AMM-AUDIT-453-ALIGN
   status: done(轮 849 完成弹出:governance track, 轮 849 重入口取活拍登记入队当拍执行[用户粘贴 GOAL-PROMPT v9.8 放行; 轮 847 注记之'待后续硬化轴'=AMM-049 L3 复检扩展面:登记在案硬化轴注记纳入人工复检], 执行拍 goal_check --audit 卫生检查三分流[状态行点锚'轮 N'=归属/'登记轮≤N'=已知态单列(真仓 31 条全归此桶)/真缺号=缺号口径]+已知态文案载轮 453 裁决语义禁补点锚禁元轮号+tests +1 用例[32→33, 229 全绿实测]+TOOLS goal_check 条目同步+PLAYBOOK+1 坑; done_condition 实测达成=audit 真面输出已知态 31 条单列+缺号 0[本拍留痕]; check_cmd 用源码标记 grep(全量 audit 递归自演算>30s 演练超时, 换快速锚=HARDEN-TOOLS-GAPS 先例同型); 零算力硬化拍无 PR)
   check_cmd: grep -q "AMM 卫生·已知态" scripts/goal_check
+- id: REGISTRY-STRUCT
+  status: done(轮 853 完成弹出:engineering track, 轮 852 取活入队[850 判枯过松修正=P2 清单对话面落盘], 执行拍落地 docs/loop/REGISTRY.md 机器可读镜像 14 条全量[写作轴 8+停车场 6, state=absorbed/closed/gated/candidate+gate=none/compute/human]+ladder_scan L1/L2 升级消费结构化面[+1 测试=7 用例 229→230 实测]; 真面首判 L1 candidate=0∧L2 gated=6=与轮 846 逐行核真机械一致)
+  check_cmd: test -f docs/loop/REGISTRY.md && ./scripts/ladder_scan | grep -q "REGISTRY"

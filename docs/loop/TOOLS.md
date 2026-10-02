@@ -37,7 +37,7 @@
 | `iteration` | **迭代总开关 CLI**(AMM-003):GOALS mode/iteration_window 的命令面(start 可携新 goal/window 文本);无单测豁免=直改 GOALS 唯一真相源(单测须沙盒仓面,收益低) | `./scripts/iteration start|stop` |
 | `headless_loop.sh` | **[已弃用,轮 793 AMM-045]** sleep 轮询式监督已退役:驱动唯一源=goal_check 逐轮达成检测+stop_gate 状态闸;保留历史**勿再启用**(启用即双跑+轮询坑复发);无单测豁免=弃用件 | — |
 | `ignite.sh` | **[已弃用,轮 793 AMM-045]** cron/launchd 定时点火路径退役(AMM-010 禁定时语义);保留历史**勿再配置 crontab**;无单测豁免=弃用件 | — |
-| `ladder_scan` | **取活阶梯四级扫描器**(轮 843,AMM-049 实施):exit 6 判否前的后备供给只读扫描——L1 写作轴(DEBT-LEDGER 弱耦合在册+n1-asset-index 未吸收资产)/L2 停车场(scan-*.md 条目行,人工复检解停)/L3 工程硬化(scripts 缺测试+未入 TOOLS 盲区)/L4 蒸馏池(PLAYBOOK 尾条目龄提示);只报数不判定(可行动与否归代理+判单),四级全 0 的本输出=判"全空"的留痕附件 | `./scripts/ladder_scan [--root DIR]`;测试 `tests/test_ladder_scan.py`(6 用例,含豁免识别) |
+| `ladder_scan` | **取活阶梯四级扫描器**(轮 843,AMM-049 实施):exit 6 判否前的后备供给只读扫描——L1 写作轴(DEBT-LEDGER 弱耦合在册+n1-asset-index 未吸收资产)/L2 停车场(scan-*.md 条目行,人工复检解停)/L3 工程硬化(scripts 缺测试+未入 TOOLS 盲区)/L4 蒸馏池(PLAYBOOK 尾条目龄提示);只报数不判定(可行动与否归代理+判单),四级全 0 的本输出=判"全空"的留痕附件;轮 853 起 L1/L2 优先消费 `docs/loop/REGISTRY.md` 机器可读面[state/gate 字段逐条判定, candidate∧gate=none 才计可行动候选],无 REGISTRY 回退散文 grep | `./scripts/ladder_scan [--root DIR]`;测试 `tests/test_ladder_scan.py`(7 用例,含 REGISTRY 结构化) |
 | `audit_results.py` | 结果 JSON 溯源 schema 审计(--check 为提交门) | `--check [目录]` |
 | `m1_semigroup_eval.py` | 半群 vs prefix 主对照(gen_spring 出处) | — |
 | `energy_drift_eval.py` | P0-3 守恒漂移对照 | — |

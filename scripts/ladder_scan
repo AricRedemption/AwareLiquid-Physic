@@ -31,7 +31,36 @@ def _grep(path: Path, pattern: str, limit: int = 8):
     return hits
 
 
+def _registry_section(root: Path, header: str):
+    """解析 REGISTRY.md 指定节(state 机器可读面,轮 853)。
+
+    返回 (rows, counts):rows=逐条描述行,counts={'candidate':n,'gated':n,...}。
+    """
+    reg = root / "docs/loop/REGISTRY.md"
+    if not reg.exists():
+        return None, None
+    text = reg.read_text(encoding="utf-8", errors="replace")
+    m = re.search(rf"## {header}\n(.*?)(?=\n## |\Z)", text, re.S)
+    if not m:
+        return [], {}
+    rows, counts = [], {}
+    for line in m.group(1).splitlines():
+        line = line.strip()
+        if not line.startswith("- "):
+            continue
+        sm = re.search(r"state=(\w+)", line)
+        gm = re.search(r"gate=(\w+)", line)
+        state = sm.group(1) if sm else "unknown"
+        gate = gm.group(1) if gm else "unknown"
+        counts[state] = counts.get(state, 0) + 1
+        rows.append(f"{line[:120]} [state={state} gate={gate}]")
+    return rows, counts
+
+
 def scan_l1_writing(root: Path):
+    rows, counts = _registry_section(root, "写作轴\\(L1\\)")
+    if rows is not None:
+        return [("REGISTRY", rows, counts)]
     rows = []
     ledger = root / "docs/loop/DEBT-LEDGER.md"
     rows += [r for r in _grep(ledger, r"弱耦合|写作轴") if "closed" not in r.lower()]
@@ -41,6 +70,9 @@ def scan_l1_writing(root: Path):
 
 
 def scan_l2_parking(root: Path):
+    rows, counts = _registry_section(root, "停车场\\(L2\\)")
+    if rows is not None:
+        return [("REGISTRY", rows, counts)]
     rows = []
     for scan in sorted(root.glob("docs/scan-*.md")):
         rows += _grep(scan, r"停车场", limit=6)
@@ -104,14 +136,26 @@ def main():
     l4, last_entry = scan_l4_distill(root)
 
     print("LADDER-SCAN(AMM-049 取活阶梯,只读报数;判定归代理+判单)")
-    print(f"L1 写作轴: {len(l1)} 行")
-    for r in l1:
-        print(f"  - {r}")
-    print("  → 处置: 在册行⇒零算力写作轴可派生(登记吸收=可行动>0)")
-    print(f"L2 停车场: {len(l2)} 条目行")
-    for r in l2:
-        print(f"  - {r}")
-    print("  → 处置: 逐条人工复检解停条件(T2/T3 重启/新证据);禁列 PR 项")
+
+    def _render(level_name, items, guide):
+        """items=普通行列表 或 [("REGISTRY", rows, counts)] 结构化包装。"""
+        if items and isinstance(items[0], tuple) and items[0][0] == "REGISTRY":
+            _, rows, counts = items[0]
+            detail = " ".join(f"{k}={v}" for k, v in sorted(counts.items()))
+            print(f"{level_name}: REGISTRY 结构化判定 [{detail}]")
+            for r in rows:
+                print(f"  - {r}")
+            n_cand = counts.get("candidate", 0)
+            print(f"  → {guide}(state=candidate∧gate=none 才计可行动候选;gated=门控耦合零催促)")
+            return n_cand
+        print(f"{level_name}: {len(items)} 行")
+        for r in items:
+            print(f"  - {r}")
+        print(f"  → {guide}")
+        return len(items)
+
+    n1 = _render("L1 写作轴", l1, "处置: candidate∧gate=none⇒零算力写作轴可派生(登记吸收=可行动>0)")
+    n2 = _render("L2 停车场", l2, "处置: 逐条人工复检解停条件(T2/T3 重启/新证据);禁列 PR 项")
     print(f"L3 工程硬化: {len(l3)} 盲区")
     for r in l3:
         print(f"  - {r}")
@@ -120,8 +164,8 @@ def main():
     for r in l4:
         print(f"  - {r}")
     print("  → 处置: 池枯且确需社区经验⇒蒸馏补池轮(同 query 族换法 ≤3)")
-    total = len(l1) + len(l2) + len(l3)
-    print(f"TOTAL leads: L1={len(l1)} L2={len(l2)} L3={len(l3)}(四级全 0 且 L4 无陈旧⇒判'全空'须轮记录留痕本输出)")
+    total = n1 + n2 + len(l3)
+    print(f"TOTAL leads: L1={n1} L2={n2} L3={len(l3)}(四级全 0 且 L4 无陈旧⇒判'全空'须轮记录留痕本输出)")
     return 0
 
 
