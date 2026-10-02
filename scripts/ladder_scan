@@ -104,14 +104,31 @@ def scan_l4_distill(root: Path, stale_days: int = 7):
     pb = root / "docs/loop/PLAYBOOK.md"
     if not pb.exists():
         return rows, None
-    ages = []
-    today = dt.date.today()
+    # 节拍距 N(M2 AMM-011 十轮节拍本仓化,轮 855)=判单链尾轮−最近夜账入账轮
+    beat = None
+    dg = root / "docs/loop/direction-gate.jsonl"
+    rsi = root / "docs/loop/RSI-INDEX.md"
+    last_round = last_night = None
+    if dg.exists():
+        for line in dg.read_text(encoding="utf-8", errors="replace").splitlines():
+            m = re.search(r'"round":\s*(\d+)', line)
+            if m:
+                last_round = int(m.group(1))
+    if rsi.exists():
+        for line in rsi.read_text(encoding="utf-8", errors="replace").splitlines():
+            m = re.search(r"入账\(轮 (\d+)\)", line)
+            if m:
+                last_night = int(m.group(1))
+    if last_round is not None and last_night is not None:
+        beat = last_round - last_night
+        rows.append(f"节拍距 N={beat}(判单链尾 {last_round}−最近夜账入账 {last_night})"
+                    + ("; N≥10⇒强制节拍检查(夜账断喂/scan 复检/蒸馏补池)" if beat >= 10 else ""))
     last = None
+    today = dt.date.today()
     for line in pb.read_text(encoding="utf-8", errors="replace").splitlines():
         m = PLAYBOOK_ENTRY.search(line)
         if m:
             last = m.group(0)
-    # 尾条目龄用 git 不可得时退化为"未检出";此处置仅提示不判数
     if last is None:
         rows.append("PLAYBOOK 尾条目日期未检出(格式漂移?人工复检)")
     else:

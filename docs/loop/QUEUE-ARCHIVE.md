@@ -218,3 +218,6 @@ archived_pr:
 - id: REGISTRY-STRUCT
   status: done(轮 853 完成弹出:engineering track, 轮 852 取活入队[850 判枯过松修正=P2 清单对话面落盘], 执行拍落地 docs/loop/REGISTRY.md 机器可读镜像 14 条全量[写作轴 8+停车场 6, state=absorbed/closed/gated/candidate+gate=none/compute/human]+ladder_scan L1/L2 升级消费结构化面[+1 测试=7 用例 229→230 实测]; 真面首判 L1 candidate=0∧L2 gated=6=与轮 846 逐行核真机械一致)
   check_cmd: test -f docs/loop/REGISTRY.md && ./scripts/ladder_scan | grep -q "REGISTRY"
+- id: DISTILL-BEAT
+  status: done(轮 855 完成弹出:engineering track, 轮 854 对话面扫描取活入队[轮 852 块②首次生效], 执行拍 ladder_scan L4 升级输出节拍距 N=判单链尾轮−最近夜账入账轮[+1 测试=8 用例 230→231 实测, N≥10⇒强制节拍检查提示]=M2 AMM-011 十轮节拍本仓化; 真面 N=4)
+  check_cmd: ./scripts/ladder_scan | grep -q "节拍距"

@@ -118,3 +118,20 @@ def test_registry_structured_l1_l2(tmp_path):
     assert c1 == {"candidate": 1, "gated": 1, "closed": 1}
     _, _, c2 = l2[0]
     assert c2 == {"gated": 1}
+
+
+def test_l4_beat_distance(tmp_path):
+    root = _make_root(tmp_path)
+    (root / "docs/loop/direction-gate.jsonl").write_text(
+        '{"round": 850}\n{"round": 855}\n', encoding="utf-8"
+    )
+    (root / "docs/loop/RSI-INDEX.md").write_text(
+        "| 36 | ... | 入账(轮 846)段 |\n| 37 | ... | 入账(轮 850)段 |\n",
+        encoding="utf-8",
+    )
+    rows, _ = ladder_scan.scan_l4_distill(root)
+    assert any("节拍距 N=5" in r for r in rows)
+    assert not any("N≥10" in r for r in rows)
+    (root / "docs/loop/direction-gate.jsonl").write_text('{"round": 861}\n', encoding="utf-8")
+    rows, _ = ladder_scan.scan_l4_distill(root)
+    assert any("节拍距 N=11" in r and "强制节拍检查" in r for r in rows)
