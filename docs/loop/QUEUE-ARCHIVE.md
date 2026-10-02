@@ -221,3 +221,6 @@ archived_pr:
 - id: DISTILL-BEAT
   status: done(轮 855 完成弹出:engineering track, 轮 854 对话面扫描取活入队[轮 852 块②首次生效], 执行拍 ladder_scan L4 升级输出节拍距 N=判单链尾轮−最近夜账入账轮[+1 测试=8 用例 230→231 实测, N≥10⇒强制节拍检查提示]=M2 AMM-011 十轮节拍本仓化; 真面 N=4)
   check_cmd: ./scripts/ladder_scan | grep -q "节拍距"
+- id: NOTE-APPENDER
+  status: done(轮 857 完成弹出:engineering track, 轮 856 取活入队[粘连四犯机械化], 执行拍 scripts/note_append 落地[换行另起行+缩进归一+计数打印家规超限退出 1]+4 用例[231→235 实测]; 狗粮首跑=本拍 857 详文即由该工具写入并正确拦截计数 4>3 提示折叠; 自抓=工具首版锚前无空行结构粘连 bug 测试首跑即拦+真仓三处历史粘连拆行+压 851-854 归家规)
+  check_cmd: test -f scripts/note_append && .venv/bin/python -m pytest tests/test_note_append.py -q >/dev/null 2>&1

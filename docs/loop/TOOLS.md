@@ -35,6 +35,7 @@
 | `marathon_guard` | **双跑守卫**(会话入口):锁新鲜+活进程迹象检测,exit 0=畅通/exit 1=锁在(按 GOALS 细则区锁判读证据链处置:死轮残留删锁接管/疑真并行停勿双开);测试 `tests/test_marathon_guard.py` | `./scripts/marathon_guard` |
 | `hidden_check` | **隐藏集一次性终跑器**(G3/轮 49):自动选最小未消耗隐藏 seed(998 递减,查 RSI-INDEX 消耗登记表)+标准 4 臂+机械判定+自动登记;无单测豁免=T 一次性终跑信号唯一性(单测稀释一次性语义),只服务终局声明 | `./scripts/hidden_check [--seed N]` |
 | `iteration` | **迭代总开关 CLI**(AMM-003):GOALS mode/iteration_window 的命令面(start 可携新 goal/window 文本);无单测豁免=直改 GOALS 唯一真相源(单测须沙盒仓面,收益低) | `./scripts/iteration start|stop` |
+| `note_append` | **GOALS 轮详文追加单命令**(轮 857,粘连四犯的机械化消灭):换行另起行+行首两空格归一+追加后详文块计数打印(家规 ≤3,超限退出 1 提示折叠);**此后详文追加唯一入口=本工具,禁手写 python 拼接**(轮 846/851/852/854/853-856 五处粘连的机械消灭);自详文即由本工具写入=狗粮 | `./scripts/note_append --round N --text "…"`;测试 `tests/test_note_append.py`(4 用例) |
 | `headless_loop.sh` | **[已弃用,轮 793 AMM-045]** sleep 轮询式监督已退役:驱动唯一源=goal_check 逐轮达成检测+stop_gate 状态闸;保留历史**勿再启用**(启用即双跑+轮询坑复发);无单测豁免=弃用件 | — |
 | `ignite.sh` | **[已弃用,轮 793 AMM-045]** cron/launchd 定时点火路径退役(AMM-010 禁定时语义);保留历史**勿再配置 crontab**;无单测豁免=弃用件 | — |
 | `ladder_scan` | **取活阶梯四级扫描器**(轮 843,AMM-049 实施):exit 6 判否前的后备供给只读扫描——L1 写作轴(DEBT-LEDGER 弱耦合在册+n1-asset-index 未吸收资产)/L2 停车场(scan-*.md 条目行,人工复检解停)/L3 工程硬化(scripts 缺测试+未入 TOOLS 盲区)/L4 蒸馏池(PLAYBOOK 尾条目龄提示);只报数不判定(可行动与否归代理+判单),四级全 0 的本输出=判"全空"的留痕附件;轮 853 起 L1/L2 优先消费 `docs/loop/REGISTRY.md` 机器可读面[state/gate 字段逐条判定, candidate∧gate=none 才计可行动候选],无 REGISTRY 回退散文 grep | `./scripts/ladder_scan [--root DIR]`;测试 `tests/test_ladder_scan.py`(8 用例,含 REGISTRY 结构化+节拍距) |
