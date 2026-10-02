@@ -155,32 +155,14 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   012 落地 v4.3+新循环 04:43 点火现轮 117 守望 d16 腿 8h+; 时间节流未
   采纳如实注记, 方向距 D≥5 兜底; PLAYBOOK+1 坑[同型质询重答先取对端
   增量]; 夜 35 入账; 段三数=队列迭代 0/研究拍 1/簿记拍 0)。
-  轮 842 用户令重入口拍=AMM-049 取活阶梯立法实施轮(842 段第 1 拍/研究拍=
-  工程硬化; 用户指令"先看一下怎么去改造成他的那种形式, 先让 goal 的目标
-  不要停下来, 先做这个最小化的改造, 给出排出优先级清单"; **迭代前置蒸馏
-  门三步**: 现状=轮 841 复审定性供给面差异[M2 阶梯取活五级实证连转, 本仓
-  exit 6 判否即休]/问题=零算力供给扫描靠当轮代理散文推理未成机械阶梯=
-  供给面单薄段均一两拍即休/目标=阶梯有活⇒续跑不出段, 四级全空留痕方休
-  (决策耦合: 扫描出可行动项⇒置 RUNNING; 全空⇒等待态保留=诚实边界不变);
-  蒸馏对表=池内 3 条[轮 837 对齐审计=M2 阶梯取活实证+轮 838 移植落地三
-  件套+轮 841 同型质询增量法, 出处/适用条件/验证状态齐]; 定变量=改造包
-  [AMM-049 立法+承重句+1+队列入项](组合=单变量整体迭代 RECIPE 先例,
-  立法/测试/入项内部归因分立)):①AMENDMENTS +AMM-049(四级阶梯 L1 写作轴/
-  L2 停车场复检/L3 工程硬化/L4 蒸馏补池; 判否前置; 四级全空留痕方休;
-  诚实边界三禁[假动作/自造簿记/无耦合空转]+goal_check 机械语义不变+
-  不引入 PARKED 不建 cron)同轮 APPLIED(用户令=授权, 轮 832 先例)。
-  ②正本 v9.7→v9.8 四处(版本行/停止权外置"可行动 0"定义扩=阶梯四级全空/
-  分支 2③ 衔接/分支 6 判否前置阶梯); 承重句不变式 30→31(+取活阶梯)。
-  ③GOALS 心跳注记同步(单源链=正本/GOALS 注记/goal_check 三处, 路由器
-  无读文件义务 834 定案不动)+队列入 LADDER-SCAN-TOOL(todo, =阶梯第一滚
-  供给, 下心跳即执行)+state RUNNING(阶梯有活=可行动>0)。④优先级清单
-  已交付用户(P0 立法本拍/P1 ladder_scan 工具化=队列首条/P2 供给登记面
-  结构化/P3 停车场解停入 check_cmd/P4 蒸馏补池节拍化/P5 用户门控面
-  [T2T3/997/PR 合并])。⇒验收=pytest 31/31 承重句+四门 closer; 台账=
-  零算力立法拍无 PR; 判单 842; 段三数(842 段)=队列迭代 0/研究拍 1/簿记
-  拍 0; 循环连续实证=下心跳 goal_check exit 1(LADDER-SCAN-TOOL 可执行);
-  ⑤closer 实战拦截 1 次(LADDER-SCAN-TOOL 缺 check_cmd=数数锚不平衡, 当拍
-  补齐复绿)=closer 第三例狗粮, 手工逐门恐漏)。
+  **段史摘要(轮 842;逐轮详文唯一源=git log+RSI-INDEX 无夜行[段延续])**:
+  842=用户令重入口拍=AMM-049 取活阶梯立法实施轮(用户指令"改造成 M2 形
+  式先让目标不停, 最小化改造+优先级清单"; 迭代前置三步齐[蒸馏对表池内 3
+  条]: AMENDMENTS +AMM-049 四级阶梯判否前置/四级全空留痕方休/诚实边界三
+  禁 同轮 APPLIED+正本 v9.7→v9.8 四处+承重句 30→31+GOALS 注记/队列/
+  state 三处同步+队列入 LADDER-SCAN-TOOL+优先级清单 P0-P5 交付; closer
+  拦红 1 次[缺 check_cmd=数数锚]当拍修=第三例狗粮; 段三数=队列迭代 0/
+  研究拍 1/簿记拍 0)。
   轮 843 LADDER-SCAN-TOOL 执行拍=阶梯第一滚供给落地(842 段第 2 拍/研究拍=
   工程硬化; goal_check exit 1 弹出=AMM-049 后循环连续首实证): ①scripts/
   ladder_scan 落地(四级只读扫描器: L1 写作轴=DEBT-LEDGER 弱耦合在册+
@@ -195,7 +177,18 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   =阶梯供给非空实证⇒可行动>0⇒下拍取活续跑(L3 最便宜项=TOOLS 缺位核实
   修补候选) ⑤同心跳弹出归档(工程条目 done_condition 达成, QUEUE-ARCHIVE
   +1)。台账=零算力硬化拍无 PR; 判单 843; 段三数(842 段累计)=队列迭代 1/
-  研究拍 2/簿记拍 0; 四门经 closer 全绿。
+  研究拍 2/簿记拍 0; 四门经 closer 全绿。  轮 844 阶梯取活拍=AMM-049 首次实战生效(842 段第 3 拍; exit 6 @844⇒
+  ladder_scan L1=8/L2=6/L3=8⇒可行动>0⇒取活续跑不出段, 旧体系本拍即置
+  BLOCKED-HUMAN; L3 真伪核实零误报; 入队 HARDEN-TOOLS-GAPS[marathon_
+  guard 最承重优先])。台账=零算力取活拍无 PR; 判单 844。
+  轮 845 HARDEN-TOOLS-GAPS 执行拍=TOOLS 缺位修补(842 段第 4 拍; exit 1
+  弹出): ①TOOLS +5 条目(marathon_guard 恢复入口/hidden_check 隐藏终跑器
+  [无单测豁免=T 一次性信号唯一性]/iteration 总开关[豁免=直改真相源]/
+  headless_loop.sh+ignite.sh=[已弃用 轮 793]标注勿启用) ②ladder_scan
+  +豁免识别(TOOLS 条目行含"豁免"的无测试工具不报盲区; +1 用例=6 用例
+  227→228 实测) ③复扫 L3=0 盲区+check_cmd rc0=达成⇒同心跳弹出归档
+  (QUEUE-ARCHIVE +1)。台账=零算力硬化拍无 PR; 判单 845; 段三数(842 段
+  累计)=队列迭代 2/研究拍 4/簿记拍 0; 四门经 closer 全绿。
   轮 844 阶梯取活拍=AMM-049 首次实战生效(842 段第 3 拍/研究拍; goal_check
   exit 6 @844 显式码⇒取活阶梯扫描 ladder_scan: L1=8/L2=6/L3=8/L4 龄 0⇒
   可行动>0⇒判"否"不成立⇒取活续跑不出段——供给面改造直接效果, 同形态旧
@@ -214,12 +207,6 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
-- id: HARDEN-TOOLS-GAPS
-    track: engineering
-    goal: TOOLS 工具索引缺位修补(轮 844 ladder_scan L3 实证四缺位: marathon_guard[恢复入口/防双跑, 最承重]/hidden_check[隐藏卷纪律执行器]/iteration[总开关]/headless_loop.sh, 各补条目一行)+无测试四工具[headless_loop/hidden_check/ignite/iteration]补测试或逐项标注豁免理由
-    done_condition: ladder_scan "未入 TOOLS"行=0 且无测试行归零或逐项标注豁免
-    check_cmd: test "$(./scripts/ladder_scan | grep -c '未入' || true)" = 0
-    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

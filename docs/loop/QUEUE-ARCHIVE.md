@@ -209,3 +209,6 @@ archived_pr:
 - id: LADDER-SCAN-TOOL
   status: done(轮 843 完成弹出:engineering track, 轮 842 用户令 AMM-049 取活阶梯立法拍入队[阶梯第一滚供给=改造最小化闭环], 执行拍落地 scripts/ladder_scan 四级只读扫描器[L1 写作轴/L2 停车场/L3 硬化盲区/L4 蒸馏池龄; 只报数不判定, 全空输出=判空留痕附件]+tests/test_ladder_scan.py 5 用例[222→227 实测]+TOOLS 条目; 本仓真面首跑=L1 8/L2 6/L3 8=阶梯供给非空实证)
   check_cmd: test -f scripts/ladder_scan && .venv/bin/python -m pytest tests/test_ladder_scan.py -q >/dev/null 2>&1
+- id: HARDEN-TOOLS-GAPS
+  status: done(轮 845 完成弹出:engineering track, 轮 844 阶梯取活拍入队[AMM-049 首次实战生效后第一取活轴], 执行拍 TOOLS +5 条目[marathon_guard/hidden_check 豁免=T 一次性信号唯一性/iteration 豁免=直改真相源/headless_loop.sh+ignite.sh=已弃用轮 793 标注勿启用]+ladder_scan 豁免识别[+1 用例=6 用例 227→228 实测]; 复扫 L3=0 盲区 check_cmd rc0=达成)
+  check_cmd: test "$(./scripts/ladder_scan | grep -c '未入' || true)" = 0

@@ -58,9 +58,11 @@ def scan_l3_hardening(root: Path):
             continue
         base = s.stem.lower().replace("_", "").replace("-", "")
         covered = any(base in t.replace("test_", "").replace("_", "").replace("-", "") or t == f"test{base}" for t in test_names)
-        if not covered:
+        tool_lines = [ln for ln in tools_text.splitlines() if s.stem in ln or s.name in ln]
+        exempt = any("豁免" in ln for ln in tool_lines)
+        if not covered and not exempt:
             rows.append(f"{s} 无对应 tests/test_* 覆盖(硬化盲区候选)")
-        if s.stem not in tools_text and s.name not in tools_text:
+        if not tool_lines:
             rows.append(f"{s} 未入 docs/loop/TOOLS.md(工具索引缺位)")
     return rows
 

@@ -83,3 +83,15 @@ def test_cli_missing_root_exits_two(tmp_path):
         capture_output=True, text=True,
     )
     assert rc.returncode == 2
+
+
+def test_l3_exempt_marker_suppresses_untested_report(tmp_path):
+    root = _make_root(tmp_path)
+    (root / "scripts/waived_tool").write_text("#!/bin/sh\n", encoding="utf-8")
+    (root / "docs/loop/TOOLS.md").write_text(
+        "见 `goal_check` 条目\n| `waived_tool` | 一次性终跑器(无单测豁免: 终跑信号 T 唯一性) | — |\n",
+        encoding="utf-8",
+    )
+    rows = ladder_scan.scan_l3_hardening(root)
+    assert not any("waived_tool" in r and "无对应" in r for r in rows)
+    assert not any("waived_tool" in r and "未入" in r for r in rows)
