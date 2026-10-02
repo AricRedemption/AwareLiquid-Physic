@@ -425,6 +425,9 @@ def test_all_blocked_human_issues_rest_license(tmp_path):
     assert "机械等待态" in r.stdout and "BLOCKED-HUMAN" in r.stdout
     assert "[未达成] B1" in r.stdout and "[未达成] B2" in r.stdout
     assert "派生评估" in r.stdout and "禁以心跳轮询" in r.stdout
+    # AMM-049(轮 847):exit 6 文案必含取活阶梯指引(单源链第三处,
+    # 轮 847 验收抓出实施面漏改——新会话按 goal_check 输出行动不漏阶梯)。
+    assert "取活阶梯" in r.stdout and "ladder_scan" in r.stdout
 
 
 def test_all_pr_pending_without_blocked_stays_supply_empty(tmp_path):
