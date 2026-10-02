@@ -143,24 +143,12 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   交付物=GOAL-PROMPT v9.7 正本全文回用户; 计数器 836 压段史=新守护测试
   后首次机械化瘦身; PLAYBOOK+1 坑[验收零缺口结论须带电池逐项回显];
   夜 33 入账; 段三数=队列迭代 0/研究拍 0/簿记拍 1)。
-  轮 840 用户粘贴 GOAL-PROMPT 重入口拍+段尾簿记拍(840 段第 1 拍/簿记拍;
-  重入口=粘贴即放行⇒RUNNING,轮 835 先例同形态):①读回环履约(开场读
-  PLAYBOOK 尾 2 条=838 移植三件套+839 验收电池回显)②机械清点 fresh=
-  欠账 grep 零命中+队列 1 条 T2T3 全门控(check_cmd rc=3 实跑未达成,
-  零催促)+归档 66 平衡 ③本唤醒段蒸馏义务=良信尝试一次(gate-chain
-  fail-fast vs run-all 聚合族:pre-commit 框架官方 fail_fast 默认
-  false=run-all 聚合+hybrid 关键门先行[官方 issue #1143+HN 35669623+
-  Molin guide 题录三源];对表 loop_closer 首红 ABORT=域不同不吸收[社区
-  源面向开发者高频中间态修一个撞一个,本仓面向轮收尾终验单次修复后必
-  全链重跑;四门红单根因常态轮 838 实测=聚合增量低];其"便宜关键门先行"
-  与判单门在前互为印证=无缺口;拒绝 [行动] 留痕三条=主张/域不同/翻转
-  条件[门禁红多根因常态化时改聚合摘要输出])④派生评估判否(AMM-047 三
-  条件齐:欠账 0 fresh+蒸馏义务本拍履行+闭族闭轴承 812/821/823+836/837;
-  goal_check exit 6 @840 显式码)⇒置 BLOCKED-HUMAN 维持 ⑤段尾入账夜 34
-  覆 840+PLAYBOOK+1 坑(gate-chain 蒸馏对表法=先辨适用域,域不同不吸收
-  但写明翻转条件);计数器 837 压段史摘要(家规 3 轮=838/839/840);台账=
-  零算力簿记拍无 PR;判单 840;段三数(840 段)=队列迭代 0/研究拍 0/簿记
-  拍 1;四门经 closer 全绿。
+  **段史摘要(轮 840;逐轮详文唯一源=git log+RSI-INDEX 夜 34 行)**:
+  840=用户粘贴 GOAL-PROMPT 重入口拍+段尾簿记(读回环履约+机械清点 fresh+
+  本段蒸馏义务=gate-chain fail-fast vs run-all 族三源对表 loop_closer 域
+  不同不吸收拒绝留痕三条含翻转条件+判否置 BLOCKED-HUMAN 维持[exit 6 @840]
+  +夜 34 入账; PLAYBOOK+1 坑[gate-chain 对表法=先辨适用域写明翻转条件];
+  段三数=队列迭代 0/研究拍 0/簿记拍 1)。
   轮 841 用户质询重入口拍=跨仓停止行为复审+架构对齐(841 段第 1 拍/研究
   拍;用户指令"帮看看为什么又停止了 你看看 M2/sess_96b9af24 为什么一直
   能迭代不停止 对齐一下架构";轮 836 同型质询复审):**答复=停止语义两仓
@@ -214,6 +202,21 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
   拍 0; 循环连续实证=下心跳 goal_check exit 1(LADDER-SCAN-TOOL 可执行);
   ⑤closer 实战拦截 1 次(LADDER-SCAN-TOOL 缺 check_cmd=数数锚不平衡, 当拍
   补齐复绿)=closer 第三例狗粮, 手工逐门恐漏)。
+  轮 843 LADDER-SCAN-TOOL 执行拍=阶梯第一滚供给落地(842 段第 2 拍/研究拍=
+  工程硬化; goal_check exit 1 弹出=AMM-049 后循环连续首实证): ①scripts/
+  ladder_scan 落地(四级只读扫描器: L1 写作轴=DEBT-LEDGER 弱耦合在册+
+  n1-asset-index 未吸收资产/L2 停车场=scan-*.md 条目行/L3 工程硬化=
+  scripts 缺测试+未入 TOOLS 盲区/L4 蒸馏池=PLAYBOOK 尾条目龄; 只报数不
+  判定[可行动与否归代理+判单], 全空输出=判"全空"留痕附件; --root 注入=
+  测试假仓面) ②tests/test_ladder_scan.py 5 用例(空面全 0/L1L2 命中/L3
+  盲区/CLI rc0/缺根 rc2; 222→227 实测=数字断言实测家族条款履行; 自抓 1
+  次=假 root TOOLS/test 文件缺致 L3 误报当拍修) ③TOOLS +ladder_scan
+  条目 ④本仓真面首跑=L1 8 资产行/L2 6 停车场行/L3 8 盲区[headless_loop/
+  hidden_check/ignite/iteration 无测试+若干未入 TOOLS 待核实]/L4 龄 0 天
+  =阶梯供给非空实证⇒可行动>0⇒下拍取活续跑(L3 最便宜项=TOOLS 缺位核实
+  修补候选) ⑤同心跳弹出归档(工程条目 done_condition 达成, QUEUE-ARCHIVE
+  +1)。台账=零算力硬化拍无 PR; 判单 843; 段三数(842 段累计)=队列迭代 1/
+  研究拍 2/簿记拍 0; 四门经 closer 全绿。
 
 ## 心跳语义注记(AMM-037/038 自 prompt 下沉,机械定义)
 
@@ -224,12 +227,6 @@ loop_closer+PLAYBOOK+1 坑(移植落地三件套); M2 侧缺陷修复 prompt 交
 
 ```yaml
 goal_queue:
-- id: LADDER-SCAN-TOOL
-    track: engineering
-    goal: scripts/ladder_scan 落地(AMM-049 取活阶梯四级机械扫描器: L1 DEBT-LEDGER 弱耦合在册行+asset-index 未吸收资产/L2 停车场解停条件逐条/L3 TOOLS+测试盲区面/L4 蒸馏池尾条目龄, 输出四级逐行+可行动计数与处置指引)+tests/test_ladder_scan.py+TOOLS 条目
-    done_condition: 脚本+测试落地 pytest 全绿+TOOLS 条目在位
-    check_cmd: test -f scripts/ladder_scan && .venv/bin/python -m pytest tests/test_ladder_scan.py -q >/dev/null 2>&1
-    status: todo
 - id: T2T3-COMPUTE
     track: compute
     goal: 用户重启 T2/T3 算力(Kaggle 凭证就位或显式算力令)

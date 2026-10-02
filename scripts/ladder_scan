@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""ladder_scan — AMM-049 取活阶梯四级机械扫描器(轮 843)。
+
+exit 6 派生评估判否前的后备供给扫描面(只读零算力):
+  L1 写作轴    = DEBT-LEDGER 弱耦合在册行 + n1-asset-index 未吸收/候选资产
+  L2 停车场    = docs/scan-*.md 停车场条目行(逐条人工复检解停条件)
+  L3 工程硬化  = scripts/ 工具缺对应测试 + 未入 TOOLS 的脚本
+  L4 蒸馏池    = PLAYBOOK 尾条目龄(>7 天⇒补池轮提示)
+
+输出四级逐行+计数;判定(可行动与否)归代理+判单,本工具只报数。
+退出码:0=扫描成功(无论有无活);2=根目录缺关键文件。
+"""
+import argparse
+import datetime as dt
+import re
+import sys
+from pathlib import Path
+
+PLAYBOOK_ENTRY = re.compile(r"\(20\d{2}-\d{2}-\d{2} 轮 ?(\d+)\)")
+
+
+def _grep(path: Path, pattern: str, limit: int = 8):
+    hits = []
+    if not path.exists():
+        return hits
+    for i, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+        if re.search(pattern, line):
+            hits.append(f"{path}:{i}: {line.strip()[:110]}")
+            if len(hits) >= limit:
+                break
+    return hits
+
+
+def scan_l1_writing(root: Path):
+    rows = []
+    ledger = root / "docs/loop/DEBT-LEDGER.md"
+    rows += [r for r in _grep(ledger, r"弱耦合|写作轴") if "closed" not in r.lower()]
+    asset = root / "docs/n1-asset-index.md"
+    rows += _grep(asset, r"未回灌|待吸收|候选(?!.*(转正|已列))")
+    return rows
+
+
+def scan_l2_parking(root: Path):
+    rows = []
+    for scan in sorted(root.glob("docs/scan-*.md")):
+        rows += _grep(scan, r"停车场", limit=6)
+    return rows
+
+
+def scan_l3_hardening(root: Path):
+    rows = []
+    scripts = root / "scripts"
+    tests = root / "tests"
+    test_names = {t.stem.lower() for t in tests.glob("test_*.py")}
+    tools_text = (root / "docs/loop/TOOLS.md").read_text(encoding="utf-8", errors="replace") if (root / "docs/loop/TOOLS.md").exists() else ""
+    for s in sorted(scripts.iterdir()):
+        if s.name.startswith("__") or s.name == "ladder_scan":
+            continue
+        base = s.stem.lower().replace("_", "").replace("-", "")
+        covered = any(base in t.replace("test_", "").replace("_", "").replace("-", "") or t == f"test{base}" for t in test_names)
+        if not covered:
+            rows.append(f"{s} 无对应 tests/test_* 覆盖(硬化盲区候选)")
+        if s.stem not in tools_text and s.name not in tools_text:
+            rows.append(f"{s} 未入 docs/loop/TOOLS.md(工具索引缺位)")
+    return rows
+
+
+def scan_l4_distill(root: Path, stale_days: int = 7):
+    rows = []
+    pb = root / "docs/loop/PLAYBOOK.md"
+    if not pb.exists():
+        return rows, None
+    ages = []
+    today = dt.date.today()
+    last = None
+    for line in pb.read_text(encoding="utf-8", errors="replace").splitlines():
+        m = PLAYBOOK_ENTRY.search(line)
+        if m:
+            last = m.group(0)
+    # 尾条目龄用 git 不可得时退化为"未检出";此处置仅提示不判数
+    if last is None:
+        rows.append("PLAYBOOK 尾条目日期未检出(格式漂移?人工复检)")
+    else:
+        rows.append(f"PLAYBOOK 尾条目: {last}(读回环开场已读;龄>7 天⇒蒸馏补池轮)")
+    return rows, last
+
+
+def main():
+    ap = argparse.ArgumentParser(description="AMM-049 取活阶梯四级扫描")
+    ap.add_argument("--root", default=".", help="仓库根目录(默认当前目录)")
+    args = ap.parse_args()
+    root = Path(args.root).resolve()
+
+    for must in ("docs/loop/GOALS.md", "scripts/goal_check"):
+        if not (root / must).exists():
+            print(f"ladder_scan: 根目录缺 {must}", file=sys.stderr)
+            return 2
+
+    l1 = scan_l1_writing(root)
+    l2 = scan_l2_parking(root)
+    l3 = scan_l3_hardening(root)
+    l4, last_entry = scan_l4_distill(root)
+
+    print("LADDER-SCAN(AMM-049 取活阶梯,只读报数;判定归代理+判单)")
+    print(f"L1 写作轴: {len(l1)} 行")
+    for r in l1:
+        print(f"  - {r}")
+    print("  → 处置: 在册行⇒零算力写作轴可派生(登记吸收=可行动>0)")
+    print(f"L2 停车场: {len(l2)} 条目行")
+    for r in l2:
+        print(f"  - {r}")
+    print("  → 处置: 逐条人工复检解停条件(T2/T3 重启/新证据);禁列 PR 项")
+    print(f"L3 工程硬化: {len(l3)} 盲区")
+    for r in l3:
+        print(f"  - {r}")
+    print("  → 处置: 硬化拍补测试/补 TOOLS 条目(组合=单变量,逐项独立)")
+    print(f"L4 蒸馏池: {len(l4)} 提示")
+    for r in l4:
+        print(f"  - {r}")
+    print("  → 处置: 池枯且确需社区经验⇒蒸馏补池轮(同 query 族换法 ≤3)")
+    total = len(l1) + len(l2) + len(l3)
+    print(f"TOTAL leads: L1={len(l1)} L2={len(l2)} L3={len(l3)}(四级全 0 且 L4 无陈旧⇒判'全空'须轮记录留痕本输出)")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

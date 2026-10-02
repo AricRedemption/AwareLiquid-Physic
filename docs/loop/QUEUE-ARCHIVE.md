@@ -206,3 +206,6 @@ archived_pr:
 - id: N1-PROXY-CORROB
   status: done(轮 830 完成弹出:writing track, 轮 829 用户质询重入口拍的新鲜池枯重审蒸馏轮转出[scan §73 小规模代理实验配方迁移可靠性族 [坐标]×2], 首拍蒸馏门三步齐[池内 4 条: 轮 444 引用分级 scope 注记/111 引用回溯/94 题录核验/814 索引先行]+预注册判负三条[引用字段不符⇒停改/缺域限定⇒判违/等效不删破⇒当轮修, 三条均未触发]后吸收印证——§5 预算域段尾追加印证句(Goyal Maini Lipton Raghunathan CVPR 2024 数据配方排序算力依赖 + Wang et al. arXiv:2512.24503 ICLR 2026 代理协议排序不可靠, [B]+域限定'analogous phenomenon class, not a direct replication')+Limitation 4f 尾追加印证句(同两引用+域限定)+asset-index §7 第 8 条同心跳登记(使用条款=引用必带域限定+本仓预算跨度 4× 注记+不构成 [行动]); 效果=RECIPE_BUDGET/MIGRATION_REVERSED 的 house 发现升级为有文档化现象类外部印证, 预答审稿人'是否个例'质疑; 等效不删=既有内容零删改; 引用字段与 scan §73 逐项一致; PRD §19 轮 830 判读行落地; 零算力轮无 PR)
   check_cmd: grep -q "N1-PROXY-CORROB 判读" docs/PRD.md && grep -q "Goyal" docs/n1-paper-draft.md
+- id: LADDER-SCAN-TOOL
+  status: done(轮 843 完成弹出:engineering track, 轮 842 用户令 AMM-049 取活阶梯立法拍入队[阶梯第一滚供给=改造最小化闭环], 执行拍落地 scripts/ladder_scan 四级只读扫描器[L1 写作轴/L2 停车场/L3 硬化盲区/L4 蒸馏池龄; 只报数不判定, 全空输出=判空留痕附件]+tests/test_ladder_scan.py 5 用例[222→227 实测]+TOOLS 条目; 本仓真面首跑=L1 8/L2 6/L3 8=阶梯供给非空实证)
+  check_cmd: test -f scripts/ladder_scan && .venv/bin/python -m pytest tests/test_ladder_scan.py -q >/dev/null 2>&1
