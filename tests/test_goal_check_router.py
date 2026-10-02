@@ -448,6 +448,8 @@ def test_all_blocked_human_issues_rest_license(tmp_path):
     # AMM-049(轮 847):exit 6 文案必含取活阶梯指引(单源链第三处,
     # 轮 847 验收抓出实施面漏改——新会话按 goal_check 输出行动不漏阶梯)。
     assert "取活阶梯" in r.stdout and "ladder_scan" in r.stdout
+    # AMM-050(轮 859):exit 6 文案必含 L5 蒸馏找方向指引(五级阶梯增量引擎)。
+    assert "L5 蒸馏找方向" in r.stdout
 
 
 def test_all_pr_pending_without_blocked_stays_supply_empty(tmp_path):
