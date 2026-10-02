@@ -60,7 +60,12 @@ def main():
             scored.append((score, src, title, body))
     scored.sort(key=lambda x: -x[0])
     if not scored:
-        print(f"distill_inject: 零命中(query={args.query!r}; 如实报告,禁编造)")
+        tail = entries[-2:]
+        print(f"DISTILL-INJECT(query={args.query!r}; 零命中, 退化输出池尾 {len(tail)} 条[M2 AMM-015 机制, 防零注入])")
+        for src, title, body, _ in tail:
+            print(f"\n[{src} | 退化] {title}")
+            print(f"  {body.strip()[:280]}")
+        print("\n(零命中退化:注入块仅供参考,禁当本 query 相关经验使用)")
         return 1
     print(f"DISTILL-INJECT(query={args.query!r}; 命中 {len(scored)} 条, 取 top-{min(args.top, len(scored))})")
     for score, src, title, body in scored[: args.top]:

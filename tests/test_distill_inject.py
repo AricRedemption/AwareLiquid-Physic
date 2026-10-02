@@ -48,7 +48,8 @@ def test_zero_hit_reports_honestly(tmp_path):
         capture_output=True, text=True,
     )
     assert rc.returncode == 1
-    assert "零命中" in rc.stdout
+    assert "零命中" in rc.stdout and "退化" in rc.stdout
+    assert rc.stdout.count("| 退化]") == 2, "零命中须退化输出池尾 2 条(不限源)"
 
 
 def test_top_limits_results(tmp_path):

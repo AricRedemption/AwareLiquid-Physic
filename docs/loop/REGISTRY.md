@@ -2,7 +2,7 @@
 
 > 状态唯一真相源=各原文件的判定行(PRD §19/n1-asset-index/AMENDMENTS/scan-*);
 > 本文件=机器可读索引,ladder_scan L1/L2 的结构化消费源(替代散文 grep 计数)。
-> 格式:`- <ID> | state=<absorbed|closed|gated|candidate|reference> | gate=<none|compute|human> | src=<出处> | note=<一句>`;reference=题录坐标(非执行轴,不进 ladder_scan 可行动计数)
+> 格式:`- <ID> | state=<absorbed|closed|gated|candidate|reference|wish>(wish=AMM-052 愿望登记: 依赖外置资源的推导方向, 不入队不停车, 资源到位转 candidate/enqueue) | gate=<none|compute|human> | src=<出处> | note=<一句>`;reference=题录坐标(非执行轴,不进 ladder_scan 可行动计数)
 > 规则:新候选/清单交付**同拍登记本文件**(轮 852 条款);state 迁移只增不改
 > 原判定行(铁律:历史判定行禁改写);gated=解停绑定门控,零催促。
 

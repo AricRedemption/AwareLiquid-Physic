@@ -46,6 +46,7 @@ INVARIANTS = {
     "PLAYBOOK 读回环(AMM-048)": r"读回环",
     "取活阶梯(AMM-049)": r"取活阶梯",
     "蒸馏找方向引擎(AMM-050)": r"蒸馏找方向",
+    "资源愿望登记(AMM-052)": r"愿望登记",
 }
 
 
@@ -69,3 +70,10 @@ def test_all_invariants_present():
 def test_no_colloquial_rationale_in_text_block():
     """正文零 AMM 出处引用(立法史归 AMENDMENTS,v4.0 立的规矩)。"""
     assert not re.search(r"AMM-\d+", prompt_text()), "粘贴块内出现修正案编号"
+
+
+def test_prompt_fence_thin():
+    """AMM-052(M2 AMM-016 吸收):正本粘贴块越改越肥防线——行数 ≤80 且字数 ≤3500。"""
+    text = prompt_text()
+    assert len(text.splitlines()) <= 80, f"粘贴块 {len(text.splitlines())} 行超 80 上限(细则下沉,禁回填正文)"
+    assert len(text) <= 3500, f"粘贴块 {len(text)} 字超 3500 上限"
