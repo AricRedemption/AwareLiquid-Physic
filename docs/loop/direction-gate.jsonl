@@ -506,3 +506,4 @@
 {"round": 855, "direction": "ALIGNED", "evidence": "DISTILL-BEAT 执行拍: ladder_scan L4 升级输出节拍距 N=判单链尾轮−最近夜账入账轮(机械双源)+N≥10 强制节拍检查提示=M2 AMM-011 本仓化; +1 测试=8 用例 231 实测; 真面 N=4; check_cmd rc0 达成同心跳弹出归档; 轮 842 清单 P0-P4 全落地; 自抓 854 详文粘连四犯拆行; 零算力硬化拍无 PR"}
 {"round": 856, "direction": "ALIGNED", "evidence": "取活拍: exit 6 @856 显式码⇒阶梯结构化判定四级全空(节拍距 N=5)+轮 852 块②对话面扫描⇒轮 855 新登记候选粘连修复机械化未入队=取活入队 NOTE-APPENDER(详文追加单命令消灭粘连五犯风险); 零算力取活拍无 PR"}
 {"round": 857, "direction": "ALIGNED", "evidence": "NOTE-APPENDER 执行拍: scripts/note_append 落地(换行另起行+缩进归一+计数打印家规超限退出 1)+4 用例(231→235 实测); 狗粮首跑=857 详文由工具写入且正确拦截计数 4>3 提示折叠; 自抓=工具首版锚前无空行粘连 bug 测试首跑即拦+真仓历史粘连三处拆行+压 851-854 归家规; 此后详文追加唯一入口=本工具; 零算力硬化拍无 PR"}
+{"round": 858, "direction": "ALIGNED", "evidence": "置态拍=取尽方休第三次: REGISTRY 结构化机械读数四级全空(节拍距 N=7)+轮 852 块②对话面扫描=当段交付全落盘无未入队候选(P0-P4+NOTE-APPENDER 全完成)⇒派生评估判否三条件齐⇒夜 38 覆 851-857 段尾入账(C=7)⇒置 BLOCKED-HUMAN 诚实等待态; 记忆跨会话更新; 零算力置态拍无 PR"}
