@@ -9,8 +9,10 @@
 > 正文只写可执行动作与文件指针;立法史在 AMENDMENTS,路由细则在 goal_check,
 > 数值在 probe_run/balance_gauge。v8.x 系列交付副本全部作废,以本文件为唯一正本。
 
-> 用法:在 AwareLiquid-Physic 工作区**新开一个 ZCode 会话**,整段粘贴。
-> 第一行必须是 `/goal` 开头——各家 harness 都认这个前缀作为目标声明。
+> 用法:在 AwareLiquid-Physic 工作区**新开一个 ZCode 会话**,将下方粘贴块
+> (text 围栏内)的全部内容(自 `/goal` 行起)整段粘贴——**粘贴单元第一行必须是
+> `/goal`**,各家 harness 都认这个前缀作为目标声明;本文件头部说明是给仓库
+> 读者看的,不进粘贴单元(轮 848 勘误:交付时误把文件头包进粘贴单元)。
 > 本文件由 AMENDMENTS 提案制维护;改这里的规则 = 改循环自身,走提案。
 
 ```text
