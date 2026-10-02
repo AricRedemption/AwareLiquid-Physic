@@ -212,3 +212,6 @@ archived_pr:
 - id: HARDEN-TOOLS-GAPS
   status: done(轮 845 完成弹出:engineering track, 轮 844 阶梯取活拍入队[AMM-049 首次实战生效后第一取活轴], 执行拍 TOOLS +5 条目[marathon_guard/hidden_check 豁免=T 一次性信号唯一性/iteration 豁免=直改真相源/headless_loop.sh+ignite.sh=已弃用轮 793 标注勿启用]+ladder_scan 豁免识别[+1 用例=6 用例 227→228 实测]; 复扫 L3=0 盲区 check_cmd rc0=达成)
   check_cmd: test "$(./scripts/ladder_scan | grep -c '未入' || true)" = 0
+- id: AMM-AUDIT-453-ALIGN
+  status: done(轮 849 完成弹出:governance track, 轮 849 重入口取活拍登记入队当拍执行[用户粘贴 GOAL-PROMPT v9.8 放行; 轮 847 注记之'待后续硬化轴'=AMM-049 L3 复检扩展面:登记在案硬化轴注记纳入人工复检], 执行拍 goal_check --audit 卫生检查三分流[状态行点锚'轮 N'=归属/'登记轮≤N'=已知态单列(真仓 31 条全归此桶)/真缺号=缺号口径]+已知态文案载轮 453 裁决语义禁补点锚禁元轮号+tests +1 用例[32→33, 229 全绿实测]+TOOLS goal_check 条目同步+PLAYBOOK+1 坑; done_condition 实测达成=audit 真面输出已知态 31 条单列+缺号 0[本拍留痕]; check_cmd 用源码标记 grep(全量 audit 递归自演算>30s 演练超时, 换快速锚=HARDEN-TOOLS-GAPS 先例同型); 零算力硬化拍无 PR)
+  check_cmd: grep -q "AMM 卫生·已知态" scripts/goal_check

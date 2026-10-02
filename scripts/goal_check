@@ -115,22 +115,37 @@ for e in entries + archive_entries:
 # AMM 状态行卫生检查(轮 445,轮 439 坑焊点):rsi_night A 维度按提案
 # "状态:**…**"行同一行内的"轮 N"归属立案轮——缺轮号=断喂 unattributed
 # (工具静默失效家族第四例)。只报告不判死(历史条目由补账轮消化)。
+# 轮 849 对齐轮 453 裁决:"登记轮≤N"上界锚=A 维不可见属设计取舍(点锚
+# 虚增精度 vs 上界诚实),计入已知态单列报告,禁按旧文案补点锚。
 amm_hygiene = ""
 amm_path = path.rsplit("/", 1)[0] + "/AMENDMENTS.md"
 if os.path.exists(amm_path):
     amm_src = open(amm_path, encoding="utf-8").read()
-    amm_missing = []
+    amm_missing, amm_ub = [], []
     for m in re.finditer(r"### (AMM-\d+):[^\n]*\n((?:(?!### ).*\n)*)",
                          amm_src):
         sm = re.search(r"状态:\*\*[^*]*\*\*([^\n]*)", m.group(2))
-        if not sm or not re.search(r"轮\s*\d+", sm.group(1)):
+        tail = sm.group(1) if sm else ""
+        if re.search(r"轮\s*\d+", tail):
+            continue
+        if re.search(r"登记轮\s*(≤|<=)\s*\d+", tail):
+            amm_ub.append(m.group(1))
+        else:
             amm_missing.append(m.group(1))
+    parts = []
     if amm_missing:
         shown = "/".join(amm_missing[:6]) + ("…" if len(amm_missing) > 6
                                              else "")
-        amm_hygiene = (f";[AMM 卫生]{len(amm_missing)} 条提案状态行缺"
-                       f"登记轮号({shown})——rsi_night A 维度断喂面,"
-                       f"状态行补'轮 N 登记'")
+        parts.append(f"[AMM 卫生]{len(amm_missing)} 条提案状态行缺"
+                     f"登记轮号({shown})——rsi_night A 维度断喂面,"
+                     f"状态行补'轮 N 登记'")
+    if amm_ub:
+        parts.append(f"[AMM 卫生·已知态]{len(amm_ub)} 条'登记轮≤N'上界锚"
+                     f"=轮 453 裁决设计取舍(点锚虚增精度 vs 上界诚实,"
+                     f"留 unattributed=已知态,A 由历史夜行覆盖;"
+                     f"禁补点锚/禁状态行带元轮号)")
+    if parts:
+        amm_hygiene = ";" + ";".join(parts)
 if problems or broken:
     print("AUDIT FAIL:队列完整性问题(禁提交):")
     for p in problems + broken:

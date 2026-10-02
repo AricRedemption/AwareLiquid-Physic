@@ -306,6 +306,11 @@ AMM_GOOD = """### AMM-901: 测试提案甲(PROPOSED)
 - 状态:**PROPOSED**(轮 900 登记,待用户)
 """
 
+AMM_UB = """### AMM-903: 测试提案丙(PROPOSED)
+- 动机:z
+- 状态:**PROPOSED**(登记轮≤899(git 首入提交窗口机械锚),待用户)
+"""
+
 
 def test_amm_status_line_without_round_is_flagged(tmp_path):
     make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
@@ -329,6 +334,21 @@ def test_amm_hygiene_absent_file_no_crash(tmp_path):
     make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
     out = run_audit(tmp_path).stdout
     assert "AUDIT OK" in out
+
+
+def test_amm_ub_anchor_reported_as_known_state_not_missing(tmp_path):
+    """轮 849 对齐轮 453 裁决:'登记轮≤N'上界锚=A 维不可见属设计取舍
+    (点锚虚增精度 vs 上界诚实)——单列已知态报告,不计入'缺登记轮号',
+    文案禁诱导补点锚(旧文案'状态行补轮 N 登记'与裁决冲突=陷阱面)。"""
+    make_repo(tmp_path, "", LEDGER_ALL_CLOSED, QUEUE_EMPTY)
+    (tmp_path / "docs" / "loop" / "AMENDMENTS.md").write_text(
+        AMM_BAD + AMM_UB, encoding="utf-8")
+    out = run_audit(tmp_path).stdout
+    assert "AUDIT OK" in out
+    assert "[AMM 卫生]1 条提案状态行缺登记轮号(AMM-901)" in out
+    assert "[AMM 卫生·已知态]1 条'登记轮≤N'上界锚" in out
+    assert "轮 453 裁决设计取舍" in out
+    assert "禁补点锚" in out
 
 
 def test_audit_rehearses_archive_cmds(tmp_path):
