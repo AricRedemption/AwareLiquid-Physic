@@ -35,3 +35,5 @@
 - REINFORCED-KD-TS | state=reference | gate=none | src=NTU "Reinforced Knowledge Distillation for Time Series" | 时序 KD 方法题录
 - CONS-Q-EVAL | state=reference | gate=none | src="Prediction Is Not Physics: Learning and Evaluating Conserved Quantities"(检索坐标级,轮 868 L5) | 预测精度≠守恒的评估陷阱命题, 与 N1 评估节弱耦合题录, venue 人决后决定是否入 related work
 - LTSF-TAXONOMY-EVAL | state=reference | gate=none | src=arXiv "Time-Series Forecasting Must Adopt Taxonomy-Specific Evaluation"(2026-08, 检索坐标级,轮 868 L5) | LTSF 评估方案批判, N1 评估节引用坐标
+- PIML-DATA-ASSUMPTIONS | state=reference | gate=none | src=OpenReview "Data and Modeling Assumptions in Physics-Informed Machine Learning"(Hofmann-Wellenhof et al., 检索坐标级, 轮 876 L5) | 训练数据注入物理约束训练域显著降训练时+效果依赖数据/建模假设交互, 与 D1g 覆盖密度论证弱耦合坐标, venue 人决后决定是否入 related work
+- GEOM-BIAS-DATA-ARCH | state=reference | gate=none | src=ICLR "Geometric Inductive Biases of Deep Networks: The Role of Data and Architecture"(检索坐标级, 轮 876 L5) | 数据 vs 架构偏置共同决定泛化张力坐标, 与 N1 定位表(结构头偏置×覆盖密度)弱耦合, venue 人决后决定是否入 related work
