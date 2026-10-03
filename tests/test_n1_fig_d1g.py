@@ -60,3 +60,18 @@ def test_build_uniform_arm_flat(tmp_path):
     _, checks = mod.build(d)
     for c in checks:
         assert "min_bin=" in c
+
+
+def test_build_flatness_caliber(tmp_path):
+    """轮 875 口径复原锚:flat=聚合剖面跨 bin 总体 σ/μ(判定行口径)。"""
+    d = mod.load(_fake_json(tmp_path / "d.json"))
+    fig, checks = mod.build(d)
+    pre = [c for c in checks if c.startswith("prefix_n32")]
+    # [1]*15+[0.4]: mean=0.9625, pstdev=0.14524 ⇒ flat=0.151
+    assert pre and "flat=0.151" in pre[0]
+    a2a = [c for c in checks if c.startswith("all2all_n32")]
+    # 全 1 剖面 ⇒ flat=0.000
+    assert a2a and "flat=0.000" in a2a[0]
+    import matplotlib
+
+    matplotlib.pyplot.close(fig)

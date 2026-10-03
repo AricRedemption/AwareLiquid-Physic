@@ -523,3 +523,4 @@
 {"round": 872, "direction": "ALIGNED", "evidence": "N1-MAIN-FIGURE 执行拍: D1g 主图四板可复现出图+四臂 bin-2/mean 逐位核对(0.368/0.373/0.851/0.926); PRD 平坦度口径复算不吻合=图未含该读数双留痕(PLAYBOOK 轮 872); 轮 111 链=asset-index D1g 条目→草稿 §6 Fig.1 引用位; ACHIEVED 弹出归档"}
 {"round": 873, "direction": "ALIGNED", "evidence": "L3 硬化拍: ladder 自扫出 n1_fig_d1g 缺测试盲区, 补 3 用例仓外 tmp_path(缺臂断言+核对双锚), L3 归 0 测试 250 绿 ACHIEVED 弹出归档; 图 2 想法判未在册拒绝留痕(翻转条件=venue 人决)"}
 {"round": 874, "direction": "ALIGNED", "evidence": "段尾簿记拍: 夜账 871-873 入账 RSI-INDEX 夜 40+reflection_mine 8 候选人裁注记+置 BLOCKED-HUMAN 判据双留痕(exit6 verdict+派生评估判否, 五级全空 ladder 留痕+L5 本段良信=两次成功派生+图 2 拒绝留痕)"}
+{"round": 875, "direction": "ALIGNED", "evidence": "N1-FLATNESS-CALIBER: 轮 872 平坦度口径待考→口径考古穷举 6 口径复原(聚合剖面跨 bin 总体 σ/μ), 四臂逐位命中判定行 0.231/0.222/0.101/0.081; 判定行读数无误, 复原=新证据追加不改历史行; 读数回填主图 flat 注记+草稿 §6(口径随迁)+asset-index 轮 875 行; 测试 251(+1 口径锚); 与 AMM-021/轮 111/轮 820 数字与口径纪律同向, 产出面=呈现面收敛增量非新读数方向"}

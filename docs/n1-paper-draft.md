@@ -467,10 +467,13 @@ single start time (t = 23) places its 1-step error minimum exactly at
 that training bin (bin-2/mean = 0.368 at n=32, 0.373 at n=64; 3-seed
 aggregate, [B]), while the all2all head — trained over uniformly sampled
 starts — stays flat (0.851/0.926; its n=64 minimum falls at bin 4, not a
-systematic dip). The force field is accurate where the training loss
-samples it: start-time coverage density, not architecture, produces the
-profile shape (Fig. 1, four panels; reproducible from the archived sweep
-artifact via scripts/n1_fig_d1g.py).
+systematic dip). Profile flatness — the population σ/μ of the 3-seed
+aggregate profile across the 16 start-time bins — quantifies the same
+contrast: 0.22–0.23 for prefix vs 0.08–0.10 for all2all [B]. The force
+field is accurate where the training loss samples it: start-time
+coverage density, not architecture, produces the profile shape (Fig. 1,
+four panels; reproducible from the archived sweep artifact via
+scripts/n1_fig_d1g.py).
 
 **Inference gap (M1).** Why does the amortized context underuse the
 available information? Chain, in evidence order: (i) the observation

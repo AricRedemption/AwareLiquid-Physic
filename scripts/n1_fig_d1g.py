@@ -4,8 +4,10 @@
 数据源=benchmarks/physics_out_v02/d1g_sweep/start_time_sweep.json(本地已归档
 产物,meta git_sha=a9be910 device=cpu;轮 18 判定行"论文主图候选")。
 数字纪律(轮 111):图中呈现的一切读数须与本 JSON 逐位一致;核对留痕入轮记录
-(RSI/git)。PRD 轮 18 的 std/mean 口径(0.22-0.23/0.08-0.10)以 seed 离散口径
-未能复现→本图不含该读数(诚实边界,不编造)。
+(RSI/git)。PRD 轮 18 的平坦度 std/mean(0.22-0.23/0.08-0.10)轮 872 曾以 seed
+离散口径复算未吻合判"待考";轮 875 口径考古复原=聚合剖面(profile_mean)
+跨 16 bin 的总体标准差/均值(pstdev),四臂两位小数逐位命中(0.231/0.222/
+0.101/0.081)→各板标题注记 flat σ/μ(读数=判定行既有读数的口径复原,非新读数)。
 
 用法:.venv/bin/python scripts/n1_fig_d1g.py [--json PATH] [--out PATH]
 输出:docs/n1-figs/fig1_d1g_profile.png(2×2 四板归一化剖面)
@@ -53,10 +55,14 @@ def build(d):
         ax.fill_between(centers, lo, hi, alpha=0.25, color="C0", label="3-seed range")
         ax.plot(centers, rel, "o-", ms=3.5, lw=1.4, color="C0")
         dip = pm[2] / mu
+        flat = statistics.pstdev(pm) / mu  # 轮 875 口径复原:PRD 判定行 flatness=聚合剖面跨 bin 总体 σ/μ
         label = "prefix" if arm.startswith("prefix") else "all2all"
         n = arm.split("_")[1].lstrip("n")
-        ax.set_title(f"{label}, n={n} (bin-2/mean = {dip:.3f})", fontsize=10)
-        checks.append(f"{arm}: bin-2/mean={dip:.3f} min_bin={min(range(len(pm)), key=lambda i: pm[i])}")
+        ax.set_title(f"{label}, n={n} (bin-2/mean = {dip:.3f}, flat σ/μ = {flat:.3f})", fontsize=10)
+        checks.append(
+            f"{arm}: bin-2/mean={dip:.3f} flat={flat:.3f} "
+            f"min_bin={min(range(len(pm)), key=lambda i: pm[i])}"
+        )
         ax.axhline(1.0, ls=":", lw=0.8, color="gray")
         ax.set_ylabel("relative 1-step error (profile mean = 1)", fontsize=8)
         ax.tick_params(labelsize=8)
